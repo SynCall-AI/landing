@@ -4,6 +4,7 @@ import Navbar from "./components/widgets/Navbar.jsx";
 import Hero from "./components/sections/Hero.jsx";
 import About from "./components/sections/About.jsx";
 import Strenghts from "./components/sections/Strenghts.jsx";
+import Calllog from "./components/sections/Calllog.jsx";
 
 function App() {
 
@@ -15,7 +16,12 @@ function App() {
         </Hero>
         <About>
         </About>
-        <Strenghts>ß</Strenghts>
+        <Strenghts>
+        </Strenghts>
+        <Calllog></Calllog>
+        <Strenghts>
+        </Strenghts>
+
     </>
   )
 }
