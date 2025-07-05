@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <div className="nav-main">
             <div className="nav-logo">
-                <img src="/public/Syncall.svg" alt="oops..."/>
+                <img src="/Syncall.svg" alt="oops..."/>
             </div>
             <div className="nav-bar">
                 <a href="">Lorem</a>
