@@ -1,0 +1,60 @@
+.container {
+    min-height: 100vh;
+    background-color: #010109;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.content {
+
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.header {
+    color: #fff;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.mainHeading {
+    color: #fff;
+    font-size: 49px;
+    font-weight: 500;
+    line-height: 1;
+    width: 920px;
+    margin: 0;
+}
+
+.description {
+    color: #90a4ae;
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.buttonContainer {
+    padding-top: 1rem;
+}
+
+.ctaButton {
+    background-color: #1173fc;
+    color: white;
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+

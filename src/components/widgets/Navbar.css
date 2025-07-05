@@ -1,0 +1,38 @@
+.nav-main{
+    height: 100px;
+    width: 100%;
+    background: #000;
+    display: flex;
+    padding: 20px 20px 40px;
+    position: fixed;
+}
+
+.nav-bar{
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.nav-bar a{
+    margin-left: 60px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+}
+
+.nav-contact-button{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.nav-contact-button button{
+    background: #1173FC;
+    height: 27px;
+    width: 134px;
+    border: none;
+    border-radius: 1000px;
+    font-weight: 500;
+    margin-left: 60px;
+}

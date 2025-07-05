@@ -1,0 +1,34 @@
+.hero-main{
+    height: 100vh;
+    width: 100%;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+video {
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+    margin-top: 100px;
+}
+
+.hero-but{
+    background: #1173FC;
+    height: 50px;
+    width: 223px;
+    border: none;
+    font-size: 25px;
+    border-radius: 1000px;
+    font-weight: 500;
+    margin-left: 60px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.hero-but.try{
+    background: transparent;
+    border: 1px solid #fff;
+}
+

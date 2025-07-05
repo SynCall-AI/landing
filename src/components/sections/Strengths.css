@@ -1,0 +1,49 @@
+.str-main{
+    height: 100vh;
+    background: #000;
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.str-h h1{
+    color: #fff;
+    font-size: 60px;
+    font-weight: 500;
+}
+
+.str-b{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    margin-top: 85px;
+    width: 100%;
+    column-gap: 120px;
+}
+
+
+.str-elem{
+    display: flex;
+    height: 90px;
+    margin-bottom: 140px;
+}
+
+.elem-t{
+    font-weight: 700;
+    font-size: 20px;
+    margin-left: 10px;
+    width: 300px;
+}
+
+.elem-de {
+    font-weight: 400;
+    font-size: 20px;
+    flex: 1;
+}
+
+.str-b img{
+    width: 32px;
+    height: 32px;
+}
