@@ -13,14 +13,14 @@ const Calllog = () => {
     useEffect(()=>{
         const section = document.querySelector('.call-main');
         startScroll = section.offsetTop - window.innerHeight; // when it enters the viewport
-        endScroll = section.offsetTop + section.offsetHeight;
+        endScroll = section.offsetTop + section.offsetHeight/2;
         setp( Math.min(Math.max((y - startScroll) / (endScroll - startScroll), 0), 1))
 
     }, [y])
 
     return (
         <div className="call-main">
-            <motion.div className="call-bg" whileInView={{ backgroundPositionY: `${80-p*70 }%`}} transition={{ duration: 0 }}>
+            <motion.div className="call-bg" whileInView={{ backgroundPositionY: `${10+p*60 }%`}} transition={{ duration: 0 }}>
                 <div className="call-player">
                     <div className="player-cover">
                         <img src="/al-cover.svg" alt=""/>
