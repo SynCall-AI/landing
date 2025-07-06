@@ -11,7 +11,7 @@ const Integrate = () => {
             <div className="circle-container">
                 {divs.map((index) => (
                     <img
-                        src="/public/Group 1.png"
+                        src="/Group 1.png"
                         key={index}
                         className="rotating-div"
                         style={{
