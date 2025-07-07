@@ -1,0 +1,30 @@
+.foot-main{
+    width: 100vw;
+    height: 90vh;
+    background: #000;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.foot-foot{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+
+
+a{
+    margin-left: 124px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.copy{
+    font-size: 20px;
+    font-weight: 400;
+}

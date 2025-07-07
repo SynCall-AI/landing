@@ -9,6 +9,10 @@
     justify-content: space-between;
 }
 
+.cards-main.current{
+    border-color: #1173FC;
+}
+
 .cards-title{
     font-weight: 500;
     font-size: 30px;

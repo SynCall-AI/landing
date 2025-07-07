@@ -21,3 +21,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+.current {
+    transition: 0.4s;
+    border: 2px solid #1173FC;
+    background: #1173FC;
+}
+
+.current > .cards-days{
+    color: #fff;
+}
