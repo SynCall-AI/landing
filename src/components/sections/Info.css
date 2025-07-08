@@ -10,8 +10,21 @@
     height: 200px;
     border-top: 1px white solid;
     display: flex;
-    position: relative;
     justify-content: space-between;
+    background: #000;
+    position: sticky;
+}
+
+.info-wr.a{
+    top: 100px;
+}
+
+.info-wr.b{
+    top: 200px;
+}
+
+.info-wr.c{
+    top: 300px;
 }
 
 .fir{
@@ -26,3 +39,4 @@
     bottom: 0;
     right: 0;
 }
+

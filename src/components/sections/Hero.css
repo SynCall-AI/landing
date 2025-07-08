@@ -15,16 +15,17 @@ video {
 }
 
 .hero-but{
-    background: #1173FC;
-    height: 50px;
-    width: 223px;
-    border: none;
-    font-size: 25px;
-    border-radius: 1000px;
+    background-color: #1173fc;
+    color: white;
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
     font-weight: 500;
-    margin-left: 60px;
-    margin-top: 10px;
+    border-radius: 9999px;
+    border: none;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-left: 40px;
+    margin-top: 10px;
 }
 
 .hero-but.try{

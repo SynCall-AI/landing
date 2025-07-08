@@ -62,15 +62,15 @@
 }
 
 .center-button {
-    background: #1173FC;
+    background-color: #1173fc;
     color: white;
-    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.125rem;
     font-weight: 500;
-    border-radius: 1000px;
+    border-radius: 9999px;
+    border: none;
     cursor: pointer;
-    height: 50px;
-    width: 200px;
-    font-size: 25px;
+    transition: background-color 0.2s ease;
 }
 
 

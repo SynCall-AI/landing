@@ -31,3 +31,7 @@
 .current > .cards-days{
     color: #fff;
 }
+
+video{
+    width: 100%;
+}
