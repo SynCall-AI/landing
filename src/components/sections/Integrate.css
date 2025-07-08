@@ -22,20 +22,12 @@
     position: absolute;
     width: 132px;
     height: 132px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
     top: 50%;
     left: 50%;
     transform-origin: 0 0;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-}
-
-.rotating-div:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
 }
 
 .center-content {
