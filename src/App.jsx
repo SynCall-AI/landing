@@ -10,6 +10,7 @@ import Integrate from "./components/sections/Integrate.jsx";
 import Info from "./components/sections/Info.jsx";
 import Faq from "./components/sections/Faq.jsx";
 import Footer from "./components/sections/Footer.jsx";
+import Tab from "./components/sections/Tab.jsx";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <How/>
         <Integrate/>
         <Info/>
+        <Tab/>
         <Faq/>
         <Footer/>
     </>
