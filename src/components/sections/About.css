@@ -56,4 +56,19 @@
 }
 
 
+@media(width<500px){
+    .container {
+        padding: 10px;
+    }
+
+    .header {
+        font-size: 16px;
+
+    }
+
+    .mainHeading {
+        width: auto;
+    }
+}
+
 

@@ -3,6 +3,7 @@
     height: 100vh;
     background: #000;
     padding: 100px;
+    overflow: hidden;
 }
 
 .info-wr{
@@ -40,3 +41,16 @@
     right: 0;
 }
 
+@media (width < 500px){
+    .info-main{
+        padding: 10px;
+    }
+
+    .sec{
+        font-size: 50px;
+    }
+
+    .fir{
+        font-size: 16px;
+    }
+}

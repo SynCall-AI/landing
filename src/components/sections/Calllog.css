@@ -109,3 +109,9 @@
     height: 30px;
     width: 30px;
 }
+
+@media (width<500px) {
+    .call-player{
+        scale: .6;
+    }
+}

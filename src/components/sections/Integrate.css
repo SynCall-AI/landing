@@ -12,10 +12,12 @@
 .circle-container {
     position: absolute;
     width: 800px;
-    height: 00px;
+    height: 800px;
     animation: rotate 90s linear infinite;
     margin-top: 500px;
-    background: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .rotating-div {
@@ -25,9 +27,9 @@
     top: 50%;
     left: 50%;
     transform-origin: 0 0;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    rotate: 90deg;
+    z-index: 100000;
 }
 
 .center-content {
@@ -83,27 +85,13 @@
     }
 }
 
-@media (max-width: 768px) {
-    .circle-container {
+@media (width<500px) {
+    .center-content{
+        width: 100%;
+    }
+
+    .circle-container{
         width: 300px;
         height: 300px;
-    }
-
-    .rotating-div {
-        width: 30px;
-        height: 30px;
-    }
-
-    .center-content {
-        padding: 30px;
-        margin: 0 20px;
-    }
-
-    .center-content h2 {
-        font-size: 2rem;
-    }
-
-    .center-content p {
-        font-size: 1rem;
     }
 }

@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import "./Integrate.css"
 
 const Integrate = () => {
     // Create array of divs for the circle
-    const divs = Array.from({ length: 20 }, (_, i) => i);
+    const divs = useMemo(() => Array.from({ length: 20 }, (_, i) => i), []);
 
     function shuffle(array) {
         const copy = [...array];
@@ -29,12 +29,13 @@ const Integrate = () => {
                     const iconNumber = (index % 13) + 1;
                     return (
                         <img
+                            loading="lazy"
                             src={`${iconNumber}.png`}
                             alt="oops..."
                             key={index}
                             className="rotating-div"
                             style={{
-                                transform: `rotate(${index * 18}deg) translateY(-650px) rotate(6deg)`,
+                                transform: `rotate(${index * 18 + 6}deg) translateY(-650px)`,
                                 borderRadius: "16px",
                             }}
                         />

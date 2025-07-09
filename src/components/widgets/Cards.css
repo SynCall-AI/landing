@@ -30,3 +30,9 @@
     margin-top: 40px;
     color: #90A4AE;
 }
+
+@media(width<500px){
+    .cards-title{
+        font-size: 14px;
+    }
+}

@@ -52,3 +52,46 @@
     width: 32px;
     height: 32px;
 }
+
+@media (width < 500px){
+    .str-main{
+        padding: 10px;
+    }
+
+    .str-b{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    .str-elem{
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+
+    .elem-t{
+        font-weight: 700;
+        font-size: 12px;
+        width: 300px;
+        margin-left: 0;
+    }
+
+    .elem-de {
+        font-weight: 400;
+        font-size: 12px;
+        flex: 1;
+    }
+
+    .str-h h1{
+        color: #fff;
+        font-size: 32px;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    .str-b img{
+        width: 20px;
+        height: 20px;
+    }
+
+
+}

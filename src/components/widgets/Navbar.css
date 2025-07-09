@@ -1,11 +1,13 @@
 .nav-main{
     height: 100px;
     width: 100%;
-    background: #000;
+    background: linear-gradient(#000 96%,transparent);
     display: flex;
     padding: 20px 20px 40px;
     position: fixed;
     z-index: 1000;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 20px #000;
 }
 
 .nav-bar{
@@ -37,4 +39,19 @@
     border-radius: 1000px;
     font-weight: 500;
     margin-left: 60px;
+}
+
+@media (width < 500px) {
+    .nav-bar{
+        display: none;
+    }
+
+    .nav-contact-button button{
+        display: none;
+    }
+
+    .nav-main{
+        align-items: center;
+        justify-content: center;
+    }
 }
