@@ -30,7 +30,9 @@ video {
 }
 
 .hero-but.try{
+    height: 46px;
     background: transparent;
     border: 1px solid #fff;
+    box-sizing: border-box;
 }
 
