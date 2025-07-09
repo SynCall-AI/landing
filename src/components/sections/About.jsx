@@ -4,7 +4,7 @@ import "./About.css"
 const About = () => {
     return (
         <div className={"container"}>
-            <div className={"content"}>
+            <div className={"about-content"}>
                 <p className={"header"}>What is Syncall?</p>
 
                 <h1 className="mainHeading">

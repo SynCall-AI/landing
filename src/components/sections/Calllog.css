@@ -25,14 +25,87 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    box-shadow: inset 0 0 50px #fff;
+    backdrop-filter: blur(20px);
 }
 
 
 .player-cover{
     width: 160px;
     height: 160px;
-    box-shadow: 0 0 6px #eee;
-    border-radius: 6px;
-    background: #1173FC;
+}
+
+.p-c-d{
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar {
+    width: 280px;
+    height: 1px;
+    background: #fff;
+    margin-left: 13px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: end;
+}
+
+.progress-fill {
+    height: 2px;
+    background: #fff;
+    transition: width 0.1s ease;
+}
+
+.progress-handle {
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    transition: transform 0.1s ease;
+}
+
+.progress-handle:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.progress-handle:active {
+    cursor: grabbing;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.time-elapsed{
+    font-weight: 500;
+    font-size: 13px;
+    margin-left: 13px;
+}
+
+.l-t{
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.player-controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.play-button{
+    height: 30px;
+    width: 30px;
+    margin-left: 13px;
+}
+
+.ico{
+    height: 30px;
+    width: 30px;
 }
