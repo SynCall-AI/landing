@@ -53,38 +53,48 @@
     height: 32px;
 }
 
+.t-holder{
+    display: flex;
+    align-items: center;
+}
+
 @media (width < 500px){
     .str-main{
-        padding: 10px;
+        padding: 20px;
     }
 
     .str-b{
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
+        margin-top: 48px;
     }
 
     .str-elem{
+        height: auto;
         flex-direction: column;
-        margin-bottom: 12px;
+        margin-bottom: 32px;
+
     }
 
     .elem-t{
         font-weight: 700;
-        font-size: 12px;
+        font-size: 16px;
         width: 300px;
-        margin-left: 0;
+        margin-left: 16px;
     }
 
     .elem-de {
         font-weight: 400;
-        font-size: 12px;
+        font-size: 16px;
         flex: 1;
+        color: #90a4ae;
+        margin-top: 16px;
     }
 
     .str-h h1{
         color: #fff;
         font-size: 32px;
-        font-weight: 500;
+        font-weight: 700;
         width: 100%;
     }
 

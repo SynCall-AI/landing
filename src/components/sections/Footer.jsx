@@ -14,7 +14,7 @@ const Footer = () => {
                     david@syncallai.com <br/>
                     +998 99 123 45 67 <br/>
                 </div>
-                <div>
+                <div className="social-f">
                     <a href="">
                         Instagram
                     </a>

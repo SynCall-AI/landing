@@ -34,5 +34,15 @@
 
 
 @media(width<500px){
+    .how-main{
+        padding: 20px;
+    }
 
+    .how-con{
+        flex-direction: column;
+    }
+
+    .how-main h1{
+        font-size: 31px;
+    }
 }

@@ -44,6 +44,11 @@
 @media (width < 500px){
     .info-main{
         padding: 10px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        height: 60vh;
     }
 
     .sec{
@@ -52,5 +57,9 @@
 
     .fir{
         font-size: 16px;
+    }
+
+    .info-wr{
+        height: 100px;
     }
 }

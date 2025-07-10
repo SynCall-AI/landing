@@ -66,6 +66,7 @@
     .agents-section{
         flex-direction: column;
         padding: 10px;
+        height: 78vh;
     }
 
     .agents-right {
@@ -74,5 +75,10 @@
         gap: 1rem;
         font-size: 1.1rem;
         width: 100%;
+    }
+
+    .agents-left h1{
+        font-size: 31px;
+        text-align: center;
     }
 }

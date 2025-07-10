@@ -1,7 +1,7 @@
 import "./Calllog.css"
 import { motion } from "framer-motion";
 import { useWindowScroll } from "@uidotdev/usehooks";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef, use} from "react";
 import {FaCirclePause, FaCirclePlay} from "react-icons/fa6";
 
 
@@ -13,6 +13,7 @@ const Calllog = () => {
     const [duration, setDuration] = useState(0);
     const [progress, setProgress] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
+    const [width, setWidth] = useState(window.innerWidth)
 
     const audioRef = useRef(null);
     const progressBarRef = useRef(null);
@@ -57,6 +58,10 @@ const Calllog = () => {
             audio.removeEventListener('loadedmetadata', updateDuration);
             audio.removeEventListener('ended', handleEnded);
         };
+
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const togglePlay = () => {
@@ -126,43 +131,40 @@ const Calllog = () => {
                 className="call-bg"
                 whileInView={{ backgroundPositionY: `${10+p*60}%`}}
                 transition={{ duration: 0 }}
-            >
-                <div className="call-player">
-                    <div className="player-cover">
-                        <img src="/al-cover.svg" alt=""/>
-                    </div>
-                    <div className="player-controls">
-                        <div className="l-t">Take a listen to one of thousands of our calls</div>
-                        <div className="p-c-d">
-
-
+            >{width > 500 && <div className="call-player">
+                <div className="player-cover">
+                    <img src="/al-cover.svg" alt=""/>
+                </div>
+                <div className="player-controls">
+                    <div className="l-t">Take a listen to one of thousands of our calls</div>
+                    <div className="p-c-d">
+                        <div
+                            className="progress-bar"
+                            ref={progressBarRef}
+                        >
                             <div
-                                className="progress-bar"
-                                ref={progressBarRef}
-                            >
-                                <div
-                                    className="progress-fill"
-                                    style={{width: `${progress}%`}}
-                                ></div>
-                                <div
-                                    className="progress-handle"
-                                    style={{left: `${progress}%`}}
-                                    onMouseDown={handleMouseDown}
-                                ></div>
-                            </div>
-                            <div className="time-elapsed">
-                                {formatTime(currentTime)}
-                            </div>
+                                className="progress-fill"
+                                style={{width: `${progress}%`}}
+                            ></div>
                             <div
-                                className={`play-button ${isPlaying ? 'playing' : ''}`}
-                                onClick={togglePlay}
-                            >
-                                {isPlaying ? <FaCirclePause className="ico"/>
-                                    : <FaCirclePlay className="ico"/>}
-                            </div>
+                                className="progress-handle"
+                                style={{left: `${progress}%`}}
+                                onMouseDown={handleMouseDown}
+                            ></div>
+                        </div>
+                        <div className="time-elapsed">
+                            {formatTime(currentTime)}
+                        </div>
+                        <div
+                            className={`play-button ${isPlaying ? 'playing' : ''}`}
+                            onClick={togglePlay}
+                        >
+                            {isPlaying ? <FaCirclePause className="ico"/>
+                                : <FaCirclePlay className="ico"/>}
                         </div>
                     </div>
                 </div>
+            </div>}
 
                 {/* Audio element - replace with your actual audio file path */}
                 <audio
@@ -171,6 +173,39 @@ const Calllog = () => {
                     preload="metadata"
                 />
             </motion.div>
+            {width < 500 && <div className="call-player">
+                <div className="player-cover">
+                    <img src="/al-cover.svg" alt=""/>
+                </div>
+                <div className="player-controls">
+                    <div className="p-c-d">
+                        <div
+                            className="progress-bar"
+                            ref={progressBarRef}
+                        >
+                            <div
+                                className="progress-fill"
+                                style={{width: `${progress}%`}}
+                            ></div>
+                            <div
+                                className="progress-handle"
+                                style={{left: `${progress}%`}}
+                                onMouseDown={handleMouseDown}
+                            ></div>
+                        </div>
+                        <div className="time-elapsed">
+                            {formatTime(currentTime)}
+                        </div>
+                        <div
+                            className={`play-button ${isPlaying ? 'playing' : ''}`}
+                            onClick={togglePlay}
+                        >
+                            {isPlaying ? <FaCirclePause className="ico"/>
+                                : <FaCirclePlay className="ico"/>}
+                        </div>
+                    </div>
+                </div>
+            </div>}
         </div>
     );
 };

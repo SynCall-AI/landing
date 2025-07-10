@@ -43,8 +43,11 @@ const Strenghts = () => {
             <div className="str-b">
                 {data.map((i, index) => (
                     <div key={index} className="str-elem">
-                        <img src={i.icon} alt="oops..."/>
-                        <p className="elem-t">{i.title}</p>
+                        <div className="t-holder">
+                            <img src={i.icon} alt="oops..."/>
+                            <p className="elem-t">{i.title}</p>
+                        </div>
+
                         <p className="elem-de">{i.text}</p>
                     </div>
                 ))}

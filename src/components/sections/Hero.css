@@ -36,3 +36,30 @@ video {
     box-sizing: border-box;
 }
 
+@media (width<500px){
+    .hero-buttons{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 191px;
+    }
+
+    .hero-but{
+        height: 38px;
+        padding: 0;
+        margin-top: 16px;
+        margin-left: 0;
+    }
+
+    .hero-but.contact{
+        margin-top: 16px;
+    }
+
+    .hero-but.try{
+        height: 38px;
+    }
+
+    video {
+        height: 78%;
+    }
+}

@@ -111,7 +111,43 @@
 }
 
 @media (width<500px) {
-    .call-player{
-        scale: .6;
+    .call-player {
+        width: 100%;
+        height: 76px;
+        margin-top: 8px;
+    }
+
+    .player-cover{
+        height: 60px;
+        width: 60px;
+    }
+
+    .player-cover img{
+        height: 100%;
+    }
+
+    .player-controls{
+        margin: 0;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .progress-bar{
+        width: 177px;
+        margin-left: 11px;
+    }
+
+    .call-main {
+        padding: 20px;
+    }
+
+    .play-button{
+        margin-left: 11px;
+    }
+
+    .time-elapsed{
+        margin-left: 11px;
     }
 }

@@ -181,18 +181,44 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (width<500px) {
+
+    .container{
+        padding: 20px;
+    }
     .heroCard {
-        padding: 2rem;
+        padding: 8px;
     }
 
+    .leftContent h1{
+        text-align: center;
+    }
+
+    .leftContent{align-items: center}
+
     .tabContainer {
+        width: 100%;
         margin-bottom: 2rem;
     }
 
+    .tabWrapper{
+        border-radius: 8px;
+    }
+
+    .tabIndicator{
+        border-radius: 6px;
+        width: calc((100% - 0.5rem - (var(--total-tabs) - 1) * 0.5rem) / var(--total-tabs));
+    }
+
     .tab {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
+        font-size: 13px;
+        padding: 16px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        white-space: normal;
     }
 
     .title {
@@ -206,5 +232,21 @@
     .ctaButton {
         font-size: 1rem !important;
         padding: 1rem 1.5rem !important;
+    }
+
+    .content{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .heroCard{
+        height: 90%;
+    }
+
+    .lightningIcon{
+        height: 250px;
+        width: 250px;
     }
 }

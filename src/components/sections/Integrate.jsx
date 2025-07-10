@@ -3,7 +3,11 @@ import "./Integrate.css"
 
 const Integrate = () => {
     // Create array of divs for the circle
-    const divs = useMemo(() => Array.from({ length: 20 }, (_, i) => i), []);
+
+    const [width, setWidth] = useState(window.innerWidth);
+    const divs = useMemo(() => Array.from({ length: width < 500 ? 14 : 20 }, (_, i) => i), []);
+    const radius = width < 500 ? 400 : 600;
+    const angleStep = 360 / divs.length;
 
     function shuffle(array) {
         const copy = [...array];
@@ -19,36 +23,39 @@ const Integrate = () => {
     useEffect(() => {
         const shuffled = shuffle(Array.from({ length: 14 }, (_, i) => i + 1));
         setRandomIndexes(shuffled);
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+
     }, []);
 
 
     return (
         <div className="inter-main">
+            <div className="center-content">
+                <h2>Integrate with <br/> any type of telephony</h2>
+                <button className="center-button">Contact sales</button>
+            </div>
             <div className="circle-container">
                 {divs.map((_, index) => {
                     const iconNumber = (index % 13) + 1;
                     return (
                         <img
                             loading="lazy"
-                            src={`${iconNumber}.png`}
+                            src={`${randomIndexes[index % 14]}.png`}
                             alt="oops..."
                             key={index}
                             className="rotating-div"
                             style={{
-                                transform: `rotate(${index * 18 + 6}deg) translateY(-650px)`,
+                                transform: `rotate(${index * angleStep}deg) translateY(-${radius}px)`,
                                 borderRadius: "16px",
                             }}
                         />
                     );
                 })}
-
-            </div>
-
-            <div className="center-content">
-                <h2>Integrate with <br/> any type of telephony</h2>
-                <button className="center-button">Contact sales</button>
             </div>
             <div className="fade"></div>
+
         </div>
     );
 };

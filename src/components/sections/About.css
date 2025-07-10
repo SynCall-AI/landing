@@ -1,4 +1,4 @@
-.container {
+.container-a {
     min-height: 100vh;
     background-color: #000;
     display: flex;
@@ -31,7 +31,7 @@
     margin: 0;
 }
 
-.description {
+.description-a {
     color: #90a4ae;
     font-size: 20px;
     line-height: 1.6;
@@ -57,17 +57,23 @@
 
 
 @media(width<500px){
-    .container {
-        padding: 10px;
+    .container-a {
+        padding: 10px 10px;
     }
 
     .header {
-        font-size: 16px;
+        font-size: 20px;
 
     }
 
     .mainHeading {
         width: auto;
+        font-size: 31px;
+        font-weight: 700;
+    }
+
+    .description-a{
+        font-size: 16px;
     }
 }
 
