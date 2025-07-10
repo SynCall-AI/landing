@@ -6,7 +6,7 @@ const Integrate = () => {
 
     const [width, setWidth] = useState(window.innerWidth);
     const divs = useMemo(() => Array.from({ length: width < 500 ? 14 : 20 }, (_, i) => i), []);
-    const radius = width < 500 ? 400 : 600;
+    const radius = width < 500 ? 260 : 600;
     const angleStep = 360 / divs.length;
 
     function shuffle(array) {

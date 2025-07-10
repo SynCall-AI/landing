@@ -105,11 +105,17 @@
     .circle-container{
         width: 400px;
         height: 400px;
-        margin-left: 600px;
+        margin-left: 500px;
+        margin-top: 400px;
         top: 0;
     }
 
     .fade{
         display: none;
+    }
+
+    .rotating-div{
+        height: 90px;
+        width: 90px;
     }
 }

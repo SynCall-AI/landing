@@ -36,6 +36,7 @@
 @media(width<500px){
     .how-main{
         padding: 20px;
+        height: 150vh;
     }
 
     .how-con{
