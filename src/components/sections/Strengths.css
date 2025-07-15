@@ -78,6 +78,7 @@
         height: auto;
         flex-direction: column;
         margin-bottom: 32px;
+        align-items: start;
 
     }
 
@@ -93,6 +94,7 @@
         font-size: 16px;
         flex: 1;
         color: #90a4ae;
+        margin-left: 0;
         margin-top: 16px;
     }
 
