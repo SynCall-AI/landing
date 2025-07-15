@@ -1,5 +1,5 @@
 .hero-main{
-    height: 100vh;
+    height: var(--app-height);
     width: 100%;
     background: #000;
     display: flex;

@@ -1,5 +1,5 @@
 .container-a {
-    min-height: 100vh;
+    height: var(--app-height);
     background-color: #000;
     display: flex;
     align-items: center;

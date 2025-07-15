@@ -1,5 +1,5 @@
 .call-main{
-    height: 100vh;
+    height: var(--app-height);
     padding-left: 22px;
     padding-right: 22px;
     background: #000;

@@ -1,6 +1,6 @@
 .foot-main{
     width: 100vw;
-    height: 100vh;
+    height: var(--app-height);
     background: #000;
     padding: 20px;
     display: flex;

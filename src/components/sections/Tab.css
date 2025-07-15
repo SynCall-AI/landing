@@ -1,5 +1,5 @@
 .container {
-    height: 100vh;
+    height: var(--app-height);
     background-color: #010109;
     display: flex;
     align-items: center;

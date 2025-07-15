@@ -1,7 +1,7 @@
 .inter-main {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: var(--app-height);
     background: #000;
     display: flex;
     justify-content: center;
@@ -88,7 +88,7 @@
 @media (width<500px) {
     .inter-main {
         padding: 10px;
-        height: 130vh;
+        height: calc(var(--app-height) * 1.3);
     }
     .center-content{
         width: 100%;

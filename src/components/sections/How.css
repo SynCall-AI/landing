@@ -1,5 +1,5 @@
 .how-main{
-    height: 100vh;
+    height: var(--app-height);
     width: 100%;
     background: #000;
     display: flex;
@@ -36,7 +36,7 @@
 @media(width<500px){
     .how-main{
         padding: 20px;
-        height: 150vh;
+        height: calc(var(--app-height) * 1.5);
     }
 
     .how-con{

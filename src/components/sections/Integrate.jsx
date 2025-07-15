@@ -1,5 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import "./Integrate.css"
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 
 const Integrate = () => {
     // Create array of divs for the circle
@@ -40,8 +42,7 @@ const Integrate = () => {
                 {divs.map((_, index) => {
                     const iconNumber = (index % 13) + 1;
                     return (
-                        <img
-                            loading="lazy"
+                        <LazyLoadImage
                             src={`${randomIndexes[index % 14]}.png`}
                             alt="oops..."
                             key={index}
@@ -49,7 +50,10 @@ const Integrate = () => {
                             style={{
                                 transform: `rotate(${index * angleStep}deg) translateY(-${radius}px)`
                             }}
-                        />
+                        >
+
+                        </LazyLoadImage>
+
                     );
                 })}
             </div>
