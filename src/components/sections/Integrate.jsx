@@ -5,7 +5,7 @@ const Integrate = () => {
     // Create array of divs for the circle
 
     const [width, setWidth] = useState(window.innerWidth);
-    const divs = useMemo(() => Array.from({ length: width < 500 ? 14 : 20 }, (_, i) => i), []);
+    const divs = useMemo(() => Array.from({ length: width < 500 ? 8 : 20 }, (_, i) => i), []);
     const radius = width < 500 ? 260 : 600;
     const angleStep = 360 / divs.length;
 
@@ -47,8 +47,7 @@ const Integrate = () => {
                             key={index}
                             className="rotating-div"
                             style={{
-                                transform: `rotate(${index * angleStep}deg) translateY(-${radius}px)`,
-                                borderRadius: "16px",
+                                transform: `rotate(${index * angleStep}deg) translateY(-${radius}px)`
                             }}
                         />
                     );

@@ -1,8 +1,8 @@
 .str-main{
     height: 100vh;
     background: #000;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 22px;
+    padding-right: 22px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,21 +31,25 @@
 
 .str-elem{
     display: flex;
+    justify-content: space-between;
     height: 90px;
     margin-bottom: 140px;
+    align-items: center;
 }
 
 .elem-t{
     font-weight: 700;
     font-size: 20px;
     margin-left: 10px;
-    width: 300px;
+    width: 189px;
 }
 
 .elem-de {
     font-weight: 400;
     font-size: 20px;
     flex: 1;
+    width: 332px;
+    margin-left: 80px;
 }
 
 .str-b img{

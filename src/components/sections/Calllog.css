@@ -1,7 +1,7 @@
 .call-main{
     height: 100vh;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 22px;
+    padding-right: 22px;
     background: #000;
 }
 
@@ -11,7 +11,7 @@
     background-repeat: no-repeat;
     height: 86%;
     display: flex;
-    border-radius: 16px;
+    border-radius: 15px;
     justify-content: center;
 }
 

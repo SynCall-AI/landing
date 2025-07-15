@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     background: #000;
-    padding: 100px;
+    padding: 20px;
 }
 
 .info-wr{
@@ -61,5 +61,6 @@
 
     .info-wr{
         height: 100px;
+        flex-direction: column;
     }
 }

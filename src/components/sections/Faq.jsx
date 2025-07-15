@@ -3,10 +3,6 @@ import React, { useState } from 'react';
 import './Faq.css';
 
 const data = [
-    {
-        title: "Multilingual support and accent adaptation",
-        content: "Run call simulations, validate edge cases, and measure latency. (7-10 days). Draft call flows, ensure compliance, and secure stakeholder approval. (3-5 days). Run call simulations, validate edge cases, and measure latency. (7-10 days)"
-    },
     { title: "Bot training",
       content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto consequatur,
           dignissimos ducimus, et eum id laborum nobis nostrum provident quae reiciendis saepe sed sint suscipit. Eum

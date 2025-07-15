@@ -29,6 +29,7 @@
     transition: all 0.3s ease;
     rotate: 90deg;
     z-index: 100000;
+    border-radius: 15px;
 }
 
 .center-content {
@@ -87,7 +88,7 @@
 @media (width<500px) {
     .inter-main {
         padding: 10px;
-        height: 130vh;
+        height: 120vh;
     }
     .center-content{
         width: 100%;
@@ -115,7 +116,8 @@
     }
 
     .rotating-div{
-        height: 90px;
-        width: 90px;
+        height: 146px;
+        width: 146px;
+        border-radius: 8px;
     }
 }
