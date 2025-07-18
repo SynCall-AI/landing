@@ -59,6 +59,8 @@
 @media(width<500px){
     .container-a {
         padding: 10px 10px;
+        height: fit-content;
+        padding-bottom: 178px;
     }
 
     .header {

@@ -36,7 +36,8 @@
 @media(width<500px){
     .how-main{
         padding: 20px;
-        height: calc(var(--app-height) * 1.5);
+        height: fit-content;
+        padding-bottom: 64px
     }
 
     .how-con{

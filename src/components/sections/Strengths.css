@@ -65,7 +65,8 @@
 @media (width < 500px){
     .str-main{
         padding: 20px;
-        height: calc(var(--app-height) * 1.3);
+        height: fit-content;
+        padding-bottom: 128px;
     }
 
     .str-b{

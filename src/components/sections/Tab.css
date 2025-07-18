@@ -185,9 +185,13 @@
 
     .container{
         padding: 20px;
+        height: fit-content;
+        padding-bottom: 196px;
     }
     .heroCard {
         padding: 8px;
+        height: 637px;
+        border-radius: 10px;
     }
 
     .leftContent h1{
@@ -222,7 +226,7 @@
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 25px;
     }
 
     .description {
@@ -241,10 +245,6 @@
         justify-content: center;
     }
 
-    .heroCard{
-        height: 90%;
-        border-radius: 10px;
-    }
 
     .lightningIcon{
         height: 250px;
