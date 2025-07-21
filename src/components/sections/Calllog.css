@@ -117,6 +117,16 @@
         width: 100%;
     }
 
+    .l-t{
+        color: #000;
+        margin: 0;
+        align-items: end;
+        line-height: 114.99999999999999%;
+        font-size: 20px;
+        font-weight: 500;
+        width: 100%;
+    }
+
     .call-player {
         width: 100%;
         height: 76px;
@@ -154,6 +164,11 @@
 
     .call-bg{
         height: 505px;
+        padding-bottom: 22px;
+        padding-left: 16px;
+        padding-right: 16px;
+        background-size: 180%;
+        background-color: #fff;
     }
 
     .play-button{

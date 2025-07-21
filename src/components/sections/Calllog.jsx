@@ -129,42 +129,44 @@ const Calllog = () => {
         <div className="call-main">
             <motion.div
                 className="call-bg"
-                whileInView={{ backgroundPositionY: `${10+p*60}%`}}
-                transition={{ duration: 0 }}
-            >{width > 500 && <div className="call-player">
-                <div className="player-cover">
-                    <img src="/al-cover.svg" alt=""/>
-                </div>
-                <div className="player-controls">
-                    <div className="l-t">Take a listen to one of thousands of our calls</div>
-                    <div className="p-c-d">
-                        <div
-                            className="progress-bar"
-                            ref={progressBarRef}
-                        >
+                whileInView={ width < 500 ? {backgroundPositionY: `${p * 120}%`} : {backgroundPositionY: `${10 + p * 60}%`}}
+                transition={{duration: 0}}
+            >
+                {width < 500 && <div className="l-t">Take a listen to <br/> one of thousands of our calls</div>}
+                {width > 500 && <div className="call-player">
+                    <div className="player-cover">
+                        <img src="/al-cover.svg" alt=""/>
+                    </div>
+                    <div className="player-controls">
+                        <div className="l-t">Take a listen to one of thousands of our calls</div>
+                        <div className="p-c-d">
                             <div
-                                className="progress-fill"
-                                style={{width: `${progress}%`}}
-                            ></div>
+                                className="progress-bar"
+                                ref={progressBarRef}
+                            >
+                                <div
+                                    className="progress-fill"
+                                    style={{width: `${progress}%`}}
+                                ></div>
+                                <div
+                                    className="progress-handle"
+                                    style={{left: `${progress}%`}}
+                                    onMouseDown={handleMouseDown}
+                                ></div>
+                            </div>
+                            <div className="time-elapsed">
+                                {formatTime(currentTime)}
+                            </div>
                             <div
-                                className="progress-handle"
-                                style={{left: `${progress}%`}}
-                                onMouseDown={handleMouseDown}
-                            ></div>
-                        </div>
-                        <div className="time-elapsed">
-                            {formatTime(currentTime)}
-                        </div>
-                        <div
-                            className={`play-button ${isPlaying ? 'playing' : ''}`}
-                            onClick={togglePlay}
-                        >
-                            {isPlaying ? <FaCirclePause className="ico"/>
-                                : <FaCirclePlay className="ico"/>}
+                                className={`play-button ${isPlaying ? 'playing' : ''}`}
+                                onClick={togglePlay}
+                            >
+                                {isPlaying ? <FaCirclePause className="ico"/>
+                                    : <FaCirclePlay className="ico"/>}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>}
+                </div>}
 
                 {/* Audio element - replace with your actual audio file path */}
                 <audio
@@ -174,7 +176,7 @@ const Calllog = () => {
                 />
             </motion.div>
             {width < 500 && <div className="call-player">
-                <div className="player-cover">
+            <div className="player-cover">
                     <img src="/al-cover.svg" alt=""/>
                 </div>
                 <div className="player-controls">

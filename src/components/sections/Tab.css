@@ -107,6 +107,7 @@
     margin: 0;
     transition: all 0.5s ease;
     text-align: start;
+    width: 88%;
 }
 
 
@@ -167,7 +168,7 @@
 }
 
 .lightningIcon {
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1));
+    filter: drop-shadow(0 8px 10px rgb(0, 0, 0, 0.5));
     animation: float 6s ease-in-out infinite;
 }
 
