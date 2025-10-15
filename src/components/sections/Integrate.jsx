@@ -36,7 +36,7 @@ const Integrate = () => {
         <div className="inter-main">
             <div className="center-content">
                 <h2>Integrate with <br/> any type of telephony</h2>
-                <button className="center-button">Contact sales</button>
+                <a href="mailto:david@syncallai.com"><button className="center-button">Contact sales</button></a>
             </div>
             <div className="circle-container">
                 {divs.map((_, index) => {

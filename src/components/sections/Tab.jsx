@@ -63,7 +63,7 @@ export default function Tab() {
                     <div className="leftContent">
                         <h1 className="title">{tabContent[activeTab].title}</h1>
                         {/*<p className="description">{tabContent[activeTab].description}</p>*/}
-                        <button className="ctaButton">Contact sales</button>
+                        <a href="mailto:david@syncallai.com"><button className="ctaButton">Contact sales</button></a>
                     </div>
 
                     {/* Right Content */}

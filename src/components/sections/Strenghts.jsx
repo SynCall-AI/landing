@@ -36,7 +36,7 @@ const Strenghts = () => {
     ]
 
     return (
-        <div className="str-main">
+        <div id="features" className="str-main">
             <div className="str-h">
                 <h1>The strengths behind</h1>
             </div>

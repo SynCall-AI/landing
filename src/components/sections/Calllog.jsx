@@ -126,7 +126,7 @@ const Calllog = () => {
     };
 
     return (
-        <div className="call-main">
+        <div id="demo" className="call-main">
             <motion.div
                 className="call-bg"
                 whileInView={ width < 500 ? {backgroundPositionY: `${p * 120}%`} : {backgroundPositionY: `${10 + p * 60}%`}}
@@ -171,7 +171,7 @@ const Calllog = () => {
                 {/* Audio element - replace with your actual audio file path */}
                 <audio
                     ref={audioRef}
-                    src="/Gap%20Senda%20Music.mp3"
+                    src="/syncall_demo.wav"
                     preload="metadata"
                 />
             </motion.div>

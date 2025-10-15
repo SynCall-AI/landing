@@ -31,6 +31,10 @@
     align-items: center;
 }
 
+.nav-contact-button a{
+    margin-left: 60px;
+}
+
 .nav-contact-button button{
     background: #1173FC;
     height: 27px;
@@ -38,7 +42,6 @@
     border: none;
     border-radius: 1000px;
     font-weight: 500;
-    margin-left: 60px;
 }
 
 @media (width < 500px) {

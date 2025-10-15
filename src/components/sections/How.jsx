@@ -8,12 +8,12 @@ const How = () => {
         {
             title: "Script development and approval",
             description: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-            duration: [3,5]
+            duration: [1,3]
         },
         {
             title: "Bot training",
             description: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-            duration: [3,5]
+            duration: [1,3]
         },
         {
             title: "Testing",
@@ -62,7 +62,7 @@ const How = () => {
 
 
     return (
-        <div className="how-main" ref={sectionRef}>
+        <div id="how" className="how-main" ref={sectionRef}>
             <h1>How it works</h1>
             <div className="how-con">
                 {data.map((i, idx) => (
