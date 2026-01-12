@@ -2,27 +2,30 @@ import React, { useEffect, useState, useRef } from 'react';
 import "./How.css"
 import Cards from "../widgets/Cards.jsx";
 import { useWindowScroll } from "@uidotdev/usehooks";
+import { useLanguage } from '../../context/LanguageContext';
 
 const How = () => {
+    const { t } = useLanguage();
+
     const data = [
         {
-            title: "Script development and approval",
-            description: "Draft call flows, ensure compliance, and secure stakeholder approval.",
+            titleKey: "howStep1Title",
+            descriptionKey: "howStep1Text",
             duration: [1,3]
         },
         {
-            title: "Bot training",
-            description: "Draft call flows, ensure compliance, and secure stakeholder approval.",
+            titleKey: "howStep2Title",
+            descriptionKey: "howStep2Text",
             duration: [1,3]
         },
         {
-            title: "Testing",
-            description: "Run call simulations, validate edge cases, and measure latency.",
+            titleKey: "howStep3Title",
+            descriptionKey: "howStep3Text",
             duration: [3,5]
         },
         {
-            title: "Telephony integration",
-            description: "Deploy agents to live phone calls via your telephony setup.",
+            titleKey: "howStep4Title",
+            descriptionKey: "howStep4Text",
             duration: [1,2]
         }
     ];
@@ -63,13 +66,13 @@ const How = () => {
 
     return (
         <div id="how" className="how-main" ref={sectionRef}>
-            <h1>How it works</h1>
+            <h1>{t('howTitle')}</h1>
             <div className="how-con">
                 {data.map((i, idx) => (
                     <Cards
                         key={idx}
-                        title={i.title}
-                        text={i.description}
+                        title={t(i.titleKey)}
+                        text={t(i.descriptionKey)}
                         days={i.duration}
                         className={idx === activeIndex ? "current" : ""}
                     />

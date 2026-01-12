@@ -31,17 +31,120 @@
     align-items: center;
 }
 
+.language-selector{
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+    position: relative;
+}
+
+.language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.language-toggle:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.language-toggle .flag {
+    font-size: 18px;
+}
+
+.language-toggle .lang-code {
+    font-weight: 600;
+}
+
+.language-toggle .arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.language-toggle .arrow.open {
+    transform: rotate(180deg);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 6px;
+    min-width: 160px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    animation: dropdownFadeIn 0.15s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+.language-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.language-option.active {
+    background: rgba(17, 115, 252, 0.2);
+}
+
+.language-option .flag {
+    font-size: 20px;
+}
+
+.language-option .lang-name {
+    font-weight: 500;
+}
+
 .nav-contact-button a{
     margin-left: 60px;
 }
 
 .nav-contact-button button{
     background: #1173FC;
-    height: 27px;
-    width: 134px;
+    height: auto;
+    padding: 8px 20px;
+    white-space: nowrap;
     border: none;
     border-radius: 1000px;
     font-weight: 500;
+    font-size: 14px;
 }
 
 @media (width < 500px) {

@@ -45,7 +45,8 @@
     margin: 0 0 20px 0;
     font-weight: 500;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    width: 400px;
+    max-width: 500px;
+    text-align: center;
 }
 
 .center-content p {

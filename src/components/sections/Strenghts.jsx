@@ -1,54 +1,57 @@
 import React from 'react';
 import "./Strengths.css"
+import { useLanguage } from '../../context/LanguageContext';
 
 const Strenghts = () => {
+    const { t } = useLanguage();
+
     let data = [
         {
             icon: "/ico1.svg",
-            title: "5x cost reduction",
-            "text": "Cut contact center costs by automating routine calls and tasks."
+            titleKey: "strength1Title",
+            textKey: "strength1Text"
         },
         {
             icon: "/ico2.svg",
-            title: "It speaks as a human",
-            text: "Natural tone, pauses, and intonation for lifelike conversations."
+            titleKey: "strength2Title",
+            textKey: "strength2Text"
         },
         {
             icon: "/ico3.svg",
-            title: "24/7 non-stop work",
-            text: "Always available, no breaks, no downtime."
+            titleKey: "strength3Title",
+            textKey: "strength3Text"
         },
         {
             icon: "/ico4.svg",
-            title: "Multilingual support and accent adaptation",
-            text: "Speaks your customer’s language, understands regional accents."
+            titleKey: "strength4Title",
+            textKey: "strength4Text"
         },
         {
             icon: "/ico5.svg",
-            title: "Real-time issue analytics",
-            text: "Detect issues instantly, monitor key metrics, and improve customer experience on the fly."
+            titleKey: "strength5Title",
+            textKey: "strength5Text"
         },
         {
             icon: "/ico6.svg",
-            title: "Adaptive responses",
-            text: "Adjusts replies based on context, tone, and customer behavior."
+            titleKey: "strength6Title",
+            textKey: "strength6Text"
         }
     ]
 
     return (
         <div id="features" className="str-main">
             <div className="str-h">
-                <h1>The strengths behind</h1>
+                <h1>{t('strengthsTitle')}</h1>
             </div>
             <div className="str-b">
                 {data.map((i, index) => (
                     <div key={index} className="str-elem">
                         <div className="t-holder">
                             <img src={i.icon} alt="oops..."/>
-                            <p className="elem-t">{i.title}</p>
+                            <p className="elem-t">{t(i.titleKey)}</p>
                         </div>
 
-                        <p className="elem-de">{i.text}</p>
+                        <p className="elem-de">{t(i.textKey)}</p>
                     </div>
                 ))}
             </div>

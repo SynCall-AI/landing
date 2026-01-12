@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import {useEffect, useState, useRef, use} from "react";
 import {FaCirclePause, FaCirclePlay} from "react-icons/fa6";
+import { useLanguage } from '../../context/LanguageContext';
 
 
 const Calllog = () => {
+    const { t } = useLanguage();
     const [{ x, y }, scrollTo] = useWindowScroll();
     const [p, setp] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -132,13 +134,13 @@ const Calllog = () => {
                 whileInView={ width < 500 ? {backgroundPositionY: `${p * 120}%`} : {backgroundPositionY: `${10 + p * 60}%`}}
                 transition={{duration: 0}}
             >
-                {width < 500 && <div className="l-t">Take a listen to <br/> one of thousands of our calls</div>}
+                {width < 500 && <div className="l-t">{t('calllogTitle')}</div>}
                 {width > 500 && <div className="call-player">
                     <div className="player-cover">
                         <img src="/al-cover.svg" alt=""/>
                     </div>
                     <div className="player-controls">
-                        <div className="l-t">Take a listen to one of thousands of our calls</div>
+                        <div className="l-t">{t('calllogTitle')}</div>
                         <div className="p-c-d">
                             <div
                                 className="progress-bar"

@@ -1,9 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import "./Integrate.css"
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useLanguage } from '../../context/LanguageContext';
 
 
 const Integrate = () => {
+    const { t } = useLanguage();
     // Create array of divs for the circle
 
     const [width, setWidth] = useState(window.innerWidth);
@@ -35,8 +37,8 @@ const Integrate = () => {
     return (
         <div className="inter-main">
             <div className="center-content">
-                <h2>Integrate with <br/> any type of telephony</h2>
-                <a href="mailto:david@syncallai.com"><button className="center-button">Contact sales</button></a>
+                <h2>{t('integrateTitle')}</h2>
+                <a href="mailto:david@syncallai.com"><button className="center-button">{t('contactSales')}</button></a>
             </div>
             <div className="circle-container">
                 {divs.map((_, index) => {

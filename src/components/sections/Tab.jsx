@@ -1,33 +1,17 @@
 import React, { useState } from "react"
 import "./Tab.css"
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Tab() {
-    const [activeTab, setActiveTab] = useState("Efficiency Gains")
+    const { t } = useLanguage();
+    const [activeTab, setActiveTab] = useState(0)
 
-    const tabs = ["Efficiency Gains", "Better CX", "Cost Savings", "Happier Agents"]
-
-    const tabContent = {
-        "Efficiency Gains": {
-            title: "AI saves agents up to 3h per day by handling routine tasks",
-            description: "Automate repetitive workflows and let your team focus on high-value interactions",
-            icon: "/Tab1.png"
-        },
-        "Better CX": {
-            title: "Deliver personalized experiences at scale with AI-powered insights",
-            description: "Understand customer needs instantly and provide tailored solutions every time",
-            icon: "/Tab2.png"
-        },
-        "Cost Savings": {
-            title: "Reduce operational costs by 40% while improving service quality",
-            description: "Smart automation cuts overhead while maintaining exceptional customer satisfaction",
-            icon: "/Tab3.png"
-        },
-        "Happier Agents": {
-            title: "Empower your team with AI tools that eliminate frustration",
-            description: "Remove mundane tasks and give agents the tools they need to succeed",
-            icon: "/Tab4.png"
-        },
-    }
+    const tabs = [
+        { key: "tabEfficiencyGains", titleKey: "tabContent1Title", descKey: "tabContent1Desc", icon: "/Tab1.png" },
+        { key: "tabBetterCX", titleKey: "tabContent2Title", descKey: "tabContent2Desc", icon: "/Tab2.png" },
+        { key: "tabCostSavings", titleKey: "tabContent3Title", descKey: "tabContent3Desc", icon: "/Tab3.png" },
+        { key: "tabHappierAgents", titleKey: "tabContent4Title", descKey: "tabContent4Desc", icon: "/Tab4.png" }
+    ]
 
     return (
         <div className="container">
@@ -37,21 +21,21 @@ export default function Tab() {
                     <div className="tabWrapper">
                         {tabs.map((tab, index) => (
                             <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`tab ${activeTab === tab ? "tabActive" : ""}`}
+                                key={tab.key}
+                                onClick={() => setActiveTab(index)}
+                                className={`tab ${activeTab === index ? "tabActive" : ""}`}
                                 style={{
                                     "--tab-index": index,
                                     "--total-tabs": tabs.length,
                                 }}
                             >
-                                {tab}
+                                {t(tab.key)}
                             </button>
                         ))}
                         <div
                             className="tabIndicator"
                             style={{
-                                "--active-index": tabs.indexOf(activeTab),
+                                "--active-index": activeTab,
                                 "--total-tabs": tabs.length,
                             }}
                         />
@@ -61,15 +45,15 @@ export default function Tab() {
                 <div className="content">
                     {/* Left Content */}
                     <div className="leftContent">
-                        <h1 className="title">{tabContent[activeTab].title}</h1>
-                        {/*<p className="description">{tabContent[activeTab].description}</p>*/}
-                        <a href="mailto:david@syncallai.com"><button className="ctaButton">Contact sales</button></a>
+                        <h1 className="title">{t(tabs[activeTab].titleKey)}</h1>
+                        {/*<p className="description">{t(tabs[activeTab].descKey)}</p>*/}
+                        <a href="mailto:david@syncallai.com"><button className="ctaButton">{t('contactSales')}</button></a>
                     </div>
 
                     {/* Right Content */}
                     <div className="rightContent">
                         <div className="iconContainer">
-                            <img className="lightningIcon" src={tabContent[activeTab].icon} alt="" width="460px"/>
+                            <img className="lightningIcon" src={tabs[activeTab].icon} alt="" width="460px"/>
                         </div>
                     </div>
                 </div>

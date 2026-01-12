@@ -1,28 +1,26 @@
 import React from 'react';
 import "./About.css"
+import { useLanguage } from '../../context/LanguageContext';
 
 const About = () => {
+    const { t } = useLanguage();
+
     return (
         <div className="container-a">
             <div className={"about-content"}>
-                <p className={"header"}>What is Syncall?</p>
+                <p className={"header"}>{t('aboutTitle')}</p>
 
                 <h1 className="mainHeading">
-                    AI Voice Agents that speak like a human
-
-                    and works 24/7 without breaks.
+                    {t('aboutHeading')}
                 </h1>
 
 
                 <p className="description-a">
-                    Unlike traditional automated systems, it understands context, tone, and nuance — making it nearly
-                    indistinguishable from a live agent. Whether it's day or night, the bot is always ready to assist,
-                    convert
-                    leads, answer questions, or resolve issues.
+                    {t('aboutDescription')}
                 </p>
 
                 <div className="buttonContainer">
-                    <a href="mailto:david@syncallai.com"><button className="ctaButton-i">Contact sales</button></a>
+                    <a href="mailto:david@syncallai.com"><button className="ctaButton-i">{t('contactSales')}</button></a>
                 </div>
             </div>
         </div>
