@@ -1,10 +1,14 @@
 import "./Calllog.css"
 import { motion } from "framer-motion";
 import { useWindowScroll } from "@uidotdev/usehooks";
-import {useEffect, useState, useRef, use} from "react";
+import {useEffect, useState, useRef} from "react";
 import {FaCirclePause, FaCirclePlay} from "react-icons/fa6";
 import { useLanguage } from '../../context/LanguageContext';
 
+const demoLanguages = [
+    { code: 'uz', name: "O'zbekcha", flag: '🇺🇿', file: '/demo_uz.wav' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺', file: '/demo_ru.wav' },
+];
 
 const Calllog = () => {
     const { t } = useLanguage();
@@ -15,7 +19,8 @@ const Calllog = () => {
     const [duration, setDuration] = useState(0);
     const [progress, setProgress] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
-    const [width, setWidth] = useState(window.innerWidth)
+    const [width, setWidth] = useState(window.innerWidth);
+    const [selectedDemo, setSelectedDemo] = useState(demoLanguages[0]);
 
     const audioRef = useRef(null);
     const progressBarRef = useRef(null);
@@ -120,11 +125,32 @@ const Calllog = () => {
         };
     }, [isDragging, duration]);
 
+    // Reload audio when demo changes
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (audio) {
+            audio.load();
+        }
+    }, [selectedDemo]);
+
     const formatTime = (time) => {
         if (isNaN(time)) return "0:00";
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    const handleDemoChange = (demo) => {
+        if (demo.code === selectedDemo.code) return;
+
+        const audio = audioRef.current;
+        if (audio) {
+            audio.pause();
+        }
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setProgress(0);
+        setSelectedDemo(demo);
     };
 
     return (
@@ -135,12 +161,80 @@ const Calllog = () => {
                 transition={{duration: 0}}
             >
                 {width < 500 && <div className="l-t">{t('calllogTitle')}</div>}
-                {width > 500 && <div className="call-player">
+                {width > 500 && <div className="call-player-wrapper">
+                    <div className="demo-language-selector">
+                        {demoLanguages.map((demo) => (
+                            <button
+                                key={demo.code}
+                                className={`demo-lang-btn ${selectedDemo.code === demo.code ? 'active' : ''}`}
+                                onClick={() => handleDemoChange(demo)}
+                            >
+                                <span className="demo-flag">{demo.flag}</span>
+                                <span className="demo-lang-name">{demo.name}</span>
+                            </button>
+                        ))}
+                    </div>
+                    <div className="call-player">
+                        <div className="player-cover">
+                            <img src="/al-cover.svg" alt=""/>
+                        </div>
+                        <div className="player-controls">
+                            <div className="l-t">{t('calllogTitle')}</div>
+                            <div className="p-c-d">
+                                <div
+                                    className="progress-bar"
+                                    ref={progressBarRef}
+                                >
+                                    <div
+                                        className="progress-fill"
+                                        style={{width: `${progress}%`}}
+                                    ></div>
+                                    <div
+                                        className="progress-handle"
+                                        style={{left: `${progress}%`}}
+                                        onMouseDown={handleMouseDown}
+                                    ></div>
+                                </div>
+                                <div className="time-elapsed">
+                                    {formatTime(currentTime)}
+                                </div>
+                                <div
+                                    className={`play-button ${isPlaying ? 'playing' : ''}`}
+                                    onClick={togglePlay}
+                                >
+                                    {isPlaying ? <FaCirclePause className="ico"/>
+                                        : <FaCirclePlay className="ico"/>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
+                {/* Audio element */}
+                <audio
+                    ref={audioRef}
+                    src={selectedDemo.file}
+                    preload="metadata"
+                />
+            </motion.div>
+            {width < 500 && <>
+                <div className="demo-language-selector mobile">
+                    {demoLanguages.map((demo) => (
+                        <button
+                            key={demo.code}
+                            className={`demo-lang-btn ${selectedDemo.code === demo.code ? 'active' : ''}`}
+                            onClick={() => handleDemoChange(demo)}
+                        >
+                            <span className="demo-flag">{demo.flag}</span>
+                            <span className="demo-lang-name">{demo.name}</span>
+                        </button>
+                    ))}
+                </div>
+                <div className="call-player">
                     <div className="player-cover">
                         <img src="/al-cover.svg" alt=""/>
                     </div>
                     <div className="player-controls">
-                        <div className="l-t">{t('calllogTitle')}</div>
                         <div className="p-c-d">
                             <div
                                 className="progress-bar"
@@ -168,48 +262,8 @@ const Calllog = () => {
                             </div>
                         </div>
                     </div>
-                </div>}
-
-                {/* Audio element - replace with your actual audio file path */}
-                <audio
-                    ref={audioRef}
-                    src="/syncall_demo.wav"
-                    preload="metadata"
-                />
-            </motion.div>
-            {width < 500 && <div className="call-player">
-            <div className="player-cover">
-                    <img src="/al-cover.svg" alt=""/>
                 </div>
-                <div className="player-controls">
-                    <div className="p-c-d">
-                        <div
-                            className="progress-bar"
-                            ref={progressBarRef}
-                        >
-                            <div
-                                className="progress-fill"
-                                style={{width: `${progress}%`}}
-                            ></div>
-                            <div
-                                className="progress-handle"
-                                style={{left: `${progress}%`}}
-                                onMouseDown={handleMouseDown}
-                            ></div>
-                        </div>
-                        <div className="time-elapsed">
-                            {formatTime(currentTime)}
-                        </div>
-                        <div
-                            className={`play-button ${isPlaying ? 'playing' : ''}`}
-                            onClick={togglePlay}
-                        >
-                            {isPlaying ? <FaCirclePause className="ico"/>
-                                : <FaCirclePlay className="ico"/>}
-                        </div>
-                    </div>
-                </div>
-            </div>}
+            </>}
         </div>
     );
 };
