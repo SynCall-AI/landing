@@ -1,5 +1,5 @@
-import React from 'react';
 import "./Footer.css"
+import { FaInstagram, FaLinkedin } from "react-icons/fa6";
 
 const Footer = () => {
     return (
@@ -13,11 +13,13 @@ const Footer = () => {
                     david@syncallai.com <br/>
                 </div>
                 <div className="social-f">
-                    <a href="">
+                    <a href="https://www.instagram.com/syncall.ai/" target="_blank" rel="noopener noreferrer">
+                        <FaInstagram className="social-icon" />
                         Instagram
                     </a>
-                    <a href="">
-                        Linkedin
+                    <a href="https://www.linkedin.com/company/syncall-ai/" target="_blank" rel="noopener noreferrer">
+                        <FaLinkedin className="social-icon" />
+                        LinkedIn
                     </a>
                 </div>
             </div>
