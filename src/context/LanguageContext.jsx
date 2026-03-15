@@ -36,6 +36,7 @@ export const translations = {
 
         // Partners
         partnersLabel: "Bizning hamkorlar",
+        partnersSubtitle: "kompaniyalar bizga ishonadi",
 
         // Calllog
         calllogTitle: "Minglab qo'ng'iroqlarimizdan birini tinglang",
@@ -120,6 +121,7 @@ export const translations = {
 
         // Partners
         partnersLabel: "Наши партнёры",
+        partnersSubtitle: "компаний нам доверяют",
 
         // Calllog
         calllogTitle: "Послушайте один из тысяч наших звонков",
@@ -204,6 +206,7 @@ export const translations = {
 
         // Partners
         partnersLabel: "Our Partners",
+        partnersSubtitle: "companies trust us",
 
         // Calllog
         calllogTitle: "Listen to one of thousands of our calls",

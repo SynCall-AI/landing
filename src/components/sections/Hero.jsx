@@ -34,7 +34,7 @@ const Hero = () => {
 
                 <div className="hero-features animate-in animate-in-delay-3">
                     <div className="hero-pill">
-                        <span className="hero-pill-icon">&#9742;</span>
+                        <span className="hero-pill-icon">🧠</span>
                         {t('heroFeature1')}
                     </div>
                     <div className="hero-pill">
@@ -42,7 +42,7 @@ const Hero = () => {
                         {t('heroFeature2')}
                     </div>
                     <div className="hero-pill">
-                        <span className="hero-pill-icon">&#9993;</span>
+                        <span className="hero-pill-icon">📞</span>
                         {t('heroFeature3')}
                     </div>
                 </div>
