@@ -1,5 +1,4 @@
-// AgentsSection.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Faq.css';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -21,19 +20,20 @@ const Faq = () => {
     };
 
     return (
-        <section id="faq" className="agents-section">
-            <div className="agents-left">
+        <section id="faq" className="faq-section">
+            <div className="faq-left">
                 <h1>{t('faqTitle')}</h1>
             </div>
-            <div className="agents-right">
+            <div className="faq-right">
                 {data.map((item, idx) => (
-                    <div key={idx} className="accordion-item">
-                        <div className="accordion-header" onClick={() => toggleIndex(idx)}>
+                    <div key={idx} className="faq-item">
+                        <div className="faq-header" onClick={() => toggleIndex(idx)}>
                             {t(item.questionKey)}
-                            <span className={`arrow ${openIndex === idx ? 'open' : ''}`}>▾</span>
+                            <span className={`faq-arrow ${openIndex === idx ? 'open' : ''}`}>&#x25BE;</span>
                         </div>
-                            <div className={`${openIndex === idx ? 'accordion-content open' : 'accordion-content' } `}>{t(item.answerKey)}</div>
-
+                        <div className={`faq-answer ${openIndex === idx ? 'open' : ''}`}>
+                            {t(item.answerKey)}
+                        </div>
                     </div>
                 ))}
             </div>

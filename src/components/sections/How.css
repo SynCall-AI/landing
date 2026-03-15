@@ -1,50 +1,56 @@
-.how-main{
-    height: var(--app-height);
+.how-main {
+    min-height: 100vh;
     width: 100%;
-    background: #000;
+    background: var(--bg-primary);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 22px;
+    padding: 80px 24px;
 }
 
-.how-main h1{
-    font-weight: 500;
-    font-size: 50px;
+.how-main h1 {
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.8rem);
     width: 100%;
+    max-width: 1200px;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, #fff 50%, rgba(17, 115, 252, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.how-con{
+.how-con {
     margin-top: 40px;
     width: 100%;
+    max-width: 1200px;
     display: flex;
-    justify-content: space-between;
+    gap: 16px;
 }
 
 .current {
-    transition: 0.4s;
-    border: 2px solid #1173FC;
-    background: #1173FC;
+    transition: 0.3s ease;
+    border-color: var(--accent-blue) !important;
+    border-left: 3px solid var(--accent-blue);
+    background: rgba(17, 115, 252, 0.04);
 }
 
-.current > .cards-days{
-    color: #fff;
+.current > .cards-days {
+    color: var(--accent-blue);
 }
 
-
-@media(width<500px){
-    .how-main{
-        padding: 20px;
-        height: fit-content;
-        padding-bottom: 64px
+@media (width < 500px) {
+    .how-main {
+        padding: 60px 20px;
+        min-height: auto;
     }
 
-    .how-con{
+    .how-con {
         flex-direction: column;
     }
 
-    .how-main h1{
-        font-size: 31px;
+    .how-main h1 {
+        font-size: 1.8rem;
     }
 }

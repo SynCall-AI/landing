@@ -3,9 +3,9 @@ import "./Navbar.css"
 import { useLanguage } from '../../context/LanguageContext';
 
 const languages = [
-    { code: 'uz', name: 'O\'zbekcha', flag: '🇺🇿' },
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'uz', name: 'O\'zbekcha', flag: '\u{1F1FA}\u{1F1FF}' },
+    { code: 'ru', name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: '\u{1F1F7}\u{1F1FA}' },
+    { code: 'en', name: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
 ];
 
 const Navbar = () => {
@@ -33,13 +33,13 @@ const Navbar = () => {
     return (
         <div className="nav-main">
             <div className="nav-logo">
-                <img src="/Syncall.svg" alt="oops..."/>
+                <img src="/Syncall.svg" alt="Syncall AI" />
             </div>
             <div className="nav-bar">
                 <a href="#home">{t('home')}</a>
                 <a href="#features">{t('features')}</a>
-                <a href="#how">{t('howItWorks')}</a>
                 <a href="#demo">{t('demo')}</a>
+                <a href="#how">{t('howItWorks')}</a>
                 <a href="#faq">{t('faq')}</a>
             </div>
             <div className="language-selector" ref={dropdownRef}>
@@ -49,7 +49,7 @@ const Navbar = () => {
                 >
                     <span className="flag">{currentLang?.flag}</span>
                     <span className="lang-code">{language.toUpperCase()}</span>
-                    <span className={`arrow ${isOpen ? 'open' : ''}`}>▾</span>
+                    <span className={`arrow ${isOpen ? 'open' : ''}`}>&#x25BE;</span>
                 </button>
                 {isOpen && (
                     <div className="language-dropdown">
