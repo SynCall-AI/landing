@@ -17,13 +17,13 @@ export const translations = {
         features: "Imkoniyatlar",
         howItWorks: "Qanday ishlaydi",
         demo: "Demo",
-        faq: "Savol-Javob",
+        faq: "FAQ",
         contactSales: "Bog'lanish",
 
         // Hero
         heroBadge: "O'zbekiston uchun AI yechimlar",
         heroTitle: "Call-markazingiz uchun AI ovozli agentlar",
-        heroSubtitle: "Kiruvchi va chiquvchi qo'ng'iroqlarni o'zbek, rus yoki ingliz tilida boshqaring — 24/7, kam xarajat bilan",
+        heroSubtitle: "Sizning 24/7 AI koll-markazingiz. Tezroq, aqlliroq va arzonroq.",
         heroFeature1: "Ovozli agentlar",
         heroFeature2: "Chatbotlar",
         heroFeature3: "Har qanday telefoniya",
@@ -53,7 +53,7 @@ export const translations = {
         feature4Title: "Xavfsizlik birinchi o'rinda",
         feature4Desc: "Ilg'or shifrlash va xavfsiz kirish nazorati mijozlar ma'lumotlarini himoya qiladi.",
         feature5Title: "Murakkab vazifalarni hal qilish",
-        feature5Desc: "Chatbotlarimiz savollarga javob berishdan tashqariga chiqib, bir nechta vositalarni integratsiya qilish orqali mijozlarning murakkab muammolarini hal qiladi.",
+        feature5Desc: "AI agent savollarga javob berishdan tashqariga chiqib, bir nechta vositalarni integratsiya qilish orqali mijozlarning murakkab muammolarini hal qiladi.",
 
         // Numbers
         numbersLabel: "Syncall AI raqamlarda",
@@ -107,8 +107,8 @@ export const translations = {
 
         // Hero
         heroBadge: "AI решения для Узбекистана",
-        heroTitle: "AI голосовые агенты для вашего колл-центра",
-        heroSubtitle: "Обрабатывайте входящие и исходящие звонки на узбекском, русском или английском — 24/7, с минимальными затратами",
+        heroTitle: "Ваш умный AI колл-центр 24/7. Быстрее, качественнее, дешевле.",
+        heroSubtitle: "Мгновенная обработка звонков на узбекском и русском языках. Автоматизируйте рутину без затрат на огромный штат и обучение.",
         heroFeature1: "Голосовые агенты",
         heroFeature2: "Чатботы",
         heroFeature3: "Любая телефония",
@@ -129,16 +129,16 @@ export const translations = {
 
         // Features
         featuresTitle: "Все нужные функции и даже больше...",
-        feature1Title: "Мощная аналитика",
+        feature1Title: "Детальная аналитика",
         feature1Desc: "Лучше понимайте клиентов с помощью AI-анализа разговоров службы поддержки.",
         feature2Title: "Мультиязычная поддержка",
         feature2Desc: "Определяйте язык клиента и запускайте автоматизацию на 3+ языках.",
         feature3Title: "Возможности интеграции",
-        feature3Desc: "Наши интеграции упрощают работу с приложениями, которые уже использует ваша команда.",
+        feature3Desc: "Наши интеграции упрощают работу с инфраструктурой, которую уже использует ваша команда.",
         feature4Title: "Безопасность прежде всего",
         feature4Desc: "Продвинутое шифрование и контроль доступа защищают данные клиентов.",
         feature5Title: "Решение сложных задач",
-        feature5Desc: "Наши чатботы выходят за рамки ответов на вопросы, решая сложные проблемы клиентов через интеграцию с множеством инструментов.",
+        feature5Desc: "Наши голосовые агенты выходят за рамки ответов на вопросы, решая сложные проблемы клиентов через интеграцию с множеством инструментов.",
 
         // Numbers
         numbersLabel: "Syncall AI в цифрах",
@@ -148,20 +148,20 @@ export const translations = {
         numbersStat2Value: "-70%",
         numbersStat2Label: "Снижение расходов на клиентскую поддержку",
         numbersStat3Value: "94%",
-        numbersStat3Label: "Средний уровень удовлетворённости клиентов после внедрения Syncall",
-        numbersDesc: "Ощутите силу автоматизации с продвинутыми чатботами Syncall AI — трансформируйте клиентскую поддержку, снизьте затраты и повысьте удовлетворённость клиентов.",
+        numbersStat3Label: "Средний уровень CSAT после внедрения Syncall",
+        numbersDesc: "Ощутите силу автоматизации с продвинутыми голосовыми агентами Syncall AI — трансформируйте клиентскую поддержку, снизьте затраты и повысьте удовлетворённость клиентов.",
         getStarted: "Начать",
 
         // How
-        howTitle: "Как это работает",
-        howStep1Title: "Разработка и утверждение скрипта",
-        howStep1Text: "Составьте потоки звонков, обеспечьте соответствие требованиям и получите одобрение заинтересованных сторон.",
-        howStep2Title: "Обучение бота",
-        howStep2Text: "Составьте потоки звонков, обеспечьте соответствие требованиям и получите одобрение заинтересованных сторон.",
-        howStep3Title: "Тестирование",
-        howStep3Text: "Запустите симуляции звонков, проверьте крайние случаи и измерьте задержку.",
-        howStep4Title: "Интеграция с телефонией",
-        howStep4Text: "Разверните агентов на реальных звонках через вашу телефонную систему.",
+        howTitle: "Этапы запуска",
+        howStep1Title: "Анализ кейсов и проектирование логики",
+        howStep1Text: "Изучаем ваши успешные кейсы и специфику запросов. Создаем структуру взаимодействия, которая звучит естественно и на 100% соответствует бизнес-задачам.",
+        howStep2Title: "Техническая настройка",
+        howStep2Text: "Адаптируем STT, LLM и TTS модели под ваш бизнес. Тренируем нейросеть понимать акценты, специфические термины и контекст ваших диалогов.",
+        howStep3Title: "Автоматизированное тестирование",
+        howStep3Text: "Имитируем тысячи звонков за минуты через «тест-бота». Гарантируем точность и мгновенную реакцию.",
+        howStep4Title: "Запуск в продакшн",
+        howStep4Text: "Подключаем AI-агентов к вашей телефонии. Теперь система обрабатывает звонки, а вся аналитика сразу падает в вашу CRM.",
 
         // FAQ
         faqTitle: "Всё о наших агентах",
@@ -176,7 +176,7 @@ export const translations = {
         faqQ5: "Предоставляете ли вы аналитику звонков?",
         faqA5: "Да, мы предлагаем комплексную аналитику звонков в реальном времени, которая даёт вам глубокое понимание работы вашего контакт-центра.",
         faqQ6: "У вас есть тестовый период?",
-        faqA6: "Да, мы предлагаем бесплатную пробную версию. Мы обучим индивидуального AI-агента, адаптированного к потребностям вашего бизнеса, и вы сможете протестировать его бесплатно в течение 1000 звонков.",
+        faqA6: "Да, мы предлагаем бесплатную пробную версию. Мы обучим индивидуального AI-агента, адаптированного к потребностям вашего бизнеса, и вы сможете протестировать его бесплатно на 1000 звонков.",
 
         // Footer
         footerRights: "Все права защищены",
@@ -192,8 +192,8 @@ export const translations = {
 
         // Hero
         heroBadge: "AI Solutions for Uzbekistan",
-        heroTitle: "AI Voice Agents for Your Call Center",
-        heroSubtitle: "Handle inbound and outbound calls in Uzbek, Russian, or English — 24/7, at lower cost",
+        heroTitle: "Your 24/7 multilingual AI call center. Faster, smarter, and cheaper",
+        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine tasks without the costs of hiring and training a large team.",
         heroFeature1: "Voice Agents",
         heroFeature2: "Chatbots",
         heroFeature3: "Any Telephony",
@@ -233,8 +233,8 @@ export const translations = {
         numbersStat2Value: "-70%",
         numbersStat2Label: "Decrease in customer support expenses",
         numbersStat3Value: "94%",
-        numbersStat3Label: "Average customer satisfaction levels after using Syncall",
-        numbersDesc: "Experience the power of automation with Syncall AI's advanced chatbots, transforming customer support, reducing costs, and driving unprecedented customer satisfaction.",
+        numbersStat3Label: "Average CSAT after using Syncall",
+        numbersDesc: "Experience the power of automation with Syncall AI's advanced voice bots, transforming customer support, reducing costs, and driving unprecedented customer satisfaction.",
         getStarted: "Get Started",
 
         // How
@@ -269,7 +269,7 @@ export const translations = {
 };
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('uz');
+    const [language, setLanguage] = useState('ru');
 
     const t = (key) => {
         return translations[language][key] || key;
