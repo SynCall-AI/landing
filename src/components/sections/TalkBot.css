@@ -1,0 +1,193 @@
+.talkbot-section {
+    background: var(--bg-primary);
+    padding: 80px 20px 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle background glow */
+.talkbot-section::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(17, 115, 252, 0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    filter: blur(60px);
+}
+
+.talkbot-container {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.talkbot-visual-link {
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+
+/* Orb — larger and more dramatic */
+.talkbot-orb {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle at 40% 40%, rgba(17, 115, 252, 0.15) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 70%);
+    border: 1px solid rgba(17, 115, 252, 0.12);
+    transition: border-color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.talkbot-visual-link:hover .talkbot-orb {
+    border-color: rgba(17, 115, 252, 0.3);
+}
+
+/* Outer rotating ring */
+.talkbot-orb::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    border: 1px dashed rgba(17, 115, 252, 0.2);
+    animation: orbRingSpin 20s linear infinite;
+}
+
+/* Inner rotating ring (opposite direction) */
+.talkbot-orb::after {
+    content: '';
+    position: absolute;
+    inset: -32px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-top-color: rgba(139, 92, 246, 0.15);
+    border-right-color: rgba(17, 115, 252, 0.1);
+    animation: orbRingSpin 15s linear infinite reverse;
+}
+
+@keyframes orbRingSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.talkbot-orb-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(17, 115, 252, 0.15) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+    animation: orbGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes orbGlowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Waveform — 12 bars, bigger */
+.waveform {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 100px;
+    z-index: 1;
+}
+
+.waveform-bar {
+    width: 5px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, var(--accent-blue), rgba(139, 92, 246, 0.6));
+    animation: waveform-bounce 1.4s ease-in-out infinite;
+}
+
+/* Staggered bar heights and delays */
+.waveform-bar:nth-child(1)  { height: 20px; animation-delay: 0s; }
+.waveform-bar:nth-child(2)  { height: 36px; animation-delay: 0.07s; }
+.waveform-bar:nth-child(3)  { height: 56px; animation-delay: 0.14s; }
+.waveform-bar:nth-child(4)  { height: 72px; animation-delay: 0.21s; }
+.waveform-bar:nth-child(5)  { height: 88px; animation-delay: 0.28s; }
+.waveform-bar:nth-child(6)  { height: 100px; animation-delay: 0.35s; }
+.waveform-bar:nth-child(7)  { height: 84px; animation-delay: 0.42s; }
+.waveform-bar:nth-child(8)  { height: 64px; animation-delay: 0.49s; }
+.waveform-bar:nth-child(9)  { height: 80px; animation-delay: 0.56s; }
+.waveform-bar:nth-child(10) { height: 48px; animation-delay: 0.63s; }
+.waveform-bar:nth-child(11) { height: 30px; animation-delay: 0.70s; }
+.waveform-bar:nth-child(12) { height: 16px; animation-delay: 0.77s; }
+
+@keyframes waveform-bounce {
+    0%, 100% { transform: scaleY(0.35); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+
+.talkbot-visual-link:hover .waveform-bar {
+    background: linear-gradient(180deg, var(--accent-blue-light), rgba(139, 92, 246, 0.8));
+}
+
+.talkbot-title {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+}
+
+.talkbot-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    max-width: 420px;
+}
+
+.talkbot-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(17, 115, 252, 0.08);
+    border: 1px solid rgba(17, 115, 252, 0.25);
+    padding: 12px 28px;
+    border-radius: 999px;
+    color: var(--accent-blue);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    backdrop-filter: blur(8px);
+}
+.talkbot-cta:hover {
+    background: rgba(17, 115, 252, 0.15);
+    border-color: rgba(17, 115, 252, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(17, 115, 252, 0.15);
+}
+
+.talkbot-cta-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 4px rgba(17, 115, 252, 0.4); }
+    50% { opacity: 0.6; box-shadow: 0 0 12px rgba(17, 115, 252, 0.6); }
+}
+
+@media (max-width: 768px) {
+    .talkbot-section { padding: 60px 20px 80px; }
+    .talkbot-orb { width: 160px; height: 160px; }
+    .waveform { height: 70px; gap: 4px; }
+    .waveform-bar { width: 4px; }
+}

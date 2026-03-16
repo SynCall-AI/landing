@@ -1,0 +1,94 @@
+/* ElevenLabs-style Audio Player — dark theme */
+
+.el-player-slider {
+    position: relative;
+    display: flex;
+    height: 20px;
+    touch-action: none;
+    align-items: center;
+    user-select: none;
+    flex: 1;
+}
+
+.el-player-slider[data-disabled] {
+    opacity: 0.5;
+}
+
+.el-player-track {
+    position: relative;
+    height: 4px;
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.el-player-range {
+    position: absolute;
+    height: 100%;
+    background: #1173FC;
+    border-radius: 9999px;
+}
+
+.el-player-thumb {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    outline: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.el-player-slider:hover .el-player-thumb,
+.el-player-thumb:focus-visible {
+    opacity: 1;
+}
+
+.el-player-time {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    font-variant-numeric: tabular-nums;
+    min-width: 36px;
+    text-align: center;
+}
+
+.el-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.el-play-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+}
+
+.el-play-btn:active {
+    transform: scale(0.97);
+}
+
+.el-play-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: el-spin 0.6s linear infinite;
+}
+
+@keyframes el-spin {
+    to { transform: rotate(360deg); }
+}

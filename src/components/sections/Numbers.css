@@ -1,0 +1,180 @@
+.numbers-section {
+    background: var(--bg-secondary);
+    padding: 120px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle ambient glow behind section */
+.numbers-section::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(17, 115, 252, 0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.numbers-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.numbers-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.numbers-title {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, #fff 50%, rgba(17, 115, 252, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---- Stat cards ---- */
+.numbers-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 60px;
+}
+
+.number-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+                transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+                box-shadow 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.number-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+/* Glow per card */
+.nc-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    top: -40px;
+    right: -40px;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.number-card:hover .nc-glow { opacity: 0.7; }
+
+.nc-green .nc-glow { background: rgba(74, 222, 128, 0.15); }
+.nc-pink .nc-glow { background: rgba(236, 72, 153, 0.15); }
+.nc-gold .nc-glow { background: rgba(251, 191, 36, 0.15); }
+
+.nc-green .number-value { color: #4ADE80; }
+.nc-pink .number-value { color: #EC4899; }
+.nc-gold .number-value { color: #FBBF24; }
+
+/* Animated underline accent per card */
+.number-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.number-card:hover::after {
+    opacity: 0.3;
+}
+.nc-green::after { color: #4ADE80; }
+.nc-pink::after { color: #EC4899; }
+.nc-gold::after { color: #FBBF24; }
+
+.number-value {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    position: relative;
+    z-index: 1;
+}
+
+.number-stat-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer */
+.numbers-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.numbers-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 550px;
+}
+
+.numbers-cta { text-decoration: none; }
+
+.numbers-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1),
+                box-shadow 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.numbers-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(17, 115, 252, 0.2);
+}
+
+.arrow-icon {
+    font-size: 1.1em;
+    transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.numbers-btn:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .numbers-section { padding: 80px 20px; }
+    .numbers-stats { grid-template-columns: 1fr; gap: 12px; }
+    .number-card { padding: 28px 24px; }
+    .number-value { font-size: 2.5rem; }
+    .numbers-footer { flex-direction: column; align-items: flex-start; }
+}

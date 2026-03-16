@@ -14,65 +14,75 @@ export const translations = {
     uz: {
         // Navbar
         home: "Bosh sahifa",
-        features: "Imkoniyatlar",
-        howItWorks: "Qanday ishlaydi",
+        features: "Nega biz",
+        howItWorks: "Ishga tushirish bosqichlari",
         demo: "Demo",
-        faq: "Savol-Javob",
-        contactSales: "Sotuvga murojaat",
+        faq: "FAQ",
+        contactSales: "Bog'lanish",
 
         // Hero
-        tryDemo: "Demo sinab ko'ring",
+        heroBadge: "O'zbekiston uchun AI yechimlar",
+        heroTitle: "Sizning aqlli AI koll-markazingiz 24/7. Tezroq, sifatliroq, arzonroq.",
+        heroSubtitle: "O'zbek va rus tillarida qo'ng'iroqlarni bir zumda qayta ishlash. Katta xodimlar va o'qitish xarajatlarisiz rutinani avtomatlashtiring.",
+        heroFeature1: "Ovozli agentlar",
+        heroFeature2: "Chatbotlar",
+        heroFeature3: "Har qanday telefoniya",
+        tryDemo: "Demo tinglash",
 
-        // About
-        aboutTitle: "Syncall nima?",
-        aboutHeading: "Inson kabi gapiruvchi AI ovozli agentlar 24/7 dam olishsiz ishlaydi.",
-        aboutDescription: "An'anaviy avtomatlashtirilgan tizimlardan farqli o'laroq, u kontekst, ohang va nozikliklarni tushunadi - bu uni jonli agentdan deyarli farq qilib bo'lmaydigan qiladi. Kun bo'ladimi, tun bo'ladimi, bot har doim yordam berish, mijozlarni jalb qilish, savollarga javob berish yoki muammolarni hal qilishga tayyor.",
+        // Talk Bot
+        talkBotTitle: "AI ovozli agentimiz bilan tanishing",
+        talkBotSubtitle: "Ovozimiz qanchalik tabiiy ekanligini o'zingiz eshiting",
+        talkBotButton: "Demo tinglash",
 
-        // Strengths
-        strengthsTitle: "Ortdagi kuchlar",
-        strength1Title: "5x xarajatlarni kamaytirish",
-        strength1Text: "Oddiy qo'ng'iroqlar va vazifalarni avtomatlashtirish orqali aloqa markazi xarajatlarini qisqartiring.",
-        strength2Title: "U inson kabi gapiradi",
-        strength2Text: "Jonli suhbatlar uchun tabiiy ohang, pauza va intonatsiya.",
-        strength3Title: "24/7 to'xtovsiz ish",
-        strength3Text: "Har doim mavjud, tanaffussiz, ishlamay qolishsiz.",
-        strength4Title: "Ko'p tilli qo'llab-quvvatlash va aksent moslashuvi",
-        strength4Text: "Mijozingiz tilida gapiradi, mintaqaviy aksentlarni tushunadi.",
-        strength5Title: "Real vaqt muammolar tahlili",
-        strength5Text: "Muammolarni zudlik bilan aniqlang, asosiy ko'rsatkichlarni kuzating va mijozlar tajribasini tezda yaxshilang.",
-        strength6Title: "Moslashuvchan javoblar",
-        strength6Text: "Kontekst, ohang va mijoz xatti-harakatiga qarab javoblarni sozlaydi.",
+        // Partners
+        partnersLabel: "Bizning hamkorlar",
+        partnersSubtitle: "kompaniyalar bizga ishonadi",
 
         // Calllog
         calllogTitle: "Minglab qo'ng'iroqlarimizdan birini tinglang",
+        calllogSubtitle: "AI agentimiz real qo'ng'iroqlarda qanday ishlashini eshiting",
+
+        // Features
+        featuresTitle: "Syncall ni nima ajratib turadi",
+        feature1Stat: "1000+ qo'ng'iroq/min",
+        heroLiveAnalysis: "Jonli qo'ng'iroq tahlili",
+        voiceCloneMatch: "99.2% moslik",
+        feature1TagDialect: "Lahja",
+        feature1TagMix: "Aralash til",
+        feature1TagSlang: "Sleng",
+        feature1Title: "Jonli nutqni tushunish",
+        feature1Desc: "AI o'zbek tilining barcha lahjalarini va tillarning erkin aralashmasini tushunadi. Tizim murakkab so'zlashuv nutqi, sleng va aksentlarni 98% aniqlik bilan anglaydi.",
+        feature2Title: "Tabiiy muloqot",
+        feature2Desc: "Robotni bo'lish mumkin — u jim bo'ladi va tinglaydi. Voice Isolation tufayli tizim ko'cha shovqini va musiqani e'tiborsiz qoldiradi, faqat mijoz ovoziga e'tibor qaratadi.",
+        feature3Title: "Ma'lumotlar xavfsizligi",
+        feature3Desc: "Tizimni Syncall bulutida yoki o'z serverlaringizda (On-Premise) joylashtiring. Ma'lumotlar xavfsizligiga qat'iy talablarga ega kompaniyalar uchun ideal yechim.",
+        feature4Title: "Ovozni klonlash",
+        feature4Desc: "Biz eng yaxshi xodimingiz ovozining aniq raqamli nusxasini yaratishimiz mumkin. Sizning AI har bir mijoz uchun tanish va professional tarzda jaranglaydi.",
+        feature5Title: "To'liq nazorat",
+        feature5Desc: "Delta M va boshqa CRM tizimlar bilan tayyor integratsiya. Har bir qo'ng'iroqning batafsil AI-tahlilini oling va tizimingizda ma'lumotlarni avtomatik yangilang.",
+
+        // Numbers
+        numbersLabel: "Syncall AI raqamlarda",
+        numbersTitle: "Syncall AI bilan muvaffaqiyatni tezlashtirish",
+        numbersStat1Value: "80%",
+        numbersStat1Label: "Mijozlar muammolarini hal qilishning o'rtacha muvaffaqiyat darajasi",
+        numbersStat2Value: "-70%",
+        numbersStat2Label: "Mijozlarga xizmat ko'rsatish xarajatlarining kamayishi",
+        numbersStat3Value: "94%",
+        numbersStat3Label: "Syncall dan foydalangandan keyin mijozlar qoniqish darajasi",
+        numbersDesc: "Syncall AI ning ilg'or chatbotlari bilan avtomatlashtirishning kuchini his eting — mijozlarga xizmat ko'rsatishni o'zgartiring, xarajatlarni kamaytiring va mijozlar qoniqishini oshiring.",
+        getStarted: "Boshlash",
 
         // How
-        howTitle: "Qanday ishlaydi",
-        howStep1Title: "Skript ishlab chiqish va tasdiqlash",
-        howStep1Text: "Qo'ng'iroq oqimlarini tuzing, muvofiqlikni ta'minlang va manfaatdor tomonlarning tasdig'ini oling.",
-        howStep2Title: "Bot o'qitish",
-        howStep2Text: "Qo'ng'iroq oqimlarini tuzing, muvofiqlikni ta'minlang va manfaatdor tomonlarning tasdig'ini oling.",
-        howStep3Title: "Sinov",
-        howStep3Text: "Qo'ng'iroq simulyatsiyalarini o'tkazing, chekka holatlarni tekshiring va kechikishni o'lchang.",
-        howStep4Title: "Telefoniya integratsiyasi",
-        howStep4Text: "Agentlarni telefoniya sozlamalari orqali jonli qo'ng'iroqlarga joylashtiring.",
-
-        // Integrate
-        integrateTitle: "Har qanday turdagi telefoniya bilan integratsiya",
-
-        // Tab
-        tabEfficiencyGains: "Samaradorlik yutuqlari",
-        tabBetterCX: "Yaxshi CX",
-        tabCostSavings: "Xarajatlarni tejash",
-        tabHappierAgents: "Baxtli agentlar",
-        tabContent1Title: "AI agentlarga kuniga 3 soatgacha vaqt tejaydi",
-        tabContent1Desc: "Takrorlanuvchi ish jarayonlarini avtomatlashtiring va jamoangizga yuqori qiymatli o'zaro ta'sirlarga e'tibor qaratishga imkon bering",
-        tabContent2Title: "AI quvvatli tushunchalar bilan miqyosda shaxsiylashtirilgan tajribalarni taqdim eting",
-        tabContent2Desc: "Mijozlar ehtiyojlarini bir zumda tushuning va har safar moslashtirilgan yechimlarni taqdim eting",
-        tabContent3Title: "Xizmat sifatini yaxshilagan holda operatsion xarajatlarni 40% ga kamaytiring",
-        tabContent3Desc: "Aqlli avtomatlashtirish ajoyib mijozlar qoniqishini saqlab, umumiy xarajatlarni qisqartiradi",
-        tabContent4Title: "Jamoangizni asabiylashuvni yo'q qiladigan AI vositalari bilan kuchaytiring",
-        tabContent4Desc: "Zerikarli vazifalarni olib tashlang va agentlarga muvaffaqiyat uchun zarur vositalarni bering",
+        howTitle: "Ishga tushirish bosqichlari",
+        howStep1Title: "Keyslarni tahlil qilish va mantiq loyihalash",
+        howStep1Text: "Muvaffaqiyatli keyslaringiz va so'rovlar xususiyatini o'rganamiz. Tabiiy jaranglagan va biznes vazifalaringizga 100% mos o'zaro ta'sir tuzilmasini yaratamiz.",
+        howStep2Title: "Texnik sozlash",
+        howStep2Text: "STT, LLM va TTS modellarini biznesingizga moslashtiramiz. Neyrotarmoqni aksentlar, maxsus atamalar va dialoglaringiz kontekstini tushunishga o'rgatamiz.",
+        howStep3Title: "Avtomatlashtirilgan sinov",
+        howStep3Text: "«Test-bot» orqali bir necha daqiqada minglab qo'ng'iroqlarni simulyatsiya qilamiz. Aniqlik va bir zumda javob berishni kafolatlaymiz.",
+        howStep4Title: "Prodakshnga chiqarish",
+        howStep4Text: "AI-agentlarni telefoniyangizga ulaymiz. Endi tizim qo'ng'iroqlarni qayta ishlaydi, barcha tahlillar to'g'ridan-to'g'ri CRM tizimingizga tushadi.",
 
         // FAQ
         faqTitle: "Agentlarimiz haqida hamma narsa",
@@ -83,11 +93,11 @@ export const translations = {
         faqQ3: "Qaysi tillarni qo'llab-quvvatlaysiz?",
         faqA3: "Biz hozirda o'zbek, rus va ingliz tillarini qo'llab-quvvatlaymiz, har bir til uchun tabiiy aksent moslashuvi bilan. Bizning AI ovozli agentlarimiz mintaqaviy lahjalar va nozikliklarni tushunish uchun o'qitilgan, bu mijozlaringiz bilan haqiqiy va madaniy jihatdan mos suhbatlarni ta'minlaydi.",
         faqQ4: "Bir vaqtning o'zida nechta qo'ng'iroq qilishingiz mumkin?",
-        faqA4: "Bizning tomonimizdan hech qanday cheklov yo'q - bizning AI infrastrukturamiz cheksiz miqyosda va har qanday qo'ng'iroq hajmini boshqarish uchun mo'ljallangan. Yagona cheklov telefoniya provayderingizning quvvati bo'lishi mumkin. Bizning botlarimiz ishlash yomonlashuvlarsiz cheksiz bir vaqtdagi qo'ng'iroqlarni qayta ishlashi mumkin.",
+        faqA4: "Bizning tomonimizdan hech qanday cheklov yo'q — bizning AI infrastrukturamiz cheksiz miqyosda va har qanday qo'ng'iroq hajmini boshqarish uchun mo'ljallangan. Yagona cheklov telefoniya provayderingizning quvvati bo'lishi mumkin.",
         faqQ5: "Qo'ng'iroq tahlilini taqdim etasizmi?",
-        faqA5: "Ha, biz sizga aloqa markazi faoliyatingiz haqida chuqur tushunchalar beradigan keng qamrovli real vaqt qo'ng'iroq tahlilini taklif qilamiz. Siz suhbat mavzulari, kayfiyat, agent ishlashi, mijozlarning og'riqli nuqtalari va xizmat sifati va biznes natijalarini doimiy ravishda yaxshilash uchun asosiy ko'rsatkichlarni tahlil qilishingiz mumkin.",
+        faqA5: "Ha, biz sizga aloqa markazi faoliyatingiz haqida chuqur tushunchalar beradigan keng qamrovli real vaqt qo'ng'iroq tahlilini taklif qilamiz.",
         faqQ6: "Sinov davringiz bormi?",
-        faqA6: "Ha, biz aloqa markazingizga transformatsion ta'sirni ko'rsatish uchun bepul sinov taklif qilamiz. Biz sizning biznes ehtiyojlaringizga moslashtirilgan maxsus AI agentini o'qitamiz va uni 1000 qo'ng'iroqgacha bepul sinab ko'rishingiz mumkin. Texnologiyamiz mijozlar bilan muloqotingizni qanday inqilob qilishi mumkinligini o'zingiz his eting.",
+        faqA6: "Ha, biz aloqa markazingizga transformatsion ta'sirni ko'rsatish uchun bepul sinov taklif qilamiz. Biz sizning biznes ehtiyojlaringizga moslashtirilgan maxsus AI agentini o'qitamiz va uni 1000 qo'ng'iroqgacha bepul sinab ko'rishingiz mumkin.",
 
         // Footer
         footerRights: "Barcha huquqlar himoyalangan",
@@ -95,65 +105,75 @@ export const translations = {
     ru: {
         // Navbar
         home: "Главная",
-        features: "Возможности",
-        howItWorks: "Как работает",
+        features: "Почему мы",
+        howItWorks: "Этапы запуска",
         demo: "Демо",
         faq: "FAQ",
-        contactSales: "Свяжитесь с отделом продаж",
+        contactSales: "Связаться",
 
         // Hero
+        heroBadge: "AI решения для Узбекистана",
+        heroTitle: "Ваш умный AI колл-центр 24/7. Быстрее, качественнее, дешевле.",
+        heroSubtitle: "Мгновенная обработка звонков на узбекском и русском языках. Автоматизируйте рутину без затрат на огромный штат и обучение.",
+        heroFeature1: "Голосовые агенты",
+        heroFeature2: "Чатботы",
+        heroFeature3: "Любая телефония",
         tryDemo: "Послушать демо",
 
-        // About
-        aboutTitle: "Что такое Syncall?",
-        aboutHeading: "AI голосовые агенты, которые говорят как человек и работают 24/7 без перерывов.",
-        aboutDescription: "В отличие от традиционных автоматизированных систем, он понимает контекст, тон и нюансы — что делает его почти неотличимым от живого агента. Днём или ночью, бот всегда готов помочь, конвертировать лиды, отвечать на вопросы или решать проблемы.",
+        // Talk Bot
+        talkBotTitle: "Познакомьтесь с нашим AI голосовым агентом",
+        talkBotSubtitle: "Послушайте сами, насколько естественно звучит наш AI",
+        talkBotButton: "Послушать демо",
 
-        // Strengths
-        strengthsTitle: "Преимущества",
-        strength1Title: "Снижение затрат в 5 раз",
-        strength1Text: "Сократите расходы контакт-центра, автоматизируя рутинные звонки и задачи.",
-        strength2Title: "Говорит как человек",
-        strength2Text: "Естественный тон, паузы и интонация для живых разговоров.",
-        strength3Title: "Работа 24/7 без остановок",
-        strength3Text: "Всегда доступен, без перерывов, без простоев.",
-        strength4Title: "Многоязычная поддержка и адаптация акцента",
-        strength4Text: "Говорит на языке вашего клиента, понимает региональные акценты.",
-        strength5Title: "Аналитика проблем в реальном времени",
-        strength5Text: "Мгновенно выявляйте проблемы, отслеживайте ключевые показатели и улучшайте клиентский опыт на лету.",
-        strength6Title: "Адаптивные ответы",
-        strength6Text: "Корректирует ответы на основе контекста, тона и поведения клиента.",
+        // Partners
+        partnersLabel: "Наши партнёры",
+        partnersSubtitle: "компаний нам доверяют",
 
         // Calllog
         calllogTitle: "Послушайте один из тысяч наших звонков",
+        calllogSubtitle: "Услышьте, как наш AI агент работает в реальных звонках",
+
+        // Features
+        featuresTitle: "Что делает Syncall особенным",
+        feature1Stat: "1000+ звонков/мин",
+        heroLiveAnalysis: "Анализ звонков",
+        voiceCloneMatch: "99.2% схожесть",
+        feature1TagDialect: "Диалекты",
+        feature1TagMix: "Микс языков",
+        feature1TagSlang: "Сленг",
+        feature1Title: "Понимание живой речи",
+        feature1Desc: "ИИ понимает все диалекты узбекского и свободное смешивание языков. Система распознаёт сленг, акценты и разговорную речь с точностью 98%.",
+        feature2Title: "Естественное общение",
+        feature2Desc: "Робота можно перебивать — он замолчит и выслушает. Благодаря Voice Isolation система игнорирует шум улицы и музыку, фокусируясь только на голосе клиента.",
+        feature3Title: "Безопасность данных",
+        feature3Desc: "Разверните систему в облаке Syncall или на собственных серверах (On-Premise). Идеальное решение для компаний с жесткими требованиями к безопасности данных.",
+        feature4Title: "Клонирование голоса",
+        feature4Desc: "Мы можем создать точную цифровую копию голоса вашего лучшего сотрудника. Ваш ИИ будет звучать привычно и профессионально для каждого клиента.",
+        feature5Title: "Полный контроль",
+        feature5Desc: "Готовая интеграция с Delta M и другими CRM. Получайте детальный AI-анализ каждого звонка и автоматическое обновление данных в вашей системе.",
+
+        // Numbers
+        numbersLabel: "Syncall AI в цифрах",
+        numbersTitle: "Ускорение успеха с Syncall AI",
+        numbersStat1Value: "80%",
+        numbersStat1Label: "Средний показатель успешного решения проблем клиентов",
+        numbersStat2Value: "-70%",
+        numbersStat2Label: "Снижение расходов на клиентскую поддержку",
+        numbersStat3Value: "94%",
+        numbersStat3Label: "Средний уровень CSAT после внедрения Syncall",
+        numbersDesc: "Ощутите силу автоматизации с продвинутыми голосовыми агентами Syncall AI — трансформируйте клиентскую поддержку, снизьте затраты и повысьте удовлетворённость клиентов.",
+        getStarted: "Начать",
 
         // How
-        howTitle: "Как это работает",
-        howStep1Title: "Разработка и утверждение скрипта",
-        howStep1Text: "Составьте потоки звонков, обеспечьте соответствие требованиям и получите одобрение заинтересованных сторон.",
-        howStep2Title: "Обучение бота",
-        howStep2Text: "Составьте потоки звонков, обеспечьте соответствие требованиям и получите одобрение заинтересованных сторон.",
-        howStep3Title: "Тестирование",
-        howStep3Text: "Запустите симуляции звонков, проверьте крайние случаи и измерьте задержку.",
-        howStep4Title: "Интеграция с телефонией",
-        howStep4Text: "Разверните агентов на реальных звонках через вашу телефонную систему.",
-
-        // Integrate
-        integrateTitle: "Интеграция с любым типом телефонии",
-
-        // Tab
-        tabEfficiencyGains: "Повышение эффективности",
-        tabBetterCX: "Лучший CX",
-        tabCostSavings: "Экономия затрат",
-        tabHappierAgents: "Довольные агенты",
-        tabContent1Title: "AI экономит агентам до 3 часов в день, обрабатывая рутинные задачи",
-        tabContent1Desc: "Автоматизируйте повторяющиеся рабочие процессы и позвольте вашей команде сосредоточиться на ценных взаимодействиях",
-        tabContent2Title: "Предоставляйте персонализированный опыт в масштабе с AI-инсайтами",
-        tabContent2Desc: "Мгновенно понимайте потребности клиентов и предоставляйте индивидуальные решения каждый раз",
-        tabContent3Title: "Снизьте операционные расходы на 40%, улучшив качество обслуживания",
-        tabContent3Desc: "Умная автоматизация сокращает накладные расходы, сохраняя исключительную удовлетворённость клиентов",
-        tabContent4Title: "Расширьте возможности вашей команды с AI-инструментами, которые устраняют разочарование",
-        tabContent4Desc: "Уберите рутинные задачи и дайте агентам инструменты, необходимые для успеха",
+        howTitle: "Этапы запуска",
+        howStep1Title: "Анализ кейсов и проектирование логики",
+        howStep1Text: "Изучаем ваши успешные кейсы и специфику запросов. Создаем структуру взаимодействия, которая звучит естественно и на 100% соответствует бизнес-задачам.",
+        howStep2Title: "Техническая настройка",
+        howStep2Text: "Адаптируем STT, LLM и TTS модели под ваш бизнес. Тренируем нейросеть понимать акценты, специфические термины и контекст ваших диалогов.",
+        howStep3Title: "Автоматизированное тестирование",
+        howStep3Text: "Имитируем тысячи звонков за минуты через «тест-бота». Гарантируем точность и мгновенную реакцию.",
+        howStep4Title: "Запуск в продакшн",
+        howStep4Text: "Подключаем AI-агентов к вашей телефонии. Теперь система обрабатывает звонки, а вся аналитика сразу падает в вашу CRM.",
 
         // FAQ
         faqTitle: "Всё о наших агентах",
@@ -162,13 +182,13 @@ export const translations = {
         faqQ2: "Вы интегрируетесь с любым типом телефонии?",
         faqA2: "Абсолютно. Наша платформа создана для интеграции с любой телефонной системой, включая VoIP-провайдеров, PBX-системы и облачные решения. Мы обеспечиваем плавную совместимость с вашей существующей инфраструктурой, независимо от провайдера или технологического стека.",
         faqQ3: "Какие языки вы поддерживаете?",
-        faqA3: "В настоящее время мы поддерживаем узбекский, русский и английский языки с естественной адаптацией акцента для каждого языка. Наши AI голосовые агенты обучены понимать региональные диалекты и нюансы, обеспечивая аутентичные и культурно соответствующие разговоры с вашими клиентами.",
+        faqA3: "В настоящее время мы поддерживаем узбекский, русский и английский языки с естественной адаптацией акцента для каждого языка. Наши AI голосовые агенты обучены понимать региональные диалекты и нюансы.",
         faqQ4: "Сколько звонков вы можете совершать одновременно?",
-        faqA4: "С нашей стороны нет ограничений — наша AI-инфраструктура разработана для бесконечного масштабирования и обработки любого объёма звонков. Единственным ограничением может быть пропускная способность вашего телефонного провайдера. Наши боты могут обрабатывать неограниченное количество одновременных звонков без снижения производительности.",
+        faqA4: "С нашей стороны нет ограничений — наша AI-инфраструктура разработана для бесконечного масштабирования и обработки любого объёма звонков. Единственным ограничением может быть пропускная способность вашего телефонного провайдера.",
         faqQ5: "Предоставляете ли вы аналитику звонков?",
-        faqA5: "Да, мы предлагаем комплексную аналитику звонков в реальном времени, которая даёт вам глубокое понимание работы вашего контакт-центра. Вы можете анализировать темы разговоров, настроение, производительность агентов, болевые точки клиентов и ключевые показатели для постоянного улучшения качества обслуживания и бизнес-результатов.",
+        faqA5: "Да, мы предлагаем комплексную аналитику звонков в реальном времени, которая даёт вам глубокое понимание работы вашего контакт-центра.",
         faqQ6: "У вас есть тестовый период?",
-        faqA6: "Да, мы предлагаем бесплатную пробную версию, чтобы продемонстрировать трансформационное влияние на ваш контакт-центр. Мы обучим индивидуального AI-агента, адаптированного к потребностям вашего бизнеса, и вы сможете протестировать его бесплатно в течение 1000 звонков. Испытайте из первых рук, как наша технология может революционизировать взаимодействие с клиентами.",
+        faqA6: "Да, мы предлагаем бесплатную пробную версию. Мы обучим индивидуального AI-агента, адаптированного к потребностям вашего бизнеса, и вы сможете протестировать его бесплатно на 1000 звонков.",
 
         // Footer
         footerRights: "Все права защищены",
@@ -176,65 +196,75 @@ export const translations = {
     en: {
         // Navbar
         home: "Home",
-        features: "Features",
-        howItWorks: "How It Works",
+        features: "Why us",
+        howItWorks: "Launch steps",
         demo: "Demo",
         faq: "FAQ",
-        contactSales: "Contact sales",
+        contactSales: "Contact",
 
         // Hero
-        tryDemo: "Try Demo",
+        heroBadge: "AI Solutions for Uzbekistan",
+        heroTitle: "Your smart AI call center 24/7. Faster, better, cheaper.",
+        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine without the costs of a large staff and training.",
+        heroFeature1: "Voice Agents",
+        heroFeature2: "Chatbots",
+        heroFeature3: "Any Telephony",
+        tryDemo: "Listen to Demo",
 
-        // About
-        aboutTitle: "What is Syncall?",
-        aboutHeading: "AI Voice Agents that speak like a human and works 24/7 without breaks.",
-        aboutDescription: "Unlike traditional automated systems, it understands context, tone, and nuance — making it nearly indistinguishable from a live agent. Whether it's day or night, the bot is always ready to assist, convert leads, answer questions, or resolve issues.",
+        // Talk Bot
+        talkBotTitle: "Experience our AI Voice Agent",
+        talkBotSubtitle: "Hear for yourself how natural our AI sounds",
+        talkBotButton: "Listen to Demo",
 
-        // Strengths
-        strengthsTitle: "The strengths behind",
-        strength1Title: "5x cost reduction",
-        strength1Text: "Cut contact center costs by automating routine calls and tasks.",
-        strength2Title: "It speaks as a human",
-        strength2Text: "Natural tone, pauses, and intonation for lifelike conversations.",
-        strength3Title: "24/7 non-stop work",
-        strength3Text: "Always available, no breaks, no downtime.",
-        strength4Title: "Multilingual support and accent adaptation",
-        strength4Text: "Speaks your customer's language, understands regional accents.",
-        strength5Title: "Real-time issue analytics",
-        strength5Text: "Detect issues instantly, monitor key metrics, and improve customer experience on the fly.",
-        strength6Title: "Adaptive responses",
-        strength6Text: "Adjusts replies based on context, tone, and customer behavior.",
+        // Partners
+        partnersLabel: "Our Partners",
+        partnersSubtitle: "companies trust us",
 
         // Calllog
-        calllogTitle: "Take a listen to one of thousands of our calls",
+        calllogTitle: "Listen to one of thousands of our calls",
+        calllogSubtitle: "Hear how our AI agent performs in real calls",
+
+        // Features
+        featuresTitle: "What makes Syncall special",
+        feature1Stat: "1000+ calls/min",
+        heroLiveAnalysis: "Live call analysis",
+        voiceCloneMatch: "99.2% match",
+        feature1TagDialect: "Dialects",
+        feature1TagMix: "Language mix",
+        feature1TagSlang: "Slang",
+        feature1Title: "Live speech understanding",
+        feature1Desc: "AI understands all Uzbek dialects and free language mixing. The system recognizes slang, accents, and colloquial speech with 98% accuracy.",
+        feature2Title: "Natural conversation",
+        feature2Desc: "You can interrupt the bot — it will pause and listen. Thanks to Voice Isolation, the system ignores street noise and music, focusing only on the customer's voice.",
+        feature3Title: "Data security",
+        feature3Desc: "Deploy the system in Syncall's cloud or on your own servers (On-Premise). The ideal solution for companies with strict data security requirements.",
+        feature4Title: "Voice cloning",
+        feature4Desc: "We can create an exact digital copy of your best employee's voice. Your AI will sound familiar and professional to every customer.",
+        feature5Title: "Full control",
+        feature5Desc: "Ready-made integration with Delta M and other CRMs. Get detailed AI analysis of every call and automatic data updates in your system.",
+
+        // Numbers
+        numbersLabel: "Syncall AI in Numbers",
+        numbersTitle: "Accelerating Success with Syncall AI",
+        numbersStat1Value: "80%",
+        numbersStat1Label: "Average success rate of resolving customer issues",
+        numbersStat2Value: "-70%",
+        numbersStat2Label: "Decrease in customer support expenses",
+        numbersStat3Value: "94%",
+        numbersStat3Label: "Average CSAT after using Syncall",
+        numbersDesc: "Experience the power of automation with Syncall AI's advanced voice bots, transforming customer support, reducing costs, and driving unprecedented customer satisfaction.",
+        getStarted: "Get Started",
 
         // How
-        howTitle: "How it works",
-        howStep1Title: "Script development and approval",
-        howStep1Text: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-        howStep2Title: "Bot training",
-        howStep2Text: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-        howStep3Title: "Testing",
-        howStep3Text: "Run call simulations, validate edge cases, and measure latency.",
-        howStep4Title: "Telephony integration",
-        howStep4Text: "Deploy agents to live phone calls via your telephony setup.",
-
-        // Integrate
-        integrateTitle: "Integrate with any type of telephony",
-
-        // Tab
-        tabEfficiencyGains: "Efficiency Gains",
-        tabBetterCX: "Better CX",
-        tabCostSavings: "Cost Savings",
-        tabHappierAgents: "Happier Agents",
-        tabContent1Title: "AI saves agents up to 3h per day by handling routine tasks",
-        tabContent1Desc: "Automate repetitive workflows and let your team focus on high-value interactions",
-        tabContent2Title: "Deliver personalized experiences at scale with AI-powered insights",
-        tabContent2Desc: "Understand customer needs instantly and provide tailored solutions every time",
-        tabContent3Title: "Reduce operational costs by 40% while improving service quality",
-        tabContent3Desc: "Smart automation cuts overhead while maintaining exceptional customer satisfaction",
-        tabContent4Title: "Empower your team with AI tools that eliminate frustration",
-        tabContent4Desc: "Remove mundane tasks and give agents the tools they need to succeed",
+        howTitle: "Launch steps",
+        howStep1Title: "Case analysis and logic design",
+        howStep1Text: "We study your successful cases and request specifics. We create an interaction structure that sounds natural and 100% matches your business goals.",
+        howStep2Title: "Technical setup",
+        howStep2Text: "We adapt STT, LLM, and TTS models to your business. We train the neural network to understand accents, specific terms, and your dialogue context.",
+        howStep3Title: "Automated testing",
+        howStep3Text: "We simulate thousands of calls in minutes via a test bot. We guarantee accuracy and instant response.",
+        howStep4Title: "Launch to production",
+        howStep4Text: "We connect AI agents to your telephony. Now the system handles calls and all analytics go straight to your CRM.",
 
         // FAQ
         faqTitle: "Everything About Our Agents",
@@ -243,13 +273,13 @@ export const translations = {
         faqQ2: "Do you integrate with any type of telephony?",
         faqA2: "Absolutely. Our platform is built to integrate with any telephony system, including VoIP providers, PBX systems, and cloud-based solutions. We ensure smooth compatibility with your existing infrastructure, regardless of the provider or technology stack.",
         faqQ3: "What languages do you support?",
-        faqA3: "We currently support Uzbek, Russian, and English, with natural accent adaptation for each language. Our AI voice agents are trained to understand regional dialects and nuances, ensuring authentic and culturally appropriate conversations with your customers.",
+        faqA3: "We currently support Uzbek, Russian, and English, with natural accent adaptation for each language. Our AI voice agents are trained to understand regional dialects and nuances.",
         faqQ4: "How many calls can you make simultaneously?",
-        faqA4: "There are no limitations on our end—our AI infrastructure is designed to scale infinitely and handle any call volume. The only constraint would be your telephony provider's capacity. Our bots can process unlimited concurrent calls without performance degradation.",
+        faqA4: "There are no limitations on our end — our AI infrastructure is designed to scale infinitely and handle any call volume. The only constraint would be your telephony provider's capacity.",
         faqQ5: "Do you provide call analytics?",
-        faqA5: "Yes, we offer comprehensive real-time call analytics that give you deep insights into your call center operations. You can analyze conversation topics, sentiment, agent performance, customer pain points, and key metrics to continuously improve service quality and business outcomes.",
+        faqA5: "Yes, we offer comprehensive real-time call analytics that give you deep insights into your call center operations.",
         faqQ6: "Do you have a test period?",
-        faqA6: "Yes, we offer a complimentary trial to demonstrate the transformative impact on your call center. We'll train a custom AI agent tailored to your business needs, and you can test it free of charge for up to 1,000 calls. Experience firsthand how our technology can revolutionize your customer engagement.",
+        faqA6: "Yes, we offer a complimentary trial. We'll train a custom AI agent tailored to your business needs, and you can test it free of charge for up to 1,000 calls.",
 
         // Footer
         footerRights: "All rights reserved",
@@ -257,7 +287,7 @@ export const translations = {
 };
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('uz'); // Uzbek as default
+    const [language, setLanguage] = useState('ru');
 
     const t = (key) => {
         return translations[language][key] || key;

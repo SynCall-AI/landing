@@ -8,26 +8,10 @@ const How = () => {
     const { t } = useLanguage();
 
     const data = [
-        {
-            titleKey: "howStep1Title",
-            descriptionKey: "howStep1Text",
-            duration: [1,3]
-        },
-        {
-            titleKey: "howStep2Title",
-            descriptionKey: "howStep2Text",
-            duration: [1,3]
-        },
-        {
-            titleKey: "howStep3Title",
-            descriptionKey: "howStep3Text",
-            duration: [3,5]
-        },
-        {
-            titleKey: "howStep4Title",
-            descriptionKey: "howStep4Text",
-            duration: [1,2]
-        }
+        { titleKey: "howStep1Title", descriptionKey: "howStep1Text" },
+        { titleKey: "howStep2Title", descriptionKey: "howStep2Text" },
+        { titleKey: "howStep3Title", descriptionKey: "howStep3Text" },
+        { titleKey: "howStep4Title", descriptionKey: "howStep4Text" },
     ];
 
     const [{ y }] = useWindowScroll();
@@ -73,7 +57,7 @@ const How = () => {
                         key={idx}
                         title={t(i.titleKey)}
                         text={t(i.descriptionKey)}
-                        days={i.duration}
+
                         className={idx === activeIndex ? "current" : ""}
                     />
                 ))}

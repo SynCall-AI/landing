@@ -1,0 +1,494 @@
+.features-section {
+    background: var(--bg-primary);
+    padding: 120px 20px;
+    position: relative;
+}
+
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-header {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.features-heading {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, #fff 50%, rgba(17, 115, 252, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ---- Bento Grid ---- */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    gap: 16px;
+}
+
+/* Card base — glassmorphism with 3D perspective */
+.feature-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+                transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+                box-shadow 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: flex;
+    flex-direction: column;
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+.feature-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px) rotateX(2deg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(17, 115, 252, 0.08);
+}
+
+/* Row 2 layout */
+.fc-cloning { grid-column: span 1; }
+.fc-analytics { grid-column: span 2; }
+
+/* Visual area */
+.fc-visual {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+}
+
+/* Text area */
+.fc-text {
+    padding: 24px 28px 28px;
+}
+.fc-text h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+.fc-text p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ============================
+   Card 1: Dialects — STT pipeline
+   ============================ */
+.fc-dialects .fc-visual {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 100%);
+}
+.fc-stt-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 260px;
+}
+.fc-stt-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+.fc-stt-mic {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8B5CF6;
+    flex-shrink: 0;
+    animation: fc-mic-pulse 2s ease-in-out infinite;
+}
+@keyframes fc-mic-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+}
+.fc-stt-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 36px;
+    flex: 1;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+.fc-stt-bar {
+    width: 3px;
+    border-radius: 2px;
+    background: rgba(139, 92, 246, 0.45);
+    flex: 1;
+    max-width: 4px;
+}
+.fc-stt-process {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.fc-stt-detect {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    border-radius: 8px;
+}
+.fc-stt-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: #8B5CF6;
+}
+.fc-stt-conf {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: #4ADE80;
+}
+.fc-stt-tags {
+    display: flex;
+    gap: 6px;
+}
+.fc-dialect-tag {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 3px 8px;
+    border-radius: 6px;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+.fc-dialect-tag.active {
+    color: #8B5CF6;
+    border-color: rgba(139, 92, 246, 0.3);
+    background: rgba(139, 92, 246, 0.08);
+}
+.fc-dialects:hover .fc-dialect-tag {
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+/* ============================
+   Card 2: Natural conversation — interruption
+   ============================ */
+.fc-conversation .fc-visual {
+    background: linear-gradient(135deg, rgba(17, 115, 252, 0.08) 0%, rgba(17, 115, 252, 0.02) 100%);
+}
+.fc-convo-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 280px;
+}
+.fc-convo-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.fc-convo-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #1173FC, #8B5CF6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+.fc-convo-wave {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 40px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+.fc-convo-wave-user {
+    background: rgba(17, 115, 252, 0.12);
+    border-color: rgba(17, 115, 252, 0.2);
+}
+.fc-wave-bar {
+    width: 4px;
+    border-radius: 2px;
+    background: rgba(17, 115, 252, 0.6);
+    transition: opacity 0.3s ease;
+}
+.fc-wave-cut {
+    opacity: 0.15;
+    background: rgba(251, 191, 36, 0.4);
+}
+.fc-interrupt-badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: #FBBF24;
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 5px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+.fc-convo-user {
+    justify-content: flex-end;
+}
+.fc-noise-filter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: rgba(239, 68, 68, 0.85);
+    flex-shrink: 0;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* ============================
+   Card 3: Deploy — cloud + on-premise
+   ============================ */
+.fc-deploy .fc-visual {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.06) 0%, rgba(74, 222, 128, 0.01) 100%);
+}
+.fc-deploy-demo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+.fc-deploy-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.fc-deploy-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.fc-cloud-icon {
+    background: rgba(17, 115, 252, 0.08);
+    border: 1px solid rgba(17, 115, 252, 0.15);
+    color: rgba(17, 115, 252, 0.6);
+}
+.fc-server-icon {
+    background: rgba(74, 222, 128, 0.08);
+    border: 1px solid rgba(74, 222, 128, 0.15);
+    color: rgba(74, 222, 128, 0.6);
+}
+.fc-deploy:hover .fc-deploy-icon {
+    transform: scale(1.05);
+}
+.fc-deploy-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.fc-deploy-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.fc-deploy-divider span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ============================
+   Card 4: Voice cloning — waveform match
+   ============================ */
+.fc-cloning .fc-visual {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.06) 0%, rgba(236, 72, 153, 0.01) 100%);
+}
+.fc-clone-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.fc-clone-source,
+.fc-clone-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.fc-clone-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+.fc-clone-ai {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));
+    border-color: rgba(236, 72, 153, 0.25);
+    font-size: 11px;
+    font-weight: 700;
+    color: #EC4899;
+}
+.fc-clone-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 36px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+.fc-clone-wave-ai {
+    border-color: rgba(236, 72, 153, 0.15);
+    background: rgba(236, 72, 153, 0.05);
+}
+.fc-cw-bar {
+    width: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.25);
+}
+.fc-clone-wave-ai .fc-cw-bar {
+    background: rgba(236, 72, 153, 0.5);
+}
+.fc-clone-arrow {
+    color: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+.fc-clone-match {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: #4ADE80;
+    background: rgba(74, 222, 128, 0.1);
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+/* ============================
+   Card 5: Analytics + CRM — dashboard
+   ============================ */
+.fc-analytics .fc-visual {
+    background: linear-gradient(135deg, rgba(17, 115, 252, 0.08) 0%, rgba(17, 115, 252, 0.02) 100%);
+}
+.fc-dashboard-demo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 420px;
+}
+.fc-dash-chart {
+    flex: 1;
+}
+.fc-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100px;
+}
+.fc-chart-bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(180deg, rgba(17, 115, 252, 0.6) 0%, rgba(17, 115, 252, 0.15) 100%);
+    transition: background 0.3s ease;
+    min-width: 14px;
+}
+.fc-chart-bar.active {
+    background: linear-gradient(180deg, #1173FC 0%, rgba(17, 115, 252, 0.4) 100%);
+    box-shadow: 0 0 12px rgba(17, 115, 252, 0.3);
+}
+.fc-dash-crm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.fc-crm-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+.fc-analytics:hover .fc-crm-badge {
+    border-color: rgba(17, 115, 252, 0.2);
+}
+.fc-crm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1173FC;
+    flex-shrink: 0;
+}
+.fc-crm-dot-2 {
+    background: #8B5CF6;
+}
+.fc-crm-sync {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: #4ADE80;
+    padding: 0 4px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .fc-analytics { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .features-section { padding: 80px 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .fc-cloning, .fc-analytics { grid-column: span 1; }
+    .fc-visual { height: 180px; }
+}

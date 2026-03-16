@@ -1,115 +1,109 @@
-
-.agents-section {
+.faq-section {
     display: flex;
-    height: var(--app-height);
-    background-color: #000;
+    background: var(--bg-primary);
     color: white;
-    padding: 22px;
-    padding-top: 235px;
-    padding-bottom: 235px;
-    justify-content: space-between;
+    padding: 120px 20px;
+    justify-content: center;
+    gap: 80px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.agents-left {
-    font-size: 40px;
-    font-weight: 500;
+.faq-left h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
     line-height: 1.2;
+    position: sticky;
+    top: 120px;
+    letter-spacing: -0.03em;
 }
 
-.agents-right {
+.faq-right {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    flex: 1;
+    max-width: 600px;
 }
 
-.accordion-item {
-    border-bottom: 1px solid #333;
+.faq-item {
+    border-bottom: 1px solid var(--border-subtle);
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
-    padding-bottom: 22px;
-    padding-top: 22px;
+    padding: 24px 0;
 }
 
-.accordion-header {
+.faq-header {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     width: 100%;
-    flex: 1;
-    overflow: hidden;
-    font-size: 25px;
+    font-size: 1.05rem;
+    color: #fff;
+    gap: 16px;
+    align-items: flex-start;
+    line-height: 1.4;
+    transition: color 0.2s ease;
 }
 
+.faq-header:hover {
+    color: var(--accent-blue);
+}
 
-.accordion-content {
+.faq-answer {
     transform-origin: 0 0;
-    transition: .2s;
-    color: #90A4AE;
-    font-size: 20px;
-    line-height: 1.4;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
     height: 0;
     overflow: hidden;
-    font-weight: 500;
+    font-weight: 400;
 }
 
-.accordion-content.open{
+.faq-answer.open {
     height: auto;
-    margin-top: 22px;
+    margin-top: 16px;
+    padding-bottom: 12px;
 }
 
-.arrow {
+.faq-arrow {
     transition: transform 0.3s ease;
-    color: #1173FC;
+    color: var(--text-muted);
     transform-origin: center center;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
 }
 
-.arrow.open {
+.faq-arrow.open {
     transform: rotate(180deg);
 }
 
-@media (width < 500px) {
-    .agents-section{
+@media (max-width: 768px) {
+    .faq-section {
         flex-direction: column;
-        padding: 10px;
-        height: calc(var(--app-height) * 0.88);
-        justify-content: initial;
+        padding: 80px 20px;
+        gap: 40px;
     }
 
-    .agents-right {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 40px;
-    }
-
-    .agents-left h1{
-        font-size: 31px;
+    .faq-left h1 {
+        position: static;
         text-align: center;
     }
 
-    .accordion-header{
-        font-size: 20px;
-        font-weight: 500;
+    .faq-right {
+        max-width: 100%;
     }
 
-    .accordion-item{
-        padding-top: 16px;
-        padding-bottom: 16px;
+    .faq-header {
+        font-size: 1rem;
     }
 
-    .accordion-content{
-
-    }
-
-
-
-    .accordion-content.open{
-        margin-top: 16px;
+    .faq-item {
+        padding: 20px 0;
     }
 }

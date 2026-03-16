@@ -1,13 +1,14 @@
 .nav-main{
-    height: 100px;
+    height: 72px;
     width: 100%;
-    background: linear-gradient(#000 96%,transparent);
+    background: rgba(5, 5, 7, 0.8);
     display: flex;
-    padding: 20px 20px 40px;
+    padding: 0 24px;
+    align-items: center;
     position: fixed;
     z-index: 1000;
-    backdrop-filter: blur(50px);
-    box-shadow: 0 0 20px #000;
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .nav-bar{
@@ -139,12 +140,19 @@
 .nav-contact-button button{
     background: #1173FC;
     height: auto;
-    padding: 8px 20px;
+    padding: 10px 24px;
     white-space: nowrap;
     border: none;
     border-radius: 1000px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-contact-button button:hover {
+    background: #3B8FFF;
 }
 
 @media (width < 500px) {
