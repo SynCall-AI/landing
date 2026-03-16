@@ -67,7 +67,7 @@ const Hero = () => {
                     <div className="float-card-bar short" />
                     <div className="float-card-dot-row">
                         <span className="fcd green" />
-                        <span className="fcd-label">98.7% resolved</span>
+                        <span className="fcd-label">{t('feature1Stat')}</span>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ const Hero = () => {
                     </div>
                     <div className="float-card-dot-row">
                         <span className="fcd blue" />
-                        <span className="fcd-label">Live call analysis</span>
+                        <span className="fcd-label">{t('heroLiveAnalysis')}</span>
                     </div>
                 </div>
             </div>
