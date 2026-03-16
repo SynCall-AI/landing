@@ -14,16 +14,16 @@ export const translations = {
     uz: {
         // Navbar
         home: "Bosh sahifa",
-        features: "Imkoniyatlar",
-        howItWorks: "Qanday ishlaydi",
+        features: "Nega biz",
+        howItWorks: "Ishga tushirish bosqichlari",
         demo: "Demo",
         faq: "FAQ",
         contactSales: "Bog'lanish",
 
         // Hero
         heroBadge: "O'zbekiston uchun AI yechimlar",
-        heroTitle: "Call-markazingiz uchun AI ovozli agentlar",
-        heroSubtitle: "Sizning 24/7 AI koll-markazingiz. Tezroq, aqlliroq va arzonroq.",
+        heroTitle: "Sizning aqlli AI koll-markazingiz 24/7. Tezroq, sifatliroq, arzonroq.",
+        heroSubtitle: "O'zbek va rus tillarida qo'ng'iroqlarni bir zumda qayta ishlash. Katta xodimlar va o'qitish xarajatlarisiz rutinani avtomatlashtiring.",
         heroFeature1: "Ovozli agentlar",
         heroFeature2: "Chatbotlar",
         heroFeature3: "Har qanday telefoniya",
@@ -43,9 +43,10 @@ export const translations = {
         calllogSubtitle: "AI agentimiz real qo'ng'iroqlarda qanday ishlashini eshiting",
 
         // Features
-        featuresTitle: "Barcha kerakli imkoniyatlar va undan ko'proq...",
+        featuresTitle: "Syncall ni nima ajratib turadi",
         feature1Stat: "1000+ qo'ng'iroq/min",
         heroLiveAnalysis: "Jonli qo'ng'iroq tahlili",
+        voiceCloneMatch: "99.2% moslik",
         feature1TagDialect: "Lahja",
         feature1TagMix: "Aralash til",
         feature1TagSlang: "Sleng",
@@ -73,15 +74,15 @@ export const translations = {
         getStarted: "Boshlash",
 
         // How
-        howTitle: "Qanday ishlaydi",
-        howStep1Title: "Skript ishlab chiqish va tasdiqlash",
-        howStep1Text: "Qo'ng'iroq oqimlarini tuzing, muvofiqlikni ta'minlang va manfaatdor tomonlarning tasdig'ini oling.",
-        howStep2Title: "Bot o'qitish",
-        howStep2Text: "Qo'ng'iroq oqimlarini tuzing, muvofiqlikni ta'minlang va manfaatdor tomonlarning tasdig'ini oling.",
-        howStep3Title: "Sinov",
-        howStep3Text: "Qo'ng'iroq simulyatsiyalarini o'tkazing, chekka holatlarni tekshiring va kechikishni o'lchang.",
-        howStep4Title: "Telefoniya integratsiyasi",
-        howStep4Text: "Agentlarni telefoniya sozlamalari orqali jonli qo'ng'iroqlarga joylashtiring.",
+        howTitle: "Ishga tushirish bosqichlari",
+        howStep1Title: "Keyslarni tahlil qilish va mantiq loyihalash",
+        howStep1Text: "Muvaffaqiyatli keyslaringiz va so'rovlar xususiyatini o'rganamiz. Tabiiy jaranglagan va biznes vazifalaringizga 100% mos o'zaro ta'sir tuzilmasini yaratamiz.",
+        howStep2Title: "Texnik sozlash",
+        howStep2Text: "STT, LLM va TTS modellarini biznesingizga moslashtiramiz. Neyrotarmoqni aksentlar, maxsus atamalar va dialoglaringiz kontekstini tushunishga o'rgatamiz.",
+        howStep3Title: "Avtomatlashtirilgan sinov",
+        howStep3Text: "«Test-bot» orqali bir necha daqiqada minglab qo'ng'iroqlarni simulyatsiya qilamiz. Aniqlik va bir zumda javob berishni kafolatlaymiz.",
+        howStep4Title: "Prodakshnga chiqarish",
+        howStep4Text: "AI-agentlarni telefoniyangizga ulaymiz. Endi tizim qo'ng'iroqlarni qayta ishlaydi, barcha tahlillar to'g'ridan-to'g'ri CRM tizimingizga tushadi.",
 
         // FAQ
         faqTitle: "Agentlarimiz haqida hamma narsa",
@@ -104,7 +105,7 @@ export const translations = {
     ru: {
         // Navbar
         home: "Главная",
-        features: "Возможности",
+        features: "Почему мы",
         howItWorks: "Этапы запуска",
         demo: "Демо",
         faq: "FAQ",
@@ -133,9 +134,10 @@ export const translations = {
         calllogSubtitle: "Услышьте, как наш AI агент работает в реальных звонках",
 
         // Features
-        featuresTitle: "Все нужные функции и даже больше...",
+        featuresTitle: "Что делает Syncall особенным",
         feature1Stat: "1000+ звонков/мин",
         heroLiveAnalysis: "Анализ звонков",
+        voiceCloneMatch: "99.2% схожесть",
         feature1TagDialect: "Диалекты",
         feature1TagMix: "Микс языков",
         feature1TagSlang: "Сленг",
@@ -194,16 +196,16 @@ export const translations = {
     en: {
         // Navbar
         home: "Home",
-        features: "Features",
-        howItWorks: "How It Works",
+        features: "Why us",
+        howItWorks: "Launch steps",
         demo: "Demo",
         faq: "FAQ",
         contactSales: "Contact",
 
         // Hero
         heroBadge: "AI Solutions for Uzbekistan",
-        heroTitle: "Your 24/7 multilingual AI call center. Faster, smarter, and cheaper",
-        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine tasks without the costs of hiring and training a large team.",
+        heroTitle: "Your smart AI call center 24/7. Faster, better, cheaper.",
+        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine without the costs of a large staff and training.",
         heroFeature1: "Voice Agents",
         heroFeature2: "Chatbots",
         heroFeature3: "Any Telephony",
@@ -223,9 +225,10 @@ export const translations = {
         calllogSubtitle: "Hear how our AI agent performs in real calls",
 
         // Features
-        featuresTitle: "All the features you need and more...",
+        featuresTitle: "What makes Syncall special",
         feature1Stat: "1000+ calls/min",
         heroLiveAnalysis: "Live call analysis",
+        voiceCloneMatch: "99.2% match",
         feature1TagDialect: "Dialects",
         feature1TagMix: "Language mix",
         feature1TagSlang: "Slang",
@@ -253,15 +256,15 @@ export const translations = {
         getStarted: "Get Started",
 
         // How
-        howTitle: "How it works",
-        howStep1Title: "Script development and approval",
-        howStep1Text: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-        howStep2Title: "Bot training",
-        howStep2Text: "Draft call flows, ensure compliance, and secure stakeholder approval.",
-        howStep3Title: "Testing",
-        howStep3Text: "Run call simulations, validate edge cases, and measure latency.",
-        howStep4Title: "Telephony integration",
-        howStep4Text: "Deploy agents to live phone calls via your telephony setup.",
+        howTitle: "Launch steps",
+        howStep1Title: "Case analysis and logic design",
+        howStep1Text: "We study your successful cases and request specifics. We create an interaction structure that sounds natural and 100% matches your business goals.",
+        howStep2Title: "Technical setup",
+        howStep2Text: "We adapt STT, LLM, and TTS models to your business. We train the neural network to understand accents, specific terms, and your dialogue context.",
+        howStep3Title: "Automated testing",
+        howStep3Text: "We simulate thousands of calls in minutes via a test bot. We guarantee accuracy and instant response.",
+        howStep4Title: "Launch to production",
+        howStep4Text: "We connect AI agents to your telephony. Now the system handles calls and all analytics go straight to your CRM.",
 
         // FAQ
         faqTitle: "Everything About Our Agents",

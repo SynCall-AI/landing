@@ -166,7 +166,7 @@ const Features = () => {
                                         <div className="fc-cw-bar" style={{height: '40%'}} />
                                     </div>
                                 </div>
-                                <div className="fc-clone-match">99.2% match</div>
+                                <div className="fc-clone-match">{t('voiceCloneMatch')}</div>
                             </div>
                         </div>
                         <div className="fc-text">
