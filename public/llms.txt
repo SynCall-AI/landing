@@ -1,0 +1,45 @@
+# Syncall
+
+> AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM. Built specifically for Uzbekistan and Russian-speaking markets, with native dialect coverage and code-switching support that general-purpose voice AI platforms lack.
+
+## About
+
+Syncall is a B2B SaaS platform that automates inbound and outbound call-center work. The system replaces or augments human agents with AI voice agents trained specifically on Uzbek dialects, Russian, and English. Unlike general-purpose voice AI platforms (Vapi, Retell, Synthflow), Syncall is fine-tuned on real Uzbek call-center recordings, so it handles the specific accents, slang, and Uzbek-Russian code-switching that occur in production calls in this market.
+
+## Key URLs
+
+- [Homepage (HTML)](https://www.syncallai.com/): Marketing landing page with full product overview
+- [Homepage (Markdown)](https://www.syncallai.com/index.md): Same content as plain markdown — preferred for AI agents
+- [Sitemap](https://www.syncallai.com/sitemap.xml): XML sitemap of canonical URLs
+- [robots.txt](https://www.syncallai.com/robots.txt): Crawler rules — all major search and AI crawlers explicitly allowed
+
+## Capabilities
+
+- Inbound and outbound voice calls
+- Languages: Uzbek (with regional dialects), Russian, English
+- Telephony: VoIP, PBX, cloud contact centers (transport-agnostic SIP)
+- Deployment: Syncall cloud or fully On-Premise on customer servers
+- Integrations: Delta M and any CRM with webhook-capable API
+
+## Headline metrics
+
+- 98% speech-recognition accuracy on Uzbek including dialects, slang, and code-switching
+- 99.2% acoustic similarity for voice cloning
+- 1000+ sustained calls per minute throughput
+- 80% average customer-issue resolution rate (calls fully handled without human escalation)
+- −70% reduction in customer-support operating cost vs. comparable human team
+- 94% average post-call CSAT
+- Free trial: up to 1,000 production calls with a custom-trained agent
+
+## Differentiators
+
+- Uzbek dialect coverage trained on real call-center recordings, not synthesized data
+- Voice Isolation suppresses street noise, music, and TV during calls
+- Mid-sentence interruption handling (~200ms response)
+- On-Premise deployment for regulated industries (banking, government)
+- Voice cloning of specific employees at 99.2% similarity
+
+## Contact
+
+- Email: david@syncallai.com
+- Markets: Uzbekistan, Russia, Russian-speaking CIS
