@@ -1,4 +1,4 @@
-# robots.txt for Syncall (https://syncallai.com)
+# robots.txt for Syncall (https://www.syncallai.com)
 # RFC 9309 — https://www.rfc-editor.org/rfc/rfc9309
 
 # Default rule: allow all well-behaved crawlers full access.
@@ -60,4 +60,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://syncallai.com/sitemap.xml
+Sitemap: https://www.syncallai.com/sitemap.xml
