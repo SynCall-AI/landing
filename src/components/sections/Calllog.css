@@ -51,47 +51,134 @@
     backdrop-filter: blur(20px);
 }
 
-.demo-lang-selector {
+.demo-tracklist {
+    margin-top: 24px;
+    padding: 8px;
     display: flex;
-    gap: 8px;
-    margin-bottom: 28px;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 6px;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 14px;
-    width: fit-content;
 }
 
-.demo-lang-btn {
+.demo-track-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.demo-track-group-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
+    padding: 10px 14px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.demo-track-group-flag {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.demo-track-group-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.demo-track-group-count {
+    margin-left: auto;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0;
+}
+
+.demo-track-group-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.demo-track-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 12px 14px;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 14px;
     font-weight: 500;
+    text-align: left;
     cursor: pointer;
     border-radius: 10px;
-    transition: all 0.25s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-.demo-lang-btn:hover {
+.demo-track-item:hover {
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
-    background: rgba(255, 255, 255, 0.06);
 }
 
-.demo-lang-btn.active {
+.demo-track-item.active {
+    background: rgba(17, 115, 252, 0.12);
+    color: #fff;
+}
+
+.demo-track-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.demo-track-item.active .demo-track-icon {
     background: var(--accent-blue);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(17, 115, 252, 0.3);
+    box-shadow: 0 4px 12px rgba(17, 115, 252, 0.35);
 }
 
-.demo-flag {
-    font-size: 18px;
+.demo-track-bars {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
 }
 
-.demo-lang-name {
+.demo-track-bars span {
+    display: block;
+    width: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    animation: demo-bar 0.9s ease-in-out infinite;
+}
+
+.demo-track-bars span:nth-child(1) { height: 50%; animation-delay: 0s; }
+.demo-track-bars span:nth-child(2) { height: 100%; animation-delay: 0.15s; }
+.demo-track-bars span:nth-child(3) { height: 70%; animation-delay: 0.3s; }
+
+@keyframes demo-bar {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+}
+
+.demo-track-item-name {
+    flex: 1;
     font-weight: 600;
 }
 
@@ -181,14 +268,21 @@
         border-radius: 12px;
     }
 
-    .demo-lang-selector {
-        width: 100%;
+    .demo-tracklist {
+        margin-top: 20px;
     }
 
-    .demo-lang-btn {
-        flex: 1;
-        justify-content: center;
+    .demo-track-item {
         padding: 10px 12px;
+        gap: 12px;
+    }
+
+    .demo-track-item-name {
+        font-size: 13px;
+    }
+
+    .demo-track-group-header {
+        padding: 8px 12px 4px;
     }
 
     .demo-play-row {

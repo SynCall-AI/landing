@@ -37,8 +37,8 @@ const Navbar = () => {
             </div>
             <div className="nav-bar">
                 <a href="#home">{t('home')}</a>
-                <a href="#features">{t('features')}</a>
                 <a href="#demo">{t('demo')}</a>
+                <a href="#features">{t('features')}</a>
                 <a href="#how">{t('howItWorks')}</a>
                 <a href="#faq">{t('faq')}</a>
             </div>
