@@ -10,9 +10,19 @@ import {
     useAudioPlayer,
 } from "../ui/AudioPlayer";
 
+const UZ_FLAG = '\u{1F1FA}\u{1F1FF}';
+const RU_FLAG = '\u{1F1F7}\u{1F1FA}';
+
 const demoTracks = [
-    { id: 'uz', code: 'uz', name: "O'zbekcha", flag: '\u{1F1FA}\u{1F1FF}', src: '/demo_uz.wav' },
-    { id: 'ru', code: 'ru', name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: '\u{1F1F7}\u{1F1FA}', src: '/demo_ru.wav' },
+    { id: 'iman-uz', name: 'Iman', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/iman_prod_uz.wav' },
+    { id: 'unicon-uz', name: 'Unicon', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
+    { id: 'thompson-uz', name: 'Thompson', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
+    { id: 'thompson-ru', name: 'Thompson', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
+];
+
+const trackGroups = [
+    { code: 'UZ', label: "O'zbekcha", flag: UZ_FLAG, tracks: demoTracks.filter(t => t.langCode === 'UZ') },
+    { code: 'RU', label: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, tracks: demoTracks.filter(t => t.langCode === 'RU') },
 ];
 
 function DemoPlayerInner() {
@@ -20,26 +30,16 @@ function DemoPlayerInner() {
     const player = useAudioPlayer();
 
     const handleTrackChange = (track) => {
-        if (track.id === selectedTrack.id) return;
+        if (track.id === selectedTrack.id) {
+            player.isPlaying ? player.pause() : player.play(track);
+            return;
+        }
         setSelectedTrack(track);
         player.play(track);
     };
 
     return (
         <div className="demo-player-card">
-            <div className="demo-lang-selector">
-                {demoTracks.map((track) => (
-                    <button
-                        key={track.id}
-                        className={`demo-lang-btn ${selectedTrack.id === track.id ? 'active' : ''}`}
-                        onClick={() => handleTrackChange(track)}
-                    >
-                        <span className="demo-flag">{track.flag}</span>
-                        <span className="demo-lang-name">{track.name}</span>
-                    </button>
-                ))}
-            </div>
-
             <div className="demo-player">
                 <div className="demo-cover">
                     <img src="/al-cover.svg" alt="Syncall AI" />
@@ -48,8 +48,8 @@ function DemoPlayerInner() {
 
                 <div className="demo-controls">
                     <div className="demo-track-info">
-                        <span className="demo-track-name">Syncall AI Demo</span>
-                        <span className="demo-track-lang">{selectedTrack.flag} {selectedTrack.name}</span>
+                        <span className="demo-track-name">{selectedTrack.name}</span>
+                        <span className="demo-track-lang">{selectedTrack.flag} {selectedTrack.langLabel}</span>
                     </div>
 
                     <div className="demo-progress-row">
@@ -62,6 +62,47 @@ function DemoPlayerInner() {
                         <AudioPlayerButton item={selectedTrack} />
                     </div>
                 </div>
+            </div>
+
+            <div className="demo-tracklist">
+                {trackGroups.map((group) => (
+                    <div key={group.code} className="demo-track-group">
+                        <div className="demo-track-group-header">
+                            <span className="demo-track-group-flag">{group.flag}</span>
+                            <span className="demo-track-group-label">{group.label}</span>
+                            <span className="demo-track-group-count">{group.tracks.length}</span>
+                        </div>
+                        <ul className="demo-track-group-list" role="list">
+                            {group.tracks.map((track) => {
+                                const isActive = selectedTrack.id === track.id;
+                                const isPlaying = isActive && player.isPlaying;
+                                return (
+                                    <li key={track.id}>
+                                        <button
+                                            type="button"
+                                            className={`demo-track-item ${isActive ? 'active' : ''}`}
+                                            onClick={() => handleTrackChange(track)}
+                                            aria-label={`${isPlaying ? 'Pause' : 'Play'} ${track.name} ${track.langCode}`}
+                                        >
+                                            <span className={`demo-track-icon ${isPlaying ? 'playing' : ''}`}>
+                                                {isPlaying ? (
+                                                    <span className="demo-track-bars" aria-hidden="true">
+                                                        <span /><span /><span />
+                                                    </span>
+                                                ) : (
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                                                        <path d="M3 2 L10 6 L3 10 Z" fill="currentColor" />
+                                                    </svg>
+                                                )}
+                                            </span>
+                                            <span className="demo-track-item-name">{track.name}</span>
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                ))}
             </div>
         </div>
     );
