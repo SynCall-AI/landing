@@ -1,40 +1,15 @@
-import React, { useState, useEffect } from 'react';
 import "./Clients.css";
 import { useLanguage } from '../../context/LanguageContext';
 
 const Clients = () => {
     const { t } = useLanguage();
-    
-    // Dynamic theme state tracking
-    const [theme, setTheme] = useState(() => {
-        return document.documentElement.getAttribute('data-theme') || 'dark';
-    });
-
-    useEffect(() => {
-        const observer = new MutationObserver(() => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            setTheme(currentTheme);
-        });
-
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['data-theme'],
-        });
-
-        return () => observer.disconnect();
-    }, []);
 
     const partners = [
-        { name: 'Iman', logo: '/partners/iman.svg', white: true },
-        { 
-            name: 'Poytaxt Parking', 
-            logo: theme === 'light' ? '/partners/poytaxt_parking_light.svg' : '/partners/poytaxt_parking.svg', 
-            white: true,
-            poytaxt: true
-        },
-        { name: 'Unicon', logo: '/partners/unicon_logo.svg', white: true },
-        { name: 'Qwatt', logo: '/partners/qwatt_logo.webp', monochrome: true },
-        { name: 'Thompson', logo: '/partners/thompson.png', white: true },
+        { name: 'Iman', logo: '/partners/iman.svg', width: '150px' },
+        { name: 'Poytaxt Parking', logo: '/partners/poytaxt_parking_2.svg', width: '124px', height: '42px', maskSize: '124px auto' },
+        { name: 'Unicon', logo: '/partners/unicon_logo.svg', width: '220px' },
+        { name: 'Qwatt', logo: '/partners/qwatt_logo.webp', width: '126px' },
+        { name: 'Thompson', logo: '/partners/thompson.png', width: '124px' },
     ];
 
     return (
@@ -44,16 +19,16 @@ const Clients = () => {
                 <div className="partners-grid">
                     {partners.map((partner, index) => (
                         <div key={index} className="partner-item">
-                            <img 
-                                src={partner.logo} 
-                                alt={partner.name} 
-                                className={`partner-logo${
-                                    partner.poytaxt 
-                                        ? ' partner-logo-poytaxt' 
-                                        : (partner.monochrome 
-                                            ? ' partner-logo-monochrome' 
-                                            : (partner.white ? '' : ' partner-logo-invert'))
-                                }`} 
+                            <span
+                                className="partner-logo"
+                                role="img"
+                                aria-label={partner.name}
+                                style={{
+                                    '--partner-logo': `url("${partner.logo}")`,
+                                    '--partner-logo-width': partner.width,
+                                    '--partner-logo-height': partner.height,
+                                    '--partner-logo-mask-size': partner.maskSize,
+                                }}
                             />
                         </div>
                     ))}

@@ -183,6 +183,33 @@
     font-weight: 600;
 }
 
+.demo-incoming-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 999px;
+    line-height: 1;
+}
+
+.demo-track-item.active .demo-incoming-badge {
+    color: #15803d;
+}
+
+.demo-incoming-badge-lg {
+    margin-left: 10px;
+    padding: 3px 10px;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
 .demo-player {
     display: flex;
     gap: 28px;
