@@ -1,4 +1,4 @@
-.nav-main{
+.nav-main {
     height: 72px;
     width: 100%;
     background: rgba(5, 5, 7, 0.8);
@@ -8,34 +8,54 @@
     position: fixed;
     z-index: 1000;
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.nav-bar{
+:root[data-theme='light'] .nav-main {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 28px;
+    transition: filter 0.3s ease;
+}
+
+:root[data-theme='light'] .nav-logo img {
+    filter: invert(1);
+}
+
+.nav-bar {
     flex: 1;
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-.nav-bar a{
-    margin-left: 60px;
+.nav-bar a {
+    margin-left: 40px;
     text-decoration: none;
-    color: #fff;
+    color: var(--text-primary);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: all 0.2s ease;
 }
 
-.nav-contact-button{
-    display: flex;
-    justify-content: end;
-    align-items: center;
+.nav-bar a:hover {
+    color: var(--accent-blue);
+    opacity: 1;
 }
 
-.language-selector{
+.language-selector {
     display: flex;
     align-items: center;
-    margin-left: 60px;
+    margin-left: 40px;
     position: relative;
 }
 
@@ -44,8 +64,8 @@
     align-items: center;
     gap: 8px;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
     padding: 8px 14px;
     border-radius: 10px;
     font-weight: 500;
@@ -55,12 +75,12 @@
 }
 
 .language-toggle:hover {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-accent);
+    background: var(--bg-card-hover);
 }
 
 .language-toggle .flag {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .language-toggle .lang-code {
@@ -79,14 +99,14 @@
 .language-dropdown {
     position: absolute;
     top: calc(100% + 8px);
-    left: 0;
-    background: rgba(20, 20, 20, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
     border-radius: 12px;
     padding: 6px;
-    min-width: 160px;
+    min-width: 150px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-card);
     z-index: 1001;
     animation: dropdownFadeIn 0.15s ease;
 }
@@ -110,7 +130,7 @@
     padding: 10px 12px;
     background: transparent;
     border: none;
-    color: #fff;
+    color: var(--text-primary);
     font-size: 14px;
     cursor: pointer;
     border-radius: 8px;
@@ -118,27 +138,65 @@
 }
 
 .language-option:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-card-hover);
 }
 
 .language-option.active {
-    background: rgba(17, 115, 252, 0.2);
+    background: var(--border-accent);
+    color: var(--accent-blue);
 }
 
 .language-option .flag {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .language-option .lang-name {
     font-weight: 500;
 }
 
-.nav-contact-button a{
-    margin-left: 60px;
+/* Theme Toggle Button Style */
+.theme-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
 }
 
-.nav-contact-button button{
-    background: #1173FC;
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--border-accent);
+    background: var(--bg-card-hover);
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn svg {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle-btn:hover svg {
+    transform: rotate(15deg);
+}
+
+.nav-contact-button {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.nav-contact-button button {
+    background: var(--accent-blue);
     height: auto;
     padding: 10px 24px;
     white-space: nowrap;
@@ -152,20 +210,26 @@
 }
 
 .nav-contact-button button:hover {
-    background: #3B8FFF;
+    background: var(--accent-blue-light);
+    transform: translateY(-1px);
 }
 
-@media (width < 500px) {
-    .nav-bar{
+@media (max-width: 900px) {
+    .nav-bar {
         display: none;
     }
-
-    .nav-contact-button button{
-        display: none;
+    
+    .nav-main {
+        justify-content: space-between;
     }
+    
+    .language-selector {
+        margin-left: auto;
+    }
+}
 
-    .nav-main{
-        align-items: center;
-        justify-content: center;
+@media (max-width: 500px) {
+    .nav-contact-button {
+        display: none;
     }
 }
