@@ -38,7 +38,7 @@ const Features = () => {
                                 <div className="fc-stt-process">
                                     <div className="fc-stt-detect">
                                         <span className="fc-stt-label">STT</span>
-                                        <span className="fc-stt-conf">98.7%</span>
+                                        <span className="fc-stt-conf">95.7%</span>
                                     </div>
                                 </div>
                                 <div className="fc-stt-tags">

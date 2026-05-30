@@ -13,9 +13,12 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Dynamic light/dark theme state
+    // Dynamic light/dark theme state.
+    // Explicit user choice (localStorage) wins; otherwise follow the OS preference.
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'dark';
+        const stored = localStorage.getItem('theme');
+        if (stored) return stored;
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     });
 
     const currentLang = languages.find(l => l.code === language);
@@ -30,11 +33,24 @@ const Navbar = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Apply theme attribute to html tag and persist it
+    // Reflect the current theme on the <html> tag (does NOT persist —
+    // we only persist on an explicit user toggle, so the OS preference
+    // keeps being followed until the user actually chooses).
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
     }, [theme]);
+
+    // Live-follow the OS preference until the user makes an explicit choice.
+    useEffect(() => {
+        const mq = window.matchMedia('(prefers-color-scheme: light)');
+        const handleOSChange = (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'light' : 'dark');
+            }
+        };
+        mq.addEventListener('change', handleOSChange);
+        return () => mq.removeEventListener('change', handleOSChange);
+    }, []);
 
     const handleLanguageSelect = (code) => {
         setLanguage(code);
@@ -42,7 +58,11 @@ const Navbar = () => {
     };
 
     const toggleTheme = () => {
-        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+        setTheme(prev => {
+            const next = prev === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next); // persist only on explicit choice
+            return next;
+        });
     };
 
     return (
@@ -111,7 +131,7 @@ const Navbar = () => {
             </div>
 
             <div className="nav-contact-button">
-                <a href="mailto:david@syncallai.com"><button>{t('contactSales')}</button></a>
+                <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button>{t('contactSales')}</button></a>
             </div>
         </div>
     );

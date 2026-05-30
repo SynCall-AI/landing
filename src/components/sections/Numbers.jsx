@@ -32,7 +32,7 @@ const Numbers = () => {
 
                 <div className="numbers-footer">
                     <p className="numbers-desc">{t('numbersDesc')}</p>
-                    <a href="mailto:david@syncallai.com" className="numbers-cta">
+                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="numbers-cta">
                         <button className="btn-primary numbers-btn">
                             {t('getStarted')} <span className="arrow-icon">&rarr;</span>
                         </button>

@@ -15,11 +15,11 @@ const RU_FLAG = '\u{1F1F7}\u{1F1FA}';
 
 const demoTracks = [
     { id: 'iman-uz', name: 'Iman', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/iman_prod_uz.wav' },
-    { id: 'unicon-uz', name: 'Unicon', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
-    { id: 'poytaxt-uz', name: 'Poytaxt', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/1_poytaxt_uz_incoming.wav', direction: 'incoming' },
-    { id: 'thompson-uz', name: 'Thompson', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
-    { id: 'poytaxt-ru', name: 'Poytaxt', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/3_poytaxt_ru_incoming.wav', direction: 'incoming' },
-    { id: 'thompson-ru', name: 'Thompson', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
+    { id: 'unicon-uz', name: 'UNICON.UZ', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
+    { id: 'poytaxt-uz', name: 'Poytaxt Parking', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/1_poytaxt_uz_incoming.wav', direction: 'incoming' },
+    { id: 'thompson-uz', name: 'Thompson School', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
+    { id: 'poytaxt-ru', name: 'Poytaxt Parking', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/3_poytaxt_ru_incoming.wav', direction: 'incoming' },
+    { id: 'thompson-ru', name: 'Thompson School', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
 ];
 
 const trackGroups = [

@@ -20,7 +20,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-bottom">
                     <span>&copy; 2025 SynCall AI. All rights reserved.</span>
-                    <a href="mailto:david@syncallai.com">david@syncallai.com</a>
+                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">@syncall_ai</a>
                 </div>
             </div>
         </footer>

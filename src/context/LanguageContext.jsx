@@ -63,7 +63,7 @@ export const translations = {
         feature1TagMix: "Aralash til",
         feature1TagSlang: "Sleng",
         feature1Title: "Jonli o'zbek nutqini tushunish",
-        feature1Desc: "AI o'zbek tilining barcha lahjalarini va tillarning erkin aralashmasini tushunadi. Tizim murakkab so'zlashuv nutqi, sleng va aksentlarni 98% aniqlik bilan anglaydi.",
+        feature1Desc: "AI o'zbek tilining barcha lahjalarini va tillarning erkin aralashmasini tushunadi. Tizim murakkab so'zlashuv nutqi, sleng va aksentlarni 96% aniqlik bilan anglaydi.",
         feature2Title: "Tabiiy muloqot va shovqin izolyatsiyasi",
         feature2Desc: "Robotni istalgan vaqtda bo'lish mumkin — u darhol jim bo'ladi va tinglaydi. Shovqinni to'suvchi Voice Isolation texnologiyasi bilan har qanday ko'cha shovqinida ham mijoz ovozini aniq ajratib oladi.",
         feature3Title: "Ma'lumotlar to'liq xavfsizligi",
@@ -82,7 +82,7 @@ export const translations = {
         numbersStat2Label: "Koll-markaz operatsion xarajatlarining kamayishi",
         numbersStat3Value: "94%",
         numbersStat3Label: "Mijozlarning umumiy qoniqish ko'rsatkichi (CSAT)",
-        numbersDesc: "Syncall AI ning ilg'or bilingval ovozli agentlari bilan operatsiyalaringizni avtomatlashtiring — mijozlarga xizmat ko'rsatish sifatini yangi bosqichga olib chiqing va xarajatlarni tejang.",
+        numbersDesc: "Syncall AI ning ilg'or ovozli agentlari bilan avtomatlashtirish kuchini his eting — mijozlarga xizmat ko'rsatishni o'zgartiring, xarajatlarni kamaytiring va mijozlar mamnuniyatini oshiring.",
         getStarted: "Boshlash",
 
         // How
@@ -147,7 +147,7 @@ export const translations = {
 
         // Visual Engine Pipeline
         engineTitle: "Технологический Стек Голосового Движка Syncall",
-        engineSubtitle: "Сквозной автоматизированный цикл обработки звонка: от аудиопотока до генерации ответа брендовым голосом",
+        engineSubtitle: "Автоматизированный цикл обработки звонка: от аудиопотока до генерации ответа бренд войсом",
         engineCard1Title: "1. Двусторонний аудиопоток",
         engineCard1Desc: "Приём входящего или осуществление исходящего звонка. Встроенная технология Voice Isolation мгновенно фильтрует фоновые шумы и музыку.",
         engineCard2Title: "2. Распознавание и Анализ (STT & NLU)",
@@ -166,7 +166,7 @@ export const translations = {
         feature1TagMix: "Микс языков",
         feature1TagSlang: "Сленг",
         feature1Title: "Понимание живой узбекской и русской речи",
-        feature1Desc: "ИИ понимает все диалекты узбекского и свободное смешивание языков (узб/рус). Система распознаёт разговорную речь, сленг и акценты с точностью до 98%.",
+        feature1Desc: "ИИ понимает все диалекты узбекского и свободное смешивание языков (узб/рус). Система распознаёт разговорную речь, сленг и акценты с точностью до 96%.",
         feature2Title: "Естественный диалог и шумоподавление",
         feature2Desc: "Робота можно перебивать в любой момент — он мгновенно замолкает и слушает. Благодаря встроенной Voice Isolation, ИИ игнорирует уличный шум, концентрируясь только на голосе клиента.",
         feature3Title: "Абсолютная безопасность данных",
@@ -185,7 +185,7 @@ export const translations = {
         numbersStat2Label: "Снижение расходов на поддержку клиентов",
         numbersStat3Value: "94%",
         numbersStat3Label: "Средний показатель CSAT после внедрения Syncall",
-        numbersDesc: "Ощутите силу автоматизации с умными двуязычными голосовыми агентами Syncall AI — трансформируйте поддержку, сокращайте издержки и повышайте лояльность клиентов.",
+        numbersDesc: "Ощутите силу автоматизации с продвинутыми голосовыми агентами Syncall AI — трансформируйте клиентскую поддержку, снизьте затраты и повысьте удовлетворённость клиентов.",
         getStarted: "Начать",
 
         // How
@@ -269,7 +269,7 @@ export const translations = {
         feature1TagMix: "Language mix",
         feature1TagSlang: "Slang",
         feature1Title: "Native speech understanding",
-        feature1Desc: "Our AI understands all Uzbek dialects and free bilingual mixing (Uzbek/Russian). It parses slang, accent variations, and colloquialisms with 98% accuracy.",
+        feature1Desc: "Our AI understands all Uzbek dialects and free bilingual mixing (Uzbek/Russian). It parses slang, accent variations, and colloquialisms with 96% accuracy.",
         feature2Title: "Natural conversation and interruption handling",
         feature2Desc: "Customers can interrupt the AI agent at any point — it immediately stops speaking to listen. Armed with Voice Isolation, it filters street noises to focus solely on the user.",
         feature3Title: "Enterprise-grade data security",
@@ -288,7 +288,7 @@ export const translations = {
         numbersStat2Label: "Reduction in customer support operational overhead",
         numbersStat3Value: "94%",
         numbersStat3Label: "Average Customer Satisfaction (CSAT) rating after implementation",
-        numbersDesc: "Leverage automation with Syncall AI's advanced bilingual voice agents — transform customer support, slice expenses, and drive customer satisfaction.",
+        numbersDesc: "Leverage the power of automation with Syncall AI's advanced voice agents — transform customer support, cut costs, and boost customer satisfaction.",
         getStarted: "Get Started",
 
         // How

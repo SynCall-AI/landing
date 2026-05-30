@@ -5,74 +5,82 @@ import { useLanguage } from '../../context/LanguageContext';
 const TalkBot = () => {
     const { language, t } = useLanguage();
     const [activeStep, setActiveStep] = useState(0);
+    const [typedReply, setTypedReply] = useState("");
 
     const dialogs = {
         uz: {
-            customer: "Alo, assalomu alaykum! Buyurtma holatini tekshirmoqchi edim, raqami #5894",
-            bot: "Va alaykum assalom! Albatta, buyurtmangiz #5894 muvaffaqiyatli yetkazildi."
+            customer: "Alo, ha, eshitaman.",
+            bot: "Assalomu alaykum, Dilshod! Bu Syncall banki. Eslatma: #5894 kredit bo'yicha 1 250 000 so'm to'lovni ertaga, 30-mayga qadar amalga oshirishingiz kerak. Hozir karta orqali to'laymizmi?"
         },
         ru: {
-            customer: "Алло, здравствуйте! Я хотел бы проверить статус заказа №5894",
-            bot: "Здравствуйте! Конечно, ваш заказ №5894 успешно доставлен."
+            customer: "Алло, да, слушаю.",
+            bot: "Здравствуйте, Дмитрий! Это банк Syncall. Напоминаю: платёж 1 250 000 сум по кредиту №5894 нужно внести до завтра, 30 мая. Хотите оплатить картой прямо сейчас?"
         },
         en: {
-            customer: "Hello! I would like to check the status of my order #5894",
-            bot: "Hello! Sure, your order #5894 has been successfully delivered."
+            customer: "Hello, yes, I'm listening.",
+            bot: "Hello, David! This is Syncall Bank. A reminder: your payment of 1,250,000 UZS on loan #5894 is due tomorrow, May 30. Would you like to pay by card right now?"
         }
     };
 
     const stepTitles = {
         uz: [
-            { 
-                title: "Лид импорт қилиш (Excel/API)", 
-                badge: "Лид Триггери", 
-                metric: "Тескор", 
-                desc: "Маълумотлар базасидан янги буюртма автоматик равишда қўнғироқни бошлайди.",
-                log: "[SYS] Manba: Excel | Yuklangan qatorlar: 150"
+            {
+                title: "Lidlarni import qilish (Excel/API)",
+                badge: "Lid Triggeri",
+                metric: "Tezkor",
+                desc: "Qarzdorlar bazasidan ro'yxat avtomatik tarzda chiquvchi qo'ng'iroqni boshlaydi.",
+                log: "[SYS] Manba: CRM | Yuklangan qatorlar: 150"
             },
-            { 
-                title: "VoIP/SIP алоқаси фаоллашиши", 
-                badge: "SIP PBX Уланиш", 
-                metric: "Уланиш", 
-                desc: "Корпоратив телефония билан тўғридан-тўғри хавфсиз алоқа ўрнатилади.",
+            {
+                title: "VoIP/SIP aloqasi faollashishi",
+                badge: "SIP PBX Ulanish",
+                metric: "Ulanish",
+                desc: "Korporativ telefoniya bilan to'g'ridan-to'g'ri xavfsiz aloqa o'rnatiladi.",
                 log: "[SYS] SIP Kanal Himoyalangan | Shifrlash: SRTP"
             },
-            { 
-                title: "Шовқинни тўсиш (Voice Isolation)", 
-                badge: "Шовқин Филтри", 
-                metric: "< 15 мс", 
-                desc: "Нейротармоқ мижоз атрофидаги кўча шовқини ва мусиқаларни тўлиқ филтрлайди.",
+            {
+                title: "Shovqinni to'sish (Voice Isolation)",
+                badge: "Shovqin Filtri",
+                metric: "< 15 ms",
+                desc: "Neyrotarmoq mijoz atrofidagi ko'cha shovqini va musiqalarni to'liq filtrlaydi.",
                 log: "[SYS] Shovqinni to'sish | Shovqin darajasi: -35dB"
             },
-            { 
-                title: "Nutqni matnga o'tkazish (STT)", 
-                badge: "STT Движок", 
-                metric: "< 100 мс", 
-                desc: "Айтилган овозли нутқ лаҳжа ва аралаш тиллар билан биргаликда матнга ўтказилади.",
-                log: "[SYS] Til: Uzb/Rus | Aniqlik darajasi: 98.7%"
+            {
+                title: "Nutqni matnga o'tkazish (STT)",
+                badge: "STT Mexanizmi",
+                metric: "< 100 ms",
+                desc: "Aytilgan ovozli nutq lahja va aralash tillar bilan birgalikda matnga o'tkaziladi.",
+                log: "[SYS] Til: Uzb/Rus | Aniqlik darajasi: 95.7%"
             },
-            { 
-                title: "LLM фикрлаш ва CRM интеграцияси", 
-                badge: "NLU Мия", 
-                metric: "< 500 мс", 
-                desc: "ИИ Delta M ва CRM тизимидан буюртма ҳолатини хавфсиз текширади.",
-                log: "[SYS] Baza: Delta M | Buyurtma holati: YETKAZILDI"
+            {
+                title: "CRM so'rovi (Delta M)",
+                badge: "CRM Sinxronizatsiya",
+                metric: "< 200 ms",
+                desc: "CRM dan to'lov summasi, muddati va holati xavfsiz olinadi.",
+                log: "[SYS] Baza: Delta M | Kredit #5894 | Holat: TO'LANADI"
             },
-            { 
-                title: "Табиий овозли синтез (TTS)", 
-                badge: "TTS Нейротармоқ", 
-                metric: "< 200 мс", 
-                desc: "Энг яхши операторингиз овози клонида табиий, равон жавоб синтез қилинади.",
+            {
+                title: "Javob generatsiyasi (LLM)",
+                badge: "NLU Miya",
+                metric: "< 500 ms",
+                desc: "Til modeli CRM ma'lumotlari asosida shaxsiy javobni shakllantiradi.",
+                log: "[SYS] Model: NLU Core | Tokenlar: 52 | Kontekst: #5894"
+            },
+            {
+                title: "Tabiiy ovozli sintez (TTS)",
+                badge: "TTS Neyrotarmoq",
+                metric: "< 200 ms",
+                desc: "Eng yaxshi operatoringiz ovozi klonida tabiiy, ravon javob sintez qilinadi.",
                 log: "[SYS] Sintez: WaveNet | Chastota: 24kHz"
             }
         ],
         ru: [
-            { 
-                title: "Импорт лидов (API / Excel)", 
-                badge: "Триггер лидов", 
-                metric: "Мгновенно", 
-                desc: "Синхронизация базы данных мгновенно запускает автоматический обзвон.",
-                log: "[SYS] Источник: Excel | Записей загружено: 150"
+            {
+                title: "Импорт лидов (API / Excel)",
+                badge: "Триггер лидов",
+                metric: "Мгновенно",
+                desc: "Синхронизация базы должников мгновенно запускает исходящий обзвон.",
+                log: "[SYS] Источник: CRM | Записей загружено: 150"
             },
             { 
                 title: "Телефония (SIP / VoIP)", 
@@ -92,31 +100,38 @@ const TalkBot = () => {
                 title: "Распознавание речи (STT)", 
                 badge: "STT Движок", 
                 metric: "< 100 мс", 
-                desc: "Двуязычная речь (рус/узб) с учетом диалектов переводится в текст с точностью 98%.",
-                log: "[SYS] Язык: Узб/Рус | Точность распознавания: 98.7%"
+                desc: "Двуязычная речь (рус/узб) с учетом диалектов переводится в текст с точностью 95.7%.",
+                log: "[SYS] Язык: Узб/Рус | Точность распознавания: 95.7%"
             },
-            { 
-                title: "Интеграция с CRM и Delta M", 
-                badge: "ИИ Синхронизация", 
-                metric: "< 500 мс", 
-                desc: "Безопасный запрос в CRM/Delta M для моментальной проверки статуса заказа.",
-                log: "[SYS] База данных: Delta M | Статус: Доставлено"
+            {
+                title: "Запрос в CRM (Delta M)",
+                badge: "Синхронизация CRM",
+                metric: "< 200 мс",
+                desc: "Безопасный запрос в CRM извлекает сумму, срок и статус платежа.",
+                log: "[SYS] База данных: Delta M | Кредит №5894 | Статус: К ОПЛАТЕ"
             },
-            { 
-                title: "Синтез голоса (TTS)", 
-                badge: "Клон оператора", 
+            {
+                title: "Генерация ответа (LLM)",
+                badge: "NLU Мозг",
+                metric: "< 500 мс",
+                desc: "Языковая модель формирует персональный ответ на основе данных из CRM.",
+                log: "[SYS] Модель: NLU Core | Токенов: 52 | Контекст: Кредит #5894"
+            },
+            {
+                title: "Синтез голоса (TTS)",
+                badge: "Клон оператора",
                 metric: "< 200 мс", 
                 desc: "Генерация ответа цифровым клоном вашего лучшего оператора без задержек.",
                 log: "[SYS] Вокал: WaveNet | Дискретизация: 24кГц"
             }
         ],
         en: [
-            { 
-                title: "Lead Ingest (API / Excel)", 
-                badge: "Lead Trigger", 
-                metric: "Instant", 
-                desc: "Database lead trigger automatically launches the outbound system.",
-                log: "[SYS] Source: Excel File | Columns: Phone, Name, Order"
+            {
+                title: "Lead Ingest (API / Excel)",
+                badge: "Lead Trigger",
+                metric: "Instant",
+                desc: "Debtor database trigger automatically launches the outbound campaign.",
+                log: "[SYS] Source: CRM | Records: 150 debtors"
             },
             { 
                 title: "SIP / PBX Connection", 
@@ -136,19 +151,26 @@ const TalkBot = () => {
                 title: "Bilingual STT", 
                 badge: "STT Engine", 
                 metric: "< 100 ms", 
-                desc: "Bilingual Speech-to-Text instantly transcribes spoken audio into structured text.",
-                log: "[SYS] Language: Bilingual | Accent Confidence: 99.4%"
+                desc: "Bilingual Speech-to-Text instantly transcribes spoken audio into structured text with 95.7% accuracy.",
+                log: "[SYS] Language: Bilingual | Accent Confidence: 95.7%"
             },
-            { 
-                title: "LLM & CRM Database Sync", 
-                badge: "NLU Orchestrator", 
-                metric: "< 500 ms", 
-                desc: "Delta M / CRM secure database query determines client order status.",
-                log: "[SYS] DB Query: Success | Record Status: DELIVERED"
+            {
+                title: "CRM Query (Delta M)",
+                badge: "CRM Sync",
+                metric: "< 200 ms",
+                desc: "Secure CRM query retrieves the payment amount, due date and status.",
+                log: "[SYS] DB Query: Success | Loan #5894 | Status: DUE"
             },
-            { 
-                title: "Neural Voice Synthesis (TTS)", 
-                badge: "Operator Clone", 
+            {
+                title: "LLM Response Generation",
+                badge: "NLU Brain",
+                metric: "< 500 ms",
+                desc: "Language model composes a personalized reply grounded in CRM data.",
+                log: "[SYS] Model: NLU Core | Tokens: 52 | Context: Loan #5894"
+            },
+            {
+                title: "Neural Voice Synthesis (TTS)",
+                badge: "Operator Clone",
                 metric: "< 200 ms", 
                 desc: "High-fidelity digital operator clone synthesizes naturally flowing response.",
                 log: "[SYS] Synthesis: WaveNet | Sample Rate: 24kHz"
@@ -169,13 +191,13 @@ const TalkBot = () => {
     }));
 
     useEffect(() => {
-        const timings = [1800, 1800, 3800, 1800, 2200, 4200];
-        
+        const timings = [1800, 1800, 3800, 1800, 2400, 3200, 4200];
+
         let timer;
         const runLoop = (step) => {
             setActiveStep(step);
             timer = setTimeout(() => {
-                const nextStep = (step + 1) % 6;
+                const nextStep = (step + 1) % timings.length;
                 runLoop(nextStep);
             }, timings[step]);
         };
@@ -185,8 +207,24 @@ const TalkBot = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    // Typewriter for the LLM generation step (types the reply char-by-char, line by line)
+    useEffect(() => {
+        if (activeStep !== 5) {
+            setTypedReply("");
+            return;
+        }
+        const full = currentDialog.bot;
+        let i = 0;
+        const id = setInterval(() => {
+            i += 1;
+            setTypedReply(full.slice(0, i));
+            if (i >= full.length) clearInterval(id);
+        }, 16);
+        return () => clearInterval(id);
+    }, [activeStep, currentDialog.bot]);
+
     return (
-        <div id="how" className="talkbot-section">
+        <div id="engine" className="talkbot-section">
             <div className="talkbot-glow talkbot-glow-1" />
             <div className="talkbot-glow talkbot-glow-2" />
 
@@ -204,12 +242,13 @@ const TalkBot = () => {
                             <div className="header-status">
                                 <span className={`status-dot ${activeStep >= 1 ? "active" : ""}`} />
                                 <span className="status-text">
-                                    {activeStep === 0 && (language === "uz" ? "ЛИД ЮКЛАНМОҚДА..." : language === "ru" ? "ИМПОРТ ЛИДА..." : "TRIGGERING OUTBOUND LEAD...")}
-                                    {activeStep === 1 && (language === "uz" ? "ҚЎНҒИРОҚ УЛАНМОҚДА..." : language === "ru" ? "НАБОР НОМЕРА..." : "DIALING SIP CONNECTION...")}
-                                    {activeStep === 2 && (language === "uz" ? "МИЖОЗ ГАПИРМОҚДА..." : language === "ru" ? "ГОВОРИТ КЛИЕНТ..." : "CUSTOMER SPEAKING...")}
-                                    {activeStep === 3 && (language === "uz" ? "STT МАТНГА ЎТКАЗИШ..." : language === "ru" ? "STT РАСПОЗНАВАНИЕ РЕЧИ..." : "STT TEXT CONVERSION...")}
-                                    {activeStep === 4 && (language === "uz" ? "ИИ ФИКРЛАШ ВА CRM ҚИДИРУВ..." : language === "ru" ? "ИИ ПОИСК В CRM..." : "AI THINKING & CRM SEARCH...")}
-                                    {activeStep >= 5 && (language === "uz" ? "ИИ ЖАВОБ ҚАЙТАРМОҚДА..." : language === "ru" ? "ИИ ОТВЕЧАЕТ..." : "AI VOICE RESPONDING...")}
+                                    {activeStep === 0 && (language === "uz" ? "BAZA YUKLANMOQDA..." : language === "ru" ? "ИМПОРТ БАЗЫ..." : "TRIGGERING OUTBOUND LEAD...")}
+                                    {activeStep === 1 && (language === "uz" ? "QO'NG'IROQ ULANMOQDA..." : language === "ru" ? "НАБОР НОМЕРА..." : "DIALING SIP CONNECTION...")}
+                                    {activeStep === 2 && (language === "uz" ? "MIJOZ GAPIRMOQDA..." : language === "ru" ? "ГОВОРИТ КЛИЕНТ..." : "CUSTOMER SPEAKING...")}
+                                    {activeStep === 3 && (language === "uz" ? "STT MATNGA O'TKAZISH..." : language === "ru" ? "STT РАСПОЗНАВАНИЕ РЕЧИ..." : "STT TEXT CONVERSION...")}
+                                    {activeStep === 4 && (language === "uz" ? "CRM SO'ROVI..." : language === "ru" ? "ЗАПРОС В CRM..." : "CRM LOOKUP...")}
+                                    {activeStep === 5 && (language === "uz" ? "AI JAVOB YARATMOQDA..." : language === "ru" ? "ИИ ГЕНЕРИРУЕТ ОТВЕТ..." : "LLM GENERATING RESPONSE...")}
+                                    {activeStep >= 6 && (language === "uz" ? "AI JAVOB QAYTARMOQDA..." : language === "ru" ? "ИИ ОТВЕЧАЕТ..." : "AI VOICE RESPONDING...")}
                                 </span>
                             </div>
                             <div className="terminal-controls">
@@ -251,13 +290,13 @@ const TalkBot = () => {
                                     <div className={`dialog-bubble customer ${activeStep >= 2 ? "active" : ""}`}>
                                         <div className="bubble-avatar">👤</div>
                                         <div className="bubble-text-wrapper">
-                                            <span className="bubble-author">{language === "uz" ? "Мижоз" : language === "ru" ? "Клиент" : "Customer"}</span>
+                                            <span className="bubble-author">{language === "uz" ? "Mijoz" : language === "ru" ? "Клиент" : "Customer"}</span>
                                             <p className="bubble-text">{currentDialog.customer}</p>
                                             {activeStep === 2 && (
                                                 <div className="noise-wave-container">
                                                     <div className="noise-line static" />
                                                     <div className="noise-line isolated" />
-                                                    <span className="noise-tag">{language === "uz" ? "Шовқин филтрланди (15мс)" : language === "ru" ? "Шум подавлен (15мс)" : "Voice Isolated (15ms)"}</span>
+                                                    <span className="noise-tag">{language === "uz" ? "Shovqin filtrlandi (15ms)" : language === "ru" ? "Шум подавлен (15мс)" : "Voice Isolated (15ms)"}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -271,32 +310,59 @@ const TalkBot = () => {
                                         </div>
                                     )}
 
-                                    {/* Database lookup / AI thinking */}
+                                    {/* CRM lookup */}
                                     {activeStep === 4 && (
                                         <div className="crm-search-visual fade-in-up">
                                             <div className="crm-table">
                                                 <div className="crm-header-row">
-                                                    <span>Delta M DB Field</span>
-                                                    <span>Record</span>
+                                                    <span>CRM · Delta M</span>
+                                                    <span>{language === "uz" ? "Yozuv" : language === "ru" ? "Запись" : "Record"}</span>
                                                 </div>
                                                 <div className="crm-row">
-                                                    <span>Client Code</span>
+                                                    <span>{language === "uz" ? "Kredit №" : language === "ru" ? "Кредит №" : "Loan ID"}</span>
                                                     <span>#5894</span>
                                                 </div>
                                                 <div className="crm-row">
-                                                    <span>Order Status</span>
-                                                    <span className="status-delivered">{language === "uz" ? "ЕТКАЗИЛДИ" : language === "ru" ? "ДОСТАВЛЕН" : "DELIVERED"}</span>
+                                                    <span>{language === "uz" ? "Summa" : language === "ru" ? "Сумма" : "Amount due"}</span>
+                                                    <span>{language === "en" ? "1,250,000 UZS" : language === "uz" ? "1 250 000 so'm" : "1 250 000 сум"}</span>
+                                                </div>
+                                                <div className="crm-row">
+                                                    <span>{language === "uz" ? "Muddat" : language === "ru" ? "Срок" : "Due date"}</span>
+                                                    <span>{language === "uz" ? "30-may" : language === "ru" ? "30 мая" : "May 30"}</span>
+                                                </div>
+                                                <div className="crm-row">
+                                                    <span>{language === "uz" ? "Holat" : language === "ru" ? "Статус" : "Status"}</span>
+                                                    <span className="status-due">{language === "uz" ? "TO'LANADI" : language === "ru" ? "К ОПЛАТЕ" : "DUE"}</span>
                                                 </div>
                                             </div>
                                             <div className="brain-pulse-container">
                                                 <div className="brain-pulse" />
-                                                🧠 NLU SECURE SYNC
+                                                🔒 SECURE CORE SYNC
                                             </div>
                                         </div>
                                     )}
 
+                                    {/* LLM response generation */}
+                                    {activeStep === 5 && (
+                                        <div className="llm-gen-visual fade-in-up">
+                                            <div className="llm-gen-header">
+                                                <span className="llm-gen-tag">
+                                                    <span className="llm-gen-spinner" />
+                                                    {language === "uz" ? "NLU CORE · GENERATSIYA" : language === "ru" ? "NLU CORE · ГЕНЕРАЦИЯ" : "NLU CORE · GENERATING"}
+                                                </span>
+                                                <span className="llm-gen-model">52 tok</span>
+                                            </div>
+                                            <div className="llm-context-chips">
+                                                <span className="ctx-chip">#5894</span>
+                                                <span className="ctx-chip">{language === "en" ? "1,250,000 UZS" : language === "uz" ? "1 250 000 so'm" : "1 250 000 сум"}</span>
+                                                <span className="ctx-chip">{language === "uz" ? "30-may" : language === "ru" ? "30 мая" : "May 30"}</span>
+                                            </div>
+                                            <p className="llm-gen-text">{typedReply}<span className="llm-cursor" /></p>
+                                        </div>
+                                    )}
+
                                     {/* Bot Speech Bubble */}
-                                    {activeStep >= 5 && (
+                                    {activeStep >= 6 && (
                                         <div className="dialog-bubble bot fade-in-up">
                                             <div className="bubble-avatar syncall">🤖</div>
                                             <div className="bubble-text-wrapper">
@@ -323,7 +389,7 @@ const TalkBot = () => {
                     {/* RIGHT PANEL: Dynamic Latency Pipeline Timeline */}
                     <div className="latency-pipeline-panel">
                         <div className="pipeline-panel-header">
-                            <h3 className="pipeline-title">{language === "uz" ? "SYNCALL УНУМДОРЛИК КЎРСАТКИЧЛАРИ" : language === "ru" ? "ПОКАЗАТЕЛИ ПРОИЗВОДИТЕЛЬНОСТИ SYNCALL" : "SYNCALL PERFORMANCE SPECS"}</h3>
+                            <h3 className="pipeline-title">{language === "uz" ? "SYNCALL UNUMDORLIK KO'RSATKICHLARI" : language === "ru" ? "ПОКАЗАТЕЛИ ПРОИЗВОДИТЕЛЬНОСТИ SYNCALL" : "SYNCALL PERFORMANCE SPECS"}</h3>
                             <div className="diagnostics-status-badge">
                                 <span className="status-indicator-dot" />
                                 DIAGNOSTICS: ONLINE

@@ -47,7 +47,7 @@ export default function Tab() {
                     <div className="leftContent">
                         <h1 className="title">{t(tabs[activeTab].titleKey)}</h1>
                         {/*<p className="description">{t(tabs[activeTab].descKey)}</p>*/}
-                        <a href="mailto:david@syncallai.com"><button className="ctaButton">{t('contactSales')}</button></a>
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="ctaButton">{t('contactSales')}</button></a>
                     </div>
 
                     {/* Right Content */}

@@ -49,7 +49,7 @@ const Products = () => {
                             </div>
                         </div>
 
-                        <a href="mailto:david@syncallai.com" className="product-cta">
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta">
                             <button className="btn-primary">{t('learnMore')}</button>
                         </a>
                     </div>
@@ -89,7 +89,7 @@ const Products = () => {
                             </div>
                         </div>
 
-                        <a href="mailto:david@syncallai.com" className="product-cta">
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta">
                             <button className="btn-secondary">{t('learnMore')}</button>
                         </a>
                     </div>
