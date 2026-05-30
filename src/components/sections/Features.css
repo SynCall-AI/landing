@@ -18,7 +18,7 @@
     font-size: clamp(2rem, 4.5vw, 3.2rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #fff 0%, #fff 50%, rgba(17, 115, 252, 0.7) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-primary) 50%, rgba(17, 115, 252, 0.7) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -34,23 +34,24 @@
 
 /* Card base — glassmorphism with 3D perspective */
 .feature-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
     border-radius: 20px;
     overflow: hidden;
     backdrop-filter: blur(12px);
     transition: border-color 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
                 transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
-                box-shadow 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+                box-shadow 0.4s cubic-bezier(0.075, 0.82, 0.165, 1),
+                background-color 0.4s ease;
     display: flex;
     flex-direction: column;
     transform-style: preserve-3d;
     perspective: 800px;
 }
 .feature-card:hover {
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--border-accent);
     transform: translateY(-4px) rotateX(2deg);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(17, 115, 252, 0.08);
+    box-shadow: var(--shadow-card), 0 0 40px rgba(17, 115, 252, 0.08);
 }
 
 /* Row 2 layout */
@@ -75,7 +76,7 @@
 .fc-text h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-primary);
     margin-bottom: 8px;
     line-height: 1.3;
 }
@@ -129,8 +130,8 @@
     height: 36px;
     flex: 1;
     padding: 0 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: 10px;
 }
 .fc-stt-bar {
@@ -174,8 +175,8 @@
     font-size: 10px;
     font-family: var(--font-mono);
     color: var(--text-muted);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     padding: 3px 8px;
     border-radius: 6px;
     transition: border-color 0.3s ease, color 0.3s ease;
@@ -226,8 +227,8 @@
     gap: 4px;
     height: 40px;
     padding: 0 14px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: 10px;
 }
 .fc-convo-wave-user {
@@ -359,8 +360,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
 }
 .fc-clone-ai {
@@ -376,8 +377,8 @@
     gap: 3px;
     height: 36px;
     padding: 0 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: 10px;
 }
 .fc-clone-wave-ai {
@@ -451,8 +452,8 @@
     gap: 8px;
     font-size: 12px;
     color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     padding: 8px 14px;
     border-radius: 10px;
     transition: border-color 0.3s ease;

@@ -3,7 +3,7 @@
 > AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM. Built specifically for Uzbekistan and Russian-speaking markets, where dialect coverage and code-switching make or break speech-recognition accuracy.
 
 - **Site:** https://www.syncallai.com
-- **Contact:** david@syncallai.com
+- **Contact:** Telegram [@syncall_ai](https://t.me/syncall_ai)
 - **Markets:** Uzbekistan, Russia, Russian-speaking CIS
 - **Last updated:** 2026-04-25
 

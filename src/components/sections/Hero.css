@@ -61,6 +61,10 @@
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
 }
 
+:root[data-theme='light'] .hero-grid {
+    background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+}
+
 /* ---- Content ---- */
 .hero-content {
     position: relative;
@@ -145,7 +149,7 @@
     line-height: 1.05;
     margin-bottom: 24px;
     letter-spacing: -0.04em;
-    background: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, rgba(17, 115, 252, 0.8) 100%);
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-primary) 50%, rgba(17, 115, 252, 0.8) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -172,8 +176,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
     padding: 8px 16px;
     border-radius: 999px;
     font-size: 13px;
@@ -184,8 +188,8 @@
                 transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .hero-pill:hover {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-accent);
+    background: var(--bg-card-hover);
     transform: translateY(-1px);
 }
 .hero-pill-icon {
@@ -254,14 +258,14 @@
 }
 
 .hero-float-card {
-    background: rgba(14, 14, 17, 0.7);
+    background: var(--bg-card);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border-subtle);
     border-radius: 14px;
     padding: 18px 22px;
     min-width: 180px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    transition: border-color 0.3s ease;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .float-card-bar {

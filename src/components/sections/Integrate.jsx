@@ -38,7 +38,7 @@ const Integrate = () => {
         <div className="inter-main">
             <div className="center-content">
                 <h2>{t('integrateTitle')}</h2>
-                <a href="mailto:david@syncallai.com"><button className="center-button">{t('contactSales')}</button></a>
+                <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="center-button">{t('contactSales')}</button></a>
             </div>
             <div className="circle-container">
                 {divs.map((_, index) => {

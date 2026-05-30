@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Set theme before first paint to avoid a flash of the wrong theme.
+         Explicit user choice (localStorage) wins; otherwise follow the OS preference. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme = stored
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+
     <title>Syncall — AI Voice Agents for Call Centers (Uzbek, Russian, English)</title>
     <meta name="description" content="AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -46,7 +62,12 @@
       "url": "https://www.syncallai.com/",
       "logo": "https://www.syncallai.com/Syncall.svg",
       "description": "AI voice agents and chatbots for call centers handling inbound and outbound calls in Uzbek, Russian, and English.",
-      "email": "david@syncallai.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "url": "https://t.me/syncall_ai"
+      },
+      "sameAs": ["https://t.me/syncall_ai"],
       "areaServed": ["UZ", "RU"]
     }
     </script>
@@ -207,7 +228,7 @@
         <h1>Syncall — AI Voice Agents for Call Centers</h1>
         <p>AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM. Built specifically for Uzbekistan and Russian-speaking markets, where dialect coverage and code-switching make or break speech-recognition accuracy.</p>
         <p><strong>Capabilities:</strong> Voice agents · Chatbots · Any telephony</p>
-        <p><strong>Contact:</strong> <a href="mailto:david@syncallai.com">david@syncallai.com</a></p>
+        <p><strong>Contact:</strong> <a href="https://t.me/syncall_ai">Telegram @syncall_ai</a></p>
         <p><strong>Markets:</strong> Uzbekistan, Russia, Russian-speaking CIS</p>
       </header>
       <main>

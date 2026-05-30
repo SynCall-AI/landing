@@ -54,7 +54,7 @@ const Hero = () => {
                             <span className="btn-shine" />
                         </button>
                     </a>
-                    <a href="mailto:david@syncallai.com">
+                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
                         <button className="btn-secondary hero-btn">{t('contactSales')}</button>
                     </a>
                 </div>

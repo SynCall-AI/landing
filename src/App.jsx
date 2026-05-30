@@ -33,11 +33,11 @@ function App() {
         <LanguageProvider>
             <Navbar />
             <Hero />
-            <TalkBot />
             <Clients />
             <Calllog />
             <Features />
             <Numbers />
+            <TalkBot />
             <How />
             <Faq />
             <Footer />

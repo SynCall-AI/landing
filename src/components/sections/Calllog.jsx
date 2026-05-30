@@ -15,9 +15,11 @@ const RU_FLAG = '\u{1F1F7}\u{1F1FA}';
 
 const demoTracks = [
     { id: 'iman-uz', name: 'Iman', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/iman_prod_uz.wav' },
-    { id: 'unicon-uz', name: 'Unicon', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
-    { id: 'thompson-uz', name: 'Thompson', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
-    { id: 'thompson-ru', name: 'Thompson', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
+    { id: 'unicon-uz', name: 'UNICON.UZ', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
+    { id: 'poytaxt-uz', name: 'Poytaxt Parking', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/1_poytaxt_uz_incoming.wav', direction: 'incoming' },
+    { id: 'thompson-uz', name: 'Thompson School', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
+    { id: 'poytaxt-ru', name: 'Poytaxt Parking', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/3_poytaxt_ru_incoming.wav', direction: 'incoming' },
+    { id: 'thompson-ru', name: 'Thompson School', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
 ];
 
 const trackGroups = [
@@ -48,7 +50,17 @@ function DemoPlayerInner() {
 
                 <div className="demo-controls">
                     <div className="demo-track-info">
-                        <span className="demo-track-name">{selectedTrack.name}</span>
+                        <span className="demo-track-name">
+                            {selectedTrack.name}
+                            {selectedTrack.direction === 'incoming' && (
+                                <span className="demo-incoming-badge demo-incoming-badge-lg" aria-label="Incoming call">
+                                    <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true">
+                                        <path d="M2 2 L7 7 M7 7 L7 3 M7 7 L3 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                    Incoming
+                                </span>
+                            )}
+                        </span>
                         <span className="demo-track-lang">{selectedTrack.flag} {selectedTrack.langLabel}</span>
                     </div>
 
@@ -96,6 +108,14 @@ function DemoPlayerInner() {
                                                 )}
                                             </span>
                                             <span className="demo-track-item-name">{track.name}</span>
+                                            {track.direction === 'incoming' && (
+                                                <span className="demo-incoming-badge" aria-label="Incoming call">
+                                                    <svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true">
+                                                        <path d="M2 2 L7 7 M7 7 L7 3 M7 7 L3 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                    Incoming
+                                                </span>
+                                            )}
                                         </button>
                                     </li>
                                 );

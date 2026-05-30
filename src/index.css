@@ -43,6 +43,38 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light Theme Variables */
+:root[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+
+  --accent-blue: #2563eb;
+  --accent-blue-light: #3b82f6;
+  --accent-blue-dark: #1d4ed8;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-accent: rgba(37, 99, 235, 0.25);
+
+  --shadow-glow: 0 10px 40px rgba(37, 99, 235, 0.05);
+  --shadow-card: 0 10px 30px -10px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+
+  color-scheme: light;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-main, .partners-section, .talkbot-section, .demo-section, .features-section, .numbers-section, .how-section, .faq-section, .footer-main, .nav-main {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
 /* Subtle noise texture */
 body::after {
   content: '';
@@ -85,7 +117,7 @@ body::after {
 
 .btn-secondary {
   background: transparent;
-  color: white;
+  color: var(--text-primary);
   padding: 14px 32px;
   font-size: 0.95rem;
   font-weight: 600;
@@ -95,9 +127,18 @@ body::after {
   transition: all 0.2s ease;
 }
 
+:root[data-theme='light'] .btn-secondary {
+  border-color: rgba(15, 23, 42, 0.15);
+}
+
 .btn-secondary:hover {
   border-color: rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme='light'] .btn-secondary:hover {
+  border-color: rgba(15, 23, 42, 0.35);
+  background: rgba(15, 23, 42, 0.04);
 }
 
 ::selection {
@@ -113,8 +154,22 @@ body::after {
   background-clip: text;
 }
 
+:root[data-theme='light'] .gradient-text {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .gradient-text-blue {
   background: linear-gradient(135deg, #fff 30%, #1173FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:root[data-theme='light'] .gradient-text-blue {
+  background: linear-gradient(135deg, #0f172a 30%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

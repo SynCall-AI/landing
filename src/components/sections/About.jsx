@@ -20,7 +20,7 @@ const About = () => {
                 </p>
 
                 <div className="buttonContainer">
-                    <a href="mailto:david@syncallai.com"><button className="ctaButton-i">{t('contactSales')}</button></a>
+                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="ctaButton-i">{t('contactSales')}</button></a>
                 </div>
             </div>
         </div>

@@ -1,12 +1,13 @@
 .faq-section {
     display: flex;
     background: var(--bg-primary);
-    color: white;
+    color: var(--text-primary);
     padding: 120px 20px;
     justify-content: center;
     gap: 80px;
     max-width: 1100px;
     margin: 0 auto;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .faq-left h1 {
@@ -40,7 +41,7 @@
     font-weight: 600;
     width: 100%;
     font-size: 1.05rem;
-    color: #fff;
+    color: var(--text-primary);
     gap: 16px;
     align-items: flex-start;
     line-height: 1.4;
