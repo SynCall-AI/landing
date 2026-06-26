@@ -74,6 +74,7 @@ const Navbar = () => {
             <div className="nav-bar">
                 <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navVoiceAgents')}</NavLink>
                 <NavLink to="/analytics" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navAnalytics')}</NavLink>
+                <NavLink to="/chatbots" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navChatbots')}</NavLink>
                 <NavLink to="/stt" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navStt')}</NavLink>
                 <NavLink to="/tts" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navTts')}</NavLink>
             </div>

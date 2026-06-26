@@ -53,18 +53,18 @@ const TalkBot = () => {
                 log: "[SYS] Til: Uzb/Rus | Aniqlik darajasi: 95.7%"
             },
             {
-                title: "CRM so'rovi (Delta M)",
+                title: "CRM so'rovi",
                 badge: "CRM Sinxronizatsiya",
                 metric: "< 200 ms",
                 desc: "CRM dan to'lov summasi, muddati va holati xavfsiz olinadi.",
-                log: "[SYS] Baza: Delta M | Kredit #5894 | Holat: TO'LANADI"
+                log: "[SYS] Baza: CRM | Kredit #5894 | Holat: TO'LANADI"
             },
             {
                 title: "Javob generatsiyasi (LLM)",
-                badge: "NLU Miya",
+                badge: "LLM Miya",
                 metric: "< 500 ms",
                 desc: "Til modeli CRM ma'lumotlari asosida shaxsiy javobni shakllantiradi.",
-                log: "[SYS] Model: NLU Core | Tokenlar: 52 | Kontekst: #5894"
+                log: "[SYS] Model: LLM Core | Tokenlar: 52 | Kontekst: #5894"
             },
             {
                 title: "Tabiiy ovozli sintez (TTS)",
@@ -104,18 +104,18 @@ const TalkBot = () => {
                 log: "[SYS] Язык: Узб/Рус | Точность распознавания: 95.7%"
             },
             {
-                title: "Запрос в CRM (Delta M)",
+                title: "Запрос в CRM",
                 badge: "Синхронизация CRM",
                 metric: "< 200 мс",
                 desc: "Безопасный запрос в CRM извлекает сумму, срок и статус платежа.",
-                log: "[SYS] База данных: Delta M | Кредит №5894 | Статус: К ОПЛАТЕ"
+                log: "[SYS] База данных: CRM | Кредит №5894 | Статус: К ОПЛАТЕ"
             },
             {
                 title: "Генерация ответа (LLM)",
-                badge: "NLU Мозг",
+                badge: "LLM Мозг",
                 metric: "< 500 мс",
                 desc: "Языковая модель формирует персональный ответ на основе данных из CRM.",
-                log: "[SYS] Модель: NLU Core | Токенов: 52 | Контекст: Кредит #5894"
+                log: "[SYS] Модель: LLM Core | Токенов: 52 | Контекст: Кредит #5894"
             },
             {
                 title: "Синтез голоса (TTS)",
@@ -155,7 +155,7 @@ const TalkBot = () => {
                 log: "[SYS] Language: Bilingual | Accent Confidence: 95.7%"
             },
             {
-                title: "CRM Query (Delta M)",
+                title: "CRM Query",
                 badge: "CRM Sync",
                 metric: "< 200 ms",
                 desc: "Secure CRM query retrieves the payment amount, due date and status.",
@@ -163,10 +163,10 @@ const TalkBot = () => {
             },
             {
                 title: "LLM Response Generation",
-                badge: "NLU Brain",
+                badge: "LLM Brain",
                 metric: "< 500 ms",
                 desc: "Language model composes a personalized reply grounded in CRM data.",
-                log: "[SYS] Model: NLU Core | Tokens: 52 | Context: Loan #5894"
+                log: "[SYS] Model: LLM Core | Tokens: 52 | Context: Loan #5894"
             },
             {
                 title: "Neural Voice Synthesis (TTS)",
@@ -315,7 +315,7 @@ const TalkBot = () => {
                                         <div className="crm-search-visual fade-in-up">
                                             <div className="crm-table">
                                                 <div className="crm-header-row">
-                                                    <span>CRM · Delta M</span>
+                                                    <span>CRM Sync</span>
                                                     <span>{language === "uz" ? "Yozuv" : language === "ru" ? "Запись" : "Record"}</span>
                                                 </div>
                                                 <div className="crm-row">
@@ -348,7 +348,7 @@ const TalkBot = () => {
                                             <div className="llm-gen-header">
                                                 <span className="llm-gen-tag">
                                                     <span className="llm-gen-spinner" />
-                                                    {language === "uz" ? "NLU CORE · GENERATSIYA" : language === "ru" ? "NLU CORE · ГЕНЕРАЦИЯ" : "NLU CORE · GENERATING"}
+                                                    {language === "uz" ? "LLM CORE · GENERATSIYA" : language === "ru" ? "LLM CORE · ГЕНЕРАЦИЯ" : "LLM CORE · GENERATING"}
                                                 </span>
                                                 <span className="llm-gen-model">52 tok</span>
                                             </div>

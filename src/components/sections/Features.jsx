@@ -192,11 +192,11 @@ const Features = () => {
                                 <div className="fc-dash-crm">
                                     <div className="fc-crm-badge">
                                         <span className="fc-crm-dot" />
-                                        <span>Delta M</span>
+                                        <span>CRM</span>
                                     </div>
                                     <div className="fc-crm-badge">
                                         <span className="fc-crm-dot fc-crm-dot-2" />
-                                        <span>CRM</span>
+                                        <span>API</span>
                                     </div>
                                     <div className="fc-crm-sync">
                                         <svg viewBox="0 0 20 20" fill="none" width="14" height="14">

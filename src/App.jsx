@@ -6,6 +6,7 @@ import Footer from "./components/sections/Footer.jsx";
 import ScrollToTop from "./components/widgets/ScrollToTop.jsx";
 import Home from "./pages/Home.jsx";
 import Analytics from "./pages/Analytics.jsx";
+import Chatbots from "./pages/Chatbots.jsx";
 import Stt from "./pages/Stt.jsx";
 import Tts from "./pages/Tts.jsx";
 import { LanguageProvider } from './context/LanguageContext.jsx';
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/voice-agents" element={<Home />} />
                 <Route path="/analytics" element={<Analytics />} />
+                <Route path="/chatbots" element={<Chatbots />} />
                 <Route path="/stt" element={<Stt />} />
                 <Route path="/tts" element={<Tts />} />
                 <Route path="*" element={<Home />} />

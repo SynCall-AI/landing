@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import "./ProductsNav.css";
 import { useLanguage } from '../../context/LanguageContext';
-import { FaHeadset, FaChartLine, FaWaveSquare, FaMicrophoneLines } from 'react-icons/fa6';
+import { FaHeadset, FaChartLine, FaComments, FaWaveSquare, FaMicrophoneLines } from 'react-icons/fa6';
 
 // Shared product navigator. Rendered on the home page (under the hero) and at
 // the top of every product page so the four products are always one click apart.
@@ -24,6 +24,15 @@ const PRODUCTS = [
         nameKey: 'pnAnalyticsName',
         descKey: 'pnAnalyticsDesc',
         statKey: 'pnAnalyticsStat',
+    },
+    {
+        key: 'chatbots',
+        to: '/chatbots',
+        icon: FaComments,
+        kind: 'product',
+        nameKey: 'pnChatbotsName',
+        descKey: 'pnChatbotsDesc',
+        statKey: 'pnChatbotsStat',
     },
     {
         key: 'stt',

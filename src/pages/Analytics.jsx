@@ -4,7 +4,7 @@ import ProductsNav from "../components/sections/ProductsNav.jsx";
 import ProductHero from "../components/sections/ProductHero.jsx";
 import {
     FaTriangleExclamation, FaEyeSlash, FaUserCheck, FaBookOpen,
-    FaCircleExclamation, FaChartColumn,
+    FaCircleExclamation, FaChartColumn, FaServer, FaCloud,
 } from 'react-icons/fa6';
 
 const Analytics = () => {
@@ -154,6 +154,24 @@ const Analytics = () => {
                         <div className="an-result-card">
                             <span className="an-result-val">×20</span>
                             <span className="an-result-label">{t('anResult3')}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Deployment — on-premise available */}
+            <section className="an-section">
+                <div className="an-container">
+                    <div className="an-deploy-band">
+                        <div className="an-deploy-icon"><FaServer /></div>
+                        <div className="an-deploy-text">
+                            <span className="section-label">{t('anDeployLabel')}</span>
+                            <h2 className="an-h2">{t('anDeployTitle')}</h2>
+                            <p className="an-sub">{t('anDeploySubtitle')}</p>
+                            <div className="an-deploy-pills">
+                                <span className="an-deploy-pill"><FaCloud /> {t('anDeployCloud')}</span>
+                                <span className="an-deploy-pill accent"><FaServer /> {t('anDeployOnprem')}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
