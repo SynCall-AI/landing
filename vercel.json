@@ -10,6 +10,10 @@
         }
       ],
       "destination": "/index.md"
+    },
+    {
+      "source": "/((?!index\\.md).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [

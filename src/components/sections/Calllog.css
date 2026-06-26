@@ -203,9 +203,20 @@
     color: #15803d;
 }
 
+/* Outgoing calls use the brand blue to distinguish from incoming (green). */
+.demo-incoming-badge.outgoing {
+    color: var(--accent-blue);
+    background: rgba(17, 115, 252, 0.12);
+    border-color: rgba(17, 115, 252, 0.25);
+}
+
+.demo-track-item.active .demo-incoming-badge.outgoing {
+    color: var(--accent-blue-dark);
+}
+
 .demo-incoming-badge-lg {
-    margin-left: 10px;
-    padding: 3px 10px;
+    margin-right: 10px;
+    padding: 4px 8px;
     font-size: 11px;
     vertical-align: middle;
 }

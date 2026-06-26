@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import "./Navbar.css"
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -67,15 +68,14 @@ const Navbar = () => {
 
     return (
         <div className="nav-main">
-            <div className="nav-logo">
+            <Link to="/" className="nav-logo">
                 <img src="/Syncall.svg" alt="Syncall AI" />
-            </div>
+            </Link>
             <div className="nav-bar">
-                <a href="#home">{t('home')}</a>
-                <a href="#demo">{t('demo')}</a>
-                <a href="#features">{t('features')}</a>
-                <a href="#how">{t('howItWorks')}</a>
-                <a href="#faq">{t('faq')}</a>
+                <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navVoiceAgents')}</NavLink>
+                <NavLink to="/analytics" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navAnalytics')}</NavLink>
+                <NavLink to="/stt" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navStt')}</NavLink>
+                <NavLink to="/tts" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navTts')}</NavLink>
             </div>
             <div className="language-selector" ref={dropdownRef}>
                 <button

@@ -1,0 +1,128 @@
+.phero {
+    position: relative;
+    padding: 140px 24px 80px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.phero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.phero-glow-1 {
+    width: 420px;
+    height: 420px;
+    background: rgba(17, 115, 252, 0.22);
+    top: -120px;
+    right: -60px;
+}
+
+.phero-glow-2 {
+    width: 360px;
+    height: 360px;
+    background: rgba(139, 92, 246, 0.16);
+    bottom: -160px;
+    left: -80px;
+}
+
+.phero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle at 50% 30%, black, transparent 75%);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.phero-inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+}
+
+.phero-copy {
+    max-width: 560px;
+}
+
+.phero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 8px;
+    border-radius: 100px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.phero-badge-kind {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 100px;
+}
+
+.phero-badge-kind.product {
+    color: var(--accent-blue);
+    background: rgba(17, 115, 252, 0.12);
+}
+
+.phero-badge-kind.api {
+    color: #4ADE80;
+    background: rgba(74, 222, 128, 0.12);
+}
+
+.phero-title {
+    font-size: clamp(2.1rem, 5vw, 3.3rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.phero-subtitle {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.phero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.phero-visual {
+    position: relative;
+    min-width: 0;
+}
+
+@media (max-width: 920px) {
+    .phero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .phero {
+        padding: 120px 20px 64px;
+    }
+}

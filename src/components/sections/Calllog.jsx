@@ -11,23 +11,28 @@ import {
 } from "../ui/AudioPlayer";
 
 const UZ_FLAG = '\u{1F1FA}\u{1F1FF}';
-const RU_FLAG = '\u{1F1F7}\u{1F1FA}';
 
+// Two production demo calls, both in Uzbek: one incoming, one outgoing.
 const demoTracks = [
-    { id: 'iman-uz', name: 'Iman', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/iman_prod_uz.wav' },
-    { id: 'unicon-uz', name: 'UNICON.UZ', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/unicon_prod_uz.wav' },
-    { id: 'poytaxt-uz', name: 'Poytaxt Parking', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/1_poytaxt_uz_incoming.wav', direction: 'incoming' },
-    { id: 'thompson-uz', name: 'Thompson School', langCode: 'UZ', langLabel: "O'zbekcha", flag: UZ_FLAG, src: '/demo_uz.wav' },
-    { id: 'poytaxt-ru', name: 'Poytaxt Parking', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/3_poytaxt_ru_incoming.wav', direction: 'incoming' },
-    { id: 'thompson-ru', name: 'Thompson School', langCode: 'RU', langLabel: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, src: '/demo_ru.wav' },
+    { id: 'incoming-uz', labelKey: 'callIncoming', flag: UZ_FLAG, langLabel: "O'zbekcha", src: '/poytaxt_incoming_uz.wav', direction: 'incoming' },
+    { id: 'outgoing-uz', labelKey: 'callOutgoing', flag: UZ_FLAG, langLabel: "O'zbekcha", src: '/outgoing_uz.wav', direction: 'outgoing' },
 ];
 
-const trackGroups = [
-    { code: 'UZ', label: "O'zbekcha", flag: UZ_FLAG, tracks: demoTracks.filter(t => t.langCode === 'UZ') },
-    { code: 'RU', label: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: RU_FLAG, tracks: demoTracks.filter(t => t.langCode === 'RU') },
-];
+// Incoming arrow points into the corner; outgoing arrow points out of it.
+function DirectionIcon({ direction }) {
+    return (
+        <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true">
+            {direction === 'incoming' ? (
+                <path d="M2 2 L7 7 M7 7 L7 3 M7 7 L3 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            ) : (
+                <path d="M10 2 L5 7 M5 7 L5 3 M5 7 L9 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            )}
+        </svg>
+    );
+}
 
 function DemoPlayerInner() {
+    const { t } = useLanguage();
     const [selectedTrack, setSelectedTrack] = useState(demoTracks[0]);
     const player = useAudioPlayer();
 
@@ -51,15 +56,10 @@ function DemoPlayerInner() {
                 <div className="demo-controls">
                     <div className="demo-track-info">
                         <span className="demo-track-name">
-                            {selectedTrack.name}
-                            {selectedTrack.direction === 'incoming' && (
-                                <span className="demo-incoming-badge demo-incoming-badge-lg" aria-label="Incoming call">
-                                    <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true">
-                                        <path d="M2 2 L7 7 M7 7 L7 3 M7 7 L3 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                    Incoming
-                                </span>
-                            )}
+                            <span className={`demo-incoming-badge demo-incoming-badge-lg ${selectedTrack.direction}`} aria-hidden="true">
+                                <DirectionIcon direction={selectedTrack.direction} />
+                            </span>
+                            {t(selectedTrack.labelKey)}
                         </span>
                         <span className="demo-track-lang">{selectedTrack.flag} {selectedTrack.langLabel}</span>
                     </div>
@@ -77,52 +77,39 @@ function DemoPlayerInner() {
             </div>
 
             <div className="demo-tracklist">
-                {trackGroups.map((group) => (
-                    <div key={group.code} className="demo-track-group">
-                        <div className="demo-track-group-header">
-                            <span className="demo-track-group-flag">{group.flag}</span>
-                            <span className="demo-track-group-label">{group.label}</span>
-                            <span className="demo-track-group-count">{group.tracks.length}</span>
-                        </div>
-                        <ul className="demo-track-group-list" role="list">
-                            {group.tracks.map((track) => {
-                                const isActive = selectedTrack.id === track.id;
-                                const isPlaying = isActive && player.isPlaying;
-                                return (
-                                    <li key={track.id}>
-                                        <button
-                                            type="button"
-                                            className={`demo-track-item ${isActive ? 'active' : ''}`}
-                                            onClick={() => handleTrackChange(track)}
-                                            aria-label={`${isPlaying ? 'Pause' : 'Play'} ${track.name} ${track.langCode}`}
-                                        >
-                                            <span className={`demo-track-icon ${isPlaying ? 'playing' : ''}`}>
-                                                {isPlaying ? (
-                                                    <span className="demo-track-bars" aria-hidden="true">
-                                                        <span /><span /><span />
-                                                    </span>
-                                                ) : (
-                                                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                                                        <path d="M3 2 L10 6 L3 10 Z" fill="currentColor" />
-                                                    </svg>
-                                                )}
+                <ul className="demo-track-group-list" role="list">
+                    {demoTracks.map((track) => {
+                        const isActive = selectedTrack.id === track.id;
+                        const isPlaying = isActive && player.isPlaying;
+                        return (
+                            <li key={track.id}>
+                                <button
+                                    type="button"
+                                    className={`demo-track-item ${isActive ? 'active' : ''}`}
+                                    onClick={() => handleTrackChange(track)}
+                                    aria-label={`${isPlaying ? 'Pause' : 'Play'} ${t(track.labelKey)}`}
+                                >
+                                    <span className={`demo-track-icon ${isPlaying ? 'playing' : ''}`}>
+                                        {isPlaying ? (
+                                            <span className="demo-track-bars" aria-hidden="true">
+                                                <span /><span /><span />
                                             </span>
-                                            <span className="demo-track-item-name">{track.name}</span>
-                                            {track.direction === 'incoming' && (
-                                                <span className="demo-incoming-badge" aria-label="Incoming call">
-                                                    <svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true">
-                                                        <path d="M2 2 L7 7 M7 7 L7 3 M7 7 L3 7" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                                                    </svg>
-                                                    Incoming
-                                                </span>
-                                            )}
-                                        </button>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                ))}
+                                        ) : (
+                                            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                                                <path d="M3 2 L10 6 L3 10 Z" fill="currentColor" />
+                                            </svg>
+                                        )}
+                                    </span>
+                                    <span className="demo-track-item-name">{t(track.labelKey)}</span>
+                                    <span className={`demo-incoming-badge ${track.direction}`}>
+                                        <DirectionIcon direction={track.direction} />
+                                        {track.flag}
+                                    </span>
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
         </div>
     );
