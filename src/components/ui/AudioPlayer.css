@@ -24,6 +24,10 @@
     background: rgba(255, 255, 255, 0.12);
 }
 
+:root[data-theme='light'] .el-player-track {
+    background: rgba(15, 23, 42, 0.12);
+}
+
 .el-player-range {
     position: absolute;
     height: 100%;
@@ -43,6 +47,11 @@
     transition: opacity 0.15s ease;
 }
 
+:root[data-theme='light'] .el-player-thumb {
+    background: var(--accent-blue);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+}
+
 .el-player-slider:hover .el-player-thumb,
 .el-player-thumb:focus-visible {
     opacity: 1;
@@ -50,10 +59,67 @@
 
 .el-player-time {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-muted);
     font-variant-numeric: tabular-nums;
     min-width: 36px;
     text-align: center;
+}
+
+/* --- Waveform scrubber --- */
+.el-waveform {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 38px;
+    cursor: pointer;
+    touch-action: none;
+}
+
+.el-waveform.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.el-waveform:focus-visible {
+    outline: 2px solid var(--border-accent);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.el-wave-bar {
+    flex: 1;
+    min-width: 2px;
+    min-height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    transition: background 0.12s ease;
+}
+
+.el-wave-bar.played {
+    background: #1173FC;
+}
+
+:root[data-theme='light'] .el-wave-bar {
+    background: rgba(15, 23, 42, 0.16);
+}
+
+:root[data-theme='light'] .el-wave-bar.played {
+    background: var(--accent-blue);
+}
+
+/* Brighten on hover to signal the whole bar is interactive. */
+.el-waveform:not(.disabled):hover .el-wave-bar {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.el-waveform:not(.disabled):hover .el-wave-bar.played {
+    background: var(--accent-blue-light);
+}
+
+:root[data-theme='light'] .el-waveform:not(.disabled):hover .el-wave-bar {
+    background: rgba(15, 23, 42, 0.24);
 }
 
 .el-play-btn {
@@ -71,9 +137,18 @@
     flex-shrink: 0;
 }
 
+:root[data-theme='light'] .el-play-btn {
+    background: var(--accent-blue);
+    color: #fff;
+}
+
 .el-play-btn:hover {
     background: rgba(255, 255, 255, 0.9);
     transform: scale(1.05);
+}
+
+:root[data-theme='light'] .el-play-btn:hover {
+    background: var(--accent-blue-light);
 }
 
 .el-play-btn:active {
@@ -87,6 +162,11 @@
     border-top-color: #000;
     border-radius: 50%;
     animation: el-spin 0.6s linear infinite;
+}
+
+:root[data-theme='light'] .el-play-spinner {
+    border-color: rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
 }
 
 @keyframes el-spin {

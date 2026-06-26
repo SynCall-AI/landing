@@ -4,7 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import {
     AudioPlayerProvider,
     AudioPlayerButton,
-    AudioPlayerProgress,
+    AudioPlayerWaveform,
     AudioPlayerTime,
     AudioPlayerDuration,
     useAudioPlayer,
@@ -66,7 +66,7 @@ function DemoPlayerInner() {
 
                     <div className="demo-progress-row">
                         <AudioPlayerTime />
-                        <AudioPlayerProgress />
+                        <AudioPlayerWaveform />
                         <AudioPlayerDuration />
                     </div>
 
