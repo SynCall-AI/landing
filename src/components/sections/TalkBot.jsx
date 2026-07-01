@@ -230,7 +230,7 @@ const TalkBot = () => {
 
             <div className="talkbot-header">
                 <span className="section-label">{t('howItWorks')}</span>
-                <h2 className="talkbot-title gradient-text-blue">{t('engineTitle')}</h2>
+                <h2 className="talkbot-title">{t('engineTitle')}</h2>
                 <p className="talkbot-subtitle">{t('engineSubtitle')}</p>
             </div>
 

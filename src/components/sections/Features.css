@@ -18,10 +18,7 @@
     font-size: clamp(2rem, 4.5vw, 3.2rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-primary) 50%, rgba(17, 115, 252, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 /* ---- Bento Grid ---- */
@@ -90,7 +87,7 @@
    Card 1: Dialects — STT pipeline
    ============================ */
 .fc-dialects .fc-visual {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.02) 100%);
+    background: linear-gradient(135deg, rgba(17, 115, 252, 0.06) 0%, rgba(17, 115, 252, 0.015) 100%);
 }
 .fc-stt-demo {
     display: flex;
@@ -110,18 +107,18 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: rgba(139, 92, 246, 0.12);
-    border: 1px solid rgba(139, 92, 246, 0.25);
+    background: rgba(17, 115, 252, 0.12);
+    border: 1px solid rgba(17, 115, 252, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #8B5CF6;
+    color: var(--accent-blue);
     flex-shrink: 0;
     animation: fc-mic-pulse 2s ease-in-out infinite;
 }
 @keyframes fc-mic-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.15); }
-    50% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(17, 115, 252, 0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(17, 115, 252, 0); }
 }
 .fc-stt-wave {
     display: flex;
@@ -137,7 +134,7 @@
 .fc-stt-bar {
     width: 3px;
     border-radius: 2px;
-    background: rgba(139, 92, 246, 0.45);
+    background: rgba(17, 115, 252, 0.45);
     flex: 1;
     max-width: 4px;
 }
@@ -151,21 +148,21 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(139, 92, 246, 0.08);
-    border: 1px solid rgba(139, 92, 246, 0.18);
+    background: rgba(17, 115, 252, 0.08);
+    border: 1px solid rgba(17, 115, 252, 0.18);
     border-radius: 8px;
 }
 .fc-stt-label {
     font-size: 11px;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: #8B5CF6;
+    color: var(--accent-blue);
 }
 .fc-stt-conf {
     font-size: 11px;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: #4ADE80;
+    color: var(--text-secondary);
 }
 .fc-stt-tags {
     display: flex;
@@ -182,12 +179,12 @@
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 .fc-dialect-tag.active {
-    color: #8B5CF6;
-    border-color: rgba(139, 92, 246, 0.3);
-    background: rgba(139, 92, 246, 0.08);
+    color: var(--accent-blue);
+    border-color: rgba(17, 115, 252, 0.3);
+    background: rgba(17, 115, 252, 0.08);
 }
 .fc-dialects:hover .fc-dialect-tag {
-    border-color: rgba(139, 92, 246, 0.2);
+    border-color: rgba(17, 115, 252, 0.2);
 }
 
 /* ============================
@@ -212,7 +209,7 @@
     width: 28px;
     height: 28px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #1173FC, #8B5CF6);
+    background: var(--accent-blue);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,16 +239,16 @@
     transition: opacity 0.3s ease;
 }
 .fc-wave-cut {
-    opacity: 0.15;
-    background: rgba(251, 191, 36, 0.4);
+    opacity: 0.2;
+    background: var(--text-muted);
 }
 .fc-interrupt-badge {
     font-size: 11px;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: #FBBF24;
-    background: rgba(251, 191, 36, 0.12);
-    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     padding: 5px 10px;
     border-radius: 6px;
     flex-shrink: 0;
@@ -266,10 +263,10 @@
     font-size: 11px;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: rgba(239, 68, 68, 0.85);
+    color: var(--text-muted);
     flex-shrink: 0;
-    background: rgba(239, 68, 68, 0.08);
-    border: 1px solid rgba(239, 68, 68, 0.2);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     padding: 4px 10px;
     border-radius: 8px;
 }
@@ -278,7 +275,7 @@
    Card 3: Deploy — cloud + on-premise
    ============================ */
 .fc-deploy .fc-visual {
-    background: linear-gradient(135deg, rgba(74, 222, 128, 0.06) 0%, rgba(74, 222, 128, 0.01) 100%);
+    background: linear-gradient(135deg, rgba(17, 115, 252, 0.06) 0%, rgba(17, 115, 252, 0.015) 100%);
 }
 .fc-deploy-demo {
     display: flex;
@@ -308,9 +305,9 @@
     color: rgba(17, 115, 252, 0.6);
 }
 .fc-server-icon {
-    background: rgba(74, 222, 128, 0.08);
-    border: 1px solid rgba(74, 222, 128, 0.15);
-    color: rgba(74, 222, 128, 0.6);
+    background: rgba(17, 115, 252, 0.08);
+    border: 1px solid rgba(17, 115, 252, 0.15);
+    color: rgba(17, 115, 252, 0.6);
 }
 .fc-deploy:hover .fc-deploy-icon {
     transform: scale(1.05);
@@ -338,7 +335,7 @@
    Card 4: Voice cloning — waveform match
    ============================ */
 .fc-cloning .fc-visual {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.06) 0%, rgba(236, 72, 153, 0.01) 100%);
+    background: linear-gradient(135deg, rgba(17, 115, 252, 0.06) 0%, rgba(17, 115, 252, 0.015) 100%);
 }
 .fc-clone-demo {
     display: flex;
@@ -365,11 +362,11 @@
     color: var(--text-secondary);
 }
 .fc-clone-ai {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(139, 92, 246, 0.15));
-    border-color: rgba(236, 72, 153, 0.25);
+    background: rgba(17, 115, 252, 0.12);
+    border-color: rgba(17, 115, 252, 0.25);
     font-size: 11px;
     font-weight: 700;
-    color: #EC4899;
+    color: var(--accent-blue);
 }
 .fc-clone-wave {
     display: flex;
@@ -382,8 +379,8 @@
     border-radius: 10px;
 }
 .fc-clone-wave-ai {
-    border-color: rgba(236, 72, 153, 0.15);
-    background: rgba(236, 72, 153, 0.05);
+    border-color: rgba(17, 115, 252, 0.15);
+    background: rgba(17, 115, 252, 0.05);
 }
 .fc-cw-bar {
     width: 3px;
@@ -391,7 +388,7 @@
     background: rgba(255, 255, 255, 0.25);
 }
 .fc-clone-wave-ai .fc-cw-bar {
-    background: rgba(236, 72, 153, 0.5);
+    background: rgba(17, 115, 252, 0.5);
 }
 .fc-clone-arrow {
     color: rgba(255, 255, 255, 0.2);
@@ -401,11 +398,11 @@
     font-size: 11px;
     font-family: var(--font-mono);
     font-weight: 600;
-    color: #4ADE80;
-    background: rgba(74, 222, 128, 0.1);
+    color: var(--accent-blue);
+    background: rgba(17, 115, 252, 0.1);
     padding: 3px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(74, 222, 128, 0.2);
+    border: 1px solid rgba(17, 115, 252, 0.2);
 }
 
 /* ============================
@@ -469,7 +466,8 @@
     flex-shrink: 0;
 }
 .fc-crm-dot-2 {
-    background: #8B5CF6;
+    background: var(--accent-blue);
+    opacity: 0.55;
 }
 .fc-crm-sync {
     display: flex;
@@ -477,7 +475,7 @@
     gap: 6px;
     font-size: 10px;
     font-family: var(--font-mono);
-    color: #4ADE80;
+    color: var(--text-muted);
     padding: 0 4px;
 }
 

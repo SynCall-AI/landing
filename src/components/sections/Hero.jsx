@@ -1,88 +1,70 @@
 import "./Hero.css";
 import { useLanguage } from '../../context/LanguageContext';
+import VoiceCallWidget from './VoiceCallWidget.jsx';
 
 const Hero = () => {
     const { t } = useLanguage();
 
     return (
         <div id="home" className="hero-main">
-            {/* Ambient gradient blobs */}
-            <div className="hero-glow hero-glow-1" />
-            <div className="hero-glow hero-glow-2" />
-            <div className="hero-glow hero-glow-3" />
-
-            {/* Dot grid pattern */}
-            <div className="hero-grid" />
-
             <div className="hero-content">
-                {/* Animated badge with rotating border */}
-                <div className="hero-badge animate-in">
-                    <div className="hero-badge-border" />
-                    <div className="hero-badge-inner">
-                        <span className="hero-badge-dot" />
+                <div className="hero-left">
+                    <div className="hero-eyebrow animate-in">
+                        <span className="hero-eyebrow-dot" />
                         {t('heroBadge')}
                     </div>
+
+                    <h1 className="hero-title animate-in animate-in-delay-1">
+                        {t('heroTitle')}
+                    </h1>
+
+                    <p className="hero-subtitle animate-in animate-in-delay-2">
+                        {t('heroSubtitle')}
+                    </p>
+
+                    <div className="hero-features animate-in animate-in-delay-3">
+                        <div className="hero-pill">
+                            <span className="hero-pill-icon">
+                                <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                                    <rect x="9" y="2" width="6" height="12" rx="3" stroke="currentColor" strokeWidth="1.6"/>
+                                    <path d="M5 11a7 7 0 0014 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                    <line x1="12" y1="18" x2="12" y2="22" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                </svg>
+                            </span>
+                            {t('heroFeature1')}
+                        </div>
+                        <div className="hero-pill">
+                            <span className="hero-pill-icon">
+                                <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                                    <path d="M4 5h16v11H9l-5 4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+                                </svg>
+                            </span>
+                            {t('heroFeature2')}
+                        </div>
+                        <div className="hero-pill">
+                            <span className="hero-pill-icon">
+                                <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                                    <path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+                                </svg>
+                            </span>
+                            {t('heroFeature3')}
+                        </div>
+                    </div>
+
+                    <div className="hero-buttons animate-in animate-in-delay-4">
+                        <a href="#demo">
+                            <button className="btn-primary hero-btn">
+                                {t('tryDemo')}
+                            </button>
+                        </a>
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
+                            <button className="btn-secondary hero-btn">{t('contactSales')}</button>
+                        </a>
+                    </div>
                 </div>
 
-                <h1 className="hero-title animate-in animate-in-delay-1">
-                    {t('heroTitle')}
-                </h1>
-
-                <p className="hero-subtitle animate-in animate-in-delay-2">
-                    {t('heroSubtitle')}
-                </p>
-
-                <div className="hero-features animate-in animate-in-delay-3">
-                    <div className="hero-pill">
-                        <span className="hero-pill-icon">🧠</span>
-                        {t('heroFeature1')}
-                    </div>
-                    <div className="hero-pill">
-                        <span className="hero-pill-icon">&#128172;</span>
-                        {t('heroFeature2')}
-                    </div>
-                    <div className="hero-pill">
-                        <span className="hero-pill-icon">📞</span>
-                        {t('heroFeature3')}
-                    </div>
-                </div>
-
-                <div className="hero-buttons animate-in animate-in-delay-4">
-                    <a href="#demo">
-                        <button className="btn-primary hero-btn">
-                            {t('tryDemo')}
-                            <span className="btn-shine" />
-                        </button>
-                    </a>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                        <button className="btn-secondary hero-btn">{t('contactSales')}</button>
-                    </a>
-                </div>
-            </div>
-
-            {/* Floating UI cards for visual richness */}
-            <div className="hero-floating hero-float-left animate-in animate-in-delay-5" style={{animationName: 'slideInLeft'}}>
-                <div className="hero-float-card">
-                    <div className="float-card-bar" />
-                    <div className="float-card-bar short" />
-                    <div className="float-card-dot-row">
-                        <span className="fcd green" />
-                        <span className="fcd-label">{t('feature1Stat')}</span>
-                    </div>
-                </div>
-            </div>
-            <div className="hero-floating hero-float-right animate-in animate-in-delay-5" style={{animationName: 'slideInRight'}}>
-                <div className="hero-float-card">
-                    <div className="float-card-wave">
-                        <svg viewBox="0 0 120 40" fill="none">
-                            <path d="M0 30 Q15 10 30 25 T60 20 T90 25 T120 15" stroke="#1173FC" strokeWidth="2" fill="none" opacity="0.6"/>
-                            <path d="M0 32 Q15 15 30 28 T60 22 T90 28 T120 18" stroke="#8B5CF6" strokeWidth="1.5" fill="none" opacity="0.4"/>
-                        </svg>
-                    </div>
-                    <div className="float-card-dot-row">
-                        <span className="fcd blue" />
-                        <span className="fcd-label">{t('heroLiveAnalysis')}</span>
-                    </div>
+                <div className="hero-right animate-in animate-in-delay-3">
+                    <VoiceCallWidget />
                 </div>
             </div>
         </div>

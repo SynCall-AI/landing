@@ -35,10 +35,7 @@
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-primary) 50%, rgba(17, 115, 252, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
 }
 
 /* ---- Stat cards ---- */
@@ -86,13 +83,13 @@
 }
 .number-card:hover .nc-glow { opacity: 0.7; }
 
-.nc-green .nc-glow { background: rgba(74, 222, 128, 0.15); }
-.nc-pink .nc-glow { background: rgba(236, 72, 153, 0.15); }
-.nc-gold .nc-glow { background: rgba(251, 191, 36, 0.15); }
+.nc-green .nc-glow,
+.nc-pink .nc-glow,
+.nc-gold .nc-glow { background: rgba(17, 115, 252, 0.12); }
 
-.nc-green .number-value { color: #4ADE80; }
-.nc-pink .number-value { color: #EC4899; }
-.nc-gold .number-value { color: #FBBF24; }
+.nc-green .number-value,
+.nc-pink .number-value,
+.nc-gold .number-value { color: var(--text-primary); }
 
 /* Animated underline accent per card */
 .number-card::after {
@@ -109,9 +106,9 @@
 .number-card:hover::after {
     opacity: 0.3;
 }
-.nc-green::after { color: #4ADE80; }
-.nc-pink::after { color: #EC4899; }
-.nc-gold::after { color: #FBBF24; }
+.nc-green::after,
+.nc-pink::after,
+.nc-gold::after { color: var(--accent-blue); }
 
 .number-value {
     font-size: clamp(3rem, 6vw, 4.5rem);

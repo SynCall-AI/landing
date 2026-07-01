@@ -11,6 +11,9 @@
 
 const STT_URL = import.meta.env.VITE_STT_API_URL;
 const TTS_URL = import.meta.env.VITE_TTS_API_URL;
+// Lead notifications go to the serverless function at /api/lead, which forwards
+// to Telegram. Override with VITE_LEAD_API_URL if hosted elsewhere.
+const LEAD_URL = import.meta.env.VITE_LEAD_API_URL || '/api/lead';
 
 export const isSttLive = Boolean(STT_URL);
 export const isTtsLive = Boolean(TTS_URL);
@@ -136,4 +139,38 @@ export async function synthesizeSpeech(text, opts = {}) {
         sampleRate: 24000,
         mock: true,
     };
+}
+
+/**
+ * Capture a lead (phone number) from the hero call widget.
+ * Point this at your CRM / webhook by setting VITE_LEAD_API_URL.
+ * When unset, the lead is stored in localStorage and logged so nothing is lost
+ * in development — swapping in the live endpoint is a one-line env change.
+ * @param {{ phone:string, language?:string, source?:string }} lead
+ * @returns {Promise<{ok:boolean, mock:boolean}>}
+ */
+export async function submitLead(lead) {
+    const payload = { ...lead, ts: new Date().toISOString() };
+
+    try {
+        const res = await fetch(LEAD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(`Lead request failed: ${res.status}`);
+        return { ok: true, mock: false };
+    } catch (err) {
+        // Endpoint unavailable (e.g. plain `vite dev` with no serverless runtime,
+        // or a Telegram outage). Don't lose the lead — stash it locally and log.
+        try {
+            const store = JSON.parse(localStorage.getItem('syncall_leads') || '[]');
+            store.push(payload);
+            localStorage.setItem('syncall_leads', JSON.stringify(store));
+        } catch {
+            /* localStorage unavailable — ignore */
+        }
+        console.info('[Syncall] lead saved locally (endpoint unavailable):', payload);
+        return { ok: true, mock: true };
+    }
 }

@@ -114,9 +114,9 @@ const Features = () => {
                                             <rect x="2" y="2" width="28" height="10" rx="3" stroke="currentColor" strokeWidth="1.5"/>
                                             <rect x="2" y="14" width="28" height="10" rx="3" stroke="currentColor" strokeWidth="1.5"/>
                                             <rect x="2" y="26" width="28" height="8" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-                                            <circle cx="8" cy="7" r="1.5" fill="#4ADE80"/>
-                                            <circle cx="8" cy="19" r="1.5" fill="#4ADE80"/>
-                                            <circle cx="8" cy="30" r="1.5" fill="#4ADE80"/>
+                                            <circle cx="8" cy="7" r="1.5" fill="var(--accent-blue)"/>
+                                            <circle cx="8" cy="19" r="1.5" fill="var(--accent-blue)"/>
+                                            <circle cx="8" cy="30" r="1.5" fill="var(--accent-blue)"/>
                                         </svg>
                                     </div>
                                     <span className="fc-deploy-label">On-Premise</span>
