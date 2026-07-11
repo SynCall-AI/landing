@@ -1,0 +1,363 @@
+import { localizePath, stripLocalePrefix } from '../../lib/i18n.js';
+
+export const SITE_ORIGIN = 'https://www.syncallai.com';
+export const SEO_LOCALES = ['en', 'ru', 'uz'];
+
+export const OG_LOCALES = {
+    en: 'en_US',
+    ru: 'ru_RU',
+    uz: 'uz_UZ',
+};
+
+const page = (titles, descriptions, options = {}) => ({
+    titles,
+    descriptions,
+    ...options,
+});
+
+// This is the canonical inventory for runtime metadata, static HTML generation,
+// and (indirectly) sitemap generation. `/voice-agents` remains an inbound-link
+// alias for the home page, so it deliberately canonicalizes to `/`.
+export const ROUTE_SEO = {
+    '/': page(
+        {
+            en: 'Syncall — AI Voice Agents for Call Centers | Uzbek & Russian',
+            ru: 'Syncall — AI-агенты для колл-центров на русском и узбекском',
+            uz: "Syncall — O'zbek va rus call-markazlari uchun AI-agentlar",
+        },
+        {
+            en: 'AI voice agents and chatbots for Uzbek, Russian, and English call centers, with telephony integration and cloud or on-premise deployment.',
+            ru: 'AI-голосовые агенты и чат-боты для колл-центров на узбекском, русском и английском с интеграцией телефонии и размещением в облаке или On-Premise.',
+            uz: "O'zbek, rus va ingliz tilidagi call-markazlar uchun telefoniya bilan integratsiyalashadigan, bulutda yoki On-Premise ishlaydigan AI ovozli agentlar va chatbotlar.",
+        },
+        { kind: 'home' },
+    ),
+    '/voice-agents': page({}, {}, { aliasFor: '/', canonicalPath: '/' }),
+    '/analytics': page(
+        {
+            en: 'AI Call Analytics & Quality Control | Syncall',
+            ru: 'AI-аналитика звонков и контроль качества | Syncall',
+            uz: "AI qo'ng'iroq tahlili va sifat nazorati | Syncall",
+        },
+        {
+            en: 'Analyze every call, score operator performance, surface missed script steps, and deliver structured quality reports in Uzbek, Russian, and English.',
+            ru: 'Анализируйте каждый звонок, оценивайте операторов, находите пропущенные шаги скрипта и получайте отчёты о качестве на узбекском, русском и английском.',
+            uz: "Har bir qo'ng'iroqni tahlil qiling, operatorlarni baholang, o'tkazib yuborilgan skript bosqichlarini toping va uch tilda sifat hisobotlarini oling.",
+        },
+    ),
+    '/chatbots': page(
+        {
+            en: 'On-Premise AI Chatbots for Business | Syncall',
+            ru: 'On-Premise AI-чат-боты для бизнеса | Syncall',
+            uz: 'Biznes uchun On-Premise AI-chatbotlar | Syncall',
+        },
+        {
+            en: 'Deploy secure AI chatbots for web and messengers on your own infrastructure, with Uzbek and Russian understanding plus CRM and knowledge-base integration.',
+            ru: 'Разверните защищённые AI-чат-боты для сайта и мессенджеров на своей инфраструктуре с поддержкой узбекского, русского, CRM и базы знаний.',
+            uz: "Veb va messenjerlar uchun xavfsiz AI-chatbotlarni o'z infratuzilmangizda, o'zbek-rus tillari, CRM va bilimlar bazasi bilan ishga tushiring.",
+        },
+    ),
+    '/stt': page(
+        {
+            en: 'Uzbek Speech-to-Text API for Real Calls | Syncall',
+            ru: 'Speech-to-Text API для узбекской речи | Syncall',
+            uz: "O'zbek nutqi uchun Speech-to-Text API | Syncall",
+        },
+        {
+            en: 'Transcribe real Uzbek, Russian, and mixed-language calls with an API designed for regional dialects, slang, background noise, streaming, and batch audio.',
+            ru: 'Распознавайте реальные узбекские, русские и смешанные звонки через API с поддержкой диалектов, сленга, фонового шума, стриминга и пакетной обработки.',
+            uz: "Lahjalar, sleng, fon shovqini, oqimli va paketli audio uchun yaratilgan API bilan o'zbek, rus va aralash tildagi real qo'ng'iroqlarni matnga aylantiring.",
+        },
+    ),
+    '/tts': page(
+        {
+            en: 'Uzbek Text-to-Speech & Voice Cloning API | Syncall',
+            ru: 'Text-to-Speech и клонирование голоса | Syncall',
+            uz: "O'zbek Text-to-Speech va ovoz klonlash API | Syncall",
+        },
+        {
+            en: 'Generate natural Uzbek, Russian, and English speech or create a consent-based brand voice clone through a low-latency text-to-speech API.',
+            ru: 'Синтезируйте естественную узбекскую, русскую и английскую речь или создайте голос бренда с согласия диктора через API с низкой задержкой.',
+            uz: "Past kechikishli API orqali tabiiy o'zbek, rus va ingliz nutqini yarating yoki diktor roziligi asosida brend ovozini klonlang.",
+        },
+    ),
+    '/features': page(
+        {
+            en: 'AI Voice Agent Features for Call Centers | Syncall',
+            ru: 'Возможности AI-агентов для колл-центров | Syncall',
+            uz: "Call-markaz AI-agentlari imkoniyatlari | Syncall",
+        },
+        {
+            en: 'Explore dialect-aware speech recognition, interruption handling, voice isolation, voice cloning, analytics, CRM connectivity, and on-premise deployment.',
+            ru: 'Изучите распознавание диалектов, обработку перебиваний, изоляцию голоса, клонирование, аналитику, CRM-интеграции и On-Premise размещение.',
+            uz: "Lahjalarni anglash, so'zni bo'lish, ovozni ajratish, ovoz klonlash, tahlil, CRM ulanishi va On-Premise joylashtirish imkoniyatlarini ko'ring.",
+        },
+    ),
+    '/use-cases/banking': page(
+        {
+            en: 'On-Premise AI Voice Agents for Banks | Syncall',
+            ru: 'On-Premise AI-агенты для банков | Syncall',
+            uz: 'Banklar uchun On-Premise AI ovozli agentlar | Syncall',
+        },
+        {
+            en: 'Call-center AI that can keep audio and transcripts on your servers, built for banking data-residency workflows in Uzbekistan and Russian-speaking markets.',
+            ru: 'AI для колл-центров, который может хранить аудио и расшифровки на ваших серверах для банковских сценариев в Узбекистане и русскоязычных рынках.',
+            uz: "Audio va transkriptlarni o'z serverlaringizda saqlashi mumkin bo'lgan, O'zbekiston banklarining ma'lumot joylashuvi talablari uchun AI call-markaz yechimi.",
+        },
+    ),
+    '/use-cases/debt-collection': page(
+        {
+            en: 'AI Voice Agents for Debt Collection | Syncall',
+            ru: 'AI-агенты для взыскания задолженности | Syncall',
+            uz: "Qarzdorlik undirish uchun AI ovozli agentlar | Syncall",
+        },
+        {
+            en: 'Automate respectful payment reminders and follow-up calls in Uzbek and Russian while recording outcomes and structured next steps in your CRM.',
+            ru: 'Автоматизируйте корректные напоминания об оплате и повторные звонки на узбекском и русском с фиксацией результата и следующего шага в CRM.',
+            uz: "O'zbek va rus tillarida to'lov eslatmalari hamda takroriy qo'ng'iroqlarni avtomatlashtiring, natija va keyingi qadamlarni CRMga yozing.",
+        },
+    ),
+    '/use-cases/appointment-reminders': page(
+        {
+            en: 'Automated Appointment Reminder Calls | Syncall',
+            ru: 'Автоматические звонки-напоминания о записи | Syncall',
+            uz: "Uchrashuvni eslatuvchi avtomatik qo'ng'iroqlar | Syncall",
+        },
+        {
+            en: 'Confirm, reschedule, or cancel appointments through automated voice calls in Uzbek and Russian, with updates sent back to your existing systems.',
+            ru: 'Подтверждайте, переносите или отменяйте записи автоматическими голосовыми звонками на узбекском и русском с обновлением данных в ваших системах.',
+            uz: "O'zbek va rus tilidagi avtomatik ovozli qo'ng'iroqlar orqali uchrashuvni tasdiqlang, ko'chiring yoki bekor qiling va tizimlaringizni yangilang.",
+        },
+    ),
+    '/use-cases/surveys': page(
+        {
+            en: 'Automated Voice Surveys in Uzbek & Russian | Syncall',
+            ru: 'Автоматические голосовые опросы на RU и UZ | Syncall',
+            uz: "O'zbek va rus tilidagi avtomatik ovozli so'rovlar | Syncall",
+        },
+        {
+            en: 'Run multilingual customer surveys by phone, capture structured answers, and send results to analytics or CRM workflows without manual calling.',
+            ru: 'Проводите телефонные опросы на нескольких языках, собирайте структурированные ответы и передавайте результаты в аналитику или CRM без ручных звонков.',
+            uz: "Ko'p tilli telefon so'rovlarini o'tkazing, tuzilgan javoblarni yig'ing va natijalarni qo'lda qo'ng'iroqsiz tahlil yoki CRM jarayoniga yuboring.",
+        },
+    ),
+    '/use-cases/lead-qualification': page(
+        {
+            en: 'AI Lead Qualification Calls | Syncall',
+            ru: 'AI-звонки для квалификации лидов | Syncall',
+            uz: "Lidlarni saralash uchun AI qo'ng'iroqlar | Syncall",
+        },
+        {
+            en: 'Qualify inbound and outbound leads through natural Uzbek and Russian conversations, then route the right prospects and call context to your sales team.',
+            ru: 'Квалифицируйте входящие и исходящие лиды в естественном диалоге на узбекском и русском и передавайте подходящих клиентов с контекстом отделу продаж.',
+            uz: "Kiruvchi va chiquvchi lidlarni tabiiy o'zbek-rus suhbatida saralang, mos mijozlar va qo'ng'iroq kontekstini savdo jamoasiga yuboring.",
+        },
+    ),
+    '/integrations': page(
+        {
+            en: 'Telephony & CRM Integrations for Voice AI | Syncall',
+            ru: 'Интеграции телефонии и CRM для Voice AI | Syncall',
+            uz: 'Voice AI uchun telefoniya va CRM integratsiyalari | Syncall',
+        },
+        {
+            en: 'Connect Syncall with SIP, PBX, Asterisk, FreePBX, 3CX, cloud telephony, Delta M, and webhook-capable CRMs without replacing your existing workflow.',
+            ru: 'Подключите Syncall к SIP, PBX, Asterisk, FreePBX, 3CX, облачной телефонии, Delta M и CRM с вебхуками без замены существующих процессов.',
+            uz: "Mavjud jarayonlarni almashtirmasdan Syncall'ni SIP, PBX, Asterisk, FreePBX, 3CX, bulut telefoniyasi, Delta M va webhookli CRMlarga ulang.",
+        },
+    ),
+    '/comparisons/vs-aisha': page(
+        {
+            en: 'Syncall vs Aisha AI: Voice Agent Comparison',
+            ru: 'Syncall и Aisha AI: сравнение голосовых агентов',
+            uz: 'Syncall va Aisha AI: ovozli agentlar taqqoslanishi',
+        },
+        {
+            en: 'Compare Syncall and Aisha AI using clearly labeled criteria for languages, deployment, voice features, integrations, and implementation—without unsupported claims.',
+            ru: 'Сравните Syncall и Aisha AI по языкам, размещению, голосовым функциям, интеграциям и внедрению на основе чётких критериев без неподтверждённых заявлений.',
+            uz: "Syncall va Aisha AI'ni tillar, joylashtirish, ovoz funksiyalari, integratsiya va joriy etish mezonlari bo'yicha tasdiqlanmagan da'volarsiz solishtiring.",
+        },
+    ),
+    '/comparisons/vapi-alternative': page(
+        {
+            en: 'Vapi Alternative for Uzbek & Russian Calls | Syncall',
+            ru: 'Альтернатива Vapi для звонков на RU и UZ | Syncall',
+            uz: "O'zbek va rus qo'ng'iroqlari uchun Vapi muqobili | Syncall",
+        },
+        {
+            en: 'Evaluate Syncall as a Vapi alternative when your project needs Uzbek dialect support, Russian code-switching, managed integration, or on-premise deployment.',
+            ru: 'Оцените Syncall как альтернативу Vapi, если нужны узбекские диалекты, переключение на русский, интеграция под ключ или On-Premise размещение.',
+            uz: "Loyihangizga o'zbek lahjalari, rus tiliga o'tish, boshqariladigan integratsiya yoki On-Premise joylashtirish kerak bo'lsa, Syncall'ni Vapi muqobili sifatida baholang.",
+        },
+    ),
+    '/pricing': page(
+        {
+            en: 'AI Voice Agent Pricing & Free Trial | Syncall',
+            ru: 'Цены на AI-агентов и бесплатный период | Syncall',
+            uz: "AI ovozli agent narxlari va bepul sinov | Syncall",
+        },
+        {
+            en: 'Learn how volume-based Syncall pricing works, what affects deployment cost, and what is included in the custom AI-agent trial for up to 1,000 calls.',
+            ru: 'Узнайте, как работает объёмное ценообразование Syncall, что влияет на стоимость внедрения и что входит в тест AI-агента до 1 000 звонков.',
+            uz: "Syncall hajmga asoslangan narxlari, joriy etish qiymatiga ta'sir qiluvchi omillar va 1 000 qo'ng'iroqqacha AI-agent sinoviga nimalar kirishini biling.",
+        },
+    ),
+    '/about': page(
+        {
+            en: 'About Syncall AI — Tashkent Voice AI Team',
+            ru: 'О Syncall AI — команда Voice AI из Ташкента',
+            uz: 'Syncall AI haqida — Toshkentdagi Voice AI jamoasi',
+        },
+        {
+            en: 'Meet Syncall, a Tashkent-based AI company founded in 2024 and focused on practical voice agents, speech technology, and secure business automation.',
+            ru: 'Познакомьтесь с Syncall — основанной в 2024 году ташкентской AI-компанией, которая создаёт голосовых агентов, речевые технологии и безопасную автоматизацию.',
+            uz: "2024-yilda Toshkentda tashkil etilgan, ovozli agentlar, nutq texnologiyasi va xavfsiz biznes avtomatlashtirishga ixtisoslashgan Syncall bilan tanishing.",
+        },
+    ),
+    '/case-studies': page(
+        {
+            en: 'AI Voice Agent Case Studies | Syncall',
+            ru: 'Кейсы внедрения AI-голосовых агентов | Syncall',
+            uz: "AI ovozli agentlarni joriy etish tajribalari | Syncall",
+        },
+        {
+            en: 'Review clearly sourced Syncall deployment stories, use cases, integration details, and measured outcomes as verified customer case studies become available.',
+            ru: 'Изучайте подтверждённые истории внедрения Syncall, сценарии, интеграции и измеримые результаты по мере публикации проверенных клиентских кейсов.',
+            uz: "Tasdiqlangan mijoz tajribalari e'lon qilingani sari Syncall joriy etish hikoyalari, ssenariylari, integratsiya tafsilotlari va o'lchangan natijalarni ko'ring.",
+        },
+    ),
+};
+
+export const INDEXABLE_ROUTE_PATHS = Object.keys(ROUTE_SEO);
+
+export const normalizeRoutePath = (pathname = '/') => {
+    const withoutLocale = stripLocalePrefix(pathname.split(/[?#]/)[0] || '/');
+    if (withoutLocale === '/') return '/';
+    return `/${withoutLocale.split('/').filter(Boolean).join('/')}`;
+};
+
+export const localizedUrl = (basePath, locale) => {
+    const localizedPath = localizePath(basePath, locale);
+    return `${SITE_ORIGIN}${localizedPath === '/' ? '/' : localizedPath}`;
+};
+
+export const getRouteSeo = (pathname = '/', locale = 'en') => {
+    const language = SEO_LOCALES.includes(locale) ? locale : 'en';
+    const basePath = normalizeRoutePath(pathname);
+    const direct = ROUTE_SEO[basePath];
+    const target = direct?.aliasFor ? ROUTE_SEO[direct.aliasFor] : direct;
+    const unknown = !target;
+    const metadata = target || ROUTE_SEO['/'];
+    const canonicalPath = unknown
+        ? '/'
+        : (direct?.canonicalPath || direct?.aliasFor || basePath);
+
+    return {
+        basePath,
+        canonicalPath,
+        unknown,
+        title: metadata.titles[language] || metadata.titles.en,
+        description: metadata.descriptions[language] || metadata.descriptions.en,
+        canonical: localizedUrl(canonicalPath, language),
+        alternates: Object.fromEntries(
+            SEO_LOCALES.map((alternateLocale) => [
+                alternateLocale,
+                localizedUrl(canonicalPath, alternateLocale),
+            ]),
+        ),
+        xDefault: localizedUrl(canonicalPath, 'en'),
+        ogLocale: OG_LOCALES[language],
+        ogLocaleAlternates: SEO_LOCALES
+            .filter((alternateLocale) => alternateLocale !== language)
+            .map((alternateLocale) => OG_LOCALES[alternateLocale]),
+    };
+};
+
+const SCHEMA_COPY = {
+    en: {
+        organization: 'AI voice agents and chatbots for call centers in Uzbek, Russian, and English.',
+        software: 'B2B AI voice agents for Uzbek, Russian, and English call centers, with telephony and CRM integration plus cloud or on-premise deployment.',
+        offer: 'Free trial with a custom-trained AI agent for up to 1,000 calls.',
+    },
+    ru: {
+        organization: 'AI-голосовые агенты и чат-боты для колл-центров на узбекском, русском и английском.',
+        software: 'B2B AI-агенты для колл-центров на узбекском, русском и английском с интеграцией телефонии и CRM, в облаке или On-Premise.',
+        offer: 'Бесплатный тест индивидуально обученного AI-агента до 1 000 звонков.',
+    },
+    uz: {
+        organization: "O'zbek, rus va ingliz tillarida call-markazlar uchun AI ovozli agentlar va chatbotlar.",
+        software: "O'zbek, rus va ingliz call-markazlari uchun telefoniya va CRM integratsiyasiga ega, bulutda yoki On-Premise ishlaydigan B2B AI-agentlar.",
+        offer: "1 000 qo'ng'iroqqacha maxsus o'qitilgan AI-agent bilan bepul sinov.",
+    },
+};
+
+export const buildOrganizationSchema = (locale = 'en') => {
+    const copy = SCHEMA_COPY[locale] || SCHEMA_COPY.en;
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Syncall',
+        url: `${SITE_ORIGIN}/`,
+        logo: `${SITE_ORIGIN}/Syncall.svg`,
+        description: copy.organization,
+        foundingDate: '2024',
+        address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Tashkent',
+            addressCountry: 'UZ',
+        },
+        contactPoint: {
+            '@type': 'ContactPoint',
+            contactType: 'sales',
+            url: 'https://t.me/syncall_ai',
+            availableLanguage: ['uz', 'ru', 'en'],
+        },
+        sameAs: [
+            'https://uz.linkedin.com/company/syncall-ai',
+            'https://huggingface.co/SyncallAI',
+            'https://t.me/syncall_ai',
+        ],
+    };
+};
+
+export const buildSoftwareSchema = (locale = 'en') => {
+    const copy = SCHEMA_COPY[locale] || SCHEMA_COPY.en;
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: 'Syncall',
+        url: `${SITE_ORIGIN}/`,
+        applicationCategory: 'BusinessApplication',
+        applicationSubCategory: 'Call Center Software',
+        operatingSystem: 'Cloud, On-Premise',
+        description: copy.software,
+        offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD',
+            description: copy.offer,
+        },
+        provider: {
+            '@type': 'Organization',
+            name: 'Syncall',
+            url: `${SITE_ORIGIN}/`,
+        },
+    };
+};
+
+export const FAQ_KEYS = Array.from({ length: 6 }, (_, index) => ({
+    question: `faqQ${index + 1}`,
+    answer: `faqA${index + 1}`,
+}));
+
+export const buildFaqSchema = (localeTranslations = {}, englishTranslations = {}) => ({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_KEYS.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: localeTranslations[question] || englishTranslations[question] || question,
+        acceptedAnswer: {
+            '@type': 'Answer',
+            text: localeTranslations[answer] || englishTranslations[answer] || answer,
+        },
+    })),
+});

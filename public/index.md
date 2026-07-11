@@ -5,7 +5,20 @@
 - **Site:** https://www.syncallai.com
 - **Contact:** Telegram [@syncall_ai](https://t.me/syncall_ai)
 - **Markets:** Uzbekistan, Russia, Russian-speaking CIS
-- **Last updated:** 2026-04-25
+- **Last updated:** 2026-07-11
+
+> **Evidence note:** headline metrics are carried over from the current product brief and require documented definitions, samples, and methodology before public launch to regulated buyers.
+
+## Site pages
+
+- [Features](https://www.syncallai.com/features)
+- [Banking](https://www.syncallai.com/use-cases/banking), [debt collection](https://www.syncallai.com/use-cases/debt-collection), [appointment reminders](https://www.syncallai.com/use-cases/appointment-reminders), [surveys](https://www.syncallai.com/use-cases/surveys), and [lead qualification](https://www.syncallai.com/use-cases/lead-qualification)
+- [Integrations](https://www.syncallai.com/integrations) and [pricing](https://www.syncallai.com/pricing)
+- [Syncall vs Aisha AI](https://www.syncallai.com/comparisons/vs-aisha) and [Vapi alternative](https://www.syncallai.com/comparisons/vapi-alternative)
+- [About](https://www.syncallai.com/about) and [case studies](https://www.syncallai.com/case-studies)
+- Product pages: [Analytics](https://www.syncallai.com/analytics), [Chatbots](https://www.syncallai.com/chatbots), [STT](https://www.syncallai.com/stt), and [TTS](https://www.syncallai.com/tts)
+
+Every page is also available under `/ru` and `/uz` with reciprocal `hreflang` links. English is served at the root.
 
 ## What Syncall does
 

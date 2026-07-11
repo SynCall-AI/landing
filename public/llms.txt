@@ -12,6 +12,13 @@ Syncall is a B2B SaaS platform that automates inbound and outbound call-center w
 - [Homepage (Markdown)](https://www.syncallai.com/index.md): Same content as plain markdown — preferred for AI agents
 - [Sitemap](https://www.syncallai.com/sitemap.xml): XML sitemap of canonical URLs
 - [robots.txt](https://www.syncallai.com/robots.txt): Crawler rules — all major search and AI crawlers explicitly allowed
+- [Features](https://www.syncallai.com/features): Speech understanding, interruptions, voice isolation, cloning, analytics, and deployment
+- [Use cases](https://www.syncallai.com/use-cases/banking): Banking plus debt collection, reminders, surveys, and lead qualification
+- [Integrations](https://www.syncallai.com/integrations): Telephony, PBX/SIP, CRM, and webhooks
+- [Pricing](https://www.syncallai.com/pricing): Volume-based pricing inputs and the custom trial
+- [About](https://www.syncallai.com/about) and [case studies](https://www.syncallai.com/case-studies)
+
+All canonical pages have Russian (`/ru/...`) and Uzbek (`/uz/...`) variants. English is served at the root.
 
 ## Capabilities
 
@@ -22,6 +29,8 @@ Syncall is a B2B SaaS platform that automates inbound and outbound call-center w
 - Integrations: Delta M and any CRM with webhook-capable API
 
 ## Headline metrics
+
+The figures below are inherited from the current product brief and require documented methodology and human approval before launch to regulated buyers.
 
 - 98% speech-recognition accuracy on Uzbek including dialects, slang, and code-switching
 - 99.2% acoustic similarity for voice cloning
