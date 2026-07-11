@@ -24,8 +24,8 @@ export const translations = {
 
         // Hero
         heroBadge: "O'zbekiston uchun AI yechimlar",
-        heroTitle: "Haqiqiy o'zbek shevalari va o'zbek-rus til almashinuviga o'rgatilgan yagona call-markaz sun'iy intellekti",
-        heroSubtitle: "O'zbek, rus va ingliz tillarida call-markazlar uchun sun'iy intellekt ovozli agentlar va chatbotlar. 24/7, daqiqasiga 1000+ qo'ng'iroq.",
+        heroTitle: "Sizning aqlli AI koll-markazingiz 24/7. Tezroq, sifatliroq, arzonroq.",
+        heroSubtitle: "O'zbek va rus tillarida qo'ng'iroqlarni bir zumda qayta ishlash. Katta xodimlar va o'qitish xarajatlarisiz rutinani avtomatlashtiring.",
         heroFeature1: "Ovozli agentlar",
         heroFeature2: "Chatbotlar",
         heroFeature3: "Har qanday telefoniya",
@@ -439,8 +439,8 @@ export const translations = {
 
         // Hero
         heroBadge: "AI решения для Узбекистана",
-        heroTitle: "Единственный ИИ для колл-центров, обученный на реальных узбекских диалектах и узбекско-русском переключении языков",
-        heroSubtitle: "ИИ-голосовые агенты и чат-боты для колл-центров на узбекском, русском и английском. 24/7, 1000+ звонков в минуту.",
+        heroTitle: "Ваш умный AI колл-центр 24/7. Быстрее, качественнее, дешевле.",
+        heroSubtitle: "Мгновенная обработка звонков на узбекском и русском языках. Автоматизируйте рутину без затрат на огромный штат и обучение.",
         heroFeature1: "Голосовые агенты",
         heroFeature2: "Чатботы",
         heroFeature3: "Любая телефония",
@@ -854,8 +854,8 @@ export const translations = {
 
         // Hero
         heroBadge: "AI Solutions for Uzbekistan",
-        heroTitle: "The only call-center AI fine-tuned on real Uzbek dialects and Uzbek–Russian code-switching",
-        heroSubtitle: "AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7, 1000+ calls/min.",
+        heroTitle: "Your smart AI call center 24/7. Faster, better, cheaper.",
+        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine without the costs of a large staff and training.",
         heroFeature1: "Voice Agents",
         heroFeature2: "Chatbots",
         heroFeature3: "Any Telephony",
