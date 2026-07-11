@@ -141,36 +141,49 @@ export async function synthesizeSpeech(text, opts = {}) {
     };
 }
 
+export class LeadSubmissionError extends Error {
+    constructor(message, { status = 0, code = 'DELIVERY_FAILED' } = {}) {
+        super(message);
+        this.name = 'LeadSubmissionError';
+        this.status = status;
+        this.code = code;
+    }
+}
+
 /**
- * Capture a lead (phone number) from the hero call widget.
- * Point this at your CRM / webhook by setting VITE_LEAD_API_URL.
- * When unset, the lead is stored in localStorage and logged so nothing is lost
- * in development — swapping in the live endpoint is a one-line env change.
- * @param {{ phone:string, language?:string, source?:string }} lead
- * @returns {Promise<{ok:boolean, mock:boolean}>}
+ * Submit a callback lead or full contact/demo request.
+ * Point this at a CRM/webhook by setting VITE_LEAD_API_URL; otherwise the
+ * Vercel function at /api/lead forwards it to the configured Telegram chat.
+ * The promise resolves only after the endpoint confirms delivery.
+ * @param {{phone:string, language?:string, source?:string, name?:string,
+ * company?:string, email?:string, monthlyCallVolume?:string,
+ * languages?:string[], message?:string, intent?:string, website?:string}} lead
+ * @returns {Promise<{ok:true, mock:false}>}
  */
 export async function submitLead(lead) {
     const payload = { ...lead, ts: new Date().toISOString() };
 
+    let res;
     try {
-        const res = await fetch(LEAD_URL, {
+        res = await fetch(LEAD_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
             body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error(`Lead request failed: ${res.status}`);
-        return { ok: true, mock: false };
-    } catch (err) {
-        // Endpoint unavailable (e.g. plain `vite dev` with no serverless runtime,
-        // or a Telegram outage). Don't lose the lead — stash it locally and log.
-        try {
-            const store = JSON.parse(localStorage.getItem('syncall_leads') || '[]');
-            store.push(payload);
-            localStorage.setItem('syncall_leads', JSON.stringify(store));
-        } catch {
-            /* localStorage unavailable — ignore */
-        }
-        console.info('[Syncall] lead saved locally (endpoint unavailable):', payload);
-        return { ok: true, mock: true };
+    } catch {
+        throw new LeadSubmissionError('Lead endpoint is unavailable');
     }
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || data.ok === false) {
+        throw new LeadSubmissionError(data.error || `Lead request failed: ${res.status}`, {
+            status: res.status,
+            code: data.code || 'DELIVERY_FAILED',
+        });
+    }
+
+    return { ok: true, mock: false };
 }

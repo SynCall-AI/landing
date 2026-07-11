@@ -121,6 +121,15 @@
     font-size: 0.95rem;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+.hero-telegram {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 10px 4px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+.hero-telegram:hover { color: var(--accent-blue-light); }
 .hero-btn:hover {
     transform: translateY(-2px);
 }
@@ -151,5 +160,6 @@
     .hero-main { padding: 120px 20px 60px; }
     .hero-features { gap: 8px; }
     .hero-buttons { width: 100%; }
-    .hero-btn { flex: 1; min-width: 0; }
+    .hero-btn { flex: 1 1 170px; min-width: 0; }
+    .hero-telegram { flex-basis: 100%; }
 }
