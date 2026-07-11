@@ -6,7 +6,7 @@ import SttDemo from "../components/demos/SttDemo.jsx";
 import { FaLanguage, FaVolumeXmark, FaClock, FaBolt } from 'react-icons/fa6';
 
 const Stt = () => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     const caps = [
         { icon: FaLanguage, titleKey: 'sttCap1Title', descKey: 'sttCap1Desc' },
@@ -16,7 +16,7 @@ const Stt = () => {
     ];
 
     return (
-        <main className="prod-page">
+        <main id="main-content" tabIndex="-1" className="prod-page">
             <ProductHero
                 badge={t('sttBadge')}
                 kind="api"
@@ -80,8 +80,8 @@ const Stt = () => {
                 <div className="prod-cta-inner">
                     <h2>{t('sttCtaTitle')}</h2>
                     <p>{t('sttCtaSubtitle')}</p>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                        <button className="btn-primary prod-cta-btn">{t('sttHeroCta')} <span>→</span></button>
+                    <a className="btn-primary prod-cta-btn" href={`${localePath('/')}?intent=demo#contact`}>
+                        {t('sttHeroCta')} <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>

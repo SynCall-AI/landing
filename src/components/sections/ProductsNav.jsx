@@ -55,7 +55,7 @@ const PRODUCTS = [
 ];
 
 const ProductsNav = ({ active }) => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     return (
         <section id="products" className="pnav-section">
@@ -73,7 +73,7 @@ const ProductsNav = ({ active }) => {
                         return (
                             <Link
                                 key={p.key}
-                                to={p.to}
+                                to={localePath(p.to)}
                                 className={`pnav-card ${isActive ? 'active' : ''}`}
                             >
                                 <div className="pnav-card-top">

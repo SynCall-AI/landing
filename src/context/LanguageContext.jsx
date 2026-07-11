@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useCallback, useContext, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getLocaleFromPath, localizePath, stripLocalePrefix } from '../lib/i18n.js';
 
 const LanguageContext = createContext();
 
@@ -22,12 +24,63 @@ export const translations = {
 
         // Hero
         heroBadge: "O'zbekiston uchun AI yechimlar",
-        heroTitle: "Sizning aqlli AI koll-markazingiz 24/7. Tezroq, sifatliroq, arzonroq.",
-        heroSubtitle: "O'zbek va rus tillarida qo'ng'iroqlarni bir zumda qayta ishlash. Katta xodimlar va o'qitish xarajatlarisiz rutinani avtomatlashtiring.",
+        heroTitle: "Haqiqiy o'zbek shevalari va o'zbek-rus til almashinuviga o'rgatilgan yagona call-markaz sun'iy intellekti",
+        heroSubtitle: "O'zbek, rus va ingliz tillarida call-markazlar uchun sun'iy intellekt ovozli agentlar va chatbotlar. 24/7, daqiqasiga 1000+ qo'ng'iroq.",
         heroFeature1: "Ovozli agentlar",
         heroFeature2: "Chatbotlar",
         heroFeature3: "Har qanday telefoniya",
         tryDemo: "Demo tinglash",
+        ctaDemo: "Demo buyurtma qilish",
+        ctaTrial: "Bepul sinovni boshlash",
+        ctaTelegram: "Telegram orqali yozish",
+        navMarketingFeatures: "Imkoniyatlar",
+        navUseCases: "Foydalanish holatlari",
+        navIntegrations: "Integratsiyalar",
+        navPricing: "Narxlar",
+        navAbout: "Kompaniya haqida",
+        navMenu: "Navigatsiyani ochish",
+        navClose: "Navigatsiyani yopish",
+        primaryNavigation: "Asosiy navigatsiya",
+        languageSelectorLabel: "Til tanlash",
+        switchLightTheme: "Yorug' mavzuga o'tish",
+        switchDarkTheme: "Qorong'i mavzuga o'tish",
+        skipToContent: "Asosiy kontentga o'tish",
+        loading: "Yuklanmoqda…",
+        footerProducts: "Mahsulotlar",
+        footerCompany: "Kompaniya",
+        useCaseBanking: "Banklar",
+        useCaseDebt: "Qarz undirish",
+        useCaseReminders: "Uchrashuv eslatmalari",
+        useCaseSurveys: "So'rovnomalar",
+        useCaseLeads: "Lidlarni saralash",
+        caseStudies: "Amaliy misollar",
+        comparisonAisha: "Syncall va Aisha AI taqqoslovi",
+        comparisonVapi: "O'zbek qo'ng'iroqlari uchun Vapi muqobili",
+        contactTitle: "Syncall'ni o'z qo'ng'iroqlaringizda sinab ko'ring",
+        contactSubtitle: "Ish jarayoningizni ayting — jamoamiz mos demo va bepul sinovni tayyorlaydi.",
+        contactName: "Ism",
+        contactCompany: "Kompaniya",
+        contactEmail: "Ishchi elektron pochta",
+        contactPhone: "Telefon",
+        contactVolume: "Oyiga kutilayotgan qo'ng'iroqlar",
+        contactLanguages: "Kerakli tillar",
+        contactMessage: "Xabar",
+        contactSubmit: "So'rov yuborish",
+        contactSubmitting: "Yuborilmoqda…",
+        contactSuccess: "Rahmat — so'rovingiz yuborildi. Tez orada bog'lanamiz.",
+        contactError: "So'rov yuborilmadi. Qayta urinib ko'ring yoki Telegram orqali yozing.",
+        contactConfigError: "Forma manzili hali sozlanmagan. Hozircha Telegram orqali yozing.",
+        contactRequired: "Iltimos, barcha majburiy maydonlarni to'ldiring.",
+        contactEmailInvalid: "To'g'ri ishchi elektron pochta manzilini kiriting.",
+        trustTitle: "Real natijalar uchun tayyorlangan ishonch bloki",
+        trustPlaceholder: "PLACEHOLDER — haqiqiy ma'lumot kerak",
+        metricMethodology: "Ishlab turgan tizimlarda o'lchangan — metodologiya",
+        metricAccuracy: "Nutqni aniqlash aniqligi",
+        metricResolution: "Birinchi murojaatda hal qilish",
+        metricCost: "Operatsion xarajatlarni kamaytirish",
+        metricCsat: "Mijozlar qoniqishi",
+        metricVoice: "Ovoz o'xshashligi",
+        metricScale: "Daqiqasiga qo'ng'iroqlar",
 
         // Talk Bot
         talkBotTitle: "AI ovozli agentimiz bilan tanishing",
@@ -76,7 +129,7 @@ export const translations = {
         feature1TagMix: "Aralash til",
         feature1TagSlang: "Sleng",
         feature1Title: "Jonli o'zbek nutqini tushunish",
-        feature1Desc: "AI o'zbek tilining barcha lahjalarini va tillarning erkin aralashmasini tushunadi. Tizim murakkab so'zlashuv nutqi, sleng va aksentlarni 96% aniqlik bilan anglaydi.",
+        feature1Desc: "AI o'zbek tilining barcha lahjalarini va tillarning erkin aralashmasini tushunadi. Tizim murakkab so'zlashuv nutqi, sleng va aksentlarni 98% aniqlik bilan anglaydi.",
         feature2Title: "Tabiiy muloqot va shovqin izolyatsiyasi",
         feature2Desc: "Robotni istalgan vaqtda bo'lish mumkin — u darhol jim bo'ladi va tinglaydi. Shovqinni to'suvchi Voice Isolation texnologiyasi bilan har qanday ko'cha shovqinida ham mijoz ovozini aniq ajratib oladi.",
         feature3Title: "Ma'lumotlar to'liq xavfsizligi",
@@ -85,6 +138,16 @@ export const translations = {
         feature4Desc: "Biz eng yaxshi xodimingiz ovozining aniq raqamli nusxasini yaratishimiz mumkin. Sizning AI har bir mijoz uchun tanish, yoqimli va professional tarzda jaranglaydi.",
         feature5Title: "CRM bilan tayyor integratsiya",
         feature5Desc: "Mavjud CRM tizimlaringiz bilan tayyor integratsiya. Har bir qo'ng'iroqning batafsil AI-tahlilini oling va tizimingizda ma'lumotlarni avtomatik yangilang.",
+        featureInterrupted: "Suhbat bo'lindi",
+        featureNoiseCanceled: "Shovqin filtrlandi",
+        featureOr: "yoki",
+        featureAutoSync: "Avtomatik sinxronlash",
+        engineDialingLabel: "Raqam terilmoqda",
+        engineSttMapping: "STT xaritalash",
+        engineCrmSync: "CRM sinxronlash",
+        engineSecureSync: "Himoyalangan yadro sinxronlash",
+        enginePerformanceTitle: "SYNCALL UNUMDORLIK KO'RSATKICHLARI",
+        engineDiagnosticsOnline: "DIAGNOSTIKA: ONLAYN",
 
         // Numbers
         numbersLabel: "Syncall AI raqamlarda",
@@ -376,12 +439,63 @@ export const translations = {
 
         // Hero
         heroBadge: "AI решения для Узбекистана",
-        heroTitle: "Ваш умный AI колл-центр 24/7. Быстрее, качественнее, дешевле.",
-        heroSubtitle: "Мгновенная обработка звонков на узбекском и русском языках. Автоматизируйте рутину без затрат на огромный штат и обучение.",
+        heroTitle: "Единственный ИИ для колл-центров, обученный на реальных узбекских диалектах и узбекско-русском переключении языков",
+        heroSubtitle: "ИИ-голосовые агенты и чат-боты для колл-центров на узбекском, русском и английском. 24/7, 1000+ звонков в минуту.",
         heroFeature1: "Голосовые агенты",
         heroFeature2: "Чатботы",
         heroFeature3: "Любая телефония",
         tryDemo: "Послушать демо",
+        ctaDemo: "Заказать демо",
+        ctaTrial: "Начать бесплатный период",
+        ctaTelegram: "Написать в Telegram",
+        navMarketingFeatures: "Возможности",
+        navUseCases: "Сценарии использования",
+        navIntegrations: "Интеграции",
+        navPricing: "Цены",
+        navAbout: "О компании",
+        navMenu: "Открыть навигацию",
+        navClose: "Закрыть навигацию",
+        primaryNavigation: "Основная навигация",
+        languageSelectorLabel: "Выбор языка",
+        switchLightTheme: "Включить светлую тему",
+        switchDarkTheme: "Включить тёмную тему",
+        skipToContent: "Перейти к основному содержанию",
+        loading: "Загрузка…",
+        footerProducts: "Продукты",
+        footerCompany: "Компания",
+        useCaseBanking: "Банки",
+        useCaseDebt: "Взыскание задолженности",
+        useCaseReminders: "Напоминания о встречах",
+        useCaseSurveys: "Опросы",
+        useCaseLeads: "Квалификация лидов",
+        caseStudies: "Кейсы",
+        comparisonAisha: "Сравнение Syncall и Aisha AI",
+        comparisonVapi: "Альтернатива Vapi для звонков на узбекском",
+        contactTitle: "Испытайте Syncall на своих звонках",
+        contactSubtitle: "Расскажите о процессе — команда подготовит подходящее демо и бесплатный пилот.",
+        contactName: "Имя",
+        contactCompany: "Компания",
+        contactEmail: "Рабочая почта",
+        contactPhone: "Телефон",
+        contactVolume: "Ожидаемое число звонков в месяц",
+        contactLanguages: "Нужные языки",
+        contactMessage: "Сообщение",
+        contactSubmit: "Отправить заявку",
+        contactSubmitting: "Отправляем…",
+        contactSuccess: "Спасибо — заявка отправлена. Мы скоро свяжемся с вами.",
+        contactError: "Не удалось отправить заявку. Попробуйте ещё раз или напишите в Telegram.",
+        contactConfigError: "Адрес формы ещё не настроен. Пока напишите нам в Telegram.",
+        contactRequired: "Заполните все обязательные поля.",
+        contactEmailInvalid: "Введите корректный рабочий email.",
+        trustTitle: "Блок доверия, готовый для реальных результатов",
+        trustPlaceholder: "PLACEHOLDER — нужны реальные данные",
+        metricMethodology: "Измерено в рабочих внедрениях — методология",
+        metricAccuracy: "Точность распознавания речи",
+        metricResolution: "Решение с первого обращения",
+        metricCost: "Снижение операционных затрат",
+        metricCsat: "Удовлетворённость клиентов",
+        metricVoice: "Сходство голоса",
+        metricScale: "Звонков в минуту",
 
         // Talk Bot
         talkBotTitle: "Познакомьтесь с нашим AI голосовым агентом",
@@ -430,7 +544,7 @@ export const translations = {
         feature1TagMix: "Микс языков",
         feature1TagSlang: "Сленг",
         feature1Title: "Понимание живой узбекской и русской речи",
-        feature1Desc: "ИИ понимает все диалекты узбекского и свободное смешивание языков (узб/рус). Система распознаёт разговорную речь, сленг и акценты с точностью до 96%.",
+        feature1Desc: "ИИ понимает все диалекты узбекского и свободное смешивание языков (узб/рус). Система распознаёт разговорную речь, сленг и акценты с точностью до 98%.",
         feature2Title: "Естественный диалог и шумоподавление",
         feature2Desc: "Робота можно перебивать в любой момент — он мгновенно замолкает и слушает. Благодаря встроенной Voice Isolation, ИИ игнорирует уличный шум, концентрируясь только на голосе клиента.",
         feature3Title: "Абсолютная безопасность данных",
@@ -439,6 +553,16 @@ export const translations = {
         feature4Desc: "Мы создаем точную цифровую копию голоса вашего лучшего сотрудника. Ваш ИИ-агент звучит привычно, дружелюбно и на 100% профессионально для каждого клиента.",
         feature5Title: "Готовая интеграция с CRM",
         feature5Desc: "Готовая интеграция с вашей CRM. Автоматически получайте подробный ИИ-анализ каждого звонка и мгновенно обновляйте данные в вашей системе.",
+        featureInterrupted: "Разговор прерван",
+        featureNoiseCanceled: "Шум подавлен",
+        featureOr: "или",
+        featureAutoSync: "Автосинхронизация",
+        engineDialingLabel: "Набор номера",
+        engineSttMapping: "Сопоставление STT",
+        engineCrmSync: "Синхронизация CRM",
+        engineSecureSync: "Защищённая синхронизация ядра",
+        enginePerformanceTitle: "ПОКАЗАТЕЛИ ПРОИЗВОДИТЕЛЬНОСТИ SYNCALL",
+        engineDiagnosticsOnline: "ДИАГНОСТИКА: ОНЛАЙН",
 
         // Numbers
         numbersLabel: "Syncall AI в цифрах",
@@ -730,12 +854,63 @@ export const translations = {
 
         // Hero
         heroBadge: "AI Solutions for Uzbekistan",
-        heroTitle: "Your smart AI call center 24/7. Faster, better, cheaper.",
-        heroSubtitle: "Instant call handling in Uzbek and Russian. Automate routine without the costs of a large staff and training.",
+        heroTitle: "The only call-center AI fine-tuned on real Uzbek dialects and Uzbek–Russian code-switching",
+        heroSubtitle: "AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7, 1000+ calls/min.",
         heroFeature1: "Voice Agents",
         heroFeature2: "Chatbots",
         heroFeature3: "Any Telephony",
         tryDemo: "Listen to Demo",
+        ctaDemo: "Book a demo",
+        ctaTrial: "Start free trial",
+        ctaTelegram: "Message us on Telegram",
+        navMarketingFeatures: "Features",
+        navUseCases: "Use cases",
+        navIntegrations: "Integrations",
+        navPricing: "Pricing",
+        navAbout: "About",
+        navMenu: "Open navigation",
+        navClose: "Close navigation",
+        primaryNavigation: "Primary navigation",
+        languageSelectorLabel: "Language selector",
+        switchLightTheme: "Switch to light theme",
+        switchDarkTheme: "Switch to dark theme",
+        skipToContent: "Skip to main content",
+        loading: "Loading…",
+        footerProducts: "Products",
+        footerCompany: "Company",
+        useCaseBanking: "Banking",
+        useCaseDebt: "Debt collection",
+        useCaseReminders: "Appointment reminders",
+        useCaseSurveys: "Surveys",
+        useCaseLeads: "Lead qualification",
+        caseStudies: "Case studies",
+        comparisonAisha: "Syncall vs Aisha AI",
+        comparisonVapi: "Vapi alternative for Uzbek calls",
+        contactTitle: "Test Syncall on your own calls",
+        contactSubtitle: "Tell us about your workflow and our team will prepare a relevant demo and free trial.",
+        contactName: "Name",
+        contactCompany: "Company",
+        contactEmail: "Work email",
+        contactPhone: "Phone",
+        contactVolume: "Expected monthly call volume",
+        contactLanguages: "Languages needed",
+        contactMessage: "Message",
+        contactSubmit: "Send request",
+        contactSubmitting: "Sending…",
+        contactSuccess: "Thanks — your request was sent. We'll be in touch shortly.",
+        contactError: "We couldn't send your request. Try again or message us on Telegram.",
+        contactConfigError: "The form destination is not configured yet. Please message us on Telegram for now.",
+        contactRequired: "Please complete every required field.",
+        contactEmailInvalid: "Enter a valid work email address.",
+        trustTitle: "Trust components ready for real customer proof",
+        trustPlaceholder: "PLACEHOLDER — needs real data",
+        metricMethodology: "Measured in production deployments — methodology",
+        metricAccuracy: "Speech-recognition accuracy",
+        metricResolution: "First-contact resolution",
+        metricCost: "Lower operating cost",
+        metricCsat: "Customer satisfaction",
+        metricVoice: "Voice similarity",
+        metricScale: "Calls per minute",
 
         // Talk Bot
         talkBotTitle: "Experience our AI Voice Agent",
@@ -784,7 +959,7 @@ export const translations = {
         feature1TagMix: "Language mix",
         feature1TagSlang: "Slang",
         feature1Title: "Native speech understanding",
-        feature1Desc: "Our AI understands all Uzbek dialects and free bilingual mixing (Uzbek/Russian). It parses slang, accent variations, and colloquialisms with 96% accuracy.",
+        feature1Desc: "Our AI understands all Uzbek dialects and free bilingual mixing (Uzbek/Russian). It parses slang, accent variations, and colloquialisms with 98% accuracy.",
         feature2Title: "Natural conversation and interruption handling",
         feature2Desc: "Customers can interrupt the AI agent at any point — it immediately stops speaking to listen. Armed with Voice Isolation, it filters street noises to focus solely on the user.",
         feature3Title: "Enterprise-grade data security",
@@ -793,6 +968,16 @@ export const translations = {
         feature4Desc: "We create an identical digital voice clone of your top agent. Your AI sounds familiar, welcoming, and 100% professional to every customer.",
         feature5Title: "Turnkey CRM integration",
         feature5Desc: "Ready-made integrations with popular CRM software. Automatically receive detailed AI-summarized insights and update records on every call.",
+        featureInterrupted: "Interrupted",
+        featureNoiseCanceled: "Noise canceled",
+        featureOr: "or",
+        featureAutoSync: "Auto-sync",
+        engineDialingLabel: "Dialing",
+        engineSttMapping: "STT engine mapping",
+        engineCrmSync: "CRM sync",
+        engineSecureSync: "Secure core sync",
+        enginePerformanceTitle: "SYNCALL PERFORMANCE SPECS",
+        engineDiagnosticsOnline: "DIAGNOSTICS: ONLINE",
 
         // Numbers
         numbersLabel: "Syncall AI in Numbers",
@@ -1076,14 +1261,37 @@ export const translations = {
 };
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('ru');
+    const location = useLocation();
+    const navigate = useNavigate();
+    const language = getLocaleFromPath(location.pathname);
 
-    const t = (key) => {
-        return translations[language][key] || key;
-    };
+    useEffect(() => {
+        document.documentElement.lang = language;
+    }, [language]);
+
+    const setLanguage = useCallback((nextLanguage) => {
+        if (!translations[nextLanguage]) return;
+        const destination = localizePath(
+            `${location.pathname}${location.search}${location.hash}`,
+            nextLanguage,
+        );
+        navigate(destination);
+    }, [location.hash, location.pathname, location.search, navigate]);
+
+    const t = useCallback((key) => {
+        return translations[language]?.[key] || translations.en[key] || key;
+    }, [language]);
+
+    const localePath = useCallback((path) => localizePath(path, language), [language]);
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage, t }}>
+        <LanguageContext.Provider value={{
+            language,
+            setLanguage,
+            t,
+            localePath,
+            basePath: stripLocalePrefix(location.pathname),
+        }}>
             {children}
         </LanguageContext.Provider>
     );
