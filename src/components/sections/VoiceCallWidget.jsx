@@ -39,7 +39,10 @@ const VoiceCallWidget = () => {
 
     const goToDemo = () => {
         const el = document.getElementById('demo');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (el) {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
     };
 
     const reset = () => {

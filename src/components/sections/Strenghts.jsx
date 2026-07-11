@@ -41,13 +41,13 @@ const Strenghts = () => {
     return (
         <div id="features" className="str-main">
             <div className="str-h">
-                <h1>{t('strengthsTitle')}</h1>
+                <h2>{t('strengthsTitle')}</h2>
             </div>
             <div className="str-b">
                 {data.map((i, index) => (
                     <div key={index} className="str-elem">
                         <div className="t-holder">
-                            <img src={i.icon} alt="oops..."/>
+                            <img src={i.icon} alt="" loading="lazy" />
                             <p className="elem-t">{t(i.titleKey)}</p>
                         </div>
 

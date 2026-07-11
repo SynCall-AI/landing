@@ -9,7 +9,9 @@ const ScrollToTop = () => {
         if (hash) {
             const el = document.getElementById(hash.slice(1));
             if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+                el.focus({ preventScroll: true });
                 return;
             }
         }

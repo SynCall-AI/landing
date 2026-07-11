@@ -10,7 +10,7 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.faq-left h1 {
+.faq-left h2 {
     font-size: clamp(2rem, 4vw, 2.5rem);
     font-weight: 700;
     line-height: 1.2;
@@ -46,6 +46,12 @@
     align-items: flex-start;
     line-height: 1.4;
     transition: color 0.2s ease;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    min-height: 44px;
+    padding: 0;
 }
 
 .faq-header:hover {
@@ -91,7 +97,7 @@
         gap: 40px;
     }
 
-    .faq-left h1 {
+    .faq-left h2 {
         position: static;
         text-align: center;
     }

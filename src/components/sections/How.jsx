@@ -49,8 +49,8 @@ const How = () => {
 
 
     return (
-        <div id="how" className="how-main" ref={sectionRef}>
-            <h1>{t('howTitle')}</h1>
+        <section id="how" className="how-main" ref={sectionRef} aria-labelledby="how-heading">
+            <h2 id="how-heading">{t('howTitle')}</h2>
             <div className="how-con">
                 {data.map((i, idx) => (
                     <Cards
@@ -62,7 +62,7 @@ const How = () => {
                     />
                 ))}
             </div>
-        </div>
+        </section>
     );
 };
 

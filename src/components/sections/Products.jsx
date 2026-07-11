@@ -49,8 +49,8 @@ const Products = () => {
                             </div>
                         </div>
 
-                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta">
-                            <button className="btn-primary">{t('learnMore')}</button>
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta btn-primary">
+                            {t('learnMore')}
                         </a>
                     </div>
 
@@ -89,8 +89,8 @@ const Products = () => {
                             </div>
                         </div>
 
-                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta">
-                            <button className="btn-secondary">{t('learnMore')}</button>
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer" className="product-cta btn-secondary">
+                            {t('learnMore')}
                         </a>
                     </div>
                 </div>

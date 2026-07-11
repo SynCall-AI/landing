@@ -49,7 +49,7 @@ function DemoPlayerInner() {
         <div className="demo-player-card">
             <div className="demo-player">
                 <div className="demo-cover">
-                    <img src="/al-cover.svg" alt="Syncall AI" />
+                    <img src="/al-cover.svg" alt="Syncall AI call recording waveform" loading="lazy" />
                     <div className="demo-cover-glow"></div>
                 </div>
 

@@ -22,16 +22,26 @@ const Faq = () => {
     return (
         <section id="faq" className="faq-section">
             <div className="faq-left">
-                <h1>{t('faqTitle')}</h1>
+                <h2 id="faq-heading">{t('faqTitle')}</h2>
             </div>
             <div className="faq-right">
                 {data.map((item, idx) => (
-                    <div key={idx} className="faq-item">
-                        <div className="faq-header" onClick={() => toggleIndex(idx)}>
+                    <div key={item.questionKey} className="faq-item">
+                        <button
+                            type="button"
+                            className="faq-header"
+                            onClick={() => toggleIndex(idx)}
+                            aria-expanded={openIndex === idx}
+                            aria-controls={`faq-answer-${idx}`}
+                        >
                             {t(item.questionKey)}
-                            <span className={`faq-arrow ${openIndex === idx ? 'open' : ''}`}>&#x25BE;</span>
-                        </div>
-                        <div className={`faq-answer ${openIndex === idx ? 'open' : ''}`}>
+                            <span aria-hidden="true" className={`faq-arrow ${openIndex === idx ? 'open' : ''}`}>&#x25BE;</span>
+                        </button>
+                        <div
+                            id={`faq-answer-${idx}`}
+                            className={`faq-answer ${openIndex === idx ? 'open' : ''}`}
+                            hidden={openIndex !== idx}
+                        >
                             {t(item.answerKey)}
                         </div>
                     </div>
