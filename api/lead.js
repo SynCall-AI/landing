@@ -38,10 +38,17 @@ export default async function handler(req, res) {
     const language = (body.language || '').toString().slice(0, 8);
     const source = (body.source || 'website').toString().slice(0, 64);
     const ts = (body.ts || new Date().toISOString()).toString().slice(0, 40);
+    const isCallEnded = body.event === 'call_ended';
+
+    const duration = Math.max(0, Math.min(3600, Math.round(Number(body.durationSec) || 0)));
+    const durationLabel = `${Math.floor(duration / 60)}:${String(duration % 60).padStart(2, '0')}`;
 
     const text =
-        '🔔 <b>Новый лид!</b> / New lead received\n\n' +
+        (isCallEnded
+            ? '✅ <b>Демо-звонок завершён</b> / Demo call ended\n\n'
+            : '🔔 <b>Новый лид!</b> / New lead received\n\n') +
         `📞 <b>${escapeHtml(phone)}</b>\n` +
+        (isCallEnded ? `⏱ ${escapeHtml(durationLabel)}\n` : '') +
         (language ? `🌐 ${escapeHtml(language)}\n` : '') +
         `📍 ${escapeHtml(source)}\n` +
         `🕒 ${escapeHtml(ts)}`;

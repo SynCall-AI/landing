@@ -33,14 +33,17 @@
 /* ============================
    Orb — glassy glowing sphere
    ============================ */
+/* Fixed height (not flex) so the orb sits still across phase changes and the
+   shrink to the live state animates instead of snapping. */
 .vcw-orb-wrap {
-    flex: 1;
-    min-height: 170px;
+    flex: 0 0 auto;
+    height: 170px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 1;
+    transition: height 0.45s ease;
 }
 
 .vcw-orb {
@@ -50,7 +53,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.45s ease;
 }
+
+/* Live call: shrink the orb so the transcript gets the space */
+.vcw[data-state="live"] .vcw-orb-wrap { height: 112px; }
+.vcw[data-state="live"] .vcw-orb { transform: scale(0.58); }
 
 /* Soft outer bloom */
 .vcw-orb-halo {
@@ -130,11 +138,15 @@
     50% { transform: scale(1.05); }
 }
 
-/* Dialing: everything speeds up and tightens */
-.vcw[data-state="dialing"] .vcw-orb-sphere { animation-duration: 2.2s; }
-.vcw[data-state="dialing"] .vcw-orb-sphere::after { animation-duration: 2.6s; }
-.vcw[data-state="dialing"] .vcw-orb-halo { animation-duration: 2s; }
-.vcw[data-state="dialing"] .vcw-orb-pulse { animation-duration: 1.7s; }
+/* Dialing / live: everything speeds up and tightens */
+.vcw[data-state="dialing"] .vcw-orb-sphere,
+.vcw[data-state="live"] .vcw-orb-sphere { animation-duration: 2.2s; }
+.vcw[data-state="dialing"] .vcw-orb-sphere::after,
+.vcw[data-state="live"] .vcw-orb-sphere::after { animation-duration: 2.6s; }
+.vcw[data-state="dialing"] .vcw-orb-halo,
+.vcw[data-state="live"] .vcw-orb-halo { animation-duration: 2s; }
+.vcw[data-state="dialing"] .vcw-orb-pulse,
+.vcw[data-state="live"] .vcw-orb-pulse { animation-duration: 1.7s; }
 
 /* Error: calm and dim the orb */
 .vcw[data-state="error"] .vcw-orb-pulse { display: none; }
@@ -147,6 +159,10 @@
 .vcw-body {
     position: relative;
     z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .vcw-panel {
     display: flex;
@@ -289,8 +305,29 @@
 
 .vcw-controls {
     display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 18px;
     margin-top: 26px;
+}
+.vcw-mute {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.vcw-mute:hover { background: rgba(255, 255, 255, 0.13); }
+.vcw-mute[data-muted] {
+    background: #fff;
+    border-color: #fff;
+    color: #0a1226;
 }
 .vcw-hangup {
     width: 60px;
@@ -325,6 +362,121 @@
     text-underline-offset: 2px;
 }
 .vcw-retry:hover { color: #fff; }
+
+/* ---- Demo selector ---- */
+.vcw-select {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 12px;
+    padding: 0 40px 0 14px;
+    background:
+        rgba(255, 255, 255, 0.05)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23ffffff' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+        no-repeat right 14px center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.vcw-select:focus { border-color: rgba(96, 165, 250, 0.7); }
+.vcw-select option { color: #000; }
+
+/* ---- Conversation language (only when the demo speaks more than one) ---- */
+.vcw-langs {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+.vcw-lang {
+    flex: 1;
+    height: 34px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+.vcw-lang:hover { color: #fff; }
+.vcw-lang[data-active] {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ---- Live call ---- */
+.vcw-live-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.vcw-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+    animation: vcwLiveDot 1.6s ease-out infinite;
+}
+@keyframes vcwLiveDot {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+    100% { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0); }
+}
+.vcw-timer {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.82rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    margin-left: 4px;
+}
+/* Scrollable transcript, anchored to the newest line. margin-top:auto (not
+   justify-content:flex-end, which breaks scrolling) bottom-aligns short logs. */
+.vcw-captions {
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+.vcw-captions > :first-child { margin-top: auto; }
+.vcw-captions .vcw-sub { margin-left: auto; margin-right: auto; }
+.vcw-caption {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    flex-shrink: 0;
+}
+.vcw-caption b { font-weight: 600; color: #93c5fd; }
+.vcw-caption[data-who="you"] b { color: rgba(255, 255, 255, 0.55); }
+
+/* Turnstile stays invisible until a challenge is required */
+.vcw-turnstile {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.vcw-turnstile:empty { margin-top: 0; }
 
 /* ---- Responsive ---- */
 @media (max-width: 980px) {

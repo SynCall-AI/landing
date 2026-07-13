@@ -157,6 +157,7 @@ export async function submitLead(lead) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
+            keepalive: true, // survives a tab closed mid-call
         });
         if (!res.ok) throw new Error(`Lead request failed: ${res.status}`);
         return { ok: true, mock: false };
