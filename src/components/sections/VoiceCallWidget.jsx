@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import './VoiceCallWidget.css';
 import { useLanguage } from '../../context/LanguageContext';
 import { submitLead } from '../../lib/api';
@@ -73,6 +73,7 @@ const VoiceCallWidget = () => {
     const hangupRef = useRef(false);
     const captionSeqRef = useRef(0);
     const captionsBoxRef = useRef(null);
+    const stickToBottomRef = useRef(true);
     const callPhoneRef = useRef('');
     const callStartRef = useRef(0);
     const languageRef = useRef(language);
@@ -259,12 +260,16 @@ const VoiceCallWidget = () => {
         });
 
     // Follow the newest caption unless the visitor scrolled up to re-read.
-    useEffect(() => {
+    // Stickiness is decided by the last scroll event, not by measuring after the
+    // caption was inserted — by then a tall message already looks "scrolled up".
+    const onCaptionsScroll = (e) => {
+        const el = e.currentTarget;
+        stickToBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
+    };
+
+    useLayoutEffect(() => {
         const el = captionsBoxRef.current;
-        if (!el) return;
-        if (el.scrollHeight - el.scrollTop - el.clientHeight < 90) {
-            el.scrollTop = el.scrollHeight;
-        }
+        if (el && stickToBottomRef.current) el.scrollTop = el.scrollHeight;
     }, [captions]);
 
     const startElapsed = () => {
@@ -433,6 +438,7 @@ const VoiceCallWidget = () => {
         setCaptions([]);
         setQueuePos(null);
         setMuted(false);
+        stickToBottomRef.current = true;
         hangupRef.current = false;
 
         const demo = demos.find((d) => d.slug === demoSlug) || demos[0];
@@ -709,7 +715,12 @@ const VoiceCallWidget = () => {
                                 {formatTime(elapsed)}{maxDuration ? ` / ${formatTime(maxDuration)}` : ''}
                             </span>
                         </span>
-                        <div className="vcw-captions" ref={captionsBoxRef} aria-live="polite">
+                        <div
+                            className="vcw-captions"
+                            ref={captionsBoxRef}
+                            onScroll={onCaptionsScroll}
+                            aria-live="polite"
+                        >
                             {captions.length === 0 && (
                                 <span className="vcw-sub">{t('callWidgetLiveSub')}</span>
                             )}
