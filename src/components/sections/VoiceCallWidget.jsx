@@ -44,9 +44,9 @@ const formatTime = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0
 
 const LANGUAGE_LABELS = { uz: "O'zbekcha", ru: 'Русский', en: 'English' };
 
-// The visitor's UI language if the demo speaks it, otherwise the demo's default.
-const pickLanguage = (demo, uiLanguage) =>
-    demo?.allowed_languages?.includes(uiLanguage) ? uiLanguage : demo?.default_language || '';
+// The demo agent's default language from the API, falling back to Uzbek if it speaks it.
+const pickLanguage = (demo) =>
+    demo?.default_language || (demo?.allowed_languages?.includes('uz') ? 'uz' : '');
 
 const VoiceCallWidget = () => {
     const { t, language } = useLanguage();
@@ -183,7 +183,7 @@ const VoiceCallWidget = () => {
                 setDemos(list);
                 if (list.length) {
                     setDemoSlug(list[0].slug);
-                    setCallLang(pickLanguage(list[0], languageRef.current));
+                    setCallLang(pickLanguage(list[0]));
                     setPhaseSafe('idle');
                 } else {
                     setPhaseSafe('unavailable');
@@ -444,7 +444,7 @@ const VoiceCallWidget = () => {
         const demo = demos.find((d) => d.slug === demoSlug) || demos[0];
         const demoLanguage = demo.allowed_languages.includes(callLang)
             ? callLang
-            : pickLanguage(demo, language);
+            : pickLanguage(demo);
         const fullPhone = `+998${local9}`;
 
         // Create the AudioContext inside the user gesture so iOS allows playback.
@@ -610,7 +610,7 @@ const VoiceCallWidget = () => {
                                     setCallLang((cur) =>
                                         next?.allowed_languages?.includes(cur)
                                             ? cur
-                                            : pickLanguage(next, language),
+                                            : pickLanguage(next),
                                     );
                                 }}
                                 aria-label="Demo agent"
