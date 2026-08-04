@@ -3,8 +3,16 @@ import './TrustSection.css';
 
 const PLACEHOLDER_LOGOS = ['01', '02', '03', '04'];
 
+// Flip to true only after the {{...}} placeholders below are replaced with an
+// approved testimonial and a sourced case-study result. Until then the section
+// must not render: shipping literal placeholder text would be visible to both
+// visitors and crawlers. Client logos are already shown by <Clients />.
+const HAS_APPROVED_TRUST_CONTENT = false;
+
 const TrustSection = () => {
     const { t } = useLanguage();
+
+    if (!HAS_APPROVED_TRUST_CONTENT) return null;
 
     return (
         <section className="trust-section" aria-labelledby="trust-heading">

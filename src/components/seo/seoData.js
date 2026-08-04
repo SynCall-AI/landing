@@ -22,12 +22,12 @@ export const ROUTE_SEO = {
     '/': page(
         {
             en: 'Syncall — AI Voice Agents for Call Centers | Uzbek & Russian',
-            ru: 'Syncall — AI-агенты для колл-центров на русском и узбекском',
+            ru: 'Syncall — ИИ для колл-центра и голосовой робот для обзвона',
             uz: "Syncall — O'zbek va rus call-markazlari uchun AI-agentlar",
         },
         {
             en: 'AI voice agents and chatbots for Uzbek, Russian, and English call centers, with telephony integration and cloud or on-premise deployment.',
-            ru: 'AI-голосовые агенты и чат-боты для колл-центров на узбекском, русском и английском с интеграцией телефонии и размещением в облаке или On-Premise.',
+            ru: 'Голосовой робот Syncall принимает и совершает звонки на русском и узбекском: ИИ для колл-центра с интеграцией телефонии и CRM, в облаке или On-Premise.',
             uz: "O'zbek, rus va ingliz tilidagi call-markazlar uchun telefoniya bilan integratsiyalashadigan, bulutda yoki On-Premise ishlaydigan AI ovozli agentlar va chatbotlar.",
         },
         { kind: 'home' },
@@ -36,7 +36,7 @@ export const ROUTE_SEO = {
     '/analytics': page(
         {
             en: 'AI Call Analytics & Quality Control | Syncall',
-            ru: 'AI-аналитика звонков и контроль качества | Syncall',
+            ru: 'ИИ-аналитика звонков и контроль качества | Syncall',
             uz: "AI qo'ng'iroq tahlili va sifat nazorati | Syncall",
         },
         {
@@ -48,7 +48,7 @@ export const ROUTE_SEO = {
     '/chatbots': page(
         {
             en: 'On-Premise AI Chatbots for Business | Syncall',
-            ru: 'On-Premise AI-чат-боты для бизнеса | Syncall',
+            ru: 'ИИ-чат-боты On-Premise для бизнеса | Syncall',
             uz: 'Biznes uchun On-Premise AI-chatbotlar | Syncall',
         },
         {
@@ -84,12 +84,12 @@ export const ROUTE_SEO = {
     '/features': page(
         {
             en: 'AI Voice Agent Features for Call Centers | Syncall',
-            ru: 'Возможности AI-агентов для колл-центров | Syncall',
+            ru: 'Робот для колл-центра: возможности ИИ-агентов | Syncall',
             uz: "Call-markaz AI-agentlari imkoniyatlari | Syncall",
         },
         {
             en: 'Explore dialect-aware speech recognition, interruption handling, voice isolation, voice cloning, analytics, CRM connectivity, and on-premise deployment.',
-            ru: 'Изучите распознавание диалектов, обработку перебиваний, изоляцию голоса, клонирование, аналитику, CRM-интеграции и On-Premise размещение.',
+            ru: 'Возможности голосового робота для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
             uz: "Lahjalarni anglash, so'zni bo'lish, ovozni ajratish, ovoz klonlash, tahlil, CRM ulanishi va On-Premise joylashtirish imkoniyatlarini ko'ring.",
         },
     ),
@@ -108,12 +108,12 @@ export const ROUTE_SEO = {
     '/use-cases/debt-collection': page(
         {
             en: 'AI Voice Agents for Debt Collection | Syncall',
-            ru: 'AI-агенты для взыскания задолженности | Syncall',
+            ru: 'Робот для обзвона должников | Syncall',
             uz: "Qarzdorlik undirish uchun AI ovozli agentlar | Syncall",
         },
         {
             en: 'Automate respectful payment reminders and follow-up calls in Uzbek and Russian while recording outcomes and structured next steps in your CRM.',
-            ru: 'Автоматизируйте корректные напоминания об оплате и повторные звонки на узбекском и русском с фиксацией результата и следующего шага в CRM.',
+            ru: 'ИИ-робот корректно обзванивает должников и напоминает об оплате на узбекском и русском, фиксируя результат и следующий шаг в CRM.',
             uz: "O'zbek va rus tillarida to'lov eslatmalari hamda takroriy qo'ng'iroqlarni avtomatlashtiring, natija va keyingi qadamlarni CRMga yozing.",
         },
     ),
@@ -144,12 +144,12 @@ export const ROUTE_SEO = {
     '/use-cases/lead-qualification': page(
         {
             en: 'AI Lead Qualification Calls | Syncall',
-            ru: 'AI-звонки для квалификации лидов | Syncall',
+            ru: 'Робот для обзвона и квалификации лидов | Syncall',
             uz: "Lidlarni saralash uchun AI qo'ng'iroqlar | Syncall",
         },
         {
             en: 'Qualify inbound and outbound leads through natural Uzbek and Russian conversations, then route the right prospects and call context to your sales team.',
-            ru: 'Квалифицируйте входящие и исходящие лиды в естественном диалоге на узбекском и русском и передавайте подходящих клиентов с контекстом отделу продаж.',
+            ru: 'ИИ-робот обзванивает и квалифицирует входящие и исходящие лиды в естественном диалоге на узбекском и русском и передаёт горячих клиентов отделу продаж.',
             uz: "Kiruvchi va chiquvchi lidlarni tabiiy o'zbek-rus suhbatida saralang, mos mijozlar va qo'ng'iroq kontekstini savdo jamoasiga yuboring.",
         },
     ),
@@ -192,12 +192,12 @@ export const ROUTE_SEO = {
     '/pricing': page(
         {
             en: 'AI Voice Agent Pricing & Free Trial | Syncall',
-            ru: 'Цены на AI-агентов и бесплатный период | Syncall',
+            ru: 'Стоимость голосового робота для колл-центра | Syncall',
             uz: "AI ovozli agent narxlari va bepul sinov | Syncall",
         },
         {
             en: 'Learn how volume-based Syncall pricing works, what affects deployment cost, and what is included in the custom AI-agent trial for up to 1,000 calls.',
-            ru: 'Узнайте, как работает объёмное ценообразование Syncall, что влияет на стоимость внедрения и что входит в тест AI-агента до 1 000 звонков.',
+            ru: 'Узнайте, сколько стоит ИИ для колл-центра: объёмное ценообразование Syncall, факторы стоимости внедрения и бесплатный тест ИИ-агента до 1 000 звонков.',
             uz: "Syncall hajmga asoslangan narxlari, joriy etish qiymatiga ta'sir qiluvchi omillar va 1 000 qo'ng'iroqqacha AI-agent sinoviga nimalar kirishini biling.",
         },
     ),

@@ -2,12 +2,15 @@
 
 > AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM. Built specifically for Uzbekistan and Russian-speaking markets, where dialect coverage and code-switching make or break speech-recognition accuracy.
 
+> По-русски: Syncall — это ИИ для колл-центра. Голосовой робот принимает звонки и делает обзвон клиентов на русском и узбекском языках, интегрируется с телефонией и CRM и работает в облаке или On-Premise.
+
 - **Site:** https://www.syncallai.com
 - **Contact:** Telegram [@syncall_ai](https://t.me/syncall_ai)
 - **Markets:** Uzbekistan, Russia, Russian-speaking CIS
-- **Last updated:** 2026-07-11
+- **Clients:** Iman, Unicon, Qwatt, Thompson, Poytaxt Parking
+- **Last updated:** 2026-08-04
 
-> **Evidence note:** headline metrics are carried over from the current product brief and require documented definitions, samples, and methodology before public launch to regulated buyers.
+> **Evidence note:** headline metrics are self-reported from Syncall production deployments; formal methodology documentation (definitions, samples, measurement windows) is in progress.
 
 ## Site pages
 

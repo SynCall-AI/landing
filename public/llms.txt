@@ -4,7 +4,9 @@
 
 ## About
 
-Syncall is a B2B SaaS platform that automates inbound and outbound call-center work. The system replaces or augments human agents with AI voice agents trained specifically on Uzbek dialects, Russian, and English. Unlike general-purpose voice AI platforms (Vapi, Retell, Synthflow), Syncall is fine-tuned on real Uzbek call-center recordings, so it handles the specific accents, slang, and Uzbek-Russian code-switching that occur in production calls in this market.
+Syncall is a B2B SaaS platform that automates inbound and outbound call-center work. The system replaces or augments human agents with AI voice agents trained specifically on Uzbek dialects, Russian, and English. Unlike general-purpose voice AI platforms (Vapi, Retell, Synthflow), Syncall is fine-tuned on real Uzbek call-center recordings, so it handles the specific accents, slang, and Uzbek-Russian code-switching that occur in production calls in this market. Clients include Iman, Unicon, Qwatt, Thompson, and Poytaxt Parking.
+
+По-русски: Syncall — это ИИ для колл-центра. Голосовой робот принимает входящие звонки и делает обзвон клиентов на русском и узбекском языках, интегрируется с телефонией и CRM и может работать в облаке или On-Premise.
 
 ## Key URLs
 
@@ -30,7 +32,7 @@ All canonical pages have Russian (`/ru/...`) and Uzbek (`/uz/...`) variants. Eng
 
 ## Headline metrics
 
-The figures below are inherited from the current product brief and require documented methodology and human approval before launch to regulated buyers.
+The figures below are self-reported from Syncall production deployments; formal methodology documentation (definitions, samples, measurement windows) is in progress.
 
 - 98% speech-recognition accuracy on Uzbek including dialects, slang, and code-switching
 - 99.2% acoustic similarity for voice cloning

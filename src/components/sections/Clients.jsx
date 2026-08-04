@@ -16,9 +16,9 @@ const Clients = () => {
         <div className="partners-section">
             <div className="partners-container">
                 <p className="partners-label">{t('partnersLabel')}</p>
-                <div className="partners-grid">
+                <ul className="partners-grid">
                     {partners.map((partner, index) => (
-                        <div key={index} className="partner-item">
+                        <li key={index} className="partner-item">
                             <span
                                 className="partner-logo"
                                 role="img"
@@ -30,9 +30,11 @@ const Clients = () => {
                                     '--partner-logo-mask-size': partner.maskSize,
                                 }}
                             />
-                        </div>
+                            {/* Real text node so the client name is crawlable, not just a CSS mask. */}
+                            <span className="partner-name-sr">{partner.name}</span>
+                        </li>
                     ))}
-                </div>
+                </ul>
             </div>
         </div>
     );

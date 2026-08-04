@@ -176,6 +176,21 @@ const renderFallback = (seo, locale, dictionaries) => {
         `          <a href="${htmlEscape(localizePath(href, locale))}">${htmlEscape(label)}</a>`
     )).join('\n');
 
+    let partners = '';
+    if (!seo.unknown && seo.basePath === '/') {
+        const partnersHeading = {
+            en: 'Trusted by companies in Uzbekistan',
+            ru: 'Нам доверяют компании в Узбекистане',
+            uz: "Bizga O'zbekistondagi kompaniyalar ishonadi",
+        }[locale];
+        const partnerNames = ['Iman', 'Unicon', 'Qwatt', 'Thompson', 'Poytaxt Parking'];
+        partners = `
+        <section aria-labelledby="static-partners-heading">
+          <h2 id="static-partners-heading">${htmlEscape(partnersHeading)}</h2>
+          <p>${htmlEscape(partnerNames.join(' · '))}</p>
+        </section>`;
+    }
+
     let faq = '';
     if (!seo.unknown && seo.basePath === '/') {
         const faqSchema = buildFaqSchema(dictionary, dictionaries.en);
@@ -227,7 +242,7 @@ ${nav}
         </header>
         <main>
           ${marketingBody}
-          <p><a href="${htmlEscape(contactUrl)}">${htmlEscape(contactLabel)}</a></p>${faq}
+          <p><a href="${htmlEscape(contactUrl)}">${htmlEscape(contactLabel)}</a></p>${partners}${faq}
         </main>
         <footer>
           <a href="https://t.me/syncall_ai">${htmlEscape(telegramLabel)}</a>
@@ -304,7 +319,13 @@ const main = async () => {
         }
     }
 
-    console.log(`Generated ${entryCount} localized static HTML entries for ${INDEXABLE_ROUTE_PATHS.length} routes.`);
+    // Without the old SPA catch-all rewrite, Vercel serves dist/404.html with a
+    // real 404 status for unmatched paths; the client router then renders the
+    // NotFound page. getRouteSeo marks unknown paths noindex.
+    const notFoundHtml = renderPage(template, '/404', 'en', dictionaries);
+    await fs.writeFile(path.join(distRoot, '404.html'), notFoundHtml, 'utf8');
+
+    console.log(`Generated ${entryCount} localized static HTML entries for ${INDEXABLE_ROUTE_PATHS.length} routes, plus 404.html.`);
 };
 
 await main();
