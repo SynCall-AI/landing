@@ -55,7 +55,7 @@ const Numbers = () => {
                     aria-labelledby="metrics-methodology-heading"
                 >
                     <h3 id="metrics-methodology-heading">{t('metricMethodology')}</h3>
-                    <p>{t('trustPlaceholder')}</p>
+                    <p>{t('metricMethodologyNote')}</p>
                 </aside>
 
                 <div className="numbers-footer">

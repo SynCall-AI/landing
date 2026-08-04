@@ -211,7 +211,7 @@ const renderFallback = (seo, locale, dictionaries) => {
 ${marketingPage.sections.map((section) => `          <section>
             <h2>${htmlEscape(section.title)}</h2>
 ${section.body.map((paragraph) => `            <p>${htmlEscape(paragraph)}</p>`).join('\n')}
-${(section.items || []).map((item) => `            <article>
+${(section.items || []).filter((item) => !item.placeholder).map((item) => `            <article>
               <h3>${htmlEscape(item.title)}</h3>
               <p>${htmlEscape(item.text)}</p>
             </article>`).join('\n')}

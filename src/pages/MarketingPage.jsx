@@ -80,16 +80,15 @@ const MarketingPage = ({
                                 ))}
                             </div>
 
-                            {section.items?.length > 0 && (
+                            {/* Placeholder cards ({{...}} mustaches) stay hidden until real,
+                                approved content replaces them in marketingContent.js. */}
+                            {section.items?.filter((item) => !item.placeholder).length > 0 && (
                                 <div className="marketing-card-grid">
-                                    {section.items.map((item, itemIndex) => (
+                                    {section.items.filter((item) => !item.placeholder).map((item, itemIndex) => (
                                         <article
-                                            className={`marketing-card ${item.placeholder ? 'marketing-card--placeholder' : ''}`}
+                                            className="marketing-card"
                                             key={`${headingId}-item-${itemIndex}`}
                                         >
-                                            {item.placeholder && (
-                                                <span className="marketing-placeholder-label">{ui.placeholder}</span>
-                                            )}
                                             <h3>{item.title}</h3>
                                             <p>{item.text}</p>
                                         </article>
