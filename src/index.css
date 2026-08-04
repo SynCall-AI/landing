@@ -20,8 +20,8 @@ html {
   --accent-blue-dark: #0D5FD9;
 
   --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.65);
-  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --text-muted: rgba(255, 255, 255, 0.68);
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-accent: rgba(17, 115, 252, 0.3);
@@ -69,6 +69,62 @@ html {
 
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+main {
+  display: block;
+}
+
+section[id] {
+  scroll-margin-top: 88px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button,
+input,
+select,
+textarea,
+[role='button'] {
+  min-height: 44px;
+}
+
+button,
+[role='button'] {
+  min-width: 44px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--accent-blue-light);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10000;
+  top: 12px;
+  left: 12px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #fff;
+  background: #0d5fd9;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .hero-main, .partners-section, .talkbot-section, .demo-section, .features-section, .numbers-section, .how-section, .faq-section, .footer-main, .nav-main {
@@ -109,6 +165,11 @@ body::after {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  text-decoration: none;
 }
 
 .btn-primary:hover {
@@ -125,6 +186,11 @@ body::after {
   border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  text-decoration: none;
 }
 
 :root[data-theme='light'] .btn-secondary {
@@ -228,3 +294,18 @@ body::after {
 .animate-in-delay-3 { animation-delay: 0.35s; }
 .animate-in-delay-4 { animation-delay: 0.5s; }
 .animate-in-delay-5 { animation-delay: 0.65s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

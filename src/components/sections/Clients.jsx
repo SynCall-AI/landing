@@ -9,7 +9,7 @@ const Clients = () => {
         { name: 'Poytaxt Parking', logo: '/partners/poytaxt_parking_2.svg', width: '124px', height: '42px', maskSize: '124px auto' },
         { name: 'Unicon', logo: '/partners/unicon_logo.svg', width: '220px' },
         { name: 'Qwatt', logo: '/partners/qwatt_logo.webp', width: '126px' },
-        { name: 'Thompson', logo: '/partners/thompson.png', width: '124px' },
+        { name: 'Thompson', logo: '/partners/thompson.webp', width: '124px' },
     ];
 
     return (
@@ -32,9 +32,6 @@ const Clients = () => {
                             />
                         </div>
                     ))}
-                    <div className="partner-item partner-more">
-                        <span className="partner-name">+10 MORE</span>
-                    </div>
                 </div>
             </div>
         </div>

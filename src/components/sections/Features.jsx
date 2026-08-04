@@ -8,7 +8,7 @@ const Features = () => {
         <div id="features" className="features-section">
             <div className="features-container">
                 <div className="features-header">
-                    <span className="section-label">Features</span>
+                    <span className="section-label">{t('navMarketingFeatures')}</span>
                     <h2 className="features-heading">{t('featuresTitle')}</h2>
                 </div>
 
@@ -67,7 +67,7 @@ const Features = () => {
                                         <div className="fc-wave-bar fc-wave-cut" style={{height: '30%'}} />
                                         <div className="fc-wave-bar fc-wave-cut" style={{height: '15%'}} />
                                     </div>
-                                    <span className="fc-interrupt-badge">Interrupted</span>
+                                    <span className="fc-interrupt-badge">{t('featureInterrupted')}</span>
                                 </div>
                                 <div className="fc-convo-line fc-convo-user">
                                     <div className="fc-convo-wave fc-convo-wave-user">
@@ -82,7 +82,7 @@ const Features = () => {
                                             <path d="M2 12h3l2.5-7 3.5 14 2.5-9 2.5 5h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                                             <line x1="3" y1="3" x2="21" y2="21" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round"/>
                                         </svg>
-                                        <span>Noise canceled</span>
+                                        <span>{t('featureNoiseCanceled')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@ const Features = () => {
                                     <span className="fc-deploy-label">Syncall Cloud</span>
                                 </div>
                                 <div className="fc-deploy-divider">
-                                    <span>or</span>
+                                    <span>{t('featureOr')}</span>
                                 </div>
                                 <div className="fc-deploy-option">
                                     <div className="fc-deploy-icon fc-server-icon">
@@ -203,7 +203,7 @@ const Features = () => {
                                             <path d="M17 10a7 7 0 01-14 0M3 10a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                                             <path d="M14 7l3 3-3 3M6 13l-3-3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                         </svg>
-                                        <span>Auto-sync</span>
+                                        <span>{t('featureAutoSync')}</span>
                                     </div>
                                 </div>
                             </div>

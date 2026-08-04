@@ -45,15 +45,15 @@ export default function Tab() {
                 <div className="content">
                     {/* Left Content */}
                     <div className="leftContent">
-                        <h1 className="title">{t(tabs[activeTab].titleKey)}</h1>
+                        <h2 className="title">{t(tabs[activeTab].titleKey)}</h2>
                         {/*<p className="description">{t(tabs[activeTab].descKey)}</p>*/}
-                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="ctaButton">{t('contactSales')}</button></a>
+                        <a className="ctaButton" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">{t('contactSales')}</a>
                     </div>
 
                     {/* Right Content */}
                     <div className="rightContent">
                         <div className="iconContainer">
-                            <img className="lightningIcon" src={tabs[activeTab].icon} alt="" width="460px"/>
+                            <img className="lightningIcon" src={tabs[activeTab].icon} alt="" width="460" loading="lazy" />
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ import TtsDemo from "../components/demos/TtsDemo.jsx";
 import { FaClone, FaWaveSquare, FaSliders, FaBolt } from 'react-icons/fa6';
 
 const Tts = () => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     const caps = [
         { icon: FaClone, titleKey: 'ttsCap1Title', descKey: 'ttsCap1Desc' },
@@ -16,7 +16,7 @@ const Tts = () => {
     ];
 
     return (
-        <main className="prod-page">
+        <main id="main-content" tabIndex="-1" className="prod-page">
             <ProductHero
                 badge={t('ttsBadge')}
                 kind="api"
@@ -80,8 +80,8 @@ const Tts = () => {
                 <div className="prod-cta-inner">
                     <h2>{t('ttsCtaTitle')}</h2>
                     <p>{t('ttsCtaSubtitle')}</p>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                        <button className="btn-primary prod-cta-btn">{t('ttsHeroCta')} <span>→</span></button>
+                    <a className="btn-primary prod-cta-btn" href={`${localePath('/')}?intent=demo#contact`}>
+                        {t('ttsHeroCta')} <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>

@@ -6,7 +6,7 @@ import ProductHero from "../components/sections/ProductHero.jsx";
 import { FaServer, FaShieldHalved, FaComments, FaDatabase, FaLock, FaLanguage } from 'react-icons/fa6';
 
 const Chatbots = () => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     const caps = [
         { icon: FaServer, titleKey: 'cbCap1Title', descKey: 'cbCap1Desc' },
@@ -18,7 +18,7 @@ const Chatbots = () => {
     ];
 
     return (
-        <main className="prod-page">
+        <main id="main-content" tabIndex="-1" className="prod-page">
             <ProductHero
                 badge={t('cbBadge')}
                 kind="product"
@@ -136,8 +136,8 @@ const Chatbots = () => {
                 <div className="prod-cta-inner">
                     <h2>{t('cbCtaTitle')}</h2>
                     <p>{t('cbCtaSubtitle')}</p>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                        <button className="btn-primary prod-cta-btn">{t('cbHeroCta')} <span>→</span></button>
+                    <a className="btn-primary prod-cta-btn" href={`${localePath('/')}?intent=demo#contact`}>
+                        {t('cbHeroCta')} <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>
