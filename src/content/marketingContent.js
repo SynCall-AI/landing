@@ -448,15 +448,6 @@ const en = {
                     { title: 'Products', text: 'AI voice agents, call analytics, speech APIs, and chatbots.' },
                 ],
             },
-            {
-                title: 'Meet the team',
-                body: ['The people below must be replaced with approved names, roles, biographies, and photographs before publication.'],
-                items: [
-                    { title: '{{TEAM_MEMBER_NAME}} — {{ROLE}}', text: 'PLACEHOLDER — needs an approved biography and photograph.', placeholder: true },
-                    { title: '{{TEAM_MEMBER_NAME}} — {{ROLE}}', text: 'PLACEHOLDER — needs an approved biography and photograph.', placeholder: true },
-                    { title: '{{TEAM_MEMBER_NAME}} — {{ROLE}}', text: 'PLACEHOLDER — needs an approved biography and photograph.', placeholder: true },
-                ],
-            },
         ],
         related: ['features', 'case-studies', 'use-cases/banking'],
         cta: {
@@ -467,23 +458,14 @@ const en = {
     'case-studies': {
         meta: {
             title: 'Syncall AI Voice Agent Case Studies',
-            description: 'A transparent case-study scaffold for approved Syncall customer stories, deployment context, measured outcomes, and methodology.',
+            description: 'How Syncall documents customer case studies: deployment context, measured outcomes, and methodology behind every published story.',
         },
         eyebrow: 'Case studies',
         title: 'AI voice-agent case studies',
         lead: 'Customer stories will appear here only after the client, deployment context, measurements, and publication approval are documented.',
         linkLabel: 'Syncall customer case studies',
-        linkDescription: 'See the transparent scaffold awaiting approved customer evidence.',
+        linkDescription: 'See what every published Syncall case study will include.',
         sections: [
-            {
-                title: 'Customer stories awaiting approval',
-                body: ['Do not publish invented logos, quotes, or performance numbers. Each card is intentionally visible as a placeholder until real evidence is supplied.'],
-                items: [
-                    { title: '{{CLIENT_NAME}} — {{USE_CASE}}', text: 'PLACEHOLDER — needs client approval, challenge, deployment scope, measured outcome, and methodology.', placeholder: true },
-                    { title: '{{CLIENT_NAME}} — {{USE_CASE}}', text: 'PLACEHOLDER — needs client approval, challenge, deployment scope, measured outcome, and methodology.', placeholder: true },
-                    { title: '{{CLIENT_NAME}} — {{USE_CASE}}', text: 'PLACEHOLDER — needs client approval, challenge, deployment scope, measured outcome, and methodology.', placeholder: true },
-                ],
-            },
             {
                 title: 'Evidence required for every published case study',
                 body: ['A useful case study explains the baseline, scope, measurement window, and limitations—not only the best result.'],
@@ -902,15 +884,6 @@ const ru = {
                     { title: 'Продукты', text: 'Голосовые AI-агенты, аналитика звонков, речевые API и чат-боты.' },
                 ],
             },
-            {
-                title: 'Команда',
-                body: ['До публикации замените данные ниже утвержденными именами, должностями, биографиями и фотографиями.'],
-                items: [
-                    { title: '{{ИМЯ_УЧАСТНИКА}} — {{РОЛЬ}}', text: 'PLACEHOLDER — нужны утвержденная биография и фотография.', placeholder: true },
-                    { title: '{{ИМЯ_УЧАСТНИКА}} — {{РОЛЬ}}', text: 'PLACEHOLDER — нужны утвержденная биография и фотография.', placeholder: true },
-                    { title: '{{ИМЯ_УЧАСТНИКА}} — {{РОЛЬ}}', text: 'PLACEHOLDER — нужны утвержденная биография и фотография.', placeholder: true },
-                ],
-            },
         ],
         related: ['features', 'case-studies', 'use-cases/banking'],
         cta: {
@@ -927,17 +900,8 @@ const ru = {
         title: 'Кейсы внедрения голосовых AI-агентов',
         lead: 'Истории клиентов появятся здесь только после документирования клиента, контекста, измерений и разрешения на публикацию.',
         linkLabel: 'Кейсы клиентов Syncall',
-        linkDescription: 'Посмотрите прозрачный шаблон, ожидающий подтвержденных данных.',
+        linkDescription: 'Узнайте, что входит в каждый публикуемый кейс Syncall.',
         sections: [
-            {
-                title: 'Истории, ожидающие согласования',
-                body: ['Не публикуйте вымышленные логотипы, цитаты и показатели. Карточки явно остаются шаблонами до получения реальных данных.'],
-                items: [
-                    { title: '{{КЛИЕНТ}} — {{СЦЕНАРИЙ}}', text: 'PLACEHOLDER — нужны согласие клиента, задача, объем внедрения, измеренный результат и методология.', placeholder: true },
-                    { title: '{{КЛИЕНТ}} — {{СЦЕНАРИЙ}}', text: 'PLACEHOLDER — нужны согласие клиента, задача, объем внедрения, измеренный результат и методология.', placeholder: true },
-                    { title: '{{КЛИЕНТ}} — {{СЦЕНАРИЙ}}', text: 'PLACEHOLDER — нужны согласие клиента, задача, объем внедрения, измеренный результат и методология.', placeholder: true },
-                ],
-            },
             {
                 title: 'Что нужно для каждого опубликованного кейса',
                 body: ['Полезный кейс показывает исходную точку, объем, период измерения и ограничения, а не только лучший результат.'],
@@ -1356,15 +1320,6 @@ const uz = {
                     { title: 'Mahsulotlar', text: 'AI ovozli agentlar, qo‘ng‘iroq tahlili, nutq API’lari va chatbotlar.' },
                 ],
             },
-            {
-                title: 'Jamoa bilan tanishing',
-                body: ['Nashrdan oldin quyidagi ma’lumotlarni tasdiqlangan ism, lavozim, tarjimai hol va suratlar bilan almashtirish kerak.'],
-                items: [
-                    { title: '{{JAMOA_A’ZOSI}} — {{LAVOZIM}}', text: 'PLACEHOLDER — tasdiqlangan tarjimai hol va surat kerak.', placeholder: true },
-                    { title: '{{JAMOA_A’ZOSI}} — {{LAVOZIM}}', text: 'PLACEHOLDER — tasdiqlangan tarjimai hol va surat kerak.', placeholder: true },
-                    { title: '{{JAMOA_A’ZOSI}} — {{LAVOZIM}}', text: 'PLACEHOLDER — tasdiqlangan tarjimai hol va surat kerak.', placeholder: true },
-                ],
-            },
         ],
         related: ['features', 'case-studies', 'use-cases/banking'],
         cta: {
@@ -1381,17 +1336,8 @@ const uz = {
         title: 'AI ovozli agentlarni joriy etish tajribalari',
         lead: 'Mijoz, joriy etish konteksti, o‘lchov va nashr ruxsati hujjatlashtirilgandan keyingina hikoyalar shu yerda paydo bo‘ladi.',
         linkLabel: 'Syncall mijoz tajribalari',
-        linkDescription: 'Tasdiqlangan dalillarni kutayotgan ochiq shablonni ko‘ring.',
+        linkDescription: 'Har bir nashr etiladigan Syncall keysiga nimalar kirishini bilib oling.',
         sections: [
-            {
-                title: 'Tasdiqni kutayotgan mijoz hikoyalari',
-                body: ['Uydirma logotip, iqtibos yoki ko‘rsatkich nashr qilmang. Har bir karta haqiqiy dalil kelguncha placeholder sifatida aniq belgilangan.'],
-                items: [
-                    { title: '{{MIJOZ_NOMI}} — {{SSENARIY}}', text: 'PLACEHOLDER — mijoz roziligi, vazifa, joriy etish doirasi, o‘lchangan natija va metodologiya kerak.', placeholder: true },
-                    { title: '{{MIJOZ_NOMI}} — {{SSENARIY}}', text: 'PLACEHOLDER — mijoz roziligi, vazifa, joriy etish doirasi, o‘lchangan natija va metodologiya kerak.', placeholder: true },
-                    { title: '{{MIJOZ_NOMI}} — {{SSENARIY}}', text: 'PLACEHOLDER — mijoz roziligi, vazifa, joriy etish doirasi, o‘lchangan natija va metodologiya kerak.', placeholder: true },
-                ],
-            },
             {
                 title: 'Har bir nashr etiladigan tajriba uchun dalil',
                 body: ['Foydali tajriba faqat eng yaxshi natijani emas, boshlang‘ich holat, doira, o‘lchash davri va cheklovlarni ham tushuntiradi.'],
