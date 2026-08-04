@@ -1332,6 +1332,29 @@ export const translations = {
     }
 };
 
+const LANGUAGE_STORAGE_KEY = 'syncall-lang';
+
+const readStoredLanguage = () => {
+    try {
+        const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+        return translations[stored] ? stored : null;
+    } catch {
+        return null;
+    }
+};
+
+// Russian is the default experience: only browsers that explicitly prefer
+// English stay on the English root; Uzbek browsers go to /uz, everyone else
+// to /ru. Crawlers render with en-* locales, so the indexed English root and
+// its hreflang cluster are unaffected.
+const detectPreferredLanguage = () => {
+    const browserLanguages = navigator.languages || [navigator.language || ''];
+    const primary = (browserLanguages[0] || '').toLowerCase().split('-')[0];
+    if (primary === 'en') return 'en';
+    if (primary === 'uz') return 'uz';
+    return 'ru';
+};
+
 export const LanguageProvider = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -1341,8 +1364,30 @@ export const LanguageProvider = ({ children }) => {
         document.documentElement.lang = language;
     }, [language]);
 
+    // First-load only: honor a remembered explicit choice, otherwise apply the
+    // browser-language default. Never fires again during SPA navigation, so the
+    // language switcher and direct /ru | /uz links keep working untouched.
+    useEffect(() => {
+        if (getLocaleFromPath(window.location.pathname) !== 'en') return;
+        const target = readStoredLanguage() || detectPreferredLanguage();
+        if (target === 'en') return;
+        navigate(
+            localizePath(
+                `${window.location.pathname}${window.location.search}${window.location.hash}`,
+                target,
+            ),
+            { replace: true },
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const setLanguage = useCallback((nextLanguage) => {
         if (!translations[nextLanguage]) return;
+        try {
+            localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
+        } catch {
+            // Private mode: the choice just won't persist across visits.
+        }
         const destination = localizePath(
             `${location.pathname}${location.search}${location.hash}`,
             nextLanguage,
