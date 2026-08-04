@@ -26,4 +26,15 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    files: [
+      'src/context/LanguageContext.jsx',
+      'src/components/ui/AudioPlayer.jsx',
+    ],
+    rules: {
+      // These modules intentionally colocate their provider components with the
+      // hooks consumers need to access the same context instance.
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

@@ -3,7 +3,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import VoiceCallWidget from './VoiceCallWidget.jsx';
 
 const Hero = () => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     return (
         <div id="home" className="hero-main">
@@ -52,13 +52,14 @@ const Hero = () => {
                     </div>
 
                     <div className="hero-buttons animate-in animate-in-delay-4">
-                        <a href="#demo">
-                            <button className="btn-primary hero-btn">
-                                {t('tryDemo')}
-                            </button>
+                        <a className="btn-primary hero-btn" href={`${localePath('/')}?intent=demo#contact`}>
+                            {t('ctaDemo')}
                         </a>
-                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                            <button className="btn-secondary hero-btn">{t('contactSales')}</button>
+                        <a className="btn-secondary hero-btn" href={`${localePath('/')}?intent=trial#contact`}>
+                            {t('ctaTrial')}
+                        </a>
+                        <a className="hero-telegram" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
+                            {t('ctaTelegram')}
                         </a>
                     </div>
                 </div>

@@ -1,2 +1,7 @@
 
-
+.route-loading {
+    min-height: 65vh;
+    padding: 140px 24px;
+    color: var(--text-secondary);
+    text-align: center;
+}

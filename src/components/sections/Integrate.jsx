@@ -9,7 +9,7 @@ const Integrate = () => {
     // Create array of divs for the circle
 
     const [width, setWidth] = useState(window.innerWidth);
-    const divs = useMemo(() => Array.from({ length: width < 500 ? 8 : 20 }, (_, i) => i), []);
+    const divs = useMemo(() => Array.from({ length: width < 500 ? 8 : 20 }, (_, i) => i), [width]);
     const radius = width < 500 ? 260 : 600;
     const angleStep = 360 / divs.length;
 
@@ -38,15 +38,14 @@ const Integrate = () => {
         <div className="inter-main">
             <div className="center-content">
                 <h2>{t('integrateTitle')}</h2>
-                <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="center-button">{t('contactSales')}</button></a>
+                <a className="center-button" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">{t('contactSales')}</a>
             </div>
             <div className="circle-container">
                 {divs.map((_, index) => {
-                    const iconNumber = (index % 13) + 1;
                     return (
                         <LazyLoadImage
                             src={`${randomIndexes[index % 14]}.png`}
-                            alt="oops..."
+                            alt=""
                             key={index}
                             className="rotating-div"
                             style={{

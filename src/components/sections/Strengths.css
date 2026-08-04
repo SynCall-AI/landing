@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.str-h h1{
+.str-h h2{
     color: #fff;
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
@@ -82,7 +82,7 @@
         padding: 60px 20px;
     }
 
-    .str-h h1{
+    .str-h h2{
         font-size: 1.75rem;
         margin-bottom: 40px;
     }

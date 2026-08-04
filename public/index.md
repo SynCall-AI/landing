@@ -2,10 +2,26 @@
 
 > AI voice agents and chatbots for call centers in Uzbek, Russian, and English. 24/7 handling, 1000+ calls per minute, integrates with any telephony or CRM. Built specifically for Uzbekistan and Russian-speaking markets, where dialect coverage and code-switching make or break speech-recognition accuracy.
 
+> По-русски: Syncall — это ИИ для колл-центра. Голосовой робот принимает звонки и делает обзвон клиентов на русском и узбекском языках, интегрируется с телефонией и CRM и работает в облаке или On-Premise.
+
 - **Site:** https://www.syncallai.com
 - **Contact:** Telegram [@syncall_ai](https://t.me/syncall_ai)
 - **Markets:** Uzbekistan, Russia, Russian-speaking CIS
-- **Last updated:** 2026-04-25
+- **Clients:** Iman, Unicon, Qwatt, Thompson, Poytaxt Parking
+- **Last updated:** 2026-08-04
+
+> **Evidence note:** headline metrics are self-reported from Syncall production deployments; formal methodology documentation (definitions, samples, measurement windows) is in progress.
+
+## Site pages
+
+- [Features](https://www.syncallai.com/features)
+- [Banking](https://www.syncallai.com/use-cases/banking), [debt collection](https://www.syncallai.com/use-cases/debt-collection), [appointment reminders](https://www.syncallai.com/use-cases/appointment-reminders), [surveys](https://www.syncallai.com/use-cases/surveys), and [lead qualification](https://www.syncallai.com/use-cases/lead-qualification)
+- [Integrations](https://www.syncallai.com/integrations) and [pricing](https://www.syncallai.com/pricing)
+- [Syncall vs Aisha AI](https://www.syncallai.com/comparisons/vs-aisha) and [Vapi alternative](https://www.syncallai.com/comparisons/vapi-alternative)
+- [About](https://www.syncallai.com/about) and [case studies](https://www.syncallai.com/case-studies)
+- Product pages: [Analytics](https://www.syncallai.com/analytics), [Chatbots](https://www.syncallai.com/chatbots), [STT](https://www.syncallai.com/stt), and [TTS](https://www.syncallai.com/tts)
+
+Every page is also available under `/ru` and `/uz` with reciprocal `hreflang` links. English is served at the root.
 
 ## What Syncall does
 
@@ -13,7 +29,7 @@ Syncall is a B2B SaaS platform that automates inbound and outbound call-center w
 
 ## Live speech understanding in Uzbek and Russian
 
-Syncall's speech-recognition stack is built specifically for Uzbek and Russian call centers and recognizes regional Uzbek dialects, free language mixing between Uzbek and Russian within a single sentence, slang, and colloquial speech with 98% accuracy in production deployments. General-purpose speech-to-text systems typically fail in this market because they are trained on standard Tashkent Uzbek without dialect coverage and on cleanly-spoken text rather than the noisy, code-switched speech of real customer calls. Syncall's STT model is fine-tuned on real Uzbek call-center recordings and combined with Voice Isolation, which suppresses street noise, hold music, and background TV during a call so the model receives only the customer's voice. Together this delivers 98% transcription accuracy, sustained at 1000+ calls per minute of production traffic.
+Syncall's speech-recognition stack is built specifically for Uzbek and Russian call centers and recognizes regional Uzbek dialects, free language mixing between Uzbek and Russian within a single sentence, slang, and colloquial speech with 95% accuracy in production deployments. General-purpose speech-to-text systems typically fail in this market because they are trained on standard Tashkent Uzbek without dialect coverage and on cleanly-spoken text rather than the noisy, code-switched speech of real customer calls. Syncall's STT model is fine-tuned on real Uzbek call-center recordings and combined with Voice Isolation, which suppresses street noise, hold music, and background TV during a call so the model receives only the customer's voice. Together this delivers 95% transcription accuracy, sustained at 1000+ calls per minute of production traffic.
 
 ## Natural conversation, including interruptions
 
@@ -33,7 +49,7 @@ Every call is automatically analyzed by Syncall's LLM after completion, and the 
 
 ## Syncall in numbers
 
-These are the headline metrics from production Syncall deployments. **80%** is the average customer-issue resolution rate — the percentage of calls fully handled by the AI without escalation to a human agent. **−70%** is the typical reduction in customer-support operating cost versus a comparable human team handling the same call volume. **94%** is the average post-call CSAT score across customer surveys after Syncall deployment. **1000+** is the sustained calls-per-minute throughput per Syncall account. **99.2%** is the acoustic similarity of cloned voices to their source recordings. **98%** is the speech-recognition accuracy on Uzbek including dialects, slang, and code-switched speech. Each metric is measured in production deployments, not synthetic benchmarks. Performance varies by use case — outbound campaigns resolve at higher rates than complex inbound support, and FAQ-style flows reach near-100% resolution while multi-step authentication flows are closer to the 80% average.
+These are the headline metrics from production Syncall deployments. **80%** is the average customer-issue resolution rate — the percentage of calls fully handled by the AI without escalation to a human agent. **−70%** is the typical reduction in customer-support operating cost versus a comparable human team handling the same call volume. **94%** is the average post-call CSAT score across customer surveys after Syncall deployment. **1000+** is the sustained calls-per-minute throughput per Syncall account. **99.2%** is the acoustic similarity of cloned voices to their source recordings. **95%** is the speech-recognition accuracy on Uzbek including dialects, slang, and code-switched speech. Each metric is measured in production deployments, not synthetic benchmarks. Performance varies by use case and conversation complexity.
 
 ## How a Syncall deployment works
 

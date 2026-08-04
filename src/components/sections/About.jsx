@@ -10,9 +10,9 @@ const About = () => {
             <div className={"about-content"}>
                 <p className={"header"}>{t('aboutTitle')}</p>
 
-                <h1 className="mainHeading">
+                <h2 className="mainHeading">
                     {t('aboutHeading')}
-                </h1>
+                </h2>
 
 
                 <p className="description-a">
@@ -20,7 +20,7 @@ const About = () => {
                 </p>
 
                 <div className="buttonContainer">
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button className="ctaButton-i">{t('contactSales')}</button></a>
+                    <a className="ctaButton-i" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">{t('contactSales')}</a>
                 </div>
             </div>
         </div>

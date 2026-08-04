@@ -1,140 +1,160 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import "./Navbar.css"
-import { useLanguage } from '../../context/LanguageContext';
+import './Navbar.css';
+import { useLanguage } from '../../context/LanguageContext.jsx';
 
 const languages = [
-    { code: 'uz', name: 'O\'zbekcha', flag: '\u{1F1FA}\u{1F1FF}' },
-    { code: 'ru', name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439', flag: '\u{1F1F7}\u{1F1FA}' },
-    { code: 'en', name: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
+    { code: 'uz', name: "O'zbekcha", flag: '🇺🇿' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
 ];
 
 const Navbar = () => {
-    const { language, setLanguage, t } = useLanguage();
-    const [isOpen, setIsOpen] = useState(false);
-    const dropdownRef = useRef(null);
-
-    // Dynamic light/dark theme state.
-    // Explicit user choice (localStorage) wins; otherwise follow the OS preference.
+    const { language, setLanguage, t, localePath, basePath } = useLanguage();
+    const [languageOpen, setLanguageOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const languageRef = useRef(null);
     const [theme, setTheme] = useState(() => {
         const stored = localStorage.getItem('theme');
         if (stored) return stored;
         return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     });
 
-    const currentLang = languages.find(l => l.code === language);
+    const currentLang = languages.find((item) => item.code === language);
+    const navigation = [
+        { to: '/features', label: t('navMarketingFeatures') },
+        { to: '/use-cases/banking', label: t('navUseCases') },
+        { to: '/integrations', label: t('navIntegrations') },
+        { to: '/pricing', label: t('navPricing') },
+        { to: '/about', label: t('navAbout') },
+    ];
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
+        const closeMenus = (event) => {
+            if (event.key === 'Escape') {
+                setLanguageOpen(false);
+                setMobileOpen(false);
+            }
+            if (event.type === 'mousedown' && languageRef.current && !languageRef.current.contains(event.target)) {
+                setLanguageOpen(false);
             }
         };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', closeMenus);
+        document.addEventListener('keydown', closeMenus);
+        return () => {
+            document.removeEventListener('mousedown', closeMenus);
+            document.removeEventListener('keydown', closeMenus);
+        };
     }, []);
 
-    // Reflect the current theme on the <html> tag (does NOT persist —
-    // we only persist on an explicit user toggle, so the OS preference
-    // keeps being followed until the user actually chooses).
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme]);
 
-    // Live-follow the OS preference until the user makes an explicit choice.
     useEffect(() => {
-        const mq = window.matchMedia('(prefers-color-scheme: light)');
-        const handleOSChange = (e) => {
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'light' : 'dark');
-            }
+        const media = window.matchMedia('(prefers-color-scheme: light)');
+        const followSystemTheme = (event) => {
+            if (!localStorage.getItem('theme')) setTheme(event.matches ? 'light' : 'dark');
         };
-        mq.addEventListener('change', handleOSChange);
-        return () => mq.removeEventListener('change', handleOSChange);
+        media.addEventListener('change', followSystemTheme);
+        return () => media.removeEventListener('change', followSystemTheme);
     }, []);
 
-    const handleLanguageSelect = (code) => {
-        setLanguage(code);
-        setIsOpen(false);
-    };
+    useEffect(() => {
+        setMobileOpen(false);
+    }, [basePath]);
 
     const toggleTheme = () => {
-        setTheme(prev => {
-            const next = prev === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', next); // persist only on explicit choice
+        setTheme((current) => {
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
             return next;
         });
     };
 
     return (
-        <div className="nav-main">
-            <Link to="/" className="nav-logo">
-                <img src="/Syncall.svg" alt="Syncall AI" />
+        <header className="nav-main">
+            <Link to={localePath('/')} className="nav-logo" aria-label={`Syncall — ${t('home')}`}>
+                <img src="/Syncall.svg" alt="Syncall" width="112" height="28" />
             </Link>
-            <div className="nav-bar">
-                <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navVoiceAgents')}</NavLink>
-                <NavLink to="/analytics" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navAnalytics')}</NavLink>
-                <NavLink to="/chatbots" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navChatbots')}</NavLink>
-                <NavLink to="/stt" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navStt')}</NavLink>
-                <NavLink to="/tts" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{t('navTts')}</NavLink>
-            </div>
-            <div className="language-selector" ref={dropdownRef}>
-                <button
-                    className="language-toggle"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <span className="flag">{currentLang?.flag}</span>
-                    <span className="lang-code">{language.toUpperCase()}</span>
-                    <span className={`arrow ${isOpen ? 'open' : ''}`}>&#x25BE;</span>
-                </button>
-                {isOpen && (
-                    <div className="language-dropdown">
-                        {languages.map((lang) => (
-                            <button
-                                key={lang.code}
-                                className={`language-option ${language === lang.code ? 'active' : ''}`}
-                                onClick={() => handleLanguageSelect(lang.code)}
-                            >
-                                <span className="flag">{lang.flag}</span>
-                                <span className="lang-name">{lang.name}</span>
-                            </button>
-                        ))}
-                    </div>
-                )}
-            </div>
 
-            <div className="theme-toggle-wrapper">
+            <button
+                type="button"
+                className="mobile-menu-toggle"
+                aria-label={mobileOpen ? t('navClose') : t('navMenu')}
+                aria-expanded={mobileOpen}
+                aria-controls="primary-navigation"
+                onClick={() => setMobileOpen((open) => !open)}
+            >
+                <span aria-hidden="true">{mobileOpen ? '×' : '☰'}</span>
+            </button>
+
+            <nav
+                id="primary-navigation"
+                className={`nav-bar ${mobileOpen ? 'is-open' : ''}`}
+                aria-label={t('primaryNavigation')}
+            >
+                {navigation.map((item) => (
+                    <NavLink
+                        key={item.to}
+                        to={localePath(item.to)}
+                        className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                    >
+                        {item.label}
+                    </NavLink>
+                ))}
+            </nav>
+
+            <div className="nav-actions">
+                <div className="language-selector" ref={languageRef}>
+                    <button
+                        type="button"
+                        className="language-toggle"
+                        onClick={() => setLanguageOpen((open) => !open)}
+                        aria-expanded={languageOpen}
+                        aria-haspopup="listbox"
+                        aria-label={`${t('languageSelectorLabel')}: ${currentLang?.name}`}
+                    >
+                        <span className="flag" aria-hidden="true">{currentLang?.flag}</span>
+                        <span className="lang-code">{language.toUpperCase()}</span>
+                        <span aria-hidden="true" className={`arrow ${languageOpen ? 'open' : ''}`}>▾</span>
+                    </button>
+                    {languageOpen && (
+                        <div className="language-dropdown" role="listbox" aria-label={t('languageSelectorLabel')}>
+                            {languages.map((item) => (
+                                <button
+                                    type="button"
+                                    role="option"
+                                    aria-selected={language === item.code}
+                                    key={item.code}
+                                    className={`language-option ${language === item.code ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setLanguage(item.code);
+                                        setLanguageOpen(false);
+                                    }}
+                                >
+                                    <span className="flag" aria-hidden="true">{item.flag}</span>
+                                    <span className="lang-name">{item.name}</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
                 <button
+                    type="button"
                     className="theme-toggle-btn"
                     onClick={toggleTheme}
-                    aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+                    aria-label={theme === 'dark' ? t('switchLightTheme') : t('switchDarkTheme')}
                 >
-                    {theme === 'dark' ? (
-                        /* Sun Icon */
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sun-icon">
-                            <circle cx="12" cy="12" r="4" />
-                            <path d="M12 2v2" />
-                            <path d="M12 20v2" />
-                            <path d="M4.93 4.93l1.41 1.41" />
-                            <path d="M17.66 17.66l1.41 1.41" />
-                            <path d="M2 12h2" />
-                            <path d="M20 12h2" />
-                            <path d="M6.34 17.66l-1.41 1.41" />
-                            <path d="M19.07 4.93l-1.41 1.41" />
-                        </svg>
-                    ) : (
-                        /* Moon Icon */
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="moon-icon">
-                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                        </svg>
-                    )}
+                    <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
                 </button>
-            </div>
 
-            <div className="nav-contact-button">
-                <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><button>{t('contactSales')}</button></a>
+                <a className="nav-contact-button" href={`${localePath('/')}?intent=demo#contact`}>
+                    {t('ctaDemo')}
+                </a>
             </div>
-        </div>
+        </header>
     );
 };
 

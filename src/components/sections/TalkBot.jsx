@@ -280,7 +280,7 @@ const TalkBot = () => {
                                         <div className="ring-pulse second" />
                                         <div className="phone-icon-center">📞</div>
                                     </div>
-                                    <span className="dialing-label">Dialing +998 (90) ***-5894...</span>
+                                    <span className="dialing-label">{t('engineDialingLabel')} +998 (90) ***-5894...</span>
                                 </div>
                             )}
 
@@ -305,7 +305,7 @@ const TalkBot = () => {
                                     {/* STT Real-time mapping */}
                                     {activeStep === 3 && (
                                         <div className="stt-overlay fade-in-up">
-                                            <span className="overlay-tag">STT ENGINE MAPPING</span>
+                                            <span className="overlay-tag">{t('engineSttMapping')}</span>
                                             <p className="overlay-mapped-text">"{currentDialog.customer}"</p>
                                         </div>
                                     )}
@@ -315,7 +315,7 @@ const TalkBot = () => {
                                         <div className="crm-search-visual fade-in-up">
                                             <div className="crm-table">
                                                 <div className="crm-header-row">
-                                                    <span>CRM Sync</span>
+                                                    <span>{t('engineCrmSync')}</span>
                                                     <span>{language === "uz" ? "Yozuv" : language === "ru" ? "Запись" : "Record"}</span>
                                                 </div>
                                                 <div className="crm-row">
@@ -337,7 +337,7 @@ const TalkBot = () => {
                                             </div>
                                             <div className="brain-pulse-container">
                                                 <div className="brain-pulse" />
-                                                🔒 SECURE CORE SYNC
+                                                🔒 {t('engineSecureSync')}
                                             </div>
                                         </div>
                                     )}
@@ -389,10 +389,10 @@ const TalkBot = () => {
                     {/* RIGHT PANEL: Dynamic Latency Pipeline Timeline */}
                     <div className="latency-pipeline-panel">
                         <div className="pipeline-panel-header">
-                            <h3 className="pipeline-title">{language === "uz" ? "SYNCALL UNUMDORLIK KO'RSATKICHLARI" : language === "ru" ? "ПОКАЗАТЕЛИ ПРОИЗВОДИТЕЛЬНОСТИ SYNCALL" : "SYNCALL PERFORMANCE SPECS"}</h3>
+                            <h3 className="pipeline-title">{t('enginePerformanceTitle')}</h3>
                             <div className="diagnostics-status-badge">
                                 <span className="status-indicator-dot" />
-                                DIAGNOSTICS: ONLINE
+                                {t('engineDiagnosticsOnline')}
                             </div>
                         </div>
                         <div className="pipeline-timeline-nodes">

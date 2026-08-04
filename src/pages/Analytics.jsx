@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa6';
 
 const Analytics = () => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
 
     const problems = [
         { icon: FaTriangleExclamation, titleKey: 'anProb1Title', descKey: 'anProb1Desc' },
@@ -35,7 +35,7 @@ const Analytics = () => {
     ];
 
     return (
-        <main className="an-page">
+        <main id="main-content" tabIndex="-1" className="an-page">
             <ProductHero
                 badge={t('anBadge')}
                 kind="product"
@@ -125,7 +125,7 @@ const Analytics = () => {
                             <div key={s.n} className="an-pipe-step">
                                 <div className="an-pipe-node">{s.n}</div>
                                 <div className="an-pipe-body">
-                                    <h4>{t(s.titleKey)}</h4>
+                                    <h3>{t(s.titleKey)}</h3>
                                     <p>{t(s.descKey)}</p>
                                 </div>
                                 {i < pipeline.length - 1 && <span className="an-pipe-conn" aria-hidden="true" />}
@@ -182,8 +182,8 @@ const Analytics = () => {
                 <div className="an-cta-inner">
                     <h2>{t('anCtaTitle')}</h2>
                     <p>{t('anCtaSubtitle')}</p>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                        <button className="btn-primary an-cta-btn">{t('anHeroCta')} <span>→</span></button>
+                    <a className="btn-primary an-cta-btn" href={`${localePath('/')}?intent=trial#contact`}>
+                        {t('anHeroCta')} <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </section>

@@ -3,7 +3,8 @@ import { useLanguage } from '../../context/LanguageContext';
 
 // Consistent hero band used at the top of each product page (Analytics/STT/TTS).
 const ProductHero = ({ badge, kind, title, subtitle, primaryCta, primaryHref, secondaryCta, children }) => {
-    const { t } = useLanguage();
+    const { t, localePath } = useLanguage();
+    const contactHref = `${localePath('/')}?intent=demo#contact`;
 
     return (
         <header className="phero">
@@ -22,12 +23,12 @@ const ProductHero = ({ badge, kind, title, subtitle, primaryCta, primaryHref, se
                     <h1 className="phero-title">{title}</h1>
                     <p className="phero-subtitle">{subtitle}</p>
                     <div className="phero-actions">
-                        <a href={primaryHref || 'https://t.me/syncall_ai'} target={primaryHref ? undefined : '_blank'} rel="noopener noreferrer">
-                            <button className="btn-primary">{primaryCta || t('contactSales')}</button>
+                        <a className="btn-primary" href={primaryHref || contactHref}>
+                            {primaryCta || t('ctaDemo')}
                         </a>
                         {secondaryCta && (
-                            <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">
-                                <button className="btn-secondary">{secondaryCta}</button>
+                            <a className="btn-secondary" href={`${localePath('/')}?intent=trial#contact`}>
+                                {secondaryCta}
                             </a>
                         )}
                     </div>
