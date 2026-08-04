@@ -34,7 +34,7 @@ All canonical pages have Russian (`/ru/...`) and Uzbek (`/uz/...`) variants. Eng
 
 The figures below are self-reported from Syncall production deployments; formal methodology documentation (definitions, samples, measurement windows) is in progress.
 
-- 98% speech-recognition accuracy on Uzbek including dialects, slang, and code-switching
+- 95% speech-recognition accuracy on Uzbek including dialects, slang, and code-switching
 - 99.2% acoustic similarity for voice cloning
 - 1000+ sustained calls per minute throughput
 - 80% average customer-issue resolution rate (calls fully handled without human escalation)

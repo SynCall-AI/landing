@@ -2,7 +2,7 @@ import "./Numbers.css";
 import { useLanguage } from '../../context/LanguageContext';
 
 const METRICS = [
-    { value: '98%', labelKey: 'metricAccuracy' },
+    { value: '95%', labelKey: 'metricAccuracy' },
     { value: '80%', labelKey: 'metricResolution' },
     { value: '−70%', labelKey: 'metricCost' },
     { value: '94%', labelKey: 'metricCsat' },

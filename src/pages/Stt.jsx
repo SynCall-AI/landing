@@ -32,7 +32,7 @@ const Stt = () => {
 
             <section className="prod-specs">
                 <div className="prod-specs-inner">
-                    <div className="prod-spec"><span className="prod-spec-val">98%</span><span className="prod-spec-label">{t('sttSpec1')}</span></div>
+                    <div className="prod-spec"><span className="prod-spec-val">95%</span><span className="prod-spec-label">{t('sttSpec1')}</span></div>
                     <div className="prod-spec"><span className="prod-spec-val">&lt;100ms</span><span className="prod-spec-label">{t('sttSpec2')}</span></div>
                     <div className="prod-spec"><span className="prod-spec-val">UZ·RU·EN</span><span className="prod-spec-label">{t('sttSpec3')}</span></div>
                     <div className="prod-spec"><span className="prod-spec-val">24/7</span><span className="prod-spec-label">{t('sttSpec4')}</span></div>
