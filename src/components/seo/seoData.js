@@ -165,30 +165,6 @@ export const ROUTE_SEO = {
             uz: "Mavjud jarayonlarni almashtirmasdan Syncall'ni SIP, PBX, Asterisk, FreePBX, 3CX, bulut telefoniyasi, Delta M va webhookli CRMlarga ulang.",
         },
     ),
-    '/comparisons/vs-aisha': page(
-        {
-            en: 'Syncall vs Aisha AI: Voice Agent Comparison',
-            ru: 'Syncall и Aisha AI: сравнение голосовых агентов',
-            uz: 'Syncall va Aisha AI: ovozli agentlar taqqoslanishi',
-        },
-        {
-            en: 'Compare Syncall and Aisha AI using clearly labeled criteria for languages, deployment, voice features, integrations, and implementation—without unsupported claims.',
-            ru: 'Сравните Syncall и Aisha AI по языкам, размещению, голосовым функциям, интеграциям и внедрению на основе чётких критериев без неподтверждённых заявлений.',
-            uz: "Syncall va Aisha AI'ni tillar, joylashtirish, ovoz funksiyalari, integratsiya va joriy etish mezonlari bo'yicha tasdiqlanmagan da'volarsiz solishtiring.",
-        },
-    ),
-    '/comparisons/vapi-alternative': page(
-        {
-            en: 'Vapi Alternative for Uzbek & Russian Calls | Syncall',
-            ru: 'Альтернатива Vapi для звонков на RU и UZ | Syncall',
-            uz: "O'zbek va rus qo'ng'iroqlari uchun Vapi muqobili | Syncall",
-        },
-        {
-            en: 'Evaluate Syncall as a Vapi alternative when your project needs Uzbek dialect support, Russian code-switching, managed integration, or on-premise deployment.',
-            ru: 'Оцените Syncall как альтернативу Vapi, если нужны узбекские диалекты, переключение на русский, интеграция под ключ или On-Premise размещение.',
-            uz: "Loyihangizga o'zbek lahjalari, rus tiliga o'tish, boshqariladigan integratsiya yoki On-Premise joylashtirish kerak bo'lsa, Syncall'ni Vapi muqobili sifatida baholang.",
-        },
-    ),
     '/pricing': page(
         {
             en: 'AI Voice Agent Pricing & Free Trial | Syncall',

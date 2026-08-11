@@ -34,6 +34,9 @@ const Clients = () => {
                             <span className="partner-name-sr">{partner.name}</span>
                         </li>
                     ))}
+                    <li className="partner-item partner-more">
+                        <span className="partner-name">10+</span>
+                    </li>
                 </ul>
             </div>
         </div>

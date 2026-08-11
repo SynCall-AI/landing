@@ -33,8 +33,6 @@ const marketingPaths = [
     '/use-cases/surveys',
     '/use-cases/lead-qualification',
     '/integrations',
-    '/comparisons/vs-aisha',
-    '/comparisons/vapi-alternative',
     '/pricing',
     '/about',
     '/case-studies',

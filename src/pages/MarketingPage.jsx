@@ -17,7 +17,6 @@ const MarketingPage = ({
     locale,
     demoHref = 'https://t.me/syncall_ai',
     trialHref = 'https://t.me/syncall_ai',
-    telegramHref = 'https://t.me/syncall_ai',
 }) => {
     const location = useLocation();
     const resolved = resolveMarketingPage(path || location.pathname, locale);
@@ -170,30 +169,6 @@ const MarketingPage = ({
                 </div>
             </section>
 
-            <section className="marketing-cta" aria-labelledby="marketing-cta-heading">
-                <div className="marketing-shell marketing-cta__inner">
-                    <div>
-                        <h2 id="marketing-cta-heading">{page.cta.title}</h2>
-                        <p>{page.cta.body}</p>
-                    </div>
-                    <div className="marketing-actions">
-                        <a
-                            className="marketing-button marketing-button--primary"
-                            href={demoHref}
-                            {...externalLinkProps(demoHref)}
-                        >
-                            {ui.bookDemo}
-                        </a>
-                        <a
-                            className="marketing-button marketing-button--secondary"
-                            href={telegramHref}
-                            {...externalLinkProps(telegramHref)}
-                        >
-                            {ui.telegram}
-                        </a>
-                    </div>
-                </div>
-            </section>
         </main>
     );
 };

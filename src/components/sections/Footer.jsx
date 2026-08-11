@@ -34,8 +34,6 @@ const Footer = () => {
             links: [
                 [t('navAbout'), '/about'],
                 [t('caseStudies'), '/case-studies'],
-                [t('comparisonAisha'), '/comparisons/vs-aisha'],
-                [t('comparisonVapi'), '/comparisons/vapi-alternative'],
             ],
         },
     ];

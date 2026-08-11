@@ -22,11 +22,11 @@ const Navbar = () => {
 
     const currentLang = languages.find((item) => item.code === language);
     const navigation = [
+        { to: '/', label: t('home'), end: true },
         { to: '/features', label: t('navMarketingFeatures') },
         { to: '/use-cases/banking', label: t('navUseCases') },
         { to: '/integrations', label: t('navIntegrations') },
         { to: '/pricing', label: t('navPricing') },
-        { to: '/about', label: t('navAbout') },
     ];
 
     useEffect(() => {
@@ -98,6 +98,7 @@ const Navbar = () => {
                     <NavLink
                         key={item.to}
                         to={localePath(item.to)}
+                        end={item.end}
                         className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
                     >
                         {item.label}

@@ -54,8 +54,6 @@ export const translations = {
         useCaseSurveys: "So'rovnomalar",
         useCaseLeads: "Lidlarni saralash",
         caseStudies: "Amaliy misollar",
-        comparisonAisha: "Syncall va Aisha AI taqqoslovi",
-        comparisonVapi: "O'zbek qo'ng'iroqlari uchun Vapi muqobili",
         contactTitle: "Syncall'ni o'z qo'ng'iroqlaringizda sinab ko'ring",
         contactSubtitle: "Ish jarayoningizni ayting — jamoamiz mos demo va bepul sinovni tayyorlaydi.",
         contactName: "Ism",
@@ -76,11 +74,8 @@ export const translations = {
         trustPlaceholder: "PLACEHOLDER — haqiqiy ma'lumot kerak",
         metricMethodology: "Ko'rsatkichlarni qanday o'lchaymiz",
         metricMethodologyNote: "Ko'rsatkichlar sun'iy testlarda emas, real Syncall joriy etishlarida o'lchangan. Natijalar foydalanish ssenariysiga bog'liq.",
-        metricAccuracy: "Nutqni aniqlash aniqligi",
-        metricResolution: "Birinchi murojaatda hal qilish",
+        metricResolution: "Operatorga o'tkazmasdan AI-agent tomonidan hal qilingan murojaatlar",
         metricCost: "Operatsion xarajatlarni kamaytirish",
-        metricCsat: "Mijozlar qoniqishi",
-        metricVoice: "Ovoz o'xshashligi",
         metricScale: "Daqiqasiga qo'ng'iroqlar",
 
         // Talk Bot
@@ -90,7 +85,6 @@ export const translations = {
 
         // Partners
         partnersLabel: "Bizning hamkorlar",
-        partnersSubtitle: "kompaniyalar bizga ishonadi",
 
         // Calllog
         calllogTitle: "Real qo'ng'iroqlarimizdan birini tinglang",
@@ -493,8 +487,6 @@ export const translations = {
         useCaseSurveys: "Опросы",
         useCaseLeads: "Квалификация лидов",
         caseStudies: "Кейсы",
-        comparisonAisha: "Сравнение Syncall и Aisha AI",
-        comparisonVapi: "Альтернатива Vapi для звонков на узбекском",
         contactTitle: "Испытайте Syncall на своих звонках",
         contactSubtitle: "Расскажите о процессе — команда подготовит подходящее демо и бесплатный пилот.",
         contactName: "Имя",
@@ -515,11 +507,8 @@ export const translations = {
         trustPlaceholder: "PLACEHOLDER — нужны реальные данные",
         metricMethodology: "Как мы измеряем показатели",
         metricMethodologyNote: "Показатели измерены в рабочих внедрениях Syncall, а не на синтетических тестах. Итоговые значения зависят от сценария использования.",
-        metricAccuracy: "Точность распознавания речи",
-        metricResolution: "Решение с первого обращения",
+        metricResolution: "Решение вопросов ИИ-агентом без перевода на оператора",
         metricCost: "Снижение операционных затрат",
-        metricCsat: "Удовлетворённость клиентов",
-        metricVoice: "Сходство голоса",
         metricScale: "Звонков в минуту",
 
         // Talk Bot
@@ -529,7 +518,6 @@ export const translations = {
 
         // Partners
         partnersLabel: "Наши партнёры",
-        partnersSubtitle: "компаний нам доверяют",
 
         // Calllog
         calllogTitle: "Послушайте реальный звонок нашего AI",
@@ -932,8 +920,6 @@ export const translations = {
         useCaseSurveys: "Surveys",
         useCaseLeads: "Lead qualification",
         caseStudies: "Case studies",
-        comparisonAisha: "Syncall vs Aisha AI",
-        comparisonVapi: "Vapi alternative for Uzbek calls",
         contactTitle: "Test Syncall on your own calls",
         contactSubtitle: "Tell us about your workflow and our team will prepare a relevant demo and free trial.",
         contactName: "Name",
@@ -954,11 +940,8 @@ export const translations = {
         trustPlaceholder: "PLACEHOLDER — needs real data",
         metricMethodology: "How we measure these figures",
         metricMethodologyNote: "Figures are measured in production Syncall deployments, not synthetic benchmarks. Actual results vary by use case.",
-        metricAccuracy: "Speech-recognition accuracy",
-        metricResolution: "First-contact resolution",
+        metricResolution: "Issues resolved by the AI agent without transfer to a human operator",
         metricCost: "Lower operating cost",
-        metricCsat: "Customer satisfaction",
-        metricVoice: "Voice similarity",
         metricScale: "Calls per minute",
 
         // Talk Bot
@@ -968,7 +951,6 @@ export const translations = {
 
         // Partners
         partnersLabel: "Our Partners",
-        partnersSubtitle: "companies trust us",
 
         // Calllog
         calllogTitle: "Listen to one of our AI calls",

@@ -2,12 +2,9 @@ import "./Numbers.css";
 import { useLanguage } from '../../context/LanguageContext';
 
 const METRICS = [
-    { value: '95%', labelKey: 'metricAccuracy' },
-    { value: '80%', labelKey: 'metricResolution' },
-    { value: '−70%', labelKey: 'metricCost' },
-    { value: '94%', labelKey: 'metricCsat' },
-    { value: '99.2%', labelKey: 'metricVoice' },
+    { value: '8/10', labelKey: 'metricResolution' },
     { value: '1000+', labelKey: 'metricScale' },
+    { value: '−70%', labelKey: 'metricCost' },
 ];
 
 const LEGAL_COMMENT = '<!-- LEGAL: each metric needs a documented source/sample before public launch; product targets banking + government -->';

@@ -17,7 +17,6 @@
 - [Features](https://www.syncallai.com/features)
 - [Banking](https://www.syncallai.com/use-cases/banking), [debt collection](https://www.syncallai.com/use-cases/debt-collection), [appointment reminders](https://www.syncallai.com/use-cases/appointment-reminders), [surveys](https://www.syncallai.com/use-cases/surveys), and [lead qualification](https://www.syncallai.com/use-cases/lead-qualification)
 - [Integrations](https://www.syncallai.com/integrations) and [pricing](https://www.syncallai.com/pricing)
-- [Syncall vs Aisha AI](https://www.syncallai.com/comparisons/vs-aisha) and [Vapi alternative](https://www.syncallai.com/comparisons/vapi-alternative)
 - [About](https://www.syncallai.com/about) and [case studies](https://www.syncallai.com/case-studies)
 - Product pages: [Analytics](https://www.syncallai.com/analytics), [Chatbots](https://www.syncallai.com/chatbots), [STT](https://www.syncallai.com/stt), and [TTS](https://www.syncallai.com/tts)
 

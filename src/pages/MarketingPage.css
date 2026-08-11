@@ -147,8 +147,7 @@
 }
 
 .marketing-section__heading h2,
-.marketing-related h2,
-.marketing-cta h2 {
+.marketing-related h2 {
     font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 720;
     line-height: 1.1;
@@ -156,8 +155,7 @@
     text-wrap: balance;
 }
 
-.marketing-section__heading p,
-.marketing-cta p {
+.marketing-section__heading p {
     margin-top: 18px;
     color: var(--text-secondary);
     font-size: 1.03rem;
@@ -367,26 +365,6 @@
     font-size: 1.2rem;
 }
 
-.marketing-cta {
-    padding: clamp(64px, 9vw, 96px) 0;
-    border-top: 1px solid var(--border-subtle);
-    background:
-        radial-gradient(circle at 15% 20%, rgba(17, 115, 252, 0.16), transparent 38%),
-        var(--bg-secondary);
-}
-
-.marketing-cta__inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.75fr);
-    align-items: center;
-    gap: 48px;
-}
-
-.marketing-cta .marketing-actions {
-    justify-content: flex-end;
-    margin-top: 0;
-}
-
 .marketing-page--missing {
     display: grid;
     min-height: 70vh;
@@ -416,19 +394,11 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .marketing-cta__inner {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
     .marketing-sources__inner {
         grid-template-columns: 1fr;
         gap: 18px;
     }
 
-    .marketing-cta .marketing-actions {
-        justify-content: flex-start;
-    }
 }
 
 @media (max-width: 560px) {
