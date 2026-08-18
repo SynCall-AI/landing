@@ -13,17 +13,23 @@ import {
     isFakeUzNumber,
 } from '../../lib/landingDemo';
 import { DemoCallAudio } from '../../lib/landingDemoAudio';
+import {
+    TELEGRAM_CLIENT_ID,
+    loginWithTelegramPhone,
+    preloadTelegramLogin,
+} from '../../lib/telegramLogin';
 
 // Hero voice-demo widget. The visitor leaves a phone number, passes Turnstile,
 // and talks to a live AI agent in the browser over a PCM16 WebSocket.
 // Contract: LANDING_DEMO_FRONTEND_HANDOFF.md.
 
-// phase: loading | unavailable | idle | creating | queued | mic | connecting
+// phase: loading | unavailable | idle | verifying | creating | queued | mic | connecting
 //        | live | ended | error
 const ORB_STATE = {
     loading: 'idle',
     unavailable: 'error',
     idle: 'idle',
+    verifying: 'dialing',
     creating: 'dialing',
     queued: 'dialing',
     mic: 'dialing',
@@ -35,8 +41,11 @@ const ORB_STATE = {
 
 const STATUS_ERROR_KEY = {
     400: 'callWidgetErrVerify',
+    401: 'callWidgetErrTelegram',
+    403: 'callWidgetErrPhoneMismatch',
     409: 'callWidgetErrConflict',
     429: 'callWidgetErrLimit',
+    502: 'callWidgetErrTelegram',
     503: 'callWidgetErrBusy',
 };
 
@@ -197,6 +206,12 @@ const VoiceCallWidget = () => {
     useEffect(() => {
         loadCatalog();
     }, [loadCatalog]);
+
+    // Load the official SDK before the submit gesture so its popup is not
+    // delayed (and potentially blocked) while the script downloads.
+    useEffect(() => {
+        if (TELEGRAM_CLIENT_ID) preloadTelegramLogin().catch(() => {});
+    }, []);
 
     // ---- Turnstile (explicit render, interaction-only) ----------------------
     useEffect(() => {
@@ -453,6 +468,22 @@ const VoiceCallWidget = () => {
         audioRef.current = audio;
 
         const attempt = ++attemptRef.current;
+        let telegramAuth = null;
+        if (TELEGRAM_CLIENT_ID) {
+            setPhaseSafe('verifying');
+            try {
+                telegramAuth = await loginWithTelegramPhone(language);
+            } catch {
+                if (attemptRef.current !== attempt) return;
+                audio.close();
+                audioRef.current = null;
+                setErr(t('callWidgetErrTelegram'));
+                setPhaseSafe('idle');
+                return;
+            }
+            if (attemptRef.current !== attempt) return;
+        }
+
         setPhaseSafe('creating');
         let session;
         try {
@@ -461,6 +492,12 @@ const VoiceCallWidget = () => {
                 phone_number: fullPhone,
                 language: demoLanguage,
                 ...(tsTokenRef.current ? { challenge_token: tsTokenRef.current } : {}),
+                ...(telegramAuth
+                    ? {
+                        telegram_id_token: telegramAuth.idToken,
+                        telegram_nonce: telegramAuth.nonce,
+                    }
+                    : {}),
             });
         } catch (error) {
             resetTurnstile(); // validation may have consumed the token even on failure
@@ -662,20 +699,30 @@ const VoiceCallWidget = () => {
                                 <path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"
                                       stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/>
                             </svg>
-                            {t('callWidgetCta')}
+                            {t(TELEGRAM_CLIENT_ID ? 'callWidgetTelegramCta' : 'callWidgetCta')}
                         </button>
 
-                        <span className="vcw-consent">{t('callWidgetConsent')}</span>
+                        <span className="vcw-consent">
+                            {t(TELEGRAM_CLIENT_ID
+                                ? 'callWidgetTelegramConsent'
+                                : 'callWidgetConsent')}
+                        </span>
                     </form>
                 )}
 
-                {(phase === 'creating' || phase === 'connecting') && (
+                {(phase === 'verifying' || phase === 'creating' || phase === 'connecting') && (
                     <div className="vcw-panel vcw-dialing">
                         <span className="vcw-dialing-status">
-                            {t('callWidgetDialing')}
+                            {t(phase === 'verifying'
+                                ? 'callWidgetTelegramVerifying'
+                                : 'callWidgetDialing')}
                             <span className="vcw-dots"><i /><i /><i /></span>
                         </span>
-                        <span className="vcw-sub">{t('callWidgetConnecting')}</span>
+                        <span className="vcw-sub">
+                            {t(phase === 'verifying'
+                                ? 'callWidgetTelegramVerifyingSub'
+                                : 'callWidgetConnecting')}
+                        </span>
                         {phase === 'connecting' && (
                             <div className="vcw-controls">
                                 <button className="vcw-hangup" onClick={hangup} aria-label="Cancel call">

@@ -8,6 +8,12 @@ The implementation deliberately leaves the following items unresolved rather tha
 - Configure `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in Vercel, or set `VITE_LEAD_API_URL` to the approved CRM/email webhook and verify a real production submission.
 - Confirm that `https://t.me/syncall_ai` is the canonical public Telegram account.
 
+## Telegram phone verification
+
+- In BotFather → Bot Settings → Web Login, register `https://www.syncallai.com` and `https://syncallai.com` as Allowed URLs and keep the default RS256 signing algorithm.
+- Set `VITE_TELEGRAM_CLIENT_ID` for the landing build and the same value as `LANDING_DEMO_TELEGRAM_CLIENT_ID` on the API. Neither value is secret.
+- Deploy the frontend before enabling the backend variable, then smoke-test an accepted matching number, a declined share, and a mismatched number.
+
 ## Claims and methodology
 
 - Supply a documented definition, source, sample size, measurement period, and approver for every published metric: `98%`, `80%`, `−70%`, `94%`, `99.2%`, and `1000+ calls/min`.
@@ -27,4 +33,3 @@ The implementation deliberately leaves the following items unresolved rather tha
 - Re-check the linked Aisha AI and Vapi primary sources immediately before publication; vendor capabilities and pricing can change.
 - Replace comparison verification prompts only with dated, attributable vendor evidence.
 - Supply an approved 1200×630 raster social-sharing image and add it to Open Graph/Twitter metadata.
-
