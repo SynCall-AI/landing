@@ -151,6 +151,10 @@ const Navbar = () => {
                     <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
                 </button>
 
+                <Link className="nav-studio-button" to={localePath('/cabinet')}>
+                    {t('creatorStudio')}
+                </Link>
+
                 <a className="nav-contact-button" href={`${localePath('/')}?intent=demo#contact`}>
                     {t('ctaDemo')}
                 </a>

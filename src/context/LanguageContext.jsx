@@ -21,6 +21,7 @@ export const translations = {
         demo: "Demo",
         faq: "FAQ",
         contactSales: "Bog'lanish",
+        creatorStudio: "Ijodkorlar studiyasi",
 
         // Hero
         heroBadge: "O'zbekiston uchun AI yechimlar",
@@ -460,6 +461,7 @@ export const translations = {
         demo: "Демо",
         faq: "FAQ",
         contactSales: "Связаться",
+        creatorStudio: "Студия",
 
         // Hero
         heroBadge: "AI решения для Узбекистана",
@@ -899,6 +901,7 @@ export const translations = {
         demo: "Demo",
         faq: "FAQ",
         contactSales: "Contact",
+        creatorStudio: "Creator studio",
 
         // Hero
         heroBadge: "AI Solutions for Uzbekistan",
