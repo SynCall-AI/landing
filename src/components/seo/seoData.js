@@ -214,11 +214,17 @@ export const ROUTE_SEO = {
         },
         { noindex: true },
     ),
+    '/cabinet/voices': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
     '/cabinet/tts': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/enhancer': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
     '/cabinet/stt': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/subtitles': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/dubbing': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/audiobooks': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
     '/cabinet/history': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
     '/cabinet/billing': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
     '/cabinet/profile': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/developer': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
 };
 
 export const STATIC_ROUTE_PATHS = Object.keys(ROUTE_SEO);
