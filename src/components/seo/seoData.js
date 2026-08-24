@@ -201,9 +201,30 @@ export const ROUTE_SEO = {
             uz: "Tasdiqlangan mijoz tajribalari e'lon qilingani sari Syncall joriy etish hikoyalari, ssenariylari, integratsiya tafsilotlari va o'lchangan natijalarni ko'ring.",
         },
     ),
+    '/cabinet': page(
+        {
+            en: 'Creator Studio | Syncall',
+            ru: 'Студия автора | Syncall',
+            uz: 'Ijodkor studiyasi | Syncall',
+        },
+        {
+            en: 'Sign in to create voiceovers, transcribe audio, manage projects, and top up your Syncall creator balance.',
+            ru: 'Войдите, чтобы создавать озвучку, расшифровывать аудио, управлять проектами и пополнять баланс Syncall.',
+            uz: "Ovoz yaratish, audioni matnga aylantirish, loyihalarni boshqarish va Syncall balansini to'ldirish uchun kiring.",
+        },
+        { noindex: true },
+    ),
+    '/cabinet/tts': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/stt': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/history': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/billing': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
+    '/cabinet/profile': page({}, {}, { aliasFor: '/cabinet', canonicalPath: '/cabinet', noindex: true }),
 };
 
-export const INDEXABLE_ROUTE_PATHS = Object.keys(ROUTE_SEO);
+export const STATIC_ROUTE_PATHS = Object.keys(ROUTE_SEO);
+export const INDEXABLE_ROUTE_PATHS = STATIC_ROUTE_PATHS.filter(
+    (routePath) => !ROUTE_SEO[routePath].noindex,
+);
 
 export const normalizeRoutePath = (pathname = '/') => {
     const withoutLocale = stripLocalePrefix(pathname.split(/[?#]/)[0] || '/');
@@ -231,6 +252,7 @@ export const getRouteSeo = (pathname = '/', locale = 'en') => {
         basePath,
         canonicalPath,
         unknown,
+        noindex: unknown || Boolean(direct?.noindex || target?.noindex),
         title: metadata.titles[language] || metadata.titles.en,
         description: metadata.descriptions[language] || metadata.descriptions.en,
         canonical: localizedUrl(canonicalPath, language),

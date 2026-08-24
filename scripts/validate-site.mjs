@@ -23,7 +23,7 @@ const decodeHtml = (value) => String(value)
     .replace(/&#39;|&apos;/g, "'");
 
 const canonicalRoutes = Object.entries(ROUTE_SEO)
-    .filter(([, route]) => !route.aliasFor && !route.canonicalPath)
+    .filter(([, route]) => !route.aliasFor && !route.canonicalPath && !route.noindex)
     .map(([routePath]) => routePath);
 const allRoutePaths = Object.keys(ROUTE_SEO);
 
@@ -50,6 +50,7 @@ for (const routePath of allRoutePaths) {
         const title = decodeHtml(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || '');
         const description = decodeHtml(html.match(/<meta name="description" content="([^"]*)"/i)?.[1] || '');
         const canonical = decodeHtml(html.match(/<link rel="canonical" href="([^"]*)"/i)?.[1] || '');
+        const robots = decodeHtml(html.match(/<meta name="robots" content="([^"]*)"/i)?.[1] || '');
         const lang = html.match(/<html[^>]*\blang="([^"]+)"/i)?.[1];
         const fallback = html.match(/<div class="ssr-fallback"[\s\S]*?<template id="site-static-fallback-end"><\/template>/i)?.[0] || '';
 
@@ -58,6 +59,7 @@ for (const routePath of allRoutePaths) {
         assert.ok([...title].length <= 60, `${routePath} ${locale}: title exceeds 60 characters`);
         assert.equal(description, seo.description, `${routePath} ${locale}: incorrect description`);
         assert.equal(canonical, seo.canonical, `${routePath} ${locale}: incorrect canonical`);
+        assert.equal(robots.startsWith('noindex'), seo.noindex, `${routePath} ${locale}: incorrect robots directive`);
         assert.equal((fallback.match(/<h1\b/gi) || []).length, 1, `${routePath} ${locale}: static fallback must have one h1`);
 
         for (const alternateLocale of [...SEO_LOCALES, 'x-default']) {

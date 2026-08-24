@@ -98,7 +98,7 @@ const SiteSeo = () => {
         upsertMeta(
             'name',
             'robots',
-            seo.unknown
+            seo.noindex
                 ? 'noindex, follow, max-image-preview:large, max-snippet:-1'
                 : 'index, follow, max-image-preview:large, max-snippet:-1',
         );
