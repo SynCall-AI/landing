@@ -83,17 +83,26 @@ export const getCreatorConfig = () => creatorRequest('/api/v2/creator/config');
 export const getCreatorOverview = () => creatorRequest('/api/v2/creator/overview');
 export const getCreatorBilling = () => creatorRequest('/api/v2/creator/billing');
 export const getCreatorJobs = (kind = '') => creatorRequest(`/api/v2/creator/jobs${kind ? `?kind=${kind}` : ''}`);
+export const getCreatorVoices = () => creatorRequest('/api/v2/creator/voices');
 export const generateCreatorSpeech = (payload) => creatorRequest('/api/v2/creator/tts', {
     method: 'POST',
     body: JSON.stringify(payload),
 });
-export const transcribeCreatorAudio = (audio, language, diarization = false) => {
+export const transcribeCreatorAudio = (audio, language, diarization = false, purpose = 'transcription') => {
     const form = new FormData();
     form.append('audio', audio, audio.name || 'recording.webm');
     form.append('language', language);
     form.append('diarization', String(diarization));
+    form.append('purpose', purpose);
     return creatorRequest('/api/v2/creator/stt', { method: 'POST', body: form });
 };
+export const createCreatorVoice = (payload) => creatorRequest('/api/v2/creator/voices', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+});
+export const deleteCreatorVoice = (id) => creatorRequest(`/api/v2/creator/voices/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+});
 export const updateCreatorProfile = (payload) => creatorRequest('/api/v2/creator/profile', {
     method: 'PATCH',
     body: JSON.stringify(payload),
