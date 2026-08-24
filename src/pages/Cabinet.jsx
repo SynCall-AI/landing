@@ -5,37 +5,45 @@ import {
     useRef,
     useState,
 } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
     ArrowDownToLine,
     ArrowRight,
     AudioLines,
+    BookOpen,
+    Captions,
     Check,
     ChevronDown,
     CircleDollarSign,
     Clock3,
+    Code2,
     Copy,
     FileAudio,
     FileText,
     Gauge,
+    Headphones,
     History,
     Home,
+    LayoutGrid,
     Languages,
     LoaderCircle,
+    LockKeyhole,
     LogOut,
-    Menu,
     Mic,
     Pause,
+    PanelLeft,
     Play,
     Plus,
     Radio,
     RefreshCw,
+    Search,
     Settings,
     Sparkles,
     Square,
     Trash2,
     UploadCloud,
     UserRound,
+    Volume2,
     WalletCards,
     WandSparkles,
     X,
@@ -44,13 +52,16 @@ import { CabinetAuthProvider, useCabinetAuth } from '../context/CabinetAuthConte
 import { useLanguage } from '../context/LanguageContext.jsx';
 import {
     createCreatorTopUp,
+    createCreatorVoice,
     deleteCreatorJob,
+    deleteCreatorVoice,
     fetchCreatorAudio,
     generateCreatorSpeech,
     getCreatorBilling,
     getCreatorConfig,
     getCreatorJobs,
     getCreatorOverview,
+    getCreatorVoices,
     getGoogleConfig,
     transcribeCreatorAudio,
     updateCreatorProfile,
@@ -61,13 +72,13 @@ const COPY = {
     en: {
         studio: 'Creator studio', loginTitle: 'Turn an idea into a voice.', loginBody: 'Create natural voiceovers and clean transcripts without learning a complicated tool.',
         google: 'Continue with Google', secure: 'Your audio stays private to your account.', loading: 'Opening your studio…', setup: 'Google sign-in is not configured yet.',
-        home: 'Home', voice: 'Create voice', transcript: 'Transcribe', history: 'My projects', billing: 'Balance', profile: 'Profile', logout: 'Sign out', menu: 'Open menu', close: 'Close',
+        home: 'Home', voice: 'Text to speech', transcript: 'Transcribe', history: 'My projects', billing: 'Balance', profile: 'Profile', logout: 'Sign out', menu: 'Open menu', close: 'Close',
         greeting: 'Good to see you', greetingBody: 'What would you like to make today?', available: 'Available balance', topUp: 'Top up', recent: 'Recent projects', seeAll: 'See all', noProjects: 'Your first project will appear here.',
         ttsCard: 'Voice a reel', ttsCardBody: 'Paste your script and get a ready-to-download voiceover.', sttCard: 'Turn audio into text', sttCardBody: 'Upload or record a clip and copy the transcript in seconds.',
         createTitle: 'Give your words a voice', createBody: 'Write naturally. Syncall handles the rest.', script: 'Your script', placeholder: 'Paste the text for your reel, story or announcement…', useIdea: 'Try an idea',
         language: 'Language', voiceLabel: 'Voice', speed: 'Pace', cost: 'Estimated cost', generate: 'Create voiceover', generating: 'Creating your voiceover…', ready: 'Your voiceover is ready', download: 'Download', newOne: 'Create another', chars: 'characters', insufficient: 'Top up your balance to create this audio.',
         voiceWarm: 'Warm & friendly', voiceBright: 'Bright & lively', voiceCalm: 'Calm & clear', voiceNatural: 'Natural voice',
-        transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
+        transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', recordAgain: 'Record again', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
         historyTitle: 'Your projects', historyBody: 'Every voiceover and transcript, ready whenever you need it.', all: 'All', voices: 'Voiceovers', transcripts: 'Transcripts', delete: 'Delete', emptyHistory: 'Nothing here yet. Start with a voiceover or transcript.',
         billingTitle: 'Balance & payments', billingBody: 'See your usage and add funds when you need them.', currentBalance: 'Current balance', paymentHistory: 'Activity', amount: 'Top-up amount', paymentMethod: 'Payment method', continuePayme: 'Continue to Payme', soon: 'Soon', minTopup: 'Minimum top-up', noTransactions: 'No balance activity yet.', usageTts: 'Voice generation', usageStt: 'Transcription', payment: 'Balance top-up', adjustment: 'Balance adjustment', estimatedCost: 'Estimated cost', pending: 'Pending', paid: 'Paid', completed: 'Completed', cancelled: 'Cancelled',
         profileTitle: 'Your profile', profileBody: 'Keep your creator account details up to date.', fullName: 'Full name', email: 'Email', phone: 'Phone number', save: 'Save changes', saved: 'Profile updated', memberVia: 'Signed in securely with Google',
@@ -76,13 +87,13 @@ const COPY = {
     ru: {
         studio: 'Студия автора', loginTitle: 'Превратите идею в голос.', loginBody: 'Создавайте естественную озвучку и точные расшифровки без сложных настроек.',
         google: 'Продолжить с Google', secure: 'Ваши аудиофайлы доступны только вам.', loading: 'Открываем вашу студию…', setup: 'Вход через Google пока не настроен.',
-        home: 'Главная', voice: 'Создать озвучку', transcript: 'Расшифровать', history: 'Мои проекты', billing: 'Баланс', profile: 'Профиль', logout: 'Выйти', menu: 'Открыть меню', close: 'Закрыть',
+        home: 'Главная', voice: 'Текст в речь', transcript: 'Расшифровать', history: 'Мои проекты', billing: 'Баланс', profile: 'Профиль', logout: 'Выйти', menu: 'Открыть меню', close: 'Закрыть',
         greeting: 'Рады вас видеть', greetingBody: 'Что хотите создать сегодня?', available: 'Доступный баланс', topUp: 'Пополнить', recent: 'Недавние проекты', seeAll: 'Все проекты', noProjects: 'Ваш первый проект появится здесь.',
         ttsCard: 'Озвучить Reels', ttsCardBody: 'Вставьте сценарий и скачайте готовую озвучку.', sttCard: 'Превратить аудио в текст', sttCardBody: 'Загрузите или запишите аудио и скопируйте текст.',
         createTitle: 'Подарите тексту голос', createBody: 'Пишите как обычно — остальное сделает Syncall.', script: 'Ваш сценарий', placeholder: 'Вставьте текст для Reels, сторис или объявления…', useIdea: 'Вставить пример',
         language: 'Язык', voiceLabel: 'Голос', speed: 'Темп', cost: 'Примерная стоимость', generate: 'Создать озвучку', generating: 'Создаём озвучку…', ready: 'Озвучка готова', download: 'Скачать', newOne: 'Создать ещё', chars: 'символов', insufficient: 'Пополните баланс, чтобы создать аудио.',
         voiceWarm: 'Тёплый и дружелюбный', voiceBright: 'Яркий и энергичный', voiceCalm: 'Спокойный и чёткий', voiceNatural: 'Естественный голос',
-        transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
+        transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', recordAgain: 'Записать заново', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
         historyTitle: 'Ваши проекты', historyBody: 'Все озвучки и расшифровки всегда под рукой.', all: 'Все', voices: 'Озвучки', transcripts: 'Расшифровки', delete: 'Удалить', emptyHistory: 'Здесь пока пусто. Создайте первую озвучку или расшифровку.',
         billingTitle: 'Баланс и платежи', billingBody: 'Следите за расходами и пополняйте баланс.', currentBalance: 'Текущий баланс', paymentHistory: 'Операции', amount: 'Сумма пополнения', paymentMethod: 'Способ оплаты', continuePayme: 'Продолжить в Payme', soon: 'Скоро', minTopup: 'Минимальное пополнение', noTransactions: 'Операций пока нет.', usageTts: 'Создание озвучки', usageStt: 'Расшифровка', payment: 'Пополнение баланса', adjustment: 'Корректировка баланса', estimatedCost: 'Примерная стоимость', pending: 'Ожидает', paid: 'Оплачено', completed: 'Готово', cancelled: 'Отменено',
         profileTitle: 'Ваш профиль', profileBody: 'Актуальные данные помогают нам лучше поддерживать вас.', fullName: 'Имя и фамилия', email: 'Email', phone: 'Номер телефона', save: 'Сохранить', saved: 'Профиль обновлён', memberVia: 'Безопасный вход через Google',
@@ -91,17 +102,50 @@ const COPY = {
     uz: {
         studio: 'Ijodkor studiyasi', loginTitle: "G'oyani ovozga aylantiring.", loginBody: "Murakkab sozlamalarsiz tabiiy ovoz va aniq transkript yarating.",
         google: 'Google orqali davom etish', secure: "Audiolaringiz faqat sizga ko'rinadi.", loading: 'Studiyangiz ochilmoqda…', setup: 'Google orqali kirish hali sozlanmagan.',
-        home: 'Bosh sahifa', voice: 'Ovoz yaratish', transcript: 'Matnga aylantirish', history: 'Loyihalarim', billing: 'Balans', profile: 'Profil', logout: 'Chiqish', menu: 'Menyuni ochish', close: 'Yopish',
+        home: 'Bosh sahifa', voice: 'Matndan ovoz', transcript: 'Matnga aylantirish', history: 'Loyihalarim', billing: 'Balans', profile: 'Profil', logout: 'Chiqish', menu: 'Menyuni ochish', close: 'Yopish',
         greeting: "Sizni ko'rganimizdan xursandmiz", greetingBody: 'Bugun nima yaratmoqchisiz?', available: 'Mavjud balans', topUp: "To'ldirish", recent: 'Oxirgi loyihalar', seeAll: "Barchasini ko'rish", noProjects: 'Birinchi loyihangiz shu yerda chiqadi.',
         ttsCard: 'Reels uchun ovoz', ttsCardBody: 'Matnni kiriting va tayyor ovozni yuklab oling.', sttCard: 'Audioni matnga aylantirish', sttCardBody: 'Audio yuklang yoki yozib oling va matnni nusxalang.',
         createTitle: "So'zlaringizga ovoz bering", createBody: 'Odatdagidek yozing — qolganini Syncall bajaradi.', script: 'Matningiz', placeholder: "Reels, story yoki e'lon uchun matnni kiriting…", useIdea: "Misol qo'yish",
         language: 'Til', voiceLabel: 'Ovoz', speed: 'Tezlik', cost: 'Taxminiy narx', generate: 'Ovoz yaratish', generating: 'Ovoz yaratilmoqda…', ready: 'Ovozingiz tayyor', download: 'Yuklab olish', newOne: 'Yana yaratish', chars: 'belgi', insufficient: "Ovoz yaratish uchun balansni to'ldiring.",
         voiceWarm: "Iliq va do'stona", voiceBright: 'Yorqin va jonli', voiceCalm: 'Tinch va ravon', voiceNatural: 'Tabiiy ovoz',
-        transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
+        transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", recordAgain: 'Qayta yozish', drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
         historyTitle: 'Loyihalaringiz', historyBody: 'Barcha ovoz va transkriptlaringiz doim yoningizda.', all: 'Barchasi', voices: 'Ovozlar', transcripts: 'Transkriptlar', delete: "O'chirish", emptyHistory: "Hozircha bo'sh. Birinchi ovoz yoki transkriptni yarating.",
         billingTitle: "Balans va to'lovlar", billingBody: "Xarajatlarni ko'ring va kerak paytda balansni to'ldiring.", currentBalance: 'Joriy balans', paymentHistory: 'Amallar', amount: "To'ldirish summasi", paymentMethod: "To'lov usuli", continuePayme: 'Payme orqali davom etish', soon: 'Tez orada', minTopup: "Eng kam to'ldirish", noTransactions: "Hozircha amallar yo'q.", usageTts: 'Ovoz yaratish', usageStt: 'Transkripsiya', payment: "Balansni to'ldirish", adjustment: 'Balans tuzatishi', estimatedCost: 'Taxminiy narx', pending: 'Kutilmoqda', paid: "To'langan", completed: 'Tayyor', cancelled: 'Bekor qilingan',
         profileTitle: 'Profilingiz', profileBody: "Ma'lumotlaringizni yangilab turing.", fullName: "To'liq ism", email: 'Email', phone: 'Telefon raqami', save: 'Saqlash', saved: 'Profil yangilandi', memberVia: 'Google orqali xavfsiz kirish',
         error: "Xatolik yuz berdi. Qayta urinib ko'ring.", refresh: 'Yangilash', uzbek: "O'zbekcha", russian: 'Русский', free: 'Bepul',
+    },
+};
+
+const EXTRA_COPY = {
+    en: {
+        createGroup: 'Create', workspaceGroup: 'Workspace', voicesNav: 'Voices', enhancer: 'Voice Enhancer', subtitles: 'Subtitles', dubbing: 'Dubbing', audiobooks: 'Audiobooks', developer: 'Developer', comingSoon: 'Coming soon',
+        comingSoonBody: 'This tool is already on our roadmap. We are shaping it for Uzbek and Russian creators.', backHome: 'Back to home',
+        quickCreate: 'Create from one place', quickCreateBody: 'Write a thought, choose a voice, and leave with audio ready for your next post.', quickPlaceholder: 'Write a hook, a story, or the first line of your next Reel…', startWith: 'Start with an idea',
+        settingsTitle: 'Settings', historyTab: 'History', voiceLibraryTitle: 'Voices built for local stories', voiceLibraryBody: 'A small, focused library of Uzbek and Russian voices—easy to choose and ready to use.', useVoice: 'Use this voice', availableIn: 'Available in',
+        durdonaBio: 'Warm, expressive, and clear. A natural fit for stories, explainers, and personal content.', bekzodBio: 'Grounded, confident, and direct. Built for ads, announcements, and educational content.',
+        creatorPlan: 'Creator account', projectsLabel: 'Projects', toolReady: 'Ready', modelLabel: 'Syncall Voice', outputLabel: 'WAV audio', quickGenerate: 'Generate', feedback: 'Feedback',
+        createVoice: 'Create a voice', yourVoices: 'Your voices', sharedVoices: 'Syncall voices', privateVoice: 'Private voice', privateVoiceBody: 'Only you can see and use voices created in your workspace.', noPrivateVoices: 'You have not created a private voice yet.', exploreVoices: 'Explore', searchVoices: 'Search by voice name or style…', allLanguages: 'All languages', allStyles: 'All styles', storytelling: 'Storytelling', advertising: 'Advertising', personalStyle: 'Your voice', voiceResults: 'voices found', noVoicesFound: 'No voices match these filters.', clearFilters: 'Clear filters',
+        sampleTitle: 'Add a clean voice sample', sampleBody: 'Upload or record 5–10 seconds of clear speech. Use one speaker, with no background music, noise, echo, or effects.', uploadSample: 'Upload sample', recordSample: 'Record sample', recordingSample: 'Recording…', sampleReady: 'Sample ready', sampleLength: '5–10 seconds', transcribeSample: 'Transcribe sample', transcribingSample: 'Transcribing your voice…', transcriptStep: 'Transcript', transcriptHelp: 'Check that we heard your words correctly, then name your voice.', voiceName: 'Voice name', voiceNamePlaceholder: 'For example, My warm voice', saveVoice: 'Create private voice', savingVoice: 'Creating your voice…', voiceCreated: 'Your private voice is ready to use.', restartSample: 'Start over', deleteVoiceConfirm: 'Delete this private voice?', useInTts: 'Use in Text to Speech', sampleTooShort: 'Record at least 5 seconds.', sampleTooLong: 'Keep the recording under 10 seconds.', sampleQuality: 'Quiet room · one speaker · no music', personalTag: 'Only you', voiceSampleLanguage: 'Sample language', switchLanguageToUse: 'Select to switch to', voiceLanguageNotice: 'Personal voices work in the language used for their sample. Your voice remains visible below.',
+    },
+    ru: {
+        createGroup: 'Создание', workspaceGroup: 'Рабочее пространство', voicesNav: 'Голоса', enhancer: 'Улучшение голоса', subtitles: 'Субтитры', dubbing: 'Дубляж', audiobooks: 'Аудиокниги', developer: 'Разработчикам', comingSoon: 'Скоро',
+        comingSoonBody: 'Этот инструмент уже в нашем плане. Мы адаптируем его для авторов на русском и узбекском.', backHome: 'На главную',
+        quickCreate: 'Создавайте в одном месте', quickCreateBody: 'Напишите идею, выберите голос и получите аудио для следующей публикации.', quickPlaceholder: 'Напишите хук, историю или первую строку следующего Reels…', startWith: 'Начните с идеи',
+        settingsTitle: 'Настройки', historyTab: 'История', voiceLibraryTitle: 'Голоса для локальных историй', voiceLibraryBody: 'Небольшая библиотека узбекских и русских голосов — легко выбрать и сразу использовать.', useVoice: 'Использовать голос', availableIn: 'Доступен на',
+        durdonaBio: 'Тёплый, выразительный и чистый голос для историй, объяснений и личного контента.', bekzodBio: 'Уверенный и прямой голос для рекламы, объявлений и образовательного контента.',
+        creatorPlan: 'Аккаунт автора', projectsLabel: 'Проекты', toolReady: 'Доступно', modelLabel: 'Syncall Voice', outputLabel: 'Аудио WAV', quickGenerate: 'Создать', feedback: 'Обратная связь',
+        createVoice: 'Создать голос', yourVoices: 'Мои голоса', sharedVoices: 'Голоса Syncall', privateVoice: 'Личный голос', privateVoiceBody: 'Созданные голоса видны и доступны только в вашем кабинете.', noPrivateVoices: 'У вас пока нет личных голосов.', exploreVoices: 'Все голоса', searchVoices: 'Поиск по голосу или стилю…', allLanguages: 'Все языки', allStyles: 'Все стили', storytelling: 'Истории', advertising: 'Реклама', personalStyle: 'Ваш голос', voiceResults: 'голосов найдено', noVoicesFound: 'По этим фильтрам голосов нет.', clearFilters: 'Сбросить фильтры',
+        sampleTitle: 'Добавьте чистый образец голоса', sampleBody: 'Загрузите или запишите 5–10 секунд чистой речи. Один спикер, без фоновой музыки, шума, эха и эффектов.', uploadSample: 'Загрузить образец', recordSample: 'Записать образец', recordingSample: 'Идёт запись…', sampleReady: 'Образец готов', sampleLength: '5–10 секунд', transcribeSample: 'Расшифровать образец', transcribingSample: 'Расшифровываем голос…', transcriptStep: 'Расшифровка', transcriptHelp: 'Проверьте, что мы правильно распознали слова, затем назовите голос.', voiceName: 'Название голоса', voiceNamePlaceholder: 'Например, Мой тёплый голос', saveVoice: 'Создать личный голос', savingVoice: 'Создаём ваш голос…', voiceCreated: 'Личный голос готов к использованию.', restartSample: 'Начать заново', deleteVoiceConfirm: 'Удалить этот личный голос?', useInTts: 'Использовать в озвучке', sampleTooShort: 'Запишите минимум 5 секунд.', sampleTooLong: 'Запись должна быть короче 10 секунд.', sampleQuality: 'Тихая комната · один спикер · без музыки', personalTag: 'Только вам', voiceSampleLanguage: 'Язык образца', switchLanguageToUse: 'Нажмите, чтобы переключиться на', voiceLanguageNotice: 'Личный голос работает на языке записанного образца. Он остаётся видимым в списке ниже.',
+    },
+    uz: {
+        createGroup: 'Yaratish', workspaceGroup: 'Ish maydoni', voicesNav: 'Ovozlar', enhancer: 'Ovozni yaxshilash', subtitles: 'Subtitrlar', dubbing: 'Dublyaj', audiobooks: 'Audiokitoblar', developer: 'Dasturchilar uchun', comingSoon: 'Tez orada',
+        comingSoonBody: "Bu vosita rejamizda bor. Uni o'zbek va rus tilida ijod qiladiganlar uchun qulaylashtiryapmiz.", backHome: 'Bosh sahifaga',
+        quickCreate: 'Hammasini bir joyda yarating', quickCreateBody: 'Fikrni yozing, ovozni tanlang va keyingi postingiz uchun tayyor audio oling.', quickPlaceholder: 'Keyingi Reels uchun ilgak, hikoya yoki birinchi jumlani yozing…', startWith: "G'oyadan boshlang",
+        settingsTitle: 'Sozlamalar', historyTab: 'Tarix', voiceLibraryTitle: 'Mahalliy hikoyalar uchun ovozlar', voiceLibraryBody: "O'zbek va rus tilidagi kichik, tushunarli ovozlar kutubxonasi — tanlash va ishlatish oson.", useVoice: 'Ovozni ishlatish', availableIn: 'Mavjud tillar',
+        durdonaBio: "Iliq, ifodali va tiniq. Hikoya, tushuntirish va shaxsiy kontent uchun mos.", bekzodBio: "Ishonchli va aniq. Reklama, e'lon va ta'limiy kontent uchun yaratilgan.",
+        creatorPlan: 'Ijodkor akkaunti', projectsLabel: 'Loyihalar', toolReady: 'Tayyor', modelLabel: 'Syncall Voice', outputLabel: 'WAV audio', quickGenerate: 'Yaratish', feedback: 'Fikr bildirish',
+        createVoice: 'Ovoz yaratish', yourVoices: 'Mening ovozlarim', sharedVoices: 'Syncall ovozlari', privateVoice: 'Shaxsiy ovoz', privateVoiceBody: "Yaratilgan ovozlarni faqat siz o'z kabinetingizda ko'rasiz va ishlatasiz.", noPrivateVoices: "Siz hali shaxsiy ovoz yaratmagansiz.", exploreVoices: 'Barcha ovozlar', searchVoices: "Ovoz nomi yoki uslubi bo'yicha qidiring…", allLanguages: 'Barcha tillar', allStyles: 'Barcha uslublar', storytelling: 'Hikoyalar', advertising: 'Reklama', personalStyle: 'Sizning ovozingiz', voiceResults: 'ta ovoz topildi', noVoicesFound: "Bu filtrlarga mos ovoz yo'q.", clearFilters: 'Filtrlarni tozalash',
+        sampleTitle: 'Toza ovoz namunasini qo‘shing', sampleBody: '5–10 soniya toza nutqni yuklang yoki yozib oling. Bitta spiker, fon musiqasi, shovqin, aks-sado va effektlarsiz.', uploadSample: 'Namuna yuklash', recordSample: 'Namuna yozish', recordingSample: 'Yozilmoqda…', sampleReady: 'Namuna tayyor', sampleLength: '5–10 soniya', transcribeSample: 'Namunani matnga aylantirish', transcribingSample: 'Ovozingiz aniqlanmoqda…', transcriptStep: 'Transkript', transcriptHelp: "So'zlar to'g'ri aniqlanganini tekshiring, keyin ovozga nom bering.", voiceName: 'Ovoz nomi', voiceNamePlaceholder: 'Masalan, Mening iliq ovozim', saveVoice: 'Shaxsiy ovoz yaratish', savingVoice: 'Ovozingiz yaratilmoqda…', voiceCreated: 'Shaxsiy ovozingiz ishlatishga tayyor.', restartSample: 'Boshidan boshlash', deleteVoiceConfirm: "Bu shaxsiy ovozni o'chirasizmi?", useInTts: 'Ovoz yaratishda ishlatish', sampleTooShort: 'Kamida 5 soniya yozing.', sampleTooLong: 'Yozuvni 10 soniyadan oshirmang.', sampleQuality: 'Tinch xona · bitta spiker · musiqasiz', personalTag: 'Faqat siz', voiceSampleLanguage: 'Namuna tili', switchLanguageToUse: "O'tish uchun tanlang:", voiceLanguageNotice: "Shaxsiy ovoz yozilgan namuna tilida ishlaydi. Ovozingiz quyidagi ro'yxatda ko'rinib turadi.",
     },
 };
 
@@ -112,9 +156,93 @@ const SAMPLE_TEXT = {
 };
 
 const localeForIntl = { en: 'en-US', ru: 'ru-RU', uz: 'uz-UZ' };
+const SPEECH_LANGUAGES = [
+    { id: 'uz', code: 'UZ', flag: '🇺🇿', labelKey: 'uzbek' },
+    { id: 'ru', code: 'RU', flag: '🇷🇺', labelKey: 'russian' },
+];
+const VOICE_AVATAR_PALETTES = [
+    { top: '#9d3f60', bottom: '#f29379', glow: '#ffd6ca', shadow: '#762f50', tilt: '-9deg' },
+    { top: '#155b66', bottom: '#65c5d2', glow: '#d9f1eb', shadow: '#0d424d', tilt: '8deg' },
+    { top: '#754473', bottom: '#dda2d4', glow: '#f4d8ec', shadow: '#563352', tilt: '-6deg' },
+    { top: '#31577f', bottom: '#8bc8f2', glow: '#e3eef9', shadow: '#263f65', tilt: '7deg' },
+    { top: '#68517b', bottom: '#b9a9db', glow: '#eee5f5', shadow: '#49385a', tilt: '-11deg' },
+    { top: '#3e6b60', bottom: '#98d1b6', glow: '#e0f0e6', shadow: '#2c5148', tilt: '10deg' },
+    { top: '#a26040', bottom: '#efaf84', glow: '#f9e1cd', shadow: '#7b472f', tilt: '-7deg' },
+    { top: '#3b5078', bottom: '#9cafda', glow: '#e4e8f3', shadow: '#283957', tilt: '9deg' },
+    { top: '#8c5067', bottom: '#e3a7b6', glow: '#f5dce2', shadow: '#63394d', tilt: '-10deg' },
+    { top: '#566977', bottom: '#aabec7', glow: '#e7edef', shadow: '#394953', tilt: '6deg' },
+    { top: '#6d5550', bottom: '#c7a397', glow: '#efe2dc', shadow: '#4e3e3a', tilt: '-8deg' },
+    { top: '#35636b', bottom: '#9bcdd0', glow: '#e1eeee', shadow: '#294b52', tilt: '11deg' },
+];
 
 const money = (value, language) => `${new Intl.NumberFormat(localeForIntl[language]).format(Math.round(value || 0))} UZS`;
 const shortDate = (value, language) => value ? new Intl.DateTimeFormat(localeForIntl[language], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(value)) : '—';
+const voiceName = (value = '') => value.replace(/[-_](uz|ru)$/i, '').replace(/^./, (letter) => letter.toUpperCase());
+
+const voiceAvatarPalette = (seed = 'voice') => {
+    const normalized = String(seed).toLocaleLowerCase();
+    if (normalized.startsWith('durdona')) return VOICE_AVATAR_PALETTES[0];
+    if (normalized.startsWith('bekzod')) return VOICE_AVATAR_PALETTES[1];
+    let hash = 0;
+    for (const character of normalized) hash = ((hash * 31) + character.charCodeAt(0)) >>> 0;
+    return VOICE_AVATAR_PALETTES[hash % VOICE_AVATAR_PALETTES.length];
+};
+
+function VoiceAvatar({ seed, compact = false }) {
+    const palette = voiceAvatarPalette(seed);
+    return <span
+        className={compact ? 'generated-voice-avatar is-compact' : 'generated-voice-avatar'}
+        style={{ '--avatar-top': palette.top, '--avatar-bottom': palette.bottom, '--avatar-glow': palette.glow, '--avatar-shadow': palette.shadow, '--avatar-tilt': palette.tilt }}
+        aria-hidden="true"
+    ><i /></span>;
+}
+
+function SpeechLanguageDropdown({ value, onChange, c, compact = false }) {
+    const [open, setOpen] = useState(false);
+    const rootRef = useRef(null);
+    const triggerRef = useRef(null);
+    const selected = SPEECH_LANGUAGES.find((item) => item.id === value) || SPEECH_LANGUAGES[0];
+
+    useEffect(() => {
+        if (!open) return undefined;
+        const closeOutside = (event) => {
+            if (!rootRef.current?.contains(event.target)) setOpen(false);
+        };
+        const closeOnEscape = (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+                triggerRef.current?.focus();
+            }
+        };
+        document.addEventListener('pointerdown', closeOutside);
+        document.addEventListener('keydown', closeOnEscape);
+        return () => {
+            document.removeEventListener('pointerdown', closeOutside);
+            document.removeEventListener('keydown', closeOnEscape);
+        };
+    }, [open]);
+
+    const select = (nextLanguage) => {
+        onChange(nextLanguage);
+        setOpen(false);
+        triggerRef.current?.focus();
+    };
+
+    return <div ref={rootRef} className={compact ? 'speech-language-dropdown is-compact' : 'speech-language-dropdown'}>
+        <button ref={triggerRef} type="button" className="speech-language-trigger" onClick={() => setOpen((current) => !current)} aria-haspopup="listbox" aria-expanded={open} aria-label={c.language}>
+            <span className="speech-language-flag" aria-hidden="true">{selected.flag}</span>
+            <span className="speech-language-copy"><small>{selected.code}</small><strong>{c[selected.labelKey]}</strong></span>
+            <ChevronDown className={open ? 'is-open' : ''} aria-hidden="true" />
+        </button>
+        {open && <div className="speech-language-menu" role="listbox" aria-label={c.language}>
+            {SPEECH_LANGUAGES.map((item) => <button type="button" key={item.id} role="option" aria-selected={item.id === value} className={item.id === value ? 'active' : ''} onClick={() => select(item.id)}>
+                <span className="speech-language-flag" aria-hidden="true">{item.flag}</span>
+                <span><small>{item.code}</small><strong>{c[item.labelKey]}</strong></span>
+                {item.id === value && <Check aria-hidden="true" />}
+            </button>)}
+        </div>}
+    </div>;
+}
 
 function GoogleButton({ onCredential, disabled, label }) {
     const hostRef = useRef(null);
@@ -222,24 +350,52 @@ function AudioAsset({ job, c }) {
     const [loading, setLoading] = useState(false);
     const [playing, setPlaying] = useState(false);
     const audioRef = useRef(null);
+    const urlRef = useRef('');
+    const activeAssetRef = useRef('');
+    const assetKey = `${job.id}:${job.audio_url}`;
 
-    useEffect(() => () => { if (url) URL.revokeObjectURL(url); }, [url]);
+    useEffect(() => {
+        activeAssetRef.current = assetKey;
+        if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+        urlRef.current = '';
+        setUrl('');
+        setLoading(false);
+        setPlaying(false);
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.removeAttribute('src');
+            audioRef.current.load();
+        }
+        return () => {
+            if (activeAssetRef.current === assetKey) activeAssetRef.current = '';
+            if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+            urlRef.current = '';
+        };
+    }, [assetKey]);
 
     const ensureUrl = async () => {
         if (url) return url;
+        const requestedAsset = assetKey;
         setLoading(true);
         try {
             const blob = await fetchCreatorAudio(job.audio_url);
             const next = URL.createObjectURL(blob);
+            if (activeAssetRef.current !== requestedAsset) {
+                URL.revokeObjectURL(next);
+                return '';
+            }
+            if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+            urlRef.current = next;
             setUrl(next);
             return next;
         } finally {
-            setLoading(false);
+            if (activeAssetRef.current === requestedAsset) setLoading(false);
         }
     };
 
     const toggle = async () => {
         const source = await ensureUrl();
+        if (!source) return;
         requestAnimationFrame(() => {
             const element = audioRef.current;
             if (!element) return;
@@ -250,6 +406,7 @@ function AudioAsset({ job, c }) {
 
     const download = async () => {
         const source = await ensureUrl();
+        if (!source) return;
         const anchor = document.createElement('a');
         anchor.href = source;
         anchor.download = `syncall-${job.kind}-${job.id}.${job.kind === 'tts' ? 'wav' : 'audio'}`;
@@ -317,43 +474,383 @@ function TopUpModal({ open, onClose, config, c, language }) {
     </div>;
 }
 
-function HomeView({ overview, c, language, localePath, onTopUp }) {
+function HomeView({ overview, config, personalVoices, c, language, localePath, onChanged, onTopUp }) {
     const firstName = overview.user.name?.split(' ')[0] || '';
+    const [text, setText] = useState('');
+    const [speechLanguage, setSpeechLanguage] = useState('uz');
+    const [voice, setVoice] = useState('');
+    const [busy, setBusy] = useState(false);
+    const [error, setError] = useState('');
+    const [job, setJob] = useState(null);
+    const voices = useMemo(() => [
+        ...(config.voices[speechLanguage] || []).map((id) => ({ id, name: voiceName(id), language: speechLanguage, personal: false, available: true })),
+        ...personalVoices.map((item) => ({ id: item.id, name: item.name, language: item.language, personal: true, available: item.language === speechLanguage })),
+    ], [config.voices, personalVoices, speechLanguage]);
+    const selectedVoice = voices.find((item) => item.id === voice);
+
+    useEffect(() => {
+        if (!selectedVoice?.available) setVoice(String(voices.find((item) => item.available)?.id || ''));
+    }, [selectedVoice, voices]);
+
+    const generate = async () => {
+        if (!text.trim() || !selectedVoice?.available) return;
+        setBusy(true); setError('');
+        try {
+            const result = await generateCreatorSpeech({ text: text.trim(), language: speechLanguage, voice_id: voice, speed: 1 });
+            setJob(result);
+            onChanged();
+        } catch (reason) {
+            setError(reason instanceof Error ? reason.message : c.error);
+        } finally {
+            setBusy(false);
+        }
+    };
+
     return <div className="cabinet-view home-view">
         <header className="cabinet-page-head home-head">
-            <div><span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span><h1>{c.greeting}{firstName ? `, ${firstName}` : ''}</h1><p>{c.greetingBody}</p></div>
-            <div className="home-balance"><div><span>{c.available}</span><strong>{money(overview.wallet.balance_uzs, language)}</strong></div><button onClick={onTopUp}><Plus /> {c.topUp}</button></div>
+            <div><span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span><h1>{c.greeting}{firstName ? `, ${firstName}` : ''}</h1><p>{c.quickCreateBody}</p></div>
         </header>
-        <section className="quick-grid">
-            <Link to={localePath('/cabinet/tts')} className="quick-card voice-card"><div className="quick-orb"><WandSparkles /></div><div><h2>{c.ttsCard}</h2><p>{c.ttsCardBody}</p></div><span className="quick-arrow"><ArrowRight /></span><div className="quick-wave" aria-hidden="true">{Array.from({ length: 28 }).map((_, i) => <i key={i} style={{ height: `${10 + Math.abs(Math.cos(i * 0.72)) * 72}%` }} />)}</div></Link>
-            <Link to={localePath('/cabinet/stt')} className="quick-card transcript-card"><div className="quick-orb"><FileText /></div><div><h2>{c.sttCard}</h2><p>{c.sttCardBody}</p></div><span className="quick-arrow"><ArrowRight /></span><div className="quick-lines" aria-hidden="true"><i /><i /><i /><i /><i /></div></Link>
+
+        <section className="home-composer">
+            <div className="home-composer-tabs">
+                <span className="active"><AudioLines /> {c.voice}</span>
+                <Link to={localePath('/cabinet/stt')}><FileText /> {c.transcript}</Link>
+                <Link to={localePath('/cabinet/voices')}><Radio /> {c.voicesNav}</Link>
+            </div>
+            <textarea maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.quickPlaceholder} aria-label={c.script} />
+            <div className="home-composer-footer">
+                <div className="home-composer-options">
+                    <select value={voice} onChange={(event) => setVoice(event.target.value)} aria-label={c.voiceLabel}>{voices.map((item) => <option value={item.id} key={item.id} disabled={!item.available}>{item.name}{item.personal ? ` · ${c.voiceSampleLanguage}: ${item.language === 'uz' ? c.uzbek : c.russian}` : ''}</option>)}</select>
+                    <SpeechLanguageDropdown value={speechLanguage} onChange={setSpeechLanguage} c={c} compact />
+                </div>
+                <span className="composer-cost">{Array.from(text.trim()).length * config.pricing.tts_per_character_uzs ? money(Array.from(text.trim()).length * config.pricing.tts_per_character_uzs, language) : c.free}</span>
+                <button className="cabinet-primary" disabled={busy || !text.trim() || !selectedVoice?.available} onClick={generate}>{busy ? <LoaderCircle className="spin" /> : <Sparkles />}{busy ? c.generating : c.quickGenerate}</button>
+            </div>
+            {error && <div className="cabinet-alert error composer-alert">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}
         </section>
-        <section className="recent-section"><div className="section-heading"><div><h2>{c.recent}</h2><p>{overview.recent_jobs.length ? `${overview.recent_jobs.length} ${c.history.toLowerCase()}` : c.noProjects}</p></div><Link to={localePath('/cabinet/history')}>{c.seeAll} <ArrowRight /></Link></div>
-            <div className="project-list">{overview.recent_jobs.map((job) => <ProjectRow key={job.id} job={job} c={c} language={language} compact />)}</div>
+
+        {job && <section className="home-generation-result"><div><span className="success-dot"><Check /></span><div><small>{c.ready}</small><strong>{job.title}</strong></div></div><AudioAsset key={job.id} job={job} c={c} /><button className="cabinet-text-button" onClick={() => { setJob(null); setText(''); }}>{c.newOne}</button></section>}
+
+        <section className="home-shortcuts">
+            <Link to={localePath('/cabinet/tts')} className="shortcut-card shortcut-blue"><span><WandSparkles /></span><div><small>Text to speech</small><h2>{c.ttsCard}</h2><p>{c.ttsCardBody}</p></div><ArrowRight /></Link>
+            <Link to={localePath('/cabinet/stt')} className="shortcut-card shortcut-coral"><span><FileText /></span><div><small>Speech to text</small><h2>{c.sttCard}</h2><p>{c.sttCardBody}</p></div><ArrowRight /></Link>
+        </section>
+
+        <section className="recent-section"><div className="section-heading"><div><span className="eyebrow">{c.projectsLabel}</span><h2>{c.recent}</h2><p>{overview.recent_jobs.length ? `${overview.recent_jobs.length} ${c.history.toLowerCase()}` : c.noProjects}</p></div><Link to={localePath('/cabinet/history')}>{c.seeAll} <ArrowRight /></Link></div>
+            <div className="project-list">{overview.recent_jobs.length ? overview.recent_jobs.map((item) => <ProjectRow key={item.id} job={item} c={c} language={language} compact />) : <div className="empty-state compact"><History /><h2>{c.noProjects}</h2></div>}</div>
         </section>
     </div>;
 }
 
-function TtsView({ config, c, language, onChanged, onTopUp }) {
+function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
+    const [mode, setMode] = useState('upload');
+    const [speechLanguage, setSpeechLanguage] = useState('uz');
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState('');
+    const [duration, setDuration] = useState(0);
+    const [recording, setRecording] = useState(false);
+    const [elapsed, setElapsed] = useState(0);
+    const [sampleJob, setSampleJob] = useState(null);
+    const [name, setName] = useState('');
+    const [busy, setBusy] = useState(false);
+    const [error, setError] = useState('');
+    const inputRef = useRef(null);
+    const recorderRef = useRef(null);
+    const chunksRef = useRef([]);
+    const timerRef = useRef(null);
+
+    const clearTimer = () => {
+        if (timerRef.current) window.clearInterval(timerRef.current);
+        timerRef.current = null;
+    };
+    const choose = (next, knownDuration = 0) => {
+        if (!next) return;
+        if (next.size > config.limits.stt_max_bytes) {
+            setError(c.formats);
+            return;
+        }
+        if (preview) URL.revokeObjectURL(preview);
+        setFile(next);
+        setPreview(URL.createObjectURL(next));
+        setDuration(knownDuration);
+        setElapsed(0);
+        setSampleJob(null);
+        setName('');
+        setError('');
+    };
+    const reset = () => {
+        if (preview) URL.revokeObjectURL(preview);
+        setFile(null); setPreview(''); setDuration(0); setElapsed(0); setSampleJob(null); setName(''); setError('');
+    };
+    const readDuration = (event) => {
+        const seconds = event.currentTarget.duration;
+        if (!Number.isFinite(seconds)) return;
+        setDuration(seconds);
+        if (seconds < 5) setError(c.sampleTooShort);
+        else if (seconds > 10) setError(c.sampleTooLong);
+        else setError('');
+    };
+
+    useEffect(() => () => {
+        clearTimer();
+        if (preview) URL.revokeObjectURL(preview);
+        if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
+    }, [preview]);
+
+    const startRecording = async () => {
+        setError('');
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const recorder = new MediaRecorder(stream);
+            const startedAt = Date.now();
+            chunksRef.current = [];
+            recorder.ondataavailable = (event) => event.data.size && chunksRef.current.push(event.data);
+            recorder.onstop = () => {
+                clearTimer();
+                const blob = new File(chunksRef.current, 'voice-sample.webm', { type: 'audio/webm' });
+                choose(blob, Math.min(10, (Date.now() - startedAt) / 1000));
+                stream.getTracks().forEach((track) => track.stop());
+                setRecording(false);
+            };
+            recorderRef.current = recorder;
+            recorder.start();
+            setElapsed(0);
+            setRecording(true);
+            timerRef.current = window.setInterval(() => {
+                const seconds = Math.min(10, (Date.now() - startedAt) / 1000);
+                setElapsed(seconds);
+                if (seconds >= 9.8 && recorder.state === 'recording') recorder.stop();
+            }, 100);
+        } catch {
+            setError(c.error);
+        }
+    };
+    const stopRecording = () => {
+        if (elapsed < 5) {
+            setError(c.sampleTooShort);
+            return;
+        }
+        recorderRef.current?.stop();
+    };
+    const transcribe = async () => {
+        if (!file) return;
+        if (duration < 5) { setError(c.sampleTooShort); return; }
+        if (duration > 10) { setError(c.sampleTooLong); return; }
+        setBusy(true); setError('');
+        try {
+            const result = await transcribeCreatorAudio(file, speechLanguage, false, 'voice_clone');
+            setSampleJob(result);
+            onChanged();
+        } catch (reason) {
+            setError(reason instanceof Error ? reason.message : c.error);
+        } finally { setBusy(false); }
+    };
+    const save = async () => {
+        if (!sampleJob || !name.trim()) return;
+        setBusy(true); setError('');
+        try {
+            const voice = await createCreatorVoice({ name: name.trim(), source_job_id: sampleJob.id });
+            onCreated(voice);
+        } catch (reason) {
+            setError(reason instanceof Error ? reason.message : c.error);
+        } finally { setBusy(false); }
+    };
+
+    return <section className="voice-creator-panel">
+        <header><div><span className="cabinet-kicker"><Mic /> {c.privateVoice}</span><h2>{c.sampleTitle}</h2><p>{c.sampleBody}</p></div><button className="cabinet-modal-close voice-creator-close" onClick={onClose} aria-label={c.close}><X /></button></header>
+        <div className="voice-creator-steps"><span className="active"><i>1</i>{c.sampleReady}</span><b /><span className={sampleJob ? 'active' : ''}><i>2</i>{c.transcriptStep}</span><b /><span className={sampleJob ? 'active' : ''}><i>3</i>{c.voiceName}</span></div>
+        {!sampleJob ? <div className="voice-sample-layout">
+            <div className="voice-sample-card">
+                <div className="transcribe-tabs"><button className={mode === 'upload' ? 'active' : ''} onClick={() => { setMode('upload'); reset(); }}><UploadCloud /> {c.uploadSample}</button><button className={mode === 'record' ? 'active' : ''} onClick={() => { setMode('record'); reset(); }}><Mic /> {c.recordSample}</button></div>
+                {mode === 'upload' ? <div className={file ? 'drop-zone has-file clone-drop-zone' : 'drop-zone clone-drop-zone'} onClick={() => !file && inputRef.current?.click()} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); choose(event.dataTransfer.files?.[0]); }}>
+                    <input ref={inputRef} type="file" accept="audio/*" hidden onChange={(event) => choose(event.target.files?.[0])} />
+                    {file ? <><span className="drop-icon ready"><Check /></span><h3>{c.sampleReady}</h3><p>{file.name}</p><audio controls src={preview} onLoadedMetadata={readDuration} /><button className="cabinet-text-button" onClick={(event) => { event.stopPropagation(); inputRef.current?.click(); }}>{c.change}</button></> : <><span className="drop-icon"><UploadCloud /></span><h3>{c.uploadSample}</h3><p>{c.sampleBody}</p><span className="sample-length-badge">{c.sampleLength}</span></>}
+                </div> : <div className={recording ? 'record-zone is-recording clone-record-zone' : 'record-zone clone-record-zone'}>
+                    <button className="record-button" onClick={recording ? stopRecording : startRecording}>{recording ? <Square /> : <Mic />}</button>
+                    <h3>{recording ? c.recordingSample : file ? c.sampleReady : c.recordSample}</h3>
+                    <strong className="record-timer">{(recording ? elapsed : duration).toFixed(1)}s / 10s</strong>
+                    <div className="record-wave">{Array.from({ length: 32 }).map((_, index) => <i key={index} style={{ height: recording ? `${15 + Math.abs(Math.sin(index * .8)) * 75}%` : '14%' }} />)}</div>
+                    {file && !recording && <audio controls src={preview} onLoadedMetadata={readDuration} />}
+                </div>}
+                <div className="sample-quality-note"><Check /> {c.sampleQuality}<span>{c.sampleLength}</span></div>
+            </div>
+            <aside className="voice-sample-guide"><span><AudioLines /></span><h3>{c.sampleTitle}</h3><p>{c.sampleBody}</p><SpeechLanguageDropdown value={speechLanguage} onChange={setSpeechLanguage} c={c} />{error && <div className="cabinet-alert error">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}<button className="cabinet-primary wide" disabled={!file || busy || recording} onClick={transcribe}>{busy ? <LoaderCircle className="spin" /> : <FileText />}{busy ? c.transcribingSample : c.transcribeSample}</button></aside>
+        </div> : <div className="voice-name-step">
+            <div className="voice-transcript-review"><span className="cabinet-kicker"><Check /> {c.transcriptStep}</span><blockquote>{sampleJob.transcript}</blockquote><p>{c.transcriptHelp}</p><button className="cabinet-text-button" onClick={reset}><RefreshCw /> {c.restartSample}</button></div>
+            <div className="voice-name-form"><span className="voice-avatar voice-0"><AudioLines /></span><label>{c.voiceName}<input maxLength={config.limits.voice_name_max_chars || 48} value={name} onChange={(event) => setName(event.target.value)} placeholder={c.voiceNamePlaceholder} autoFocus /></label><small><LockKeyhole /> {c.privateVoiceBody}</small>{error && <div className="cabinet-alert error">{error}</div>}<button className="cabinet-primary wide" disabled={busy || name.trim().length < 2} onClick={save}>{busy ? <LoaderCircle className="spin" /> : <Sparkles />}{busy ? c.savingVoice : c.saveVoice}</button></div>
+        </div>}
+    </section>;
+}
+
+function VoicesView({ config, c, localePath, personalVoices, onChanged, onTopUp }) {
+    const [creatorOpen, setCreatorOpen] = useState(false);
+    const [notice, setNotice] = useState('');
+    const [error, setError] = useState('');
+    const [activeTab, setActiveTab] = useState('all');
+    const [query, setQuery] = useState('');
+    const [languageFilter, setLanguageFilter] = useState('all');
+    const [styleFilter, setStyleFilter] = useState('all');
+    const sharedVoices = [
+        { id: 'durdona', name: 'Durdona', description: c.durdonaBio, styleId: 'storytelling', style: c.storytelling, type: 'shared' },
+        { id: 'bekzod', name: 'Bekzod', description: c.bekzodBio, styleId: 'advertising', style: c.advertising, type: 'shared' },
+    ].map((item) => ({
+        ...item,
+        languages: [
+            ...(config.voices.uz.some((voice) => voice.startsWith(item.id)) ? ['uz'] : []),
+            ...(config.voices.ru.some((voice) => voice.startsWith(item.id)) ? ['ru'] : []),
+        ],
+    }));
+    const privateVoices = personalVoices.map((item) => ({
+        ...item,
+        description: item.transcript || c.privateVoiceBody,
+        languages: [item.language],
+        styleId: 'personal',
+        style: c.personalStyle,
+        type: 'personal',
+    }));
+    const catalog = [...sharedVoices, ...privateVoices];
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    const filteredVoices = catalog.filter((item) => {
+        if (activeTab === 'personal' && item.type !== 'personal') return false;
+        if (activeTab === 'shared' && item.type !== 'shared') return false;
+        if (languageFilter !== 'all' && !item.languages.includes(languageFilter)) return false;
+        if (styleFilter !== 'all' && item.styleId !== styleFilter) return false;
+        if (!normalizedQuery) return true;
+        return [item.name, item.description, item.style].join(' ').toLocaleLowerCase().includes(normalizedQuery);
+    });
+    const tabs = [
+        { id: 'all', label: c.exploreVoices, count: catalog.length },
+        { id: 'personal', label: c.yourVoices, count: privateVoices.length },
+        { id: 'shared', label: c.sharedVoices, count: sharedVoices.length },
+    ];
+    const styles = [
+        { id: 'all', label: c.allStyles },
+        { id: 'storytelling', label: c.storytelling },
+        { id: 'advertising', label: c.advertising },
+        { id: 'personal', label: c.personalStyle },
+    ];
+    const clearFilters = () => {
+        setQuery('');
+        setLanguageFilter('all');
+        setStyleFilter('all');
+    };
+    const voiceTarget = (item) => {
+        const speechLanguage = item.languages.includes('uz') ? 'uz' : item.languages[0] || 'uz';
+        const voiceId = item.type === 'personal'
+            ? item.id
+            : config.voices[speechLanguage]?.find((id) => id.startsWith(item.id));
+        const selectedVoiceId = String(voiceId || item.id);
+        return {
+            href: `${localePath('/cabinet/tts')}?voice=${encodeURIComponent(selectedVoiceId)}&language=${speechLanguage}`,
+            voiceId: selectedVoiceId,
+            language: speechLanguage,
+        };
+    };
+    const remove = async (voice) => {
+        if (!window.confirm(c.deleteVoiceConfirm)) return;
+        setError('');
+        try { await deleteCreatorVoice(voice.id); onChanged(); }
+        catch (reason) { setError(reason instanceof Error ? reason.message : c.error); }
+    };
+    const created = () => {
+        setCreatorOpen(false);
+        setNotice(c.voiceCreated);
+        onChanged();
+        window.setTimeout(() => setNotice(''), 2600);
+    };
+
+    return <div className="cabinet-view voices-view">
+        <header className="cabinet-page-head split voices-page-head"><div><span className="cabinet-kicker"><Radio size={14} /> Syncall Voice</span><h1>{c.voicesNav}</h1><p>{c.voiceLibraryBody}</p></div><button className="cabinet-primary" onClick={() => setCreatorOpen((open) => !open)}><Plus /> {c.createVoice}</button></header>
+        {creatorOpen && <VoiceCreator config={config} c={c} onCreated={created} onChanged={onChanged} onClose={() => setCreatorOpen(false)} onTopUp={onTopUp} />}
+        {notice && <div className="cabinet-alert success"><Check /> {notice}</div>}
+        {error && <div className="cabinet-alert error">{error}</div>}
+
+        <section className="voice-browser">
+            <div className="voice-browser-tabs" role="tablist" aria-label={c.voicesNav}>
+                {tabs.map((tab) => <button key={tab.id} type="button" role="tab" aria-selected={activeTab === tab.id} className={activeTab === tab.id ? 'active' : ''} onClick={() => { setActiveTab(tab.id); setStyleFilter('all'); }}>{tab.id === 'all' && <LayoutGrid />} {tab.label}<span>{tab.count}</span></button>)}
+            </div>
+            <div className="voice-browser-tools">
+                <label className="voice-search"><Search aria-hidden="true" /><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={c.searchVoices} aria-label={c.searchVoices} />{query && <button type="button" onClick={() => setQuery('')} aria-label={c.clearFilters}><X /></button>}</label>
+                <label className="voice-language-filter"><Languages aria-hidden="true" /><select value={languageFilter} onChange={(event) => setLanguageFilter(event.target.value)} aria-label={c.language}><option value="all">{c.allLanguages}</option><option value="uz">🇺🇿 {c.uzbek}</option><option value="ru">🇷🇺 {c.russian}</option></select><ChevronDown aria-hidden="true" /></label>
+            </div>
+            <div className="voice-style-filters" aria-label={c.allStyles}>{styles.map((style) => <button type="button" key={style.id} className={styleFilter === style.id ? 'active' : ''} onClick={() => setStyleFilter(style.id)}>{style.id === 'personal' && <LockKeyhole />}{style.label}</button>)}</div>
+        </section>
+
+        <div className="voice-list-summary"><strong>{filteredVoices.length} {c.voiceResults}</strong><span>{c.voiceLibraryBody}</span></div>
+        {filteredVoices.length ? <section className="voice-catalog-list">
+            {filteredVoices.map((item) => {
+                const target = voiceTarget(item);
+                return <article className="voice-catalog-row" key={`${item.type}-${item.id}`}>
+                    <div className="voice-row-main">
+                        <VoiceAvatar seed={item.id} />
+                        <div className="voice-row-identity"><div><h2>{item.name}</h2><span className={item.type === 'personal' ? 'voice-ownership personal' : 'voice-ownership'}>{item.type === 'personal' ? <LockKeyhole /> : <i />}{item.type === 'personal' ? c.personalTag : 'Syncall'}</span></div><p>{item.description}</p></div>
+                    </div>
+                    <div className="voice-row-meta">
+                        <div><small>{c.language}</small><div className="voice-row-languages">{item.languages.map((id) => <span key={id}><b aria-hidden="true">{id === 'uz' ? '🇺🇿' : '🇷🇺'}</b>{id === 'uz' ? c.uzbek : c.russian}</span>)}</div></div>
+                        <div><small>{c.allStyles}</small><strong><Sparkles />{item.style}</strong></div>
+                    </div>
+                    <div className="voice-row-actions"><Link to={target.href} state={{ creatorVoiceId: target.voiceId, creatorVoiceLanguage: target.language }} className="cabinet-secondary small"><Volume2 /> {c.useVoice}</Link>{item.type === 'personal' && <button className="cabinet-icon-button danger" onClick={() => remove(item)} aria-label={c.delete}><Trash2 /></button>}</div>
+                </article>;
+            })}
+        </section> : <div className="empty-state voice-search-empty"><Search /><h2>{activeTab === 'personal' && !personalVoices.length && !query && languageFilter === 'all' && styleFilter === 'all' ? c.noPrivateVoices : c.noVoicesFound}</h2><div>{activeTab === 'personal' && !personalVoices.length ? <button className="cabinet-primary" onClick={() => setCreatorOpen(true)}><Plus /> {c.createVoice}</button> : <button className="cabinet-secondary small" onClick={clearFilters}><RefreshCw /> {c.clearFilters}</button>}</div></div>}
+    </div>;
+}
+
+function ComingSoonView({ title, icon, c, localePath }) {
+    return <div className="cabinet-view coming-view"><section className="coming-card"><span className="coming-icon">{icon}</span><span className="cabinet-kicker">{c.comingSoon}</span><h1>{title}</h1><p>{c.comingSoonBody}</p><Link className="cabinet-primary" to={localePath('/cabinet')}><ArrowRight /> {c.backHome}</Link><div className="coming-grid" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div></section></div>;
+}
+
+function TtsView({ config, personalVoices, c, language, localePath, onChanged, onTopUp }) {
+    const [searchParams] = useSearchParams();
+    const location = useLocation();
+    const requestedVoiceId = String(location.state?.creatorVoiceId || searchParams.get('voice') || '');
+    const requestedVoiceLanguage = location.state?.creatorVoiceLanguage || searchParams.get('language');
+    const requestedVoiceRef = useRef(requestedVoiceId);
     const [text, setText] = useState('');
-    const [speechLanguage, setSpeechLanguage] = useState(language === 'ru' ? 'ru' : 'uz');
-    const [voice, setVoice] = useState('');
+    const [speechLanguage, setSpeechLanguage] = useState(requestedVoiceLanguage === 'ru' ? 'ru' : 'uz');
+    const [voice, setVoice] = useState(requestedVoiceId);
     const [speed, setSpeed] = useState(1);
     const [job, setJob] = useState(null);
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState('');
-    const voices = useMemo(() => config.voices[speechLanguage] || [], [config.voices, speechLanguage]);
+    const [voiceNotice, setVoiceNotice] = useState('');
+    const voices = useMemo(() => [
+        ...(config.voices[speechLanguage] || []).map((id, index) => ({ id, name: voiceName(id), language: speechLanguage, personal: false, available: true, labelIndex: index })),
+        ...personalVoices.map((item) => ({ id: item.id, name: item.name, language: item.language, personal: true, available: item.language === speechLanguage })),
+    ], [config.voices, personalVoices, speechLanguage]);
+    const selectedVoice = voices.find((item) => String(item.id) === String(voice));
 
-    useEffect(() => { if (!voices.includes(voice)) setVoice(voices[0] || ''); }, [voice, voices]);
+    useEffect(() => {
+        const requestedVoice = requestedVoiceRef.current;
+        const requested = voices.find((item) => String(item.id) === String(requestedVoice));
+        if (requested) {
+            if (!requested.available && requested.personal) setSpeechLanguage(requested.language);
+            setVoice(String(requested.id));
+            requestedVoiceRef.current = '';
+            return;
+        }
+        if (requestedVoice) return;
+        if (!selectedVoice?.available) setVoice(voices.find((item) => item.available)?.id || '');
+    }, [selectedVoice, voices]);
     const characterCount = Array.from(text.trim()).length;
     const estimated = characterCount * config.pricing.tts_per_character_uzs;
     const voiceLabels = [c.voiceWarm, c.voiceBright, c.voiceCalm];
-    const displayVoiceName = (item) => item
-        .replace(/[-_](uz|ru)$/i, '')
-        .replace(/^./, (letter) => letter.toUpperCase());
+
+    const selectLanguage = (nextLanguage) => {
+        setVoiceNotice(selectedVoice?.personal && selectedVoice.language !== nextLanguage ? c.voiceLanguageNotice : '');
+        setSpeechLanguage(nextLanguage);
+        setError('');
+    };
+
+    const selectVoice = (item) => {
+        if (!item.available && item.personal) setSpeechLanguage(item.language);
+        setVoice(String(item.id));
+        setVoiceNotice('');
+        setError('');
+    };
 
     const generate = async () => {
-        if (!text.trim() || !voice) return;
+        if (!text.trim() || !selectedVoice?.available) return;
         setBusy(true); setError('');
         try {
             const result = await generateCreatorSpeech({ text: text.trim(), language: speechLanguage, voice_id: voice, speed });
@@ -363,24 +860,40 @@ function TtsView({ config, c, language, onChanged, onTopUp }) {
         } finally { setBusy(false); }
     };
 
-    if (job) return <div className="cabinet-view centered-view"><section className="success-card"><span className="success-check"><Check /></span><span className="cabinet-kicker">{c.ready}</span><h1>{job.title}</h1><p>{c.voiceNatural} · {job.language.toUpperCase()}</p><AudioAsset job={job} c={c} /><div className="success-actions"><button className="cabinet-secondary" onClick={() => setJob(null)}><RefreshCw /> {c.newOne}</button></div></section></div>;
+    const promptIdeas = language === 'ru'
+        ? ['Реклама для Reels', 'История продукта', 'Спокойное объяснение']
+        : language === 'uz'
+            ? ['Reels uchun reklama', 'Mahsulot hikoyasi', 'Sokin tushuntirish']
+            : ['Reel advertisement', 'Product story', 'Calm explainer'];
 
-    return <div className="cabinet-view"><header className="cabinet-page-head"><span className="cabinet-kicker"><WandSparkles size={14} /> Text to speech</span><h1>{c.createTitle}</h1><p>{c.createBody}</p></header>
-        <div className="creator-workbench">
-            <section className="script-card"><div className="script-label"><label htmlFor="creator-script">{c.script}</label><button onClick={() => setText(SAMPLE_TEXT[language])}><Sparkles /> {c.useIdea}</button></div><textarea id="creator-script" maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.placeholder} /><div className="script-footer"><span>{text.length.toLocaleString()} / {config.limits.tts_max_chars.toLocaleString()} {c.chars}</span><div className="tiny-wave">{Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ height: `${20 + Math.abs(Math.sin(i)) * 64}%` }} />)}</div></div></section>
-            <section className="voice-settings"><div className="setting-group"><h3><Languages /> {c.language}</h3><div className="segmented"><button className={speechLanguage === 'uz' ? 'active' : ''} onClick={() => setSpeechLanguage('uz')}>{c.uzbek}</button><button className={speechLanguage === 'ru' ? 'active' : ''} onClick={() => setSpeechLanguage('ru')}>{c.russian}</button></div></div>
-                <div className="setting-group"><h3><Mic /> {c.voiceLabel}</h3><div className="voice-options">{voices.map((item, index) => <button key={item} className={voice === item ? 'active' : ''} onClick={() => setVoice(item)}><span><Radio /></span><div><b>{displayVoiceName(item)}</b><small>{voiceLabels[index] || c.voiceNatural}</small></div>{voice === item && <Check />}</button>)}</div></div>
-                <div className="setting-row"><div><h3><Gauge /> {c.speed}</h3><p>{speed.toFixed(1)}×</p></div><input type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /></div>
+    return <div className="cabinet-view tool-view tts-tool-view">
+        <header className="cabinet-page-head compact-head"><div><span className="cabinet-kicker"><WandSparkles size={14} /> Text to speech</span><h1>{c.createTitle}</h1><p>{c.createBody}</p></div></header>
+        <div className="tts-workspace">
+            <section className="tts-editor-panel">
+                <div className="editor-heading"><div><span className="eyebrow">{c.script}</span><h2>{c.startWith}</h2></div><button className="cabinet-text-button" onClick={() => setText(SAMPLE_TEXT[language])}><Sparkles /> {c.useIdea}</button></div>
+                <textarea id="creator-script" maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.placeholder} />
+                {!text && <div className="prompt-ideas">{promptIdeas.map((idea) => <button key={idea} onClick={() => setText(idea)}>{idea}</button>)}</div>}
+                <div className="editor-footer"><span>{text.length.toLocaleString()} / {config.limits.tts_max_chars.toLocaleString()} {c.chars}</span><div className="tiny-wave">{Array.from({ length: 20 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * .85)) * 64}%` }} />)}</div></div>
             </section>
-            {error && <div className="cabinet-alert error action-error">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}
-            <footer className="workbench-footer"><div><span>{c.cost}</span><strong>{estimated ? money(estimated, language) : c.free}</strong></div><button className="cabinet-primary" onClick={generate} disabled={busy || !text.trim() || !voice}>{busy ? <LoaderCircle className="spin" /> : <WandSparkles />}{busy ? c.generating : c.generate}</button></footer>
+
+            <aside className="tts-settings-panel">
+                <div className="settings-tabs"><span className="active">{c.settingsTitle}</span><Link to={localePath('/cabinet/history')}>{c.historyTab}</Link></div>
+                <div className="settings-block"><label>{c.voiceLabel}</label><div className="voice-settings-list">{voices.map((item) => <button key={item.id} className={`${String(voice) === String(item.id) ? 'active' : ''}${item.available ? '' : ' is-unavailable'}`} onClick={() => selectVoice(item)}><VoiceAvatar seed={item.id} compact /><div><strong>{item.name}</strong><small>{item.personal ? item.available ? `${c.privateVoice} · ${c.voiceSampleLanguage}: ${item.language === 'uz' ? c.uzbek : c.russian}` : `${c.switchLanguageToUse} ${item.language === 'uz' ? c.uzbek : c.russian}` : voiceLabels[item.labelIndex] || c.voiceNatural}</small></div>{String(voice) === String(item.id) && item.available && <Check />}</button>)}</div>{voiceNotice && <p className="voice-language-note"><Languages /> {voiceNotice}</p>}</div>
+                <div className="settings-block"><label>{c.language}</label><SpeechLanguageDropdown value={speechLanguage} onChange={selectLanguage} c={c} /></div>
+                <div className="settings-block range-block"><div><label>{c.speed}</label><strong>{speed.toFixed(1)}×</strong></div><input type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="range-labels"><span>0.7×</span><span>1.3×</span></div></div>
+                <div className="settings-summary"><div><span>{c.modelLabel}</span><strong>{c.voiceNatural}</strong></div><div><span>{c.outputLabel}</span><strong>24 kHz</strong></div></div>
+                <div className="generation-cost"><span>{c.cost}</span><strong>{estimated ? money(estimated, language) : c.free}</strong></div>
+                {error && <div className="cabinet-alert error">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}
+                <button className="cabinet-primary wide generate-button" onClick={generate} disabled={busy || !text.trim() || !selectedVoice?.available}>{busy ? <LoaderCircle className="spin" /> : <WandSparkles />}{busy ? c.generating : c.generate}</button>
+            </aside>
         </div>
+        {job && <section className="generation-result-bar"><div><span className="success-dot"><Check /></span><div><small>{c.ready}</small><strong>{job.title}</strong></div></div><AudioAsset key={job.id} job={job} c={c} /><button className="cabinet-secondary small" onClick={() => setJob(null)}><RefreshCw /> {c.newOne}</button></section>}
     </div>;
 }
 
 function SttView({ config, c, language, onChanged, onTopUp }) {
     const [mode, setMode] = useState('upload');
-    const [speechLanguage, setSpeechLanguage] = useState(language === 'ru' ? 'ru' : 'uz');
+    const [speechLanguage, setSpeechLanguage] = useState('uz');
     const [diarization, setDiarization] = useState(false);
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState('');
@@ -393,19 +906,34 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
     const inputRef = useRef(null);
     const recorderRef = useRef(null);
     const chunksRef = useRef([]);
+    const previewRef = useRef('');
 
-    useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); if (recorderRef.current?.state === 'recording') recorderRef.current.stop(); }, [preview]);
+    const replacePreview = useCallback((nextPreview) => {
+        if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+        previewRef.current = nextPreview;
+        setPreview(nextPreview);
+    }, []);
+
+    useEffect(() => () => {
+        if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+        if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
+    }, []);
     const choose = (next) => {
         if (!next) return;
         if (next.size > config.limits.stt_max_bytes) { setError(`40 MB · ${c.formats}`); return; }
-        if (preview) URL.revokeObjectURL(preview);
-        setFile(next); setPreview(URL.createObjectURL(next)); setDuration(0); setJob(null); setError('');
+        setFile(next); replacePreview(URL.createObjectURL(next)); setDuration(0); setJob(null); setCopied(false); setError('');
+    };
+    const clearRecording = () => {
+        replacePreview('');
+        setFile(null); setDuration(0); setJob(null); setCopied(false); setError('');
+        chunksRef.current = [];
     };
     const start = async () => {
         setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             const recorder = new MediaRecorder(stream);
+            clearRecording();
             chunksRef.current = [];
             recorder.ondataavailable = (event) => event.data.size && chunksRef.current.push(event.data);
             recorder.onstop = () => { const blob = new File(chunksRef.current, 'voice-recording.webm', { type: 'audio/webm' }); choose(blob); stream.getTracks().forEach((track) => track.stop()); };
@@ -456,10 +984,7 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
                     </div>
                     <div className="stt-language-row">
                         <span>{c.language}</span>
-                        <div className="segmented compact">
-                            <button className={speechLanguage === 'uz' ? 'active' : ''} onClick={() => setSpeechLanguage('uz')}>{c.uzbek}</button>
-                            <button className={speechLanguage === 'ru' ? 'active' : ''} onClick={() => setSpeechLanguage('ru')}>{c.russian}</button>
-                        </div>
+                        <SpeechLanguageDropdown value={speechLanguage} onChange={setSpeechLanguage} c={c} compact />
                     </div>
                     <label className="diarization-option">
                         <input type="checkbox" checked={diarization} onChange={(event) => setDiarization(event.target.checked)} />
@@ -493,13 +1018,14 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
                         </div>
                     ) : (
                         <div className={recording ? 'record-zone is-recording' : 'record-zone'}>
-                            <button className="record-button" onClick={recording ? stop : start}>{recording ? <Square /> : <Mic />}</button>
-                            <h3>{recording ? c.stop : c.record}</h3>
+                            <button className="record-button" disabled={busy} onClick={recording ? stop : start}>{recording ? <Square /> : <Mic />}</button>
+                            <h3>{recording ? c.stop : file ? c.selected : c.record}</h3>
                             <div className="record-wave">{Array.from({ length: 32 }).map((_, i) => <i key={i} style={{ height: recording ? `${15 + Math.abs(Math.sin(i * 0.8)) * 75}%` : '14%' }} />)}</div>
                             {file && !recording && (
                                 <>
                                     <p>{file.name}</p>
                                     <audio controls src={preview} onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)} />
+                                    <button type="button" className="record-again-button" disabled={busy} onClick={start}><RefreshCw /> {c.recordAgain}</button>
                                 </>
                             )}
                         </div>
@@ -573,10 +1099,11 @@ function ProfileView({ overview, c, onSaved }) {
 function StudioWorkspace() {
     const { logout, refreshUser } = useCabinetAuth();
     const { language, setLanguage, basePath, localePath } = useLanguage();
-    const c = COPY[language];
+    const c = { ...COPY[language], ...EXTRA_COPY[language] };
     const navigate = useNavigate();
     const [overview, setOverview] = useState(null);
     const [config, setConfig] = useState(null);
+    const [personalVoices, setPersonalVoices] = useState([]);
     const [billing, setBilling] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -587,8 +1114,8 @@ function StudioWorkspace() {
     const load = useCallback(async () => {
         setError('');
         try {
-            const [nextOverview, nextConfig] = await Promise.all([getCreatorOverview(), getCreatorConfig()]);
-            setOverview(nextOverview); setConfig(nextConfig);
+            const [nextOverview, nextConfig, nextVoices] = await Promise.all([getCreatorOverview(), getCreatorConfig(), getCreatorVoices()]);
+            setOverview(nextOverview); setConfig(nextConfig); setPersonalVoices(nextVoices.items || []);
         } catch (reason) { setError(reason instanceof Error ? reason.message : c.error); }
         finally { setLoading(false); }
     }, [c.error]);
@@ -599,24 +1126,72 @@ function StudioWorkspace() {
 
     const changed = () => { load(); if (route === 'billing') loadBilling(); };
     const saveProfile = async () => { await refreshUser(); load(); };
-    const nav = [
-        ['home', '/cabinet', <Home />, c.home], ['tts', '/cabinet/tts', <AudioLines />, c.voice], ['stt', '/cabinet/stt', <FileText />, c.transcript],
-        ['history', '/cabinet/history', <History />, c.history], ['billing', '/cabinet/billing', <WalletCards />, c.billing], ['profile', '/cabinet/profile', <UserRound />, c.profile],
+    const primaryNav = [
+        { id: 'home', path: '/cabinet', icon: <Home />, label: c.home },
+        { id: 'voices', path: '/cabinet/voices', icon: <Radio />, label: c.voicesNav },
     ];
+    const createNav = [
+        { id: 'tts', path: '/cabinet/tts', icon: <AudioLines />, label: c.voice },
+        { id: 'enhancer', path: '/cabinet/enhancer', icon: <WandSparkles />, label: c.enhancer, soon: true },
+        { id: 'stt', path: '/cabinet/stt', icon: <FileText />, label: c.transcript },
+        { id: 'subtitles', path: '/cabinet/subtitles', icon: <Captions />, label: c.subtitles, soon: true },
+        { id: 'dubbing', path: '/cabinet/dubbing', icon: <Languages />, label: c.dubbing, soon: true },
+        { id: 'audiobooks', path: '/cabinet/audiobooks', icon: <BookOpen />, label: c.audiobooks, soon: true },
+    ];
+    const workspaceNav = [
+        { id: 'history', path: '/cabinet/history', icon: <History />, label: c.history },
+        { id: 'billing', path: '/cabinet/billing', icon: <WalletCards />, label: c.billing },
+        { id: 'profile', path: '/cabinet/profile', icon: <UserRound />, label: c.profile },
+        { id: 'developer', path: '/cabinet/developer', icon: <Code2 />, label: c.developer, soon: true },
+    ];
+    const allNav = [...primaryNav, ...createNav, ...workspaceNav];
+    const currentTitle = allNav.find((item) => item.id === route)?.label || c.home;
+    const renderNav = (items) => items.map((item) => <NavLink key={item.id} to={localePath(item.path)} end={item.path === '/cabinet'} className={({ isActive }) => isActive ? 'active' : ''}>{item.icon}<span>{item.label}</span>{item.soon && <small>{c.comingSoon}</small>}</NavLink>);
     if (loading) return <LoadingStudio label={c.loading} />;
     if (error && (!overview || !config)) return <div className="cabinet-fatal"><AudioLines /><h1>{c.error}</h1><p>{error}</p><button className="cabinet-primary" onClick={load}>{c.refresh}</button></div>;
 
-    let content = <HomeView overview={overview} c={c} language={language} localePath={localePath} onTopUp={() => setTopUpOpen(true)} />;
-    if (route === 'tts') content = <TtsView config={config} c={c} language={language} onChanged={changed} onTopUp={() => setTopUpOpen(true)} />;
+    let content = <HomeView overview={overview} config={config} personalVoices={personalVoices} c={c} language={language} localePath={localePath} onChanged={changed} onTopUp={() => setTopUpOpen(true)} />;
+    if (route === 'voices') content = <VoicesView config={config} personalVoices={personalVoices} c={c} localePath={localePath} onChanged={changed} onTopUp={() => setTopUpOpen(true)} />;
+    if (route === 'tts') content = <TtsView config={config} personalVoices={personalVoices} c={c} language={language} localePath={localePath} onChanged={changed} onTopUp={() => setTopUpOpen(true)} />;
     if (route === 'stt') content = <SttView config={config} c={c} language={language} onChanged={changed} onTopUp={() => setTopUpOpen(true)} />;
     if (route === 'history') content = <HistoryView c={c} language={language} onChanged={changed} />;
     if (route === 'billing') content = billing ? <BillingView billing={billing} c={c} language={language} onTopUp={() => setTopUpOpen(true)} onRefresh={loadBilling} /> : <LoadingStudio label={c.loading} />;
     if (route === 'profile') content = <ProfileView overview={overview} c={c} onSaved={saveProfile} />;
+    const comingSoonRoutes = {
+        enhancer: [c.enhancer, <Headphones />],
+        subtitles: [c.subtitles, <Captions />],
+        dubbing: [c.dubbing, <Languages />],
+        audiobooks: [c.audiobooks, <BookOpen />],
+        developer: [c.developer, <Code2 />],
+    };
+    if (comingSoonRoutes[route]) {
+        const [title, icon] = comingSoonRoutes[route];
+        content = <ComingSoonView title={title} icon={icon} c={c} localePath={localePath} />;
+    }
 
     return <div className="cabinet-shell">
         <button className={menuOpen ? 'cabinet-scrim is-open' : 'cabinet-scrim'} onClick={() => setMenuOpen(false)} aria-label={c.close} />
-        <aside className={menuOpen ? 'cabinet-sidebar is-open' : 'cabinet-sidebar'}><Link className="cabinet-brand" to={localePath('/')}><img src="/Syncall.svg" alt="Syncall" /><span>{c.studio}</span></Link><nav>{nav.map(([id, path, icon, label], index) => <div key={id} className={index === 3 ? 'nav-section-start' : ''}><NavLink to={localePath(path)} end={path === '/cabinet'} className={({ isActive }) => isActive ? 'active' : ''}>{icon}<span>{label}</span></NavLink></div>)}</nav><div className="sidebar-bottom"><button className="sidebar-balance" onClick={() => setTopUpOpen(true)}><span>{c.available}</span><strong>{money(overview.wallet.balance_uzs, language)}</strong><i><Plus /></i></button><button className="sidebar-profile" onClick={() => navigate(localePath('/cabinet/profile'))}>{overview.user.avatar_url ? <img src={overview.user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <span><UserRound /></span>}<div><b>{overview.user.name}</b><small>{overview.user.email}</small></div><ChevronDown /></button><button className="sidebar-logout" onClick={logout}><LogOut /> {c.logout}</button></div></aside>
-        <main className="cabinet-main" id="main-content"><header className="cabinet-mobile-header"><button onClick={() => setMenuOpen(true)} aria-label={c.menu}><Menu /></button><Link to={localePath('/cabinet')}><img src="/Syncall.svg" alt="Syncall" /></Link><button onClick={() => setTopUpOpen(true)} aria-label={c.topUp}><Plus /></button></header><div className="cabinet-topbar"><div className="topbar-language"><button onClick={() => setLanguage(language === 'uz' ? 'ru' : language === 'ru' ? 'en' : 'uz')}><Languages /> {language.toUpperCase()} <ChevronDown /></button></div></div>{content}</main>
+        <aside className={menuOpen ? 'cabinet-sidebar is-open' : 'cabinet-sidebar'}>
+            <Link className="cabinet-brand" to={localePath('/cabinet')}><img src="/Syncall.svg" alt="Syncall" /></Link>
+            <div className="studio-identity"><span><Sparkles /></span><div><strong>Syncall Studio</strong><small>{c.creatorPlan}</small></div></div>
+            <nav>
+                <div className="sidebar-group">{renderNav(primaryNav)}</div>
+                <div className="sidebar-group"><p>{c.createGroup}</p>{renderNav(createNav)}</div>
+                <div className="sidebar-group"><p>{c.workspaceGroup}</p>{renderNav(workspaceNav)}</div>
+            </nav>
+            <div className="sidebar-bottom">
+                <button className="sidebar-balance" onClick={() => setTopUpOpen(true)}><span><small>{c.available}</small><strong>{money(overview.wallet.balance_uzs, language)}</strong></span><i><Plus /></i></button>
+                <button className="sidebar-profile" onClick={() => navigate(localePath('/cabinet/profile'))}>{overview.user.avatar_url ? <img src={overview.user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <span><UserRound /></span>}<div><b>{overview.user.name}</b><small>{overview.user.email}</small></div><ChevronDown /></button>
+                <button className="sidebar-logout" onClick={logout}><LogOut /> {c.logout}</button>
+            </div>
+        </aside>
+        <main className="cabinet-main" id="main-content">
+            <header className="cabinet-topbar">
+                <div className="topbar-location"><button className="topbar-menu" onClick={() => setMenuOpen(true)} aria-label={c.menu}><PanelLeft /></button><span>{currentTitle}</span></div>
+                <div className="topbar-actions"><button className="topbar-language" onClick={() => setLanguage(language === 'uz' ? 'ru' : language === 'ru' ? 'en' : 'uz')}><Languages /> {language.toUpperCase()} <ChevronDown /></button><button className="topbar-balance" onClick={() => setTopUpOpen(true)}><WalletCards /> {money(overview.wallet.balance_uzs, language)}</button><Link className="topbar-avatar" to={localePath('/cabinet/profile')}>{overview.user.avatar_url ? <img src={overview.user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <UserRound />}</Link></div>
+            </header>
+            <div className="cabinet-content-frame">{content}</div>
+        </main>
         <TopUpModal open={topUpOpen} onClose={() => setTopUpOpen(false)} config={config} c={c} language={language} />
     </div>;
 }
