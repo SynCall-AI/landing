@@ -16,6 +16,12 @@ const readError = async (response) => {
     return error;
 };
 
+const storeSession = (tokens) => {
+    localStorage.setItem(ACCESS_KEY, tokens.access_token);
+    localStorage.setItem(REFRESH_KEY, tokens.refresh_token);
+    return tokens;
+};
+
 const refresh = async () => {
     const refreshToken = localStorage.getItem(REFRESH_KEY);
     if (!refreshToken) return false;
@@ -65,17 +71,29 @@ export async function getGoogleConfig() {
     return response.json();
 }
 
-export async function signInWithGoogle(credential) {
+export async function signInWithGoogle(credential, intent = 'login') {
     const response = await fetch(`${API_BASE}/api/v2/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ credential }),
+        body: JSON.stringify({ credential, intent, portal: 'creator' }),
     });
     if (!response.ok) throw await readError(response);
-    const tokens = await response.json();
-    localStorage.setItem(ACCESS_KEY, tokens.access_token);
-    localStorage.setItem(REFRESH_KEY, tokens.refresh_token);
-    return tokens;
+    return storeSession(await response.json());
+}
+
+export async function signInWithEmail(email, password) {
+    const form = new URLSearchParams();
+    form.set('username', email.trim().toLowerCase());
+    form.set('password', password);
+    form.set('grant_type', 'password');
+    form.set('scope', 'creator');
+    const response = await fetch(`${API_BASE}/api/v2/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: form,
+    });
+    if (!response.ok) throw await readError(response);
+    return storeSession(await response.json());
 }
 
 export const getCreatorMe = () => creatorRequest('/api/v2/users/me');

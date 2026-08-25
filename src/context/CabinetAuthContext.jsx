@@ -3,6 +3,7 @@ import {
     clearCreatorSession,
     getCreatorMe,
     hasCreatorSession,
+    signInWithEmail,
     signInWithGoogle,
 } from '../lib/cabinetApi.js';
 
@@ -46,10 +47,23 @@ export function CabinetAuthProvider({ children }) {
         return () => { active = false; };
     }, []);
 
-    const googleLogin = useCallback(async (credential) => {
-        await signInWithGoogle(credential);
-        return loadUser();
+    const finishLogin = useCallback(async (request) => {
+        await request();
+        try {
+            return await loadUser();
+        } catch (error) {
+            clearCreatorSession();
+            throw error;
+        }
     }, [loadUser]);
+
+    const googleLogin = useCallback((credential, intent = 'login') => (
+        finishLogin(() => signInWithGoogle(credential, intent))
+    ), [finishLogin]);
+
+    const emailLogin = useCallback((email, password) => (
+        finishLogin(() => signInWithEmail(email, password))
+    ), [finishLogin]);
 
     const logout = useCallback(() => {
         clearCreatorSession();
@@ -60,10 +74,11 @@ export function CabinetAuthProvider({ children }) {
         user,
         loading,
         isAuthenticated: Boolean(user),
+        emailLogin,
         googleLogin,
         logout,
         refreshUser: loadUser,
-    }), [googleLogin, loadUser, loading, logout, user]);
+    }), [emailLogin, googleLogin, loadUser, loading, logout, user]);
 
     return <CabinetAuthContext.Provider value={value}>{children}</CabinetAuthContext.Provider>;
 }

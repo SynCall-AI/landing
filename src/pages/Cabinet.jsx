@@ -71,7 +71,7 @@ import './Cabinet.css';
 const COPY = {
     en: {
         studio: 'Creator studio', loginTitle: 'Turn an idea into a voice.', loginBody: 'Create natural voiceovers and clean transcripts without learning a complicated tool.',
-        google: 'Continue with Google', secure: 'Your audio stays private to your account.', loading: 'Opening your studio…', setup: 'Google sign-in is not configured yet.',
+        google: 'Continue with Google', secure: 'Your audio stays private to your account.', loading: 'Opening your studio…', setup: 'Google sign-in is not configured yet.', loginTab: 'Sign in', registerTab: 'Create account', signInTitle: 'Welcome back', signInBody: 'Sign in to continue to your creator workspace.', registerTitle: 'Create your workspace', registerBody: 'Start with Google—no forms or technical setup.', emailLabel: 'Email', emailPlaceholder: 'you@example.com', passwordLabel: 'Password', passwordPlaceholder: 'Enter your password', signIn: 'Sign in', signingIn: 'Signing in…', or: 'or', googleLogin: 'Sign in with Google', googleRegister: 'Sign up with Google', loginHint: 'Use an existing account. New accounts are not created here.', registrationOnly: 'Registration is available only through Google.', noAccount: 'New to Syncall?', createAccount: 'Create an account', haveAccount: 'Already have an account?', goToLogin: 'Sign in', accountNotFound: 'No account found for this Google email. Choose registration first.',
         home: 'Home', voice: 'Text to speech', transcript: 'Transcribe', history: 'My projects', billing: 'Balance', profile: 'Profile', logout: 'Sign out', menu: 'Open menu', close: 'Close',
         greeting: 'Good to see you', greetingBody: 'What would you like to make today?', available: 'Available balance', topUp: 'Top up', recent: 'Recent projects', seeAll: 'See all', noProjects: 'Your first project will appear here.',
         ttsCard: 'Voice a reel', ttsCardBody: 'Paste your script and get a ready-to-download voiceover.', sttCard: 'Turn audio into text', sttCardBody: 'Upload or record a clip and copy the transcript in seconds.',
@@ -86,7 +86,7 @@ const COPY = {
     },
     ru: {
         studio: 'Студия автора', loginTitle: 'Превратите идею в голос.', loginBody: 'Создавайте естественную озвучку и точные расшифровки без сложных настроек.',
-        google: 'Продолжить с Google', secure: 'Ваши аудиофайлы доступны только вам.', loading: 'Открываем вашу студию…', setup: 'Вход через Google пока не настроен.',
+        google: 'Продолжить с Google', secure: 'Ваши аудиофайлы доступны только вам.', loading: 'Открываем вашу студию…', setup: 'Вход через Google пока не настроен.', loginTab: 'Вход', registerTab: 'Регистрация', signInTitle: 'С возвращением', signInBody: 'Войдите, чтобы продолжить работу в студии.', registerTitle: 'Создайте свою студию', registerBody: 'Начните через Google — без анкет и сложных настроек.', emailLabel: 'Эл. почта', emailPlaceholder: 'you@example.com', passwordLabel: 'Пароль', passwordPlaceholder: 'Введите пароль', signIn: 'Войти', signingIn: 'Входим…', or: 'или', googleLogin: 'Войти через Google', googleRegister: 'Зарегистрироваться через Google', loginHint: 'Здесь можно войти только в существующий аккаунт.', registrationOnly: 'Регистрация доступна только через Google.', noAccount: 'Впервые в Syncall?', createAccount: 'Создать аккаунт', haveAccount: 'Уже есть аккаунт?', goToLogin: 'Войти', accountNotFound: 'Аккаунт с этой почтой Google не найден. Сначала выберите регистрацию.',
         home: 'Главная', voice: 'Текст в речь', transcript: 'Расшифровать', history: 'Мои проекты', billing: 'Баланс', profile: 'Профиль', logout: 'Выйти', menu: 'Открыть меню', close: 'Закрыть',
         greeting: 'Рады вас видеть', greetingBody: 'Что хотите создать сегодня?', available: 'Доступный баланс', topUp: 'Пополнить', recent: 'Недавние проекты', seeAll: 'Все проекты', noProjects: 'Ваш первый проект появится здесь.',
         ttsCard: 'Озвучить Reels', ttsCardBody: 'Вставьте сценарий и скачайте готовую озвучку.', sttCard: 'Превратить аудио в текст', sttCardBody: 'Загрузите или запишите аудио и скопируйте текст.',
@@ -101,7 +101,7 @@ const COPY = {
     },
     uz: {
         studio: 'Ijodkor studiyasi', loginTitle: "G'oyani ovozga aylantiring.", loginBody: "Murakkab sozlamalarsiz tabiiy ovoz va aniq transkript yarating.",
-        google: 'Google orqali davom etish', secure: "Audiolaringiz faqat sizga ko'rinadi.", loading: 'Studiyangiz ochilmoqda…', setup: 'Google orqali kirish hali sozlanmagan.',
+        google: 'Google orqali davom etish', secure: "Audiolaringiz faqat sizga ko'rinadi.", loading: 'Studiyangiz ochilmoqda…', setup: 'Google orqali kirish hali sozlanmagan.', loginTab: 'Kirish', registerTab: "Ro'yxatdan o'tish", signInTitle: 'Xush kelibsiz', signInBody: 'Ijodkor studiyangizda ishlashni davom ettirish uchun kiring.', registerTitle: 'Studiyangizni yarating', registerBody: 'Google orqali tez boshlang — ortiqcha shakllarsiz.', emailLabel: 'Elektron pochta', emailPlaceholder: 'you@example.com', passwordLabel: 'Parol', passwordPlaceholder: 'Parolingizni kiriting', signIn: 'Kirish', signingIn: 'Kirilmoqda…', or: 'yoki', googleLogin: 'Google orqali kirish', googleRegister: "Google orqali ro'yxatdan o'tish", loginHint: 'Bu yerda faqat mavjud hisobga kirish mumkin.', registrationOnly: "Ro'yxatdan o'tish faqat Google orqali mavjud.", noAccount: 'Syncallda yangimisiz?', createAccount: 'Hisob yaratish', haveAccount: 'Hisobingiz bormi?', goToLogin: 'Kirish', accountNotFound: "Bu Google pochtasi uchun hisob topilmadi. Avval ro'yxatdan o'tishni tanlang.",
         home: 'Bosh sahifa', voice: 'Matndan ovoz', transcript: 'Matnga aylantirish', history: 'Loyihalarim', billing: 'Balans', profile: 'Profil', logout: 'Chiqish', menu: 'Menyuni ochish', close: 'Yopish',
         greeting: "Sizni ko'rganimizdan xursandmiz", greetingBody: 'Bugun nima yaratmoqchisiz?', available: 'Mavjud balans', topUp: "To'ldirish", recent: 'Oxirgi loyihalar', seeAll: "Barchasini ko'rish", noProjects: 'Birinchi loyihangiz shu yerda chiqadi.',
         ttsCard: 'Reels uchun ovoz', ttsCardBody: 'Matnni kiriting va tayyor ovozni yuklab oling.', sttCard: 'Audioni matnga aylantirish', sttCardBody: 'Audio yuklang yoki yozib oling va matnni nusxalang.',
@@ -244,7 +244,7 @@ function SpeechLanguageDropdown({ value, onChange, c, compact = false }) {
     </div>;
 }
 
-function GoogleButton({ onCredential, disabled, label }) {
+function GoogleButton({ onCredential, disabled, label, intent = 'login' }) {
     const hostRef = useRef(null);
     const [configured, setConfigured] = useState(true);
 
@@ -278,8 +278,8 @@ function GoogleButton({ onCredential, disabled, label }) {
                 });
                 hostRef.current.innerHTML = '';
                 window.google.accounts.id.renderButton(hostRef.current, {
-                    type: 'standard', theme: 'filled_black', size: 'large', shape: 'pill',
-                    text: 'continue_with', width: Math.min(360, hostRef.current.offsetWidth || 360),
+                    type: 'standard', theme: 'filled_black', size: 'large', shape: 'rectangular',
+                    text: intent === 'register' ? 'signup_with' : 'signin_with', width: Math.min(390, hostRef.current.offsetWidth || 390),
                 });
             } catch {
                 if (active) setConfigured(false);
@@ -287,30 +287,51 @@ function GoogleButton({ onCredential, disabled, label }) {
         };
         mount();
         return () => { active = false; };
-    }, [onCredential]);
+    }, [intent, onCredential]);
 
     if (!configured) return <div className="cabinet-login-setup">{label}</div>;
     return <div ref={hostRef} className={disabled ? 'google-button-host is-disabled' : 'google-button-host'} aria-label={label} />;
 }
 
 function CabinetLogin() {
-    const { googleLogin } = useCabinetAuth();
+    const { emailLogin, googleLogin } = useCabinetAuth();
     const { language, setLanguage, localePath } = useLanguage();
     const c = COPY[language];
     const [error, setError] = useState('');
     const [busy, setBusy] = useState(false);
+    const [mode, setMode] = useState('login');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const login = useCallback(async (credential) => {
+    const google = useCallback(async (credential) => {
         setBusy(true);
         setError('');
         try {
-            await googleLogin(credential);
+            await googleLogin(credential, mode);
+        } catch (reason) {
+            setError(reason?.status === 404 ? c.accountNotFound : reason instanceof Error ? reason.message : c.error);
+        } finally {
+            setBusy(false);
+        }
+    }, [c.accountNotFound, c.error, googleLogin, mode]);
+
+    const submitEmail = async (event) => {
+        event.preventDefault();
+        setBusy(true);
+        setError('');
+        try {
+            await emailLogin(email, password);
         } catch (reason) {
             setError(reason instanceof Error ? reason.message : c.error);
         } finally {
             setBusy(false);
         }
-    }, [c.error, googleLogin]);
+    };
+
+    const switchMode = (nextMode) => {
+        setMode(nextMode);
+        setError('');
+    };
 
     return (
         <main className="cabinet-login" id="main-content">
@@ -322,21 +343,50 @@ function CabinetLogin() {
                     {['uz', 'ru', 'en'].map((item) => <button key={item} className={language === item ? 'active' : ''} onClick={() => setLanguage(item)}>{item.toUpperCase()}</button>)}
                 </div>
             </header>
-            <section className="cabinet-login-panel">
-                <span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span>
-                <h1>{c.loginTitle}</h1>
-                <p>{c.loginBody}</p>
-                <div className="cabinet-login-demo" aria-hidden="true">
-                    <span className="cabinet-demo-orb"><Mic size={24} /></span>
-                    <div className="cabinet-demo-wave">{Array.from({ length: 42 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * 0.76)) * 62}%` }} />)}</div>
-                </div>
-                <div className="cabinet-google-wrap">
-                    {busy && <div className="cabinet-google-busy"><LoaderCircle className="spin" size={18} /> {c.loading}</div>}
-                    <GoogleButton onCredential={login} disabled={busy} label={c.setup} />
-                </div>
-                {error && <div className="cabinet-alert error">{error}</div>}
-                <p className="cabinet-login-secure"><Check size={14} /> {c.secure}</p>
-            </section>
+            <div className="cabinet-login-content">
+                <section className="cabinet-login-promise">
+                    <span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span>
+                    <h1>{c.loginTitle}</h1>
+                    <p>{c.loginBody}</p>
+                    <div className="cabinet-login-demo" aria-hidden="true">
+                        <span className="cabinet-demo-orb"><Mic size={24} /></span>
+                        <div className="cabinet-demo-wave">{Array.from({ length: 42 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * 0.76)) * 62}%` }} />)}</div>
+                    </div>
+                </section>
+
+                <section className="cabinet-auth-card" aria-label={mode === 'login' ? c.loginTab : c.registerTab}>
+                    <div className="cabinet-auth-tabs" role="tablist" aria-label={`${c.loginTab} / ${c.registerTab}`}>
+                        <button type="button" role="tab" aria-selected={mode === 'login'} className={mode === 'login' ? 'active' : ''} onClick={() => switchMode('login')}>{c.loginTab}</button>
+                        <button type="button" role="tab" aria-selected={mode === 'register'} className={mode === 'register' ? 'active' : ''} onClick={() => switchMode('register')}>{c.registerTab}</button>
+                    </div>
+
+                    <div className="cabinet-auth-heading">
+                        <h2>{mode === 'login' ? c.signInTitle : c.registerTitle}</h2>
+                        <p>{mode === 'login' ? c.signInBody : c.registerBody}</p>
+                    </div>
+
+                    {mode === 'login' && <form className="cabinet-auth-form" onSubmit={submitEmail}>
+                        <label htmlFor="cabinet-login-email">{c.emailLabel}</label>
+                        <input id="cabinet-login-email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder={c.emailPlaceholder} required disabled={busy} />
+                        <label htmlFor="cabinet-login-password">{c.passwordLabel}</label>
+                        <input id="cabinet-login-password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder={c.passwordPlaceholder} required disabled={busy} />
+                        <button className="cabinet-auth-submit" type="submit" disabled={busy}>{busy ? <><LoaderCircle className="spin" size={18} /> {c.signingIn}</> : c.signIn}</button>
+                        <p className="cabinet-auth-hint">{c.loginHint}</p>
+                    </form>}
+
+                    {mode === 'login' && <div className="cabinet-auth-divider"><span>{c.or}</span></div>}
+
+                    <div className="cabinet-google-wrap">
+                        {busy && mode === 'register' && <div className="cabinet-google-busy"><LoaderCircle className="spin" size={18} /> {c.loading}</div>}
+                        <GoogleButton onCredential={google} disabled={busy} label={mode === 'login' ? c.googleLogin : c.googleRegister} intent={mode} />
+                    </div>
+
+                    {mode === 'register' && <p className="cabinet-registration-note"><LockKeyhole size={15} /> {c.registrationOnly}</p>}
+                    {error && <div className="cabinet-alert error">{error}</div>}
+                    <p className="cabinet-auth-switch">{mode === 'login' ? c.noAccount : c.haveAccount} <button type="button" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}>{mode === 'login' ? c.createAccount : c.goToLogin}</button></p>
+                    <p className="cabinet-login-secure"><Check size={14} /> {c.secure}</p>
+                </section>
+            </div>
         </main>
     );
 }
@@ -1132,8 +1182,8 @@ function StudioWorkspace() {
     ];
     const createNav = [
         { id: 'tts', path: '/cabinet/tts', icon: <AudioLines />, label: c.voice },
-        { id: 'enhancer', path: '/cabinet/enhancer', icon: <WandSparkles />, label: c.enhancer, soon: true },
         { id: 'stt', path: '/cabinet/stt', icon: <FileText />, label: c.transcript },
+        { id: 'enhancer', path: '/cabinet/enhancer', icon: <WandSparkles />, label: c.enhancer, soon: true },
         { id: 'subtitles', path: '/cabinet/subtitles', icon: <Captions />, label: c.subtitles, soon: true },
         { id: 'dubbing', path: '/cabinet/dubbing', icon: <Languages />, label: c.dubbing, soon: true },
         { id: 'audiobooks', path: '/cabinet/audiobooks', icon: <BookOpen />, label: c.audiobooks, soon: true },
