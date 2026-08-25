@@ -1,6 +1,7 @@
 import {
     useCallback,
     useEffect,
+    useId,
     useMemo,
     useRef,
     useState,
@@ -10,10 +11,13 @@ import {
     ArrowDownToLine,
     ArrowRight,
     AudioLines,
+    BadgeCheck,
     BookOpen,
     Captions,
     Check,
     ChevronDown,
+    ChevronLeft,
+    ChevronRight,
     CircleDollarSign,
     Clock3,
     Code2,
@@ -30,12 +34,15 @@ import {
     LockKeyhole,
     LogOut,
     Mic,
+    Moon,
     Pause,
     PanelLeft,
     Play,
     Plus,
     Radio,
     RefreshCw,
+    RotateCcw,
+    RotateCw,
     Search,
     Settings,
     Sparkles,
@@ -76,7 +83,7 @@ const COPY = {
         greeting: 'Good to see you', greetingBody: 'What would you like to make today?', available: 'Available balance', topUp: 'Top up', recent: 'Recent projects', seeAll: 'See all', noProjects: 'Your first project will appear here.',
         ttsCard: 'Voice a reel', ttsCardBody: 'Paste your script and get a ready-to-download voiceover.', sttCard: 'Turn audio into text', sttCardBody: 'Upload or record a clip and copy the transcript in seconds.',
         createTitle: 'Give your words a voice', createBody: 'Write naturally. Syncall handles the rest.', script: 'Your script', placeholder: 'Paste the text for your reel, story or announcement…', useIdea: 'Try an idea',
-        language: 'Language', voiceLabel: 'Voice', speed: 'Pace', cost: 'Estimated cost', generate: 'Create voiceover', generating: 'Creating your voiceover…', ready: 'Your voiceover is ready', download: 'Download', newOne: 'Create another', chars: 'characters', insufficient: 'Top up your balance to create this audio.',
+        language: 'Language', voiceLabel: 'Voice', speed: 'Pace', slower: 'Slower', faster: 'Faster', cost: 'Estimated cost', generate: 'Create voiceover', generating: 'Creating your voiceover…', ready: 'Your voiceover is ready', download: 'Download', newOne: 'Create another', seekAudio: 'Seek audio', back5: 'Back 5 seconds', forward5: 'Forward 5 seconds', chars: 'characters', insufficient: 'Top up your balance to create this audio.',
         voiceWarm: 'Warm & friendly', voiceBright: 'Bright & lively', voiceCalm: 'Calm & clear', voiceNatural: 'Natural voice',
         transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', recordAgain: 'Record again', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
         historyTitle: 'Your projects', historyBody: 'Every voiceover and transcript, ready whenever you need it.', all: 'All', voices: 'Voiceovers', transcripts: 'Transcripts', delete: 'Delete', emptyHistory: 'Nothing here yet. Start with a voiceover or transcript.',
@@ -91,7 +98,7 @@ const COPY = {
         greeting: 'Рады вас видеть', greetingBody: 'Что хотите создать сегодня?', available: 'Доступный баланс', topUp: 'Пополнить', recent: 'Недавние проекты', seeAll: 'Все проекты', noProjects: 'Ваш первый проект появится здесь.',
         ttsCard: 'Озвучить Reels', ttsCardBody: 'Вставьте сценарий и скачайте готовую озвучку.', sttCard: 'Превратить аудио в текст', sttCardBody: 'Загрузите или запишите аудио и скопируйте текст.',
         createTitle: 'Подарите тексту голос', createBody: 'Пишите как обычно — остальное сделает Syncall.', script: 'Ваш сценарий', placeholder: 'Вставьте текст для Reels, сторис или объявления…', useIdea: 'Вставить пример',
-        language: 'Язык', voiceLabel: 'Голос', speed: 'Темп', cost: 'Примерная стоимость', generate: 'Создать озвучку', generating: 'Создаём озвучку…', ready: 'Озвучка готова', download: 'Скачать', newOne: 'Создать ещё', chars: 'символов', insufficient: 'Пополните баланс, чтобы создать аудио.',
+        language: 'Язык', voiceLabel: 'Голос', speed: 'Темп', slower: 'Медленнее', faster: 'Быстрее', cost: 'Примерная стоимость', generate: 'Создать озвучку', generating: 'Создаём озвучку…', ready: 'Озвучка готова', download: 'Скачать', newOne: 'Создать ещё', seekAudio: 'Перемотать аудио', back5: 'Назад на 5 секунд', forward5: 'Вперёд на 5 секунд', chars: 'символов', insufficient: 'Пополните баланс, чтобы создать аудио.',
         voiceWarm: 'Тёплый и дружелюбный', voiceBright: 'Яркий и энергичный', voiceCalm: 'Спокойный и чёткий', voiceNatural: 'Естественный голос',
         transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', recordAgain: 'Записать заново', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
         historyTitle: 'Ваши проекты', historyBody: 'Все озвучки и расшифровки всегда под рукой.', all: 'Все', voices: 'Озвучки', transcripts: 'Расшифровки', delete: 'Удалить', emptyHistory: 'Здесь пока пусто. Создайте первую озвучку или расшифровку.',
@@ -106,7 +113,7 @@ const COPY = {
         greeting: "Sizni ko'rganimizdan xursandmiz", greetingBody: 'Bugun nima yaratmoqchisiz?', available: 'Mavjud balans', topUp: "To'ldirish", recent: 'Oxirgi loyihalar', seeAll: "Barchasini ko'rish", noProjects: 'Birinchi loyihangiz shu yerda chiqadi.',
         ttsCard: 'Reels uchun ovoz', ttsCardBody: 'Matnni kiriting va tayyor ovozni yuklab oling.', sttCard: 'Audioni matnga aylantirish', sttCardBody: 'Audio yuklang yoki yozib oling va matnni nusxalang.',
         createTitle: "So'zlaringizga ovoz bering", createBody: 'Odatdagidek yozing — qolganini Syncall bajaradi.', script: 'Matningiz', placeholder: "Reels, story yoki e'lon uchun matnni kiriting…", useIdea: "Misol qo'yish",
-        language: 'Til', voiceLabel: 'Ovoz', speed: 'Tezlik', cost: 'Taxminiy narx', generate: 'Ovoz yaratish', generating: 'Ovoz yaratilmoqda…', ready: 'Ovozingiz tayyor', download: 'Yuklab olish', newOne: 'Yana yaratish', chars: 'belgi', insufficient: "Ovoz yaratish uchun balansni to'ldiring.",
+        language: 'Til', voiceLabel: 'Ovoz', speed: 'Tezlik', slower: 'Sekinroq', faster: 'Tezroq', cost: 'Taxminiy narx', generate: 'Ovoz yaratish', generating: 'Ovoz yaratilmoqda…', ready: 'Ovozingiz tayyor', download: 'Yuklab olish', newOne: 'Yana yaratish', seekAudio: "Audioni o'tkazish", back5: '5 soniya orqaga', forward5: '5 soniya oldinga', chars: 'belgi', insufficient: "Ovoz yaratish uchun balansni to'ldiring.",
         voiceWarm: "Iliq va do'stona", voiceBright: 'Yorqin va jonli', voiceCalm: 'Tinch va ravon', voiceNatural: 'Tabiiy ovoz',
         transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", recordAgain: 'Qayta yozish', drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
         historyTitle: 'Loyihalaringiz', historyBody: 'Barcha ovoz va transkriptlaringiz doim yoningizda.', all: 'Barchasi', voices: 'Ovozlar', transcripts: 'Transkriptlar', delete: "O'chirish", emptyHistory: "Hozircha bo'sh. Birinchi ovoz yoki transkriptni yarating.",
@@ -121,31 +128,34 @@ const EXTRA_COPY = {
         createGroup: 'Create', workspaceGroup: 'Workspace', voicesNav: 'Voices', enhancer: 'Voice Enhancer', subtitles: 'Subtitles', dubbing: 'Dubbing', audiobooks: 'Audiobooks', developer: 'Developer', comingSoon: 'Coming soon',
         comingSoonBody: 'This tool is already on our roadmap. We are shaping it for Uzbek and Russian creators.', backHome: 'Back to home',
         quickCreate: 'Create from one place', quickCreateBody: 'Write a thought, choose a voice, and leave with audio ready for your next post.', quickPlaceholder: 'Write a hook, a story, or the first line of your next Reel…', startWith: 'Start with an idea',
-        settingsTitle: 'Settings', historyTab: 'History', voiceLibraryTitle: 'Voices built for local stories', voiceLibraryBody: 'A small, focused library of Uzbek and Russian voices—easy to choose and ready to use.', useVoice: 'Use this voice', availableIn: 'Available in',
+        settingsTitle: 'Settings', historyTab: 'History', theme: 'Theme', darkTheme: 'Dark', usageAnalytics: 'Usage analytics', accountMenu: 'Account menu', voiceLibraryTitle: 'Voices built for local stories', voiceLibraryBody: 'A small, focused library of Uzbek and Russian voices—easy to choose and ready to use.', useVoice: 'Use this voice', availableIn: 'Available in',
         durdonaBio: 'Warm, expressive, and clear. A natural fit for stories, explainers, and personal content.', bekzodBio: 'Grounded, confident, and direct. Built for ads, announcements, and educational content.',
-        creatorPlan: 'Creator account', projectsLabel: 'Projects', toolReady: 'Ready', modelLabel: 'Syncall Voice', outputLabel: 'WAV audio', quickGenerate: 'Generate', feedback: 'Feedback',
+        creatorPlan: 'Creator account', projectsLabel: 'Projects', toolReady: 'Ready', modelLabel: 'Model', outputLabel: 'Output format', quickGenerate: 'Generate', feedback: 'Feedback',
+        selectModel: 'Select a model', studioQuality: 'Studio Quality', modelDescription: 'Natural, expressive Uzbek and Russian speech for voiceovers, narration, and content creation.', selectVoiceTitle: 'Select a voice', searchAvailableVoices: 'Search available voices…', lossless: 'Lossless', telephony: 'Telephony', resetValues: 'Reset values',
         createVoice: 'Create a voice', yourVoices: 'Your voices', sharedVoices: 'Syncall voices', privateVoice: 'Private voice', privateVoiceBody: 'Only you can see and use voices created in your workspace.', noPrivateVoices: 'You have not created a private voice yet.', exploreVoices: 'Explore', searchVoices: 'Search by voice name or style…', allLanguages: 'All languages', allStyles: 'All styles', storytelling: 'Storytelling', advertising: 'Advertising', personalStyle: 'Your voice', voiceResults: 'voices found', noVoicesFound: 'No voices match these filters.', clearFilters: 'Clear filters',
-        sampleTitle: 'Add a clean voice sample', sampleBody: 'Upload or record 5–10 seconds of clear speech. Use one speaker, with no background music, noise, echo, or effects.', uploadSample: 'Upload sample', recordSample: 'Record sample', recordingSample: 'Recording…', sampleReady: 'Sample ready', sampleLength: '5–10 seconds', transcribeSample: 'Transcribe sample', transcribingSample: 'Transcribing your voice…', transcriptStep: 'Transcript', transcriptHelp: 'Check that we heard your words correctly, then name your voice.', voiceName: 'Voice name', voiceNamePlaceholder: 'For example, My warm voice', saveVoice: 'Create private voice', savingVoice: 'Creating your voice…', voiceCreated: 'Your private voice is ready to use.', restartSample: 'Start over', deleteVoiceConfirm: 'Delete this private voice?', useInTts: 'Use in Text to Speech', sampleTooShort: 'Record at least 5 seconds.', sampleTooLong: 'Keep the recording under 10 seconds.', sampleQuality: 'Quiet room · one speaker · no music', personalTag: 'Only you', voiceSampleLanguage: 'Sample language', switchLanguageToUse: 'Select to switch to', voiceLanguageNotice: 'Personal voices work in the language used for their sample. Your voice remains visible below.',
+        sampleTitle: 'Add a clean voice sample', sampleBody: 'Upload or record 5–10 seconds of clear speech. Use one speaker, with no background music, noise, echo, or effects.', uploadSample: 'Upload sample', recordSample: 'Record sample', recordingSample: 'Recording…', sampleReady: 'Sample ready', sampleLength: '5–10 seconds', transcribeSample: 'Transcribe sample', transcribingSample: 'Transcribing your voice…', transcriptStep: 'Transcript', transcriptHelp: 'Check that we heard your words correctly, then name your voice.', voiceName: 'Voice name', voiceNamePlaceholder: 'For example, My warm voice', saveVoice: 'Create private voice', savingVoice: 'Creating your voice…', voiceCreated: 'Your private voice is ready to use.', restartSample: 'Start over', deleteVoiceConfirm: 'Delete this private voice?', useInTts: 'Use in Text to Speech', sampleTooShort: 'Record at least 5 seconds.', sampleTooLong: 'Keep the recording under 10 seconds.', sampleQuality: 'Quiet room · one speaker · no music', personalTag: 'Your voice', voiceSampleLanguage: 'Sample language', switchLanguageToUse: 'Select to switch to', voiceLanguageNotice: 'Personal voices work in the language used for their sample. Your voice remains visible below.',
     },
     ru: {
         createGroup: 'Создание', workspaceGroup: 'Рабочее пространство', voicesNav: 'Голоса', enhancer: 'Улучшение голоса', subtitles: 'Субтитры', dubbing: 'Дубляж', audiobooks: 'Аудиокниги', developer: 'Разработчикам', comingSoon: 'Скоро',
         comingSoonBody: 'Этот инструмент уже в нашем плане. Мы адаптируем его для авторов на русском и узбекском.', backHome: 'На главную',
         quickCreate: 'Создавайте в одном месте', quickCreateBody: 'Напишите идею, выберите голос и получите аудио для следующей публикации.', quickPlaceholder: 'Напишите хук, историю или первую строку следующего Reels…', startWith: 'Начните с идеи',
-        settingsTitle: 'Настройки', historyTab: 'История', voiceLibraryTitle: 'Голоса для локальных историй', voiceLibraryBody: 'Небольшая библиотека узбекских и русских голосов — легко выбрать и сразу использовать.', useVoice: 'Использовать голос', availableIn: 'Доступен на',
+        settingsTitle: 'Настройки', historyTab: 'История', theme: 'Тема', darkTheme: 'Тёмная', usageAnalytics: 'Аналитика использования', accountMenu: 'Меню аккаунта', voiceLibraryTitle: 'Голоса для локальных историй', voiceLibraryBody: 'Небольшая библиотека узбекских и русских голосов — легко выбрать и сразу использовать.', useVoice: 'Использовать голос', availableIn: 'Доступен на',
         durdonaBio: 'Тёплый, выразительный и чистый голос для историй, объяснений и личного контента.', bekzodBio: 'Уверенный и прямой голос для рекламы, объявлений и образовательного контента.',
-        creatorPlan: 'Аккаунт автора', projectsLabel: 'Проекты', toolReady: 'Доступно', modelLabel: 'Syncall Voice', outputLabel: 'Аудио WAV', quickGenerate: 'Создать', feedback: 'Обратная связь',
+        creatorPlan: 'Аккаунт автора', projectsLabel: 'Проекты', toolReady: 'Доступно', modelLabel: 'Модель', outputLabel: 'Формат аудио', quickGenerate: 'Создать', feedback: 'Обратная связь',
+        selectModel: 'Выберите модель', studioQuality: 'Студийное качество', modelDescription: 'Естественная и выразительная речь на узбекском и русском языках для озвучки, повествования и создания контента.', selectVoiceTitle: 'Выберите голос', searchAvailableVoices: 'Поиск доступных голосов…', lossless: 'Без потерь', telephony: 'Телефония', resetValues: 'Сбросить настройки',
         createVoice: 'Создать голос', yourVoices: 'Мои голоса', sharedVoices: 'Голоса Syncall', privateVoice: 'Личный голос', privateVoiceBody: 'Созданные голоса видны и доступны только в вашем кабинете.', noPrivateVoices: 'У вас пока нет личных голосов.', exploreVoices: 'Все голоса', searchVoices: 'Поиск по голосу или стилю…', allLanguages: 'Все языки', allStyles: 'Все стили', storytelling: 'Истории', advertising: 'Реклама', personalStyle: 'Ваш голос', voiceResults: 'голосов найдено', noVoicesFound: 'По этим фильтрам голосов нет.', clearFilters: 'Сбросить фильтры',
-        sampleTitle: 'Добавьте чистый образец голоса', sampleBody: 'Загрузите или запишите 5–10 секунд чистой речи. Один спикер, без фоновой музыки, шума, эха и эффектов.', uploadSample: 'Загрузить образец', recordSample: 'Записать образец', recordingSample: 'Идёт запись…', sampleReady: 'Образец готов', sampleLength: '5–10 секунд', transcribeSample: 'Расшифровать образец', transcribingSample: 'Расшифровываем голос…', transcriptStep: 'Расшифровка', transcriptHelp: 'Проверьте, что мы правильно распознали слова, затем назовите голос.', voiceName: 'Название голоса', voiceNamePlaceholder: 'Например, Мой тёплый голос', saveVoice: 'Создать личный голос', savingVoice: 'Создаём ваш голос…', voiceCreated: 'Личный голос готов к использованию.', restartSample: 'Начать заново', deleteVoiceConfirm: 'Удалить этот личный голос?', useInTts: 'Использовать в озвучке', sampleTooShort: 'Запишите минимум 5 секунд.', sampleTooLong: 'Запись должна быть короче 10 секунд.', sampleQuality: 'Тихая комната · один спикер · без музыки', personalTag: 'Только вам', voiceSampleLanguage: 'Язык образца', switchLanguageToUse: 'Нажмите, чтобы переключиться на', voiceLanguageNotice: 'Личный голос работает на языке записанного образца. Он остаётся видимым в списке ниже.',
+        sampleTitle: 'Добавьте чистый образец голоса', sampleBody: 'Загрузите или запишите 5–10 секунд чистой речи. Один спикер, без фоновой музыки, шума, эха и эффектов.', uploadSample: 'Загрузить образец', recordSample: 'Записать образец', recordingSample: 'Идёт запись…', sampleReady: 'Образец готов', sampleLength: '5–10 секунд', transcribeSample: 'Расшифровать образец', transcribingSample: 'Расшифровываем голос…', transcriptStep: 'Расшифровка', transcriptHelp: 'Проверьте, что мы правильно распознали слова, затем назовите голос.', voiceName: 'Название голоса', voiceNamePlaceholder: 'Например, Мой тёплый голос', saveVoice: 'Создать личный голос', savingVoice: 'Создаём ваш голос…', voiceCreated: 'Личный голос готов к использованию.', restartSample: 'Начать заново', deleteVoiceConfirm: 'Удалить этот личный голос?', useInTts: 'Использовать в озвучке', sampleTooShort: 'Запишите минимум 5 секунд.', sampleTooLong: 'Запись должна быть короче 10 секунд.', sampleQuality: 'Тихая комната · один спикер · без музыки', personalTag: 'Ваш голос', voiceSampleLanguage: 'Язык образца', switchLanguageToUse: 'Нажмите, чтобы переключиться на', voiceLanguageNotice: 'Личный голос работает на языке записанного образца. Он остаётся видимым в списке ниже.',
     },
     uz: {
         createGroup: 'Yaratish', workspaceGroup: 'Ish maydoni', voicesNav: 'Ovozlar', enhancer: 'Ovozni yaxshilash', subtitles: 'Subtitrlar', dubbing: 'Dublyaj', audiobooks: 'Audiokitoblar', developer: 'Dasturchilar uchun', comingSoon: 'Tez orada',
         comingSoonBody: "Bu vosita rejamizda bor. Uni o'zbek va rus tilida ijod qiladiganlar uchun qulaylashtiryapmiz.", backHome: 'Bosh sahifaga',
         quickCreate: 'Hammasini bir joyda yarating', quickCreateBody: 'Fikrni yozing, ovozni tanlang va keyingi postingiz uchun tayyor audio oling.', quickPlaceholder: 'Keyingi Reels uchun ilgak, hikoya yoki birinchi jumlani yozing…', startWith: "G'oyadan boshlang",
-        settingsTitle: 'Sozlamalar', historyTab: 'Tarix', voiceLibraryTitle: 'Mahalliy hikoyalar uchun ovozlar', voiceLibraryBody: "O'zbek va rus tilidagi kichik, tushunarli ovozlar kutubxonasi — tanlash va ishlatish oson.", useVoice: 'Ovozni ishlatish', availableIn: 'Mavjud tillar',
+        settingsTitle: 'Sozlamalar', historyTab: 'Tarix', theme: 'Mavzu', darkTheme: 'Tungi', usageAnalytics: 'Foydalanish tahlili', accountMenu: 'Akkaunt menyusi', voiceLibraryTitle: 'Mahalliy hikoyalar uchun ovozlar', voiceLibraryBody: "O'zbek va rus tilidagi kichik, tushunarli ovozlar kutubxonasi — tanlash va ishlatish oson.", useVoice: 'Ovozni ishlatish', availableIn: 'Mavjud tillar',
         durdonaBio: "Iliq, ifodali va tiniq. Hikoya, tushuntirish va shaxsiy kontent uchun mos.", bekzodBio: "Ishonchli va aniq. Reklama, e'lon va ta'limiy kontent uchun yaratilgan.",
-        creatorPlan: 'Ijodkor akkaunti', projectsLabel: 'Loyihalar', toolReady: 'Tayyor', modelLabel: 'Syncall Voice', outputLabel: 'WAV audio', quickGenerate: 'Yaratish', feedback: 'Fikr bildirish',
+        creatorPlan: 'Ijodkor akkaunti', projectsLabel: 'Loyihalar', toolReady: 'Tayyor', modelLabel: 'Model', outputLabel: 'Audio formati', quickGenerate: 'Yaratish', feedback: 'Fikr bildirish',
+        selectModel: 'Modelni tanlang', studioQuality: 'Studiya sifati', modelDescription: 'Ovozli roliklar, hikoyalar va kontent yaratish uchun tabiiy, ifodali o‘zbek va rus nutqi.', selectVoiceTitle: 'Ovozni tanlang', searchAvailableVoices: 'Mavjud ovozlarni qidiring…', lossless: 'Sifati yo‘qolmaydi', telephony: 'Telefoniya', resetValues: 'Qiymatlarni tiklash',
         createVoice: 'Ovoz yaratish', yourVoices: 'Mening ovozlarim', sharedVoices: 'Syncall ovozlari', privateVoice: 'Shaxsiy ovoz', privateVoiceBody: "Yaratilgan ovozlarni faqat siz o'z kabinetingizda ko'rasiz va ishlatasiz.", noPrivateVoices: "Siz hali shaxsiy ovoz yaratmagansiz.", exploreVoices: 'Barcha ovozlar', searchVoices: "Ovoz nomi yoki uslubi bo'yicha qidiring…", allLanguages: 'Barcha tillar', allStyles: 'Barcha uslublar', storytelling: 'Hikoyalar', advertising: 'Reklama', personalStyle: 'Sizning ovozingiz', voiceResults: 'ta ovoz topildi', noVoicesFound: "Bu filtrlarga mos ovoz yo'q.", clearFilters: 'Filtrlarni tozalash',
-        sampleTitle: 'Toza ovoz namunasini qo‘shing', sampleBody: '5–10 soniya toza nutqni yuklang yoki yozib oling. Bitta spiker, fon musiqasi, shovqin, aks-sado va effektlarsiz.', uploadSample: 'Namuna yuklash', recordSample: 'Namuna yozish', recordingSample: 'Yozilmoqda…', sampleReady: 'Namuna tayyor', sampleLength: '5–10 soniya', transcribeSample: 'Namunani matnga aylantirish', transcribingSample: 'Ovozingiz aniqlanmoqda…', transcriptStep: 'Transkript', transcriptHelp: "So'zlar to'g'ri aniqlanganini tekshiring, keyin ovozga nom bering.", voiceName: 'Ovoz nomi', voiceNamePlaceholder: 'Masalan, Mening iliq ovozim', saveVoice: 'Shaxsiy ovoz yaratish', savingVoice: 'Ovozingiz yaratilmoqda…', voiceCreated: 'Shaxsiy ovozingiz ishlatishga tayyor.', restartSample: 'Boshidan boshlash', deleteVoiceConfirm: "Bu shaxsiy ovozni o'chirasizmi?", useInTts: 'Ovoz yaratishda ishlatish', sampleTooShort: 'Kamida 5 soniya yozing.', sampleTooLong: 'Yozuvni 10 soniyadan oshirmang.', sampleQuality: 'Tinch xona · bitta spiker · musiqasiz', personalTag: 'Faqat siz', voiceSampleLanguage: 'Namuna tili', switchLanguageToUse: "O'tish uchun tanlang:", voiceLanguageNotice: "Shaxsiy ovoz yozilgan namuna tilida ishlaydi. Ovozingiz quyidagi ro'yxatda ko'rinib turadi.",
+        sampleTitle: 'Toza ovoz namunasini qo‘shing', sampleBody: '5–10 soniya toza nutqni yuklang yoki yozib oling. Bitta spiker, fon musiqasi, shovqin, aks-sado va effektlarsiz.', uploadSample: 'Namuna yuklash', recordSample: 'Namuna yozish', recordingSample: 'Yozilmoqda…', sampleReady: 'Namuna tayyor', sampleLength: '5–10 soniya', transcribeSample: 'Namunani matnga aylantirish', transcribingSample: 'Ovozingiz aniqlanmoqda…', transcriptStep: 'Transkript', transcriptHelp: "So'zlar to'g'ri aniqlanganini tekshiring, keyin ovozga nom bering.", voiceName: 'Ovoz nomi', voiceNamePlaceholder: 'Masalan, Mening iliq ovozim', saveVoice: 'Shaxsiy ovoz yaratish', savingVoice: 'Ovozingiz yaratilmoqda…', voiceCreated: 'Shaxsiy ovozingiz ishlatishga tayyor.', restartSample: 'Boshidan boshlash', deleteVoiceConfirm: "Bu shaxsiy ovozni o'chirasizmi?", useInTts: 'Ovoz yaratishda ishlatish', sampleTooShort: 'Kamida 5 soniya yozing.', sampleTooLong: 'Yozuvni 10 soniyadan oshirmang.', sampleQuality: 'Tinch xona · bitta spiker · musiqasiz', personalTag: 'Sizning ovozingiz', voiceSampleLanguage: 'Namuna tili', switchLanguageToUse: "O'tish uchun tanlang:", voiceLanguageNotice: "Shaxsiy ovoz yozilgan namuna tilida ishlaydi. Ovozingiz quyidagi ro'yxatda ko'rinib turadi.",
     },
 };
 
@@ -155,10 +165,34 @@ const SAMPLE_TEXT = {
     uz: "Yaxshi g'oya odamlar eslab qoladigan ovozga loyiq. Keyingi hikoyangizni Syncall bilan yarating.",
 };
 
+const TTS_PRESETS = {
+    ru: [
+        { id: 'reels-ad', label: 'Реклама для Reels', text: 'Хотите, чтобы ваш бренд заметили? Покажите продукт ярко, расскажите о главном за несколько секунд и превратите каждый просмотр в новое действие.' },
+        { id: 'product-story', label: 'История продукта', text: 'Всё началось с простой идеи: создать продукт, которым удобно пользоваться каждый день. Мы слушали первых клиентов, улучшали каждую деталь и шаг за шагом пришли к тому, что вы видите сегодня.' },
+        { id: 'calm-explainer', label: 'Спокойное объяснение', text: 'Давайте разберёмся спокойно. Сначала выберите подходящий вариант, затем проверьте настройки и нажмите кнопку «Продолжить». Весь процесс займёт всего несколько минут.' },
+    ],
+    uz: [
+        { id: 'reels-ad', label: 'Reels uchun reklama', text: 'Brendingiz ko‘proq e’tibor qozonishini xohlaysizmi? Mahsulotingizni yorqin ko‘rsating, asosiy afzalliklarini bir necha soniyada ayting va har bir tomoshani yangi harakatga aylantiring.' },
+        { id: 'product-story', label: 'Mahsulot hikoyasi', text: 'Hammasi oddiy bir g‘oyadan boshlandi: har kuni foydalanish qulay bo‘lgan mahsulot yaratish. Biz ilk mijozlarimizni tingladik, har bir detalni yaxshiladik va bugungi natijaga bosqichma-bosqich erishdik.' },
+        { id: 'calm-explainer', label: 'Sokin tushuntirish', text: 'Keling, barchasini xotirjam ko‘rib chiqamiz. Avval mos variantni tanlang, keyin sozlamalarni tekshiring va «Davom etish» tugmasini bosing. Jarayon atigi bir necha daqiqa davom etadi.' },
+    ],
+};
+
+const adaptPresetText = (text, nextLanguage) => {
+    if (Object.values(SAMPLE_TEXT).includes(text)) return SAMPLE_TEXT[nextLanguage];
+    const matchedPreset = Object.values(TTS_PRESETS).flat().find((preset) => preset.text === text);
+    return matchedPreset ? TTS_PRESETS[nextLanguage].find((preset) => preset.id === matchedPreset.id)?.text || text : text;
+};
+
 const localeForIntl = { en: 'en-US', ru: 'ru-RU', uz: 'uz-UZ' };
 const SPEECH_LANGUAGES = [
     { id: 'uz', code: 'UZ', flag: '🇺🇿', labelKey: 'uzbek' },
     { id: 'ru', code: 'RU', flag: '🇷🇺', labelKey: 'russian' },
+];
+const INTERFACE_LANGUAGES = [
+    { id: 'uz', code: 'UZ', flag: '🇺🇿', label: "O‘zbekcha" },
+    { id: 'ru', code: 'RU', flag: '🇷🇺', label: 'Русский' },
+    { id: 'en', code: 'EN', flag: '🇬🇧', label: 'English' },
 ];
 const VOICE_AVATAR_PALETTES = [
     { top: '#9d3f60', bottom: '#f29379', glow: '#ffd6ca', shadow: '#762f50', tilt: '-9deg' },
@@ -178,6 +212,20 @@ const VOICE_AVATAR_PALETTES = [
 const money = (value, language) => `${new Intl.NumberFormat(localeForIntl[language]).format(Math.round(value || 0))} UZS`;
 const shortDate = (value, language) => value ? new Intl.DateTimeFormat(localeForIntl[language], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(value)) : '—';
 const voiceName = (value = '') => value.replace(/[-_](uz|ru)$/i, '').replace(/^./, (letter) => letter.toUpperCase());
+const formatAudioTime = (value) => {
+    if (!Number.isFinite(value) || value < 0) return '--:--';
+    const totalSeconds = Math.floor(value);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor(totalSeconds % 3600 / 60);
+    const seconds = String(totalSeconds % 60).padStart(2, '0');
+    return hours ? `${hours}:${String(minutes).padStart(2, '0')}:${seconds}` : `${minutes}:${seconds}`;
+};
+const userInitials = (user = {}) => {
+    const source = String(user.name || user.email || '').trim();
+    if (!source) return 'U';
+    const words = source.split(/\s+/).filter(Boolean);
+    return (words.length > 1 ? `${words[0][0]}${words[words.length - 1][0]}` : source.slice(0, 2)).toUpperCase();
+};
 
 const voiceAvatarPalette = (seed = 'voice') => {
     const normalized = String(seed).toLocaleLowerCase();
@@ -195,6 +243,117 @@ function VoiceAvatar({ seed, compact = false }) {
         style={{ '--avatar-top': palette.top, '--avatar-bottom': palette.bottom, '--avatar-glow': palette.glow, '--avatar-shadow': palette.shadow, '--avatar-tilt': palette.tilt }}
         aria-hidden="true"
     ><i /></span>;
+}
+
+function InterfaceLanguageDropdown({ value, onChange }) {
+    const [open, setOpen] = useState(false);
+    const rootRef = useRef(null);
+    const triggerRef = useRef(null);
+    const selected = INTERFACE_LANGUAGES.find((item) => item.id === value) || INTERFACE_LANGUAGES[0];
+
+    useEffect(() => {
+        if (!open) return undefined;
+        const closeOutside = (event) => {
+            if (!rootRef.current?.contains(event.target)) setOpen(false);
+        };
+        const closeOnEscape = (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+                triggerRef.current?.focus();
+            }
+        };
+        document.addEventListener('pointerdown', closeOutside);
+        document.addEventListener('keydown', closeOnEscape);
+        return () => {
+            document.removeEventListener('pointerdown', closeOutside);
+            document.removeEventListener('keydown', closeOnEscape);
+        };
+    }, [open]);
+
+    const select = (nextLanguage) => {
+        onChange(nextLanguage);
+        setOpen(false);
+        triggerRef.current?.focus();
+    };
+
+    return <div ref={rootRef} className="topbar-language-dropdown">
+        <button ref={triggerRef} type="button" className="topbar-language" onClick={() => setOpen((current) => !current)} aria-haspopup="menu" aria-expanded={open}>
+            <Languages aria-hidden="true" /><span>{selected.code}</span><ChevronDown className={open ? 'is-open' : ''} aria-hidden="true" />
+        </button>
+        {open && <div className="topbar-language-menu" role="menu">
+            {INTERFACE_LANGUAGES.map((item) => <button type="button" key={item.id} role="menuitemradio" aria-checked={item.id === value} className={item.id === value ? 'active' : ''} onClick={() => select(item.id)}>
+                <span className="topbar-language-flag" aria-hidden="true">{item.flag}</span>
+                <span><strong>{item.label}</strong><small>{item.code}</small></span>
+                {item.id === value && <Check aria-hidden="true" />}
+            </button>)}
+        </div>}
+    </div>;
+}
+
+function AccountMenu({ user, balance, c, language, onNavigate, onTopUp, onLogout }) {
+    const [open, setOpen] = useState(false);
+    const [view, setView] = useState('main');
+    const rootRef = useRef(null);
+    const triggerRef = useRef(null);
+
+    useEffect(() => {
+        if (!open) return undefined;
+        const closeOutside = (event) => {
+            if (!rootRef.current?.contains(event.target)) {
+                setOpen(false);
+                setView('main');
+            }
+        };
+        const closeOnEscape = (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+                setView('main');
+                triggerRef.current?.focus();
+            }
+        };
+        document.addEventListener('pointerdown', closeOutside);
+        document.addEventListener('keydown', closeOnEscape);
+        return () => {
+            document.removeEventListener('pointerdown', closeOutside);
+            document.removeEventListener('keydown', closeOnEscape);
+        };
+    }, [open]);
+
+    const closeAndNavigate = (path) => {
+        setOpen(false);
+        setView('main');
+        onNavigate(path);
+    };
+
+    return <div ref={rootRef} className="account-menu-root">
+        <button ref={triggerRef} type="button" className="topbar-avatar" onClick={() => { setOpen((current) => !current); setView('main'); }} aria-label={c.accountMenu} aria-haspopup="dialog" aria-expanded={open}>
+            {user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <span>{userInitials(user)}</span>}
+        </button>
+        {open && <div className="account-menu" role="dialog" aria-label={c.accountMenu}>
+            {view === 'main' ? <>
+                <button type="button" className="account-profile-card" onClick={() => closeAndNavigate('/cabinet/profile')}>
+                    <span className="account-profile-avatar">{user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : userInitials(user)}</span>
+                    <span><strong>{user.name || user.email}</strong><small>{user.email}</small></span>
+                    <ChevronRight aria-hidden="true" />
+                </button>
+                <section className="account-balance-card">
+                    <header><strong>{c.billing}</strong><button type="button" onClick={() => { setOpen(false); onTopUp(); }}>{c.topUp}</button></header>
+                    <div><span>{c.currentBalance}</span><strong>{money(balance, language)}</strong></div>
+                </section>
+                <div className="account-menu-group">
+                    <button type="button" onClick={() => closeAndNavigate('/cabinet/profile')}><Settings /><span>{c.settingsTitle}</span><ChevronRight /></button>
+                    <button type="button" onClick={() => setView('theme')}><Moon /><span>{c.theme}</span><small>{c.darkTheme}</small><ChevronRight /></button>
+                </div>
+                <div className="account-menu-group">
+                    <button type="button" onClick={() => closeAndNavigate('/cabinet/billing')}><Gauge /><span>{c.usageAnalytics}</span><ChevronRight /></button>
+                </div>
+                <button type="button" className="account-signout" onClick={() => { setOpen(false); onLogout(); }}><LogOut /><span>{c.logout}</span></button>
+            </> : <>
+                <header className="account-menu-subhead"><button type="button" onClick={() => setView('main')}><ChevronLeft /></button><strong>{c.theme}</strong></header>
+                <div className="account-theme-option active"><Moon /><span><strong>{c.darkTheme}</strong><small>Syncall Studio</small></span><Check /></div>
+            </>}
+        </div>}
+    </div>;
 }
 
 function SpeechLanguageDropdown({ value, onChange, c, compact = false }) {
@@ -395,14 +554,166 @@ function LoadingStudio({ label }) {
     return <div className="cabinet-loading"><span className="cabinet-loader-mark"><AudioLines /></span><LoaderCircle className="spin" /><p>{label}</p></div>;
 }
 
+const CABINET_WAVEFORM_SAMPLES = 56;
+
+function syntheticWaveform(seed) {
+    let hash = 2166136261;
+    for (let index = 0; index < seed.length; index += 1) hash = Math.imul(hash ^ seed.charCodeAt(index), 16777619) >>> 0;
+    return Float32Array.from({ length: CABINET_WAVEFORM_SAMPLES }, (_, index) => {
+        hash = (Math.imul(hash, 1664525) + 1013904223) >>> 0;
+        const noise = hash / 0xffffffff;
+        const phrase = .5 + .5 * Math.sin(index * .19 + Math.sin(index * .07) * 1.7);
+        const detail = Math.abs(Math.sin(index * .63 + noise * 1.4));
+        return Math.min(1, .08 + phrase * .53 + detail * .27);
+    });
+}
+
+async function decodeWaveform(blob) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) throw new Error('Audio decoding is not supported');
+    const context = new AudioContextClass();
+    let buffer;
+    try {
+        buffer = await context.decodeAudioData(await blob.arrayBuffer());
+    } finally {
+        await context.close();
+    }
+
+    const channel = buffer.getChannelData(0);
+    const blockSize = Math.max(1, Math.floor(channel.length / CABINET_WAVEFORM_SAMPLES));
+    const raw = new Float32Array(CABINET_WAVEFORM_SAMPLES);
+    let maximum = 0;
+    for (let index = 0; index < raw.length; index += 1) {
+        const start = index * blockSize;
+        const end = Math.min(channel.length, start + blockSize);
+        const stride = Math.max(1, Math.floor((end - start) / 600));
+        let energy = 0;
+        let count = 0;
+        for (let sample = start; sample < end; sample += stride) {
+            energy += channel[sample] ** 2;
+            count += 1;
+        }
+        raw[index] = count ? Math.sqrt(energy / count) : 0;
+        maximum = Math.max(maximum, raw[index]);
+    }
+
+    return Float32Array.from(raw, (value, index) => {
+        const previous = raw[Math.max(0, index - 1)];
+        const previousTwo = raw[Math.max(0, index - 2)];
+        const next = raw[Math.min(raw.length - 1, index + 1)];
+        const nextTwo = raw[Math.min(raw.length - 1, index + 2)];
+        const smoothed = previousTwo * .08 + previous * .2 + value * .44 + next * .2 + nextTwo * .08;
+        return maximum ? Math.min(1, .06 + Math.pow(smoothed / maximum, .78) * .94) : .1;
+    });
+}
+
+function waveformPath(peaks) {
+    const points = Array.from(peaks, (peak, index) => {
+        const x = index / (peaks.length - 1) * 1000;
+        const edgeTaper = Math.min(1, index / 2.5, (peaks.length - 1 - index) / 2.5);
+        const amplitude = 1 + peak * 15 * edgeTaper;
+        return { x, amplitude };
+    });
+    const trace = (line) => line.slice(1).reduce((path, point, index) => {
+        const previous = line[index];
+        const controlX = (previous.x + point.x) / 2;
+        return `${path}C${controlX.toFixed(2)} ${previous.y.toFixed(2)},${controlX.toFixed(2)} ${point.y.toFixed(2)},${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+    }, `M${line[0].x.toFixed(2)} ${line[0].y.toFixed(2)}`);
+    const top = points.map(({ x, amplitude }) => ({ x, y: 20 - amplitude }));
+    const bottom = points.map(({ x, amplitude }) => ({ x, y: 20 + amplitude })).reverse();
+    return `${trace(top)}L${bottom[0].x.toFixed(2)} ${bottom[0].y.toFixed(2)}${trace(bottom).replace(/^M[^C]+/, '')}Z`;
+}
+
+function encodeMonoPcmWav(samples, sampleRate) {
+    const buffer = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buffer);
+    const write = (offset, value) => {
+        for (let index = 0; index < value.length; index += 1) view.setUint8(offset + index, value.charCodeAt(index));
+    };
+    write(0, 'RIFF');
+    view.setUint32(4, 36 + samples.length * 2, true);
+    write(8, 'WAVE');
+    write(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    write(36, 'data');
+    view.setUint32(40, samples.length * 2, true);
+    for (let index = 0; index < samples.length; index += 1) {
+        const sample = Math.max(-1, Math.min(1, samples[index]));
+        view.setInt16(44 + index * 2, sample < 0 ? sample * 0x8000 : sample * 0x7fff, true);
+    }
+    return new Blob([buffer], { type: 'audio/wav' });
+}
+
+function downmixAndResample(buffer, sampleRate) {
+    const sourceLength = buffer.length;
+    const mono = new Float32Array(sourceLength);
+    for (let channelIndex = 0; channelIndex < buffer.numberOfChannels; channelIndex += 1) {
+        const channel = buffer.getChannelData(channelIndex);
+        for (let index = 0; index < sourceLength; index += 1) mono[index] += channel[index] / buffer.numberOfChannels;
+    }
+    if (buffer.sampleRate === sampleRate) return mono;
+    const ratio = buffer.sampleRate / sampleRate;
+    const output = new Float32Array(Math.max(1, Math.floor(sourceLength / ratio)));
+    for (let index = 0; index < output.length; index += 1) {
+        const start = Math.floor(index * ratio);
+        const end = Math.max(start + 1, Math.min(sourceLength, Math.floor((index + 1) * ratio)));
+        let sum = 0;
+        for (let sourceIndex = start; sourceIndex < end; sourceIndex += 1) sum += mono[sourceIndex];
+        output[index] = sum / (end - start);
+    }
+    return output;
+}
+
+async function convertAudioToWav(blob, sampleRate) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) throw new Error('Audio conversion is not supported');
+    const context = new AudioContextClass();
+    let sourceBuffer;
+    try {
+        sourceBuffer = await context.decodeAudioData(await blob.arrayBuffer());
+    } finally {
+        await context.close();
+    }
+
+    const OfflineAudioContextClass = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    if (OfflineAudioContextClass) {
+        try {
+            const offline = new OfflineAudioContextClass(1, Math.max(1, Math.ceil(sourceBuffer.duration * sampleRate)), sampleRate);
+            const source = offline.createBufferSource();
+            source.buffer = sourceBuffer;
+            source.connect(offline.destination);
+            source.start();
+            const rendered = await offline.startRendering();
+            return encodeMonoPcmWav(rendered.getChannelData(0), sampleRate);
+        } catch {
+            // Older browsers may reject an 8 kHz offline context; use averaged mono resampling instead.
+        }
+    }
+    return encodeMonoPcmWav(downmixAndResample(sourceBuffer, sampleRate), sampleRate);
+}
+
 function AudioAsset({ job, c }) {
+    const initialDuration = Number(job.duration_sec ?? job.duration_seconds ?? job.duration) || 0;
+    const outputSampleRate = Number(job.output_sample_rate_hz ?? job.sample_rate_hz ?? job.sample_rate) || 24000;
     const [url, setUrl] = useState('');
     const [loading, setLoading] = useState(false);
     const [playing, setPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(initialDuration);
     const audioRef = useRef(null);
     const urlRef = useRef('');
     const activeAssetRef = useRef('');
-    const assetKey = `${job.id}:${job.audio_url}`;
+    const assetKey = `${job.id}:${job.audio_url}:${outputSampleRate}`;
+    const [peaks, setPeaks] = useState(() => syntheticWaveform(assetKey));
+    const gradientId = `cabinet-wave-${useId().replace(/:/g, '')}`;
+    const path = useMemo(() => waveformPath(peaks), [peaks]);
+    const progress = duration > 0 ? Math.max(0, Math.min(1, currentTime / duration)) : 0;
 
     useEffect(() => {
         activeAssetRef.current = assetKey;
@@ -411,6 +722,9 @@ function AudioAsset({ job, c }) {
         setUrl('');
         setLoading(false);
         setPlaying(false);
+        setCurrentTime(0);
+        setDuration(initialDuration);
+        setPeaks(syntheticWaveform(assetKey));
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.removeAttribute('src');
@@ -421,14 +735,16 @@ function AudioAsset({ job, c }) {
             if (urlRef.current) URL.revokeObjectURL(urlRef.current);
             urlRef.current = '';
         };
-    }, [assetKey]);
+    }, [assetKey, initialDuration]);
 
     const ensureUrl = async () => {
         if (url) return url;
         const requestedAsset = assetKey;
         setLoading(true);
         try {
-            const blob = await fetchCreatorAudio(job.audio_url);
+            const originalBlob = await fetchCreatorAudio(job.audio_url);
+            const shouldConvert = job.kind === 'tts' && (outputSampleRate === 8000 || outputSampleRate === 24000);
+            const blob = shouldConvert ? await convertAudioToWav(originalBlob, outputSampleRate) : originalBlob;
             const next = URL.createObjectURL(blob);
             if (activeAssetRef.current !== requestedAsset) {
                 URL.revokeObjectURL(next);
@@ -437,6 +753,9 @@ function AudioAsset({ job, c }) {
             if (urlRef.current) URL.revokeObjectURL(urlRef.current);
             urlRef.current = next;
             setUrl(next);
+            decodeWaveform(blob)
+                .then((decoded) => { if (activeAssetRef.current === requestedAsset) setPeaks(decoded); })
+                .catch(() => { /* Keep the polished deterministic fallback. */ });
             return next;
         } finally {
             if (activeAssetRef.current === requestedAsset) setLoading(false);
@@ -459,15 +778,103 @@ function AudioAsset({ job, c }) {
         if (!source) return;
         const anchor = document.createElement('a');
         anchor.href = source;
-        anchor.download = `syncall-${job.kind}-${job.id}.${job.kind === 'tts' ? 'wav' : 'audio'}`;
+        anchor.download = job.kind === 'tts'
+            ? `syncall-${job.kind}-${job.id}-${outputSampleRate / 1000}khz.wav`
+            : `syncall-${job.kind}-${job.id}.audio`;
         anchor.click();
     };
 
+    const seekTo = async (fraction) => {
+        const source = await ensureUrl();
+        if (!source) return;
+        const element = audioRef.current;
+        if (!element) return;
+        if (element.src !== source) {
+            element.src = source;
+            element.load();
+        }
+        const applySeek = () => {
+            if (!Number.isFinite(element.duration) || element.duration <= 0) return;
+            const nextTime = Math.max(0, Math.min(element.duration, element.duration * fraction));
+            element.currentTime = nextTime;
+            setCurrentTime(nextTime);
+        };
+        if (element.readyState >= 1) applySeek();
+        else element.addEventListener('loadedmetadata', applySeek, { once: true });
+    };
+
+    const skipBy = async (seconds) => {
+        const source = await ensureUrl();
+        if (!source) return;
+        const element = audioRef.current;
+        if (!element) return;
+        if (element.src !== source) {
+            element.src = source;
+            element.load();
+        }
+        const applySkip = () => {
+            if (!Number.isFinite(element.duration) || element.duration <= 0) return;
+            const nextTime = Math.max(0, Math.min(element.duration, element.currentTime + seconds));
+            element.currentTime = nextTime;
+            setCurrentTime(nextTime);
+        };
+        if (element.readyState >= 1) applySkip();
+        else element.addEventListener('loadedmetadata', applySkip, { once: true });
+    };
+
+    const seekFromPointer = (event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        seekTo((event.clientX - bounds.left) / bounds.width);
+    };
+
+    const seekFromKeyboard = (event) => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        const nextTime = Math.max(0, Math.min(duration, currentTime + (event.key === 'ArrowRight' ? 5 : -5)));
+        seekTo(duration > 0 ? nextTime / duration : 0);
+    };
+
     return <div className="cabinet-audio-asset">
+        <button type="button" className="cabinet-skip-button" onClick={() => skipBy(-5)} aria-label={c.back5} title={c.back5}><RotateCcw /><span>5</span></button>
         <button className="cabinet-icon-button filled" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'}>{loading ? <LoaderCircle className="spin" /> : playing ? <Pause /> : <Play />}</button>
-        <div className={playing ? 'mini-wave is-playing' : 'mini-wave'}>{Array.from({ length: 20 }).map((_, i) => <i key={i} style={{ height: `${18 + Math.abs(Math.sin(i * 1.2)) * 70}%` }} />)}</div>
+        <button type="button" className="cabinet-skip-button" onClick={() => skipBy(5)} aria-label={c.forward5} title={c.forward5}><RotateCw /><span>5</span></button>
+        <div
+            className={playing ? 'mini-wave is-playing' : 'mini-wave'}
+            role="slider"
+            aria-label={c.seekAudio}
+            aria-valuemin={0}
+            aria-valuemax={Math.round(duration)}
+            aria-valuenow={Math.round(currentTime)}
+            tabIndex={0}
+            onPointerDown={seekFromPointer}
+            onKeyDown={seekFromKeyboard}
+        >
+            <svg viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                    <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stopColor="#6ab1ff" />
+                        <stop offset={progress} stopColor="#1173fc" />
+                        <stop offset={progress} stopColor="#3b4758" />
+                        <stop offset="1" stopColor="#242d38" />
+                    </linearGradient>
+                </defs>
+                <path className="mini-wave-path" d={path} fill={`url(#${gradientId})`} vectorEffect="non-scaling-stroke" />
+            </svg>
+        </div>
+        <span className="cabinet-audio-time" aria-label={`${c.duration}: ${formatAudioTime(currentTime)} / ${formatAudioTime(duration || Number.NaN)}`}>
+            <time>{formatAudioTime(currentTime)}</time><i>/</i><time>{formatAudioTime(duration || Number.NaN)}</time>
+        </span>
         <button className="cabinet-icon-button" onClick={download} aria-label={c.download}><ArrowDownToLine /></button>
-        <audio ref={audioRef} src={url || undefined} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} hidden />
+        <audio
+            ref={audioRef}
+            src={url || undefined}
+            onLoadedMetadata={(event) => setDuration(Number.isFinite(event.currentTarget.duration) ? event.currentTarget.duration : 0)}
+            onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+            onEnded={(event) => { setPlaying(false); setCurrentTime(event.currentTarget.duration || 0); }}
+            hidden
+        />
     </div>;
 }
 
@@ -864,6 +1271,9 @@ function TtsView({ config, personalVoices, c, language, localePath, onChanged, o
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState('');
     const [voiceNotice, setVoiceNotice] = useState('');
+    const [settingsView, setSettingsView] = useState('main');
+    const [voiceSearch, setVoiceSearch] = useState('');
+    const [outputFormat, setOutputFormat] = useState('wav-24');
     const voices = useMemo(() => [
         ...(config.voices[speechLanguage] || []).map((id, index) => ({ id, name: voiceName(id), language: speechLanguage, personal: false, available: true, labelIndex: index })),
         ...personalVoices.map((item) => ({ id: item.id, name: item.name, language: item.language, personal: true, available: item.language === speechLanguage })),
@@ -885,18 +1295,40 @@ function TtsView({ config, personalVoices, c, language, localePath, onChanged, o
     const characterCount = Array.from(text.trim()).length;
     const estimated = characterCount * config.pricing.tts_per_character_uzs;
     const voiceLabels = [c.voiceWarm, c.voiceBright, c.voiceCalm];
+    const describeVoice = (item) => item?.personal
+        ? item.available
+            ? `${c.privateVoice} · ${c.voiceSampleLanguage}: ${item.language === 'uz' ? c.uzbek : c.russian}`
+            : `${c.switchLanguageToUse} ${item.language === 'uz' ? c.uzbek : c.russian}`
+        : voiceLabels[item?.labelIndex] || c.voiceNatural;
+    const visibleVoices = voices.filter((item) => `${item.name} ${describeVoice(item)}`.toLocaleLowerCase().includes(voiceSearch.trim().toLocaleLowerCase()));
+
+    const changeSpeechLanguage = (nextLanguage) => {
+        setSpeechLanguage(nextLanguage);
+        setText((currentText) => adaptPresetText(currentText, nextLanguage));
+    };
 
     const selectLanguage = (nextLanguage) => {
         setVoiceNotice(selectedVoice?.personal && selectedVoice.language !== nextLanguage ? c.voiceLanguageNotice : '');
-        setSpeechLanguage(nextLanguage);
+        changeSpeechLanguage(nextLanguage);
         setError('');
     };
 
     const selectVoice = (item) => {
-        if (!item.available && item.personal) setSpeechLanguage(item.language);
+        if (!item.available && item.personal) changeSpeechLanguage(item.language);
         setVoice(String(item.id));
         setVoiceNotice('');
         setError('');
+    };
+
+    const chooseVoice = (item) => {
+        selectVoice(item);
+        setSettingsView('main');
+        setVoiceSearch('');
+    };
+
+    const resetSettings = () => {
+        setSpeed(1);
+        setOutputFormat('wav-24');
     };
 
     const generate = async () => {
@@ -904,37 +1336,79 @@ function TtsView({ config, personalVoices, c, language, localePath, onChanged, o
         setBusy(true); setError('');
         try {
             const result = await generateCreatorSpeech({ text: text.trim(), language: speechLanguage, voice_id: voice, speed });
-            setJob(result); onChanged();
+            setJob({ ...result, output_sample_rate_hz: outputFormat === 'wav-8' ? 8000 : 24000 }); onChanged();
         } catch (reason) {
             setError(reason instanceof Error ? reason.message : c.error);
         } finally { setBusy(false); }
     };
 
-    const promptIdeas = language === 'ru'
-        ? ['Реклама для Reels', 'История продукта', 'Спокойное объяснение']
-        : language === 'uz'
-            ? ['Reels uchun reklama', 'Mahsulot hikoyasi', 'Sokin tushuntirish']
-            : ['Reel advertisement', 'Product story', 'Calm explainer'];
+    const promptIdeas = TTS_PRESETS[speechLanguage];
 
     return <div className="cabinet-view tool-view tts-tool-view">
         <header className="cabinet-page-head compact-head"><div><span className="cabinet-kicker"><WandSparkles size={14} /> Text to speech</span><h1>{c.createTitle}</h1><p>{c.createBody}</p></div></header>
         <div className="tts-workspace">
             <section className="tts-editor-panel">
-                <div className="editor-heading"><div><span className="eyebrow">{c.script}</span><h2>{c.startWith}</h2></div><button className="cabinet-text-button" onClick={() => setText(SAMPLE_TEXT[language])}><Sparkles /> {c.useIdea}</button></div>
+                <div className="editor-heading"><div><span className="eyebrow">{c.script}</span><h2>{c.startWith}</h2></div><button className="cabinet-text-button" onClick={() => setText(SAMPLE_TEXT[speechLanguage])}><Sparkles /> {c.useIdea}</button></div>
                 <textarea id="creator-script" maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.placeholder} />
-                {!text && <div className="prompt-ideas">{promptIdeas.map((idea) => <button key={idea} onClick={() => setText(idea)}>{idea}</button>)}</div>}
+                {!text && <div className="prompt-ideas">{promptIdeas.map((preset) => <button key={preset.id} onClick={() => setText(preset.text)}>{preset.label}</button>)}</div>}
                 <div className="editor-footer"><span>{text.length.toLocaleString()} / {config.limits.tts_max_chars.toLocaleString()} {c.chars}</span><div className="tiny-wave">{Array.from({ length: 20 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * .85)) * 64}%` }} />)}</div></div>
             </section>
 
             <aside className="tts-settings-panel">
-                <div className="settings-tabs"><span className="active">{c.settingsTitle}</span><Link to={localePath('/cabinet/history')}>{c.historyTab}</Link></div>
-                <div className="settings-block"><label>{c.voiceLabel}</label><div className="voice-settings-list">{voices.map((item) => <button key={item.id} className={`${String(voice) === String(item.id) ? 'active' : ''}${item.available ? '' : ' is-unavailable'}`} onClick={() => selectVoice(item)}><VoiceAvatar seed={item.id} compact /><div><strong>{item.name}</strong><small>{item.personal ? item.available ? `${c.privateVoice} · ${c.voiceSampleLanguage}: ${item.language === 'uz' ? c.uzbek : c.russian}` : `${c.switchLanguageToUse} ${item.language === 'uz' ? c.uzbek : c.russian}` : voiceLabels[item.labelIndex] || c.voiceNatural}</small></div>{String(voice) === String(item.id) && item.available && <Check />}</button>)}</div>{voiceNotice && <p className="voice-language-note"><Languages /> {voiceNotice}</p>}</div>
-                <div className="settings-block"><label>{c.language}</label><SpeechLanguageDropdown value={speechLanguage} onChange={selectLanguage} c={c} /></div>
-                <div className="settings-block range-block"><div><label>{c.speed}</label><strong>{speed.toFixed(1)}×</strong></div><input type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="range-labels"><span>0.7×</span><span>1.3×</span></div></div>
-                <div className="settings-summary"><div><span>{c.modelLabel}</span><strong>{c.voiceNatural}</strong></div><div><span>{c.outputLabel}</span><strong>24 kHz</strong></div></div>
-                <div className="generation-cost"><span>{c.cost}</span><strong>{estimated ? money(estimated, language) : c.free}</strong></div>
-                {error && <div className="cabinet-alert error">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}
-                <button className="cabinet-primary wide generate-button" onClick={generate} disabled={busy || !text.trim() || !selectedVoice?.available}>{busy ? <LoaderCircle className="spin" /> : <WandSparkles />}{busy ? c.generating : c.generate}</button>
+                {settingsView === 'main' && <>
+                    <div className="settings-tabs"><span className="active">{c.settingsTitle}</span><Link to={localePath('/cabinet/history')}>{c.historyTab}</Link></div>
+                    <div className="settings-block settings-selector-block">
+                        <label>{c.modelLabel}</label>
+                        <button type="button" className="settings-selector-row" onClick={() => setSettingsView('model')}>
+                            <span className="settings-model-icon"><BadgeCheck /></span>
+                            <span className="settings-selector-copy"><strong>Syncall Voice</strong></span>
+                            <span className="settings-quality-badge">{c.studioQuality}</span>
+                            <ChevronRight aria-hidden="true" />
+                        </button>
+                    </div>
+                    <div className="settings-block settings-selector-block">
+                        <label>{c.voiceLabel}</label>
+                        <button type="button" className="settings-selector-row voice-selector-row" onClick={() => setSettingsView('voice')}>
+                            {selectedVoice && <VoiceAvatar seed={selectedVoice.id} compact />}
+                            <span className="settings-selector-copy"><strong>{selectedVoice?.name || c.selectVoiceTitle}</strong><small>{selectedVoice ? describeVoice(selectedVoice) : ''}</small></span>
+                            <ChevronRight aria-hidden="true" />
+                        </button>
+                        {voiceNotice && <p className="voice-language-note"><Languages /> {voiceNotice}</p>}
+                    </div>
+                    <div className="settings-block"><label>{c.language}</label><SpeechLanguageDropdown value={speechLanguage} onChange={selectLanguage} c={c} /></div>
+                    <div className="settings-block range-block"><div><label>{c.speed}</label><strong>{speed.toFixed(1)}×</strong></div><input type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="range-labels"><span>{c.slower}</span><span>{c.faster}</span></div></div>
+                    <div className="settings-block output-format-block">
+                        <label>{c.outputLabel}</label>
+                        <div className="output-format-control"><select value={outputFormat} onChange={(event) => setOutputFormat(event.target.value)}><option value="wav-24">WAV 24 kHz ({c.lossless})</option><option value="wav-8">WAV 8 kHz ({c.telephony})</option></select><ChevronDown aria-hidden="true" /></div>
+                        <button type="button" className="settings-reset" onClick={resetSettings}><RefreshCw /> {c.resetValues}</button>
+                    </div>
+                    <div className="generation-cost"><span>{c.cost}</span><strong>{estimated ? money(estimated, language) : c.free}</strong></div>
+                    {error && <div className="cabinet-alert error">{error}{error.toLowerCase().includes('balance') && <button onClick={onTopUp}>{c.topUp}</button>}</div>}
+                    <button className="cabinet-primary wide generate-button" onClick={generate} disabled={busy || !text.trim() || !selectedVoice?.available}>{busy ? <LoaderCircle className="spin" /> : <WandSparkles />}{busy ? c.generating : c.generate}</button>
+                </>}
+                {settingsView === 'model' && <div className="settings-selection-view">
+                    <header className="settings-selection-head"><button type="button" onClick={() => setSettingsView('main')} aria-label={c.settingsTitle}><ChevronLeft /></button><h2>{c.selectModel}</h2></header>
+                    <div className="settings-selection-body">
+                        <button type="button" className="model-option-card active" onClick={() => setSettingsView('main')}>
+                            <span className="model-option-title"><strong>Syncall Voice</strong><span>{c.studioQuality}</span><Check /></span>
+                            <p>{c.modelDescription}</p>
+                            <span className="model-language-chips"><i>{c.uzbek}</i><i>{c.russian}</i></span>
+                            <small>WAV 24 kHz / 8 kHz</small>
+                        </button>
+                    </div>
+                </div>}
+                {settingsView === 'voice' && <div className="settings-selection-view voice-selection-view">
+                    <header className="settings-selection-head"><button type="button" onClick={() => { setSettingsView('main'); setVoiceSearch(''); }} aria-label={c.settingsTitle}><ChevronLeft /></button><h2>{c.selectVoiceTitle}</h2></header>
+                    <div className="settings-selection-body">
+                        <label className="settings-voice-search"><Search aria-hidden="true" /><input type="search" value={voiceSearch} onChange={(event) => setVoiceSearch(event.target.value)} placeholder={c.searchAvailableVoices} aria-label={c.searchAvailableVoices} />{voiceSearch && <button type="button" onClick={() => setVoiceSearch('')} aria-label={c.clearFilters}><X /></button>}</label>
+                        <div className="settings-voice-options">{visibleVoices.map((item) => <button type="button" key={item.id} className={`${String(voice) === String(item.id) ? 'active' : ''}${item.available ? '' : ' is-unavailable'}`} onClick={() => chooseVoice(item)}>
+                            <VoiceAvatar seed={item.id} />
+                            <span><strong>{item.name}</strong><small>{describeVoice(item)}</small></span>
+                            {String(voice) === String(item.id) ? <Check /> : <ChevronRight />}
+                        </button>)}</div>
+                        {!visibleVoices.length && <div className="settings-voice-empty"><Search /><span>{c.noVoicesFound}</span></div>}
+                    </div>
+                </div>}
             </aside>
         </div>
         {job && <section className="generation-result-bar"><div><span className="success-dot"><Check /></span><div><small>{c.ready}</small><strong>{job.title}</strong></div></div><AudioAsset key={job.id} job={job} c={c} /><button className="cabinet-secondary small" onClick={() => setJob(null)}><RefreshCw /> {c.newOne}</button></section>}
@@ -1229,16 +1703,11 @@ function StudioWorkspace() {
                 <div className="sidebar-group"><p>{c.createGroup}</p>{renderNav(createNav)}</div>
                 <div className="sidebar-group"><p>{c.workspaceGroup}</p>{renderNav(workspaceNav)}</div>
             </nav>
-            <div className="sidebar-bottom">
-                <button className="sidebar-balance" onClick={() => setTopUpOpen(true)}><span><small>{c.available}</small><strong>{money(overview.wallet.balance_uzs, language)}</strong></span><i><Plus /></i></button>
-                <button className="sidebar-profile" onClick={() => navigate(localePath('/cabinet/profile'))}>{overview.user.avatar_url ? <img src={overview.user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <span><UserRound /></span>}<div><b>{overview.user.name}</b><small>{overview.user.email}</small></div><ChevronDown /></button>
-                <button className="sidebar-logout" onClick={logout}><LogOut /> {c.logout}</button>
-            </div>
         </aside>
         <main className="cabinet-main" id="main-content">
             <header className="cabinet-topbar">
                 <div className="topbar-location"><button className="topbar-menu" onClick={() => setMenuOpen(true)} aria-label={c.menu}><PanelLeft /></button><span>{currentTitle}</span></div>
-                <div className="topbar-actions"><button className="topbar-language" onClick={() => setLanguage(language === 'uz' ? 'ru' : language === 'ru' ? 'en' : 'uz')}><Languages /> {language.toUpperCase()} <ChevronDown /></button><button className="topbar-balance" onClick={() => setTopUpOpen(true)}><WalletCards /> {money(overview.wallet.balance_uzs, language)}</button><Link className="topbar-avatar" to={localePath('/cabinet/profile')}>{overview.user.avatar_url ? <img src={overview.user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <UserRound />}</Link></div>
+                <div className="topbar-actions"><InterfaceLanguageDropdown value={language} onChange={setLanguage} /><AccountMenu user={overview.user} balance={overview.wallet.balance_uzs} c={c} language={language} onNavigate={(path) => navigate(localePath(path))} onTopUp={() => setTopUpOpen(true)} onLogout={logout} /></div>
             </header>
             <div className="cabinet-content-frame">{content}</div>
         </main>
