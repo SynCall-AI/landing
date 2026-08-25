@@ -81,21 +81,6 @@ export async function signInWithGoogle(credential, intent = 'login') {
     return storeSession(await response.json());
 }
 
-export async function signInWithEmail(email, password) {
-    const form = new URLSearchParams();
-    form.set('username', email.trim().toLowerCase());
-    form.set('password', password);
-    form.set('grant_type', 'password');
-    form.set('scope', 'creator');
-    const response = await fetch(`${API_BASE}/api/v2/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: form,
-    });
-    if (!response.ok) throw await readError(response);
-    return storeSession(await response.json());
-}
-
 export const getCreatorMe = () => creatorRequest('/api/v2/users/me');
 export const getCreatorConfig = () => creatorRequest('/api/v2/creator/config');
 export const getCreatorOverview = () => creatorRequest('/api/v2/creator/overview');
