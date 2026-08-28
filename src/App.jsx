@@ -15,6 +15,7 @@ const Chatbots = lazy(() => import('./pages/Chatbots.jsx'));
 const Stt = lazy(() => import('./pages/Stt.jsx'));
 const Tts = lazy(() => import('./pages/Tts.jsx'));
 const MarketingPage = lazy(() => import('./pages/MarketingPage.jsx'));
+const Cabinet = lazy(() => import('./pages/Cabinet.jsx'));
 
 const productRoutes = [
     ['/', Home],
@@ -50,14 +51,15 @@ function useAppHeight() {
 }
 
 const AppShell = () => {
-    const { t } = useLanguage();
+    const { t, basePath } = useLanguage();
+    const isCabinet = basePath === '/cabinet' || basePath.startsWith('/cabinet/');
 
     return (
         <>
             <a className="skip-link" href="#main-content">{t('skipToContent')}</a>
             <SiteSeo />
             <ScrollToTop />
-            <Navbar />
+            {!isCabinet && <Navbar />}
             <Suspense fallback={<div className="route-loading" role="status">{t('loading')}</div>}>
                 <Routes>
                     {SUPPORTED_LOCALES.flatMap((locale) => productRoutes.map(([basePath, Component]) => (
@@ -83,10 +85,18 @@ const AppShell = () => {
                         />
                     )))}
 
+                    {SUPPORTED_LOCALES.map((locale) => (
+                        <Route
+                            key={`${locale}:/cabinet`}
+                            path={`${localizePath('/cabinet', locale)}/*`}
+                            element={<Cabinet />}
+                        />
+                    ))}
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>
-            <Footer />
+            {!isCabinet && <Footer />}
         </>
     );
 };

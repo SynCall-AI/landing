@@ -122,7 +122,8 @@
     font-size: 19px;
 }
 
-.nav-contact-button {
+.nav-contact-button,
+.nav-studio-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -138,6 +139,12 @@
 }
 
 .nav-contact-button:hover { background: var(--accent-blue-light); }
+.nav-studio-button {
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+.nav-studio-button:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 .mobile-menu-toggle { display: none; margin-left: auto; font-size: 22px; }
 
 @media (max-width: 1080px) {
@@ -171,4 +178,5 @@
     .nav-logo img { width: 92px; }
     .language-toggle .flag,
     .language-toggle .arrow { display: none; }
+    .nav-studio-button { padding-inline: 12px; font-size: 12px; }
 }

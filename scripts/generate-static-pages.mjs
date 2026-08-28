@@ -7,6 +7,7 @@ import { localizePath } from '../src/lib/i18n.js';
 import { marketingContent } from '../src/content/marketingContent.js';
 import {
     INDEXABLE_ROUTE_PATHS,
+    STATIC_ROUTE_PATHS,
     SEO_LOCALES,
     buildFaqSchema,
     buildOrganizationSchema,
@@ -134,7 +135,7 @@ const renderSeoBlock = (seo, locale, dictionaries) => {
     return `    <meta name="site-seo-start" content="generated" />
     <title>${htmlEscape(seo.title)}</title>
     <meta name="description" content="${htmlEscape(seo.description)}" />
-    <meta name="robots" content="${seo.unknown ? 'noindex, follow' : 'index, follow'}, max-image-preview:large, max-snippet:-1" />
+    <meta name="robots" content="${seo.noindex ? 'noindex, follow' : 'index, follow'}, max-image-preview:large, max-snippet:-1" />
     <link rel="canonical" href="${htmlEscape(seo.canonical)}" />
 ${hreflang}
 ${markdownAlternate}    <meta property="og:type" content="website" />
@@ -307,7 +308,7 @@ const main = async () => {
     ]);
 
     let entryCount = 0;
-    for (const routePath of INDEXABLE_ROUTE_PATHS) {
+    for (const routePath of STATIC_ROUTE_PATHS) {
         for (const locale of SEO_LOCALES) {
             const urlPath = localizePath(routePath, locale);
             const html = renderPage(template, routePath, locale, dictionaries);
@@ -325,7 +326,7 @@ const main = async () => {
     const notFoundHtml = renderPage(template, '/404', 'en', dictionaries);
     await fs.writeFile(path.join(distRoot, '404.html'), notFoundHtml, 'utf8');
 
-    console.log(`Generated ${entryCount} localized static HTML entries for ${INDEXABLE_ROUTE_PATHS.length} routes, plus 404.html.`);
+    console.log(`Generated ${entryCount} localized static HTML entries for ${STATIC_ROUTE_PATHS.length} routes, plus 404.html.`);
 };
 
 await main();

@@ -17,6 +17,9 @@ dist-ssr
 .env.*
 !.env.example
 
+# Local integration notes may contain live service credentials.
+references/stt_and_tts_endpoints.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

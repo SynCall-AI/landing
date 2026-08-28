@@ -20,7 +20,7 @@ const escapeXml = (value) => String(value)
     .replace(/'/g, '&apos;');
 
 const canonicalRoutes = Object.entries(ROUTE_SEO)
-    .filter(([, route]) => !route.aliasFor && !route.canonicalPath)
+    .filter(([, route]) => !route.aliasFor && !route.canonicalPath && !route.noindex)
     .map(([routePath]) => routePath);
 
 const entries = canonicalRoutes.flatMap((routePath) => SEO_LOCALES.map((locale) => {

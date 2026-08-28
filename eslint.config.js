@@ -29,6 +29,7 @@ export default defineConfig([
   {
     files: [
       'src/context/LanguageContext.jsx',
+      'src/context/CabinetAuthContext.jsx',
       'src/components/ui/AudioPlayer.jsx',
     ],
     rules: {
