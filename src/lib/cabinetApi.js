@@ -105,7 +105,7 @@ export async function signInWithPassword(email, password) {
     const response = await fetch(`${API_BASE}/api/v2/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ username: email.trim(), password }),
+        body: new URLSearchParams({ username: email.trim(), password, scope: 'creator' }),
     });
     if (!response.ok) throw await readError(response);
     return storeSession(await response.json());

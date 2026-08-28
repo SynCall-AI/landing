@@ -1017,6 +1017,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
     const inputRef = useRef(null);
     const recorderRef = useRef(null);
     const streamRef = useRef(null);
+    const recordingRequestRef = useRef(0);
     const chunksRef = useRef([]);
     const timerRef = useRef(null);
 
@@ -1025,6 +1026,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
         timerRef.current = null;
     };
     const discardActiveRecording = useCallback((updateState = true) => {
+        recordingRequestRef.current += 1;
         clearTimer();
         const recorder = recorderRef.current;
         if (recorder && recorder.state !== 'inactive') {
@@ -1072,15 +1074,24 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
     useEffect(() => () => discardActiveRecording(false), [discardActiveRecording]);
 
     const startRecording = async () => {
+        const requestId = ++recordingRequestRef.current;
         setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            if (requestId !== recordingRequestRef.current) {
+                stream.getTracks().forEach((track) => track.stop());
+                return;
+            }
             streamRef.current = stream;
             const recorder = new MediaRecorder(stream);
             const startedAt = Date.now();
             chunksRef.current = [];
             recorder.ondataavailable = (event) => event.data.size && chunksRef.current.push(event.data);
             recorder.onstop = () => {
+                if (requestId !== recordingRequestRef.current) {
+                    stream.getTracks().forEach((track) => track.stop());
+                    return;
+                }
                 clearTimer();
                 const blob = new File(chunksRef.current, 'voice-sample.webm', { type: 'audio/webm' });
                 choose(blob, Math.min(10, (Date.now() - startedAt) / 1000));
@@ -1099,6 +1110,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
                 if (seconds >= 9.8 && recorder.state === 'recording') recorder.stop();
             }, 100);
         } catch {
+            if (requestId !== recordingRequestRef.current) return;
             discardActiveRecording();
             setError(c.error);
         }
@@ -1457,6 +1469,7 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
     const inputRef = useRef(null);
     const recorderRef = useRef(null);
     const streamRef = useRef(null);
+    const recordingRequestRef = useRef(0);
     const chunksRef = useRef([]);
     const previewRef = useRef('');
 
@@ -1467,6 +1480,7 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
     }, []);
 
     const discardActiveRecording = useCallback((updateState = true) => {
+        recordingRequestRef.current += 1;
         const recorder = recorderRef.current;
         if (recorder && recorder.state !== 'inactive') {
             recorder.ondataavailable = null;
@@ -1495,15 +1509,24 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
         chunksRef.current = [];
     };
     const start = async () => {
+        const requestId = ++recordingRequestRef.current;
         setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            if (requestId !== recordingRequestRef.current) {
+                stream.getTracks().forEach((track) => track.stop());
+                return;
+            }
             streamRef.current = stream;
             const recorder = new MediaRecorder(stream);
             clearRecording();
             chunksRef.current = [];
             recorder.ondataavailable = (event) => event.data.size && chunksRef.current.push(event.data);
             recorder.onstop = () => {
+                if (requestId !== recordingRequestRef.current) {
+                    stream.getTracks().forEach((track) => track.stop());
+                    return;
+                }
                 const blob = new File(chunksRef.current, 'voice-recording.webm', { type: 'audio/webm' });
                 choose(blob);
                 stream.getTracks().forEach((track) => track.stop());
@@ -1512,7 +1535,11 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
             };
             recorderRef.current = recorder;
             recorder.start(); setRecording(true);
-        } catch { discardActiveRecording(); setError(c.error); }
+        } catch {
+            if (requestId !== recordingRequestRef.current) return;
+            discardActiveRecording();
+            setError(c.error);
+        }
     };
     const stop = () => { recorderRef.current?.stop(); setRecording(false); };
     const changeMode = (nextMode) => {
