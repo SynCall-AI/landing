@@ -987,6 +987,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
     const [error, setError] = useState('');
     const inputRef = useRef(null);
     const recorderRef = useRef(null);
+    const streamRef = useRef(null);
     const chunksRef = useRef([]);
     const timerRef = useRef(null);
 
@@ -994,6 +995,20 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
         if (timerRef.current) window.clearInterval(timerRef.current);
         timerRef.current = null;
     };
+    const discardActiveRecording = useCallback((updateState = true) => {
+        clearTimer();
+        const recorder = recorderRef.current;
+        if (recorder && recorder.state !== 'inactive') {
+            recorder.ondataavailable = null;
+            recorder.onstop = null;
+            recorder.stop();
+        }
+        streamRef.current?.getTracks().forEach((track) => track.stop());
+        recorderRef.current = null;
+        streamRef.current = null;
+        chunksRef.current = [];
+        if (updateState) setRecording(false);
+    }, []);
     const choose = (next, knownDuration = 0) => {
         if (!next) return;
         if (next.size > config.limits.stt_max_bytes) {
@@ -1023,15 +1038,15 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
     };
 
     useEffect(() => () => {
-        clearTimer();
         if (preview) URL.revokeObjectURL(preview);
-        if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
     }, [preview]);
+    useEffect(() => () => discardActiveRecording(false), [discardActiveRecording]);
 
     const startRecording = async () => {
         setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            streamRef.current = stream;
             const recorder = new MediaRecorder(stream);
             const startedAt = Date.now();
             chunksRef.current = [];
@@ -1041,6 +1056,8 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
                 const blob = new File(chunksRef.current, 'voice-sample.webm', { type: 'audio/webm' });
                 choose(blob, Math.min(10, (Date.now() - startedAt) / 1000));
                 stream.getTracks().forEach((track) => track.stop());
+                recorderRef.current = null;
+                streamRef.current = null;
                 setRecording(false);
             };
             recorderRef.current = recorder;
@@ -1053,6 +1070,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
                 if (seconds >= 9.8 && recorder.state === 'recording') recorder.stop();
             }, 100);
         } catch {
+            discardActiveRecording();
             setError(c.error);
         }
     };
@@ -1062,6 +1080,12 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
             return;
         }
         recorderRef.current?.stop();
+    };
+    const changeMode = (nextMode) => {
+        if (nextMode === mode) return;
+        discardActiveRecording();
+        setMode(nextMode);
+        reset();
     };
     const transcribe = async () => {
         if (!file) return;
@@ -1092,7 +1116,7 @@ function VoiceCreator({ config, c, onCreated, onChanged, onClose, onTopUp }) {
         <div className="voice-creator-steps"><span className="active"><i>1</i>{c.sampleReady}</span><b /><span className={sampleJob ? 'active' : ''}><i>2</i>{c.transcriptStep}</span><b /><span className={sampleJob ? 'active' : ''}><i>3</i>{c.voiceName}</span></div>
         {!sampleJob ? <div className="voice-sample-layout">
             <div className="voice-sample-card">
-                <div className="transcribe-tabs"><button className={mode === 'upload' ? 'active' : ''} onClick={() => { setMode('upload'); reset(); }}><UploadCloud /> {c.uploadSample}</button><button className={mode === 'record' ? 'active' : ''} onClick={() => { setMode('record'); reset(); }}><Mic /> {c.recordSample}</button></div>
+                <div className="transcribe-tabs"><button className={mode === 'upload' ? 'active' : ''} onClick={() => changeMode('upload')}><UploadCloud /> {c.uploadSample}</button><button className={mode === 'record' ? 'active' : ''} onClick={() => changeMode('record')}><Mic /> {c.recordSample}</button></div>
                 {mode === 'upload' ? <div className={file ? 'drop-zone has-file clone-drop-zone' : 'drop-zone clone-drop-zone'} onClick={() => !file && inputRef.current?.click()} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); choose(event.dataTransfer.files?.[0]); }}>
                     <input ref={inputRef} type="file" accept="audio/*" hidden onChange={(event) => choose(event.target.files?.[0])} />
                     {file ? <><span className="drop-icon ready"><Check /></span><h3>{c.sampleReady}</h3><p>{file.name}</p><audio controls src={preview} onLoadedMetadata={readDuration} /><button className="cabinet-text-button" onClick={(event) => { event.stopPropagation(); inputRef.current?.click(); }}>{c.change}</button></> : <><span className="drop-icon"><UploadCloud /></span><h3>{c.uploadSample}</h3><p>{c.sampleBody}</p><span className="sample-length-badge">{c.sampleLength}</span></>}
@@ -1403,6 +1427,7 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
     const [copied, setCopied] = useState(false);
     const inputRef = useRef(null);
     const recorderRef = useRef(null);
+    const streamRef = useRef(null);
     const chunksRef = useRef([]);
     const previewRef = useRef('');
 
@@ -1412,10 +1437,24 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
         setPreview(nextPreview);
     }, []);
 
+    const discardActiveRecording = useCallback((updateState = true) => {
+        const recorder = recorderRef.current;
+        if (recorder && recorder.state !== 'inactive') {
+            recorder.ondataavailable = null;
+            recorder.onstop = null;
+            recorder.stop();
+        }
+        streamRef.current?.getTracks().forEach((track) => track.stop());
+        recorderRef.current = null;
+        streamRef.current = null;
+        chunksRef.current = [];
+        if (updateState) setRecording(false);
+    }, []);
+
     useEffect(() => () => {
         if (previewRef.current) URL.revokeObjectURL(previewRef.current);
-        if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
-    }, []);
+        discardActiveRecording(false);
+    }, [discardActiveRecording]);
     const choose = (next) => {
         if (!next) return;
         if (next.size > config.limits.stt_max_bytes) { setError(`40 MB · ${c.formats}`); return; }
@@ -1430,15 +1469,28 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
         setError('');
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            streamRef.current = stream;
             const recorder = new MediaRecorder(stream);
             clearRecording();
             chunksRef.current = [];
             recorder.ondataavailable = (event) => event.data.size && chunksRef.current.push(event.data);
-            recorder.onstop = () => { const blob = new File(chunksRef.current, 'voice-recording.webm', { type: 'audio/webm' }); choose(blob); stream.getTracks().forEach((track) => track.stop()); };
-            recorderRef.current = recorder; recorder.start(); setRecording(true);
-        } catch { setError(c.error); }
+            recorder.onstop = () => {
+                const blob = new File(chunksRef.current, 'voice-recording.webm', { type: 'audio/webm' });
+                choose(blob);
+                stream.getTracks().forEach((track) => track.stop());
+                recorderRef.current = null;
+                streamRef.current = null;
+            };
+            recorderRef.current = recorder;
+            recorder.start(); setRecording(true);
+        } catch { discardActiveRecording(); setError(c.error); }
     };
     const stop = () => { recorderRef.current?.stop(); setRecording(false); };
+    const changeMode = (nextMode) => {
+        if (nextMode === mode) return;
+        discardActiveRecording();
+        setMode(nextMode);
+    };
     const transcribe = async () => {
         if (!file) return;
         setBusy(true); setError('');
@@ -1477,8 +1529,8 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
             <div className="transcribe-grid">
                 <section className="transcribe-input-card">
                     <div className="transcribe-tabs">
-                        <button className={mode === 'upload' ? 'active' : ''} onClick={() => setMode('upload')}><UploadCloud /> {c.upload}</button>
-                        <button className={mode === 'record' ? 'active' : ''} onClick={() => setMode('record')}><Mic /> {c.record}</button>
+                        <button className={mode === 'upload' ? 'active' : ''} onClick={() => changeMode('upload')}><UploadCloud /> {c.upload}</button>
+                        <button className={mode === 'record' ? 'active' : ''} onClick={() => changeMode('record')}><Mic /> {c.record}</button>
                     </div>
                     <div className="stt-language-row">
                         <span>{c.language}</span>

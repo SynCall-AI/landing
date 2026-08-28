@@ -1,12 +1,30 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import {
+    activateCreatorStudio,
     clearCreatorSession,
+    CREATOR_SESSION_CLEARED_EVENT,
     getCreatorMe,
     hasCreatorSession,
     signInWithGoogle,
 } from '../lib/cabinetApi.js';
 
 const CabinetAuthContext = createContext(null);
+
+const hasCreatorAccess = (user) => (
+    Array.isArray(user?.enabled_products)
+        ? user.enabled_products.includes('creator')
+        : user?.account_kind === 'creator'
+);
+
+const loadCreatorIdentity = async () => {
+    let current = await getCreatorMe();
+    if (!hasCreatorAccess(current)) {
+        await activateCreatorStudio();
+        current = await getCreatorMe();
+    }
+    if (!hasCreatorAccess(current)) throw new Error('Creator Studio activation failed');
+    return current;
+};
 
 export const useCabinetAuth = () => {
     const value = useContext(CabinetAuthContext);
@@ -19,10 +37,15 @@ export function CabinetAuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     const loadUser = useCallback(async () => {
-        const current = await getCreatorMe();
-        if (current.account_kind !== 'creator') throw new Error('This is not a creator account');
+        const current = await loadCreatorIdentity();
         setUser(current);
         return current;
+    }, []);
+
+    useEffect(() => {
+        const clearUser = () => setUser(null);
+        window.addEventListener(CREATOR_SESSION_CLEARED_EVENT, clearUser);
+        return () => window.removeEventListener(CREATOR_SESSION_CLEARED_EVENT, clearUser);
     }, []);
 
     useEffect(() => {
@@ -33,9 +56,8 @@ export function CabinetAuthProvider({ children }) {
                 return;
             }
             try {
-                const current = await getCreatorMe();
-                if (active && current.account_kind === 'creator') setUser(current);
-                if (current.account_kind !== 'creator') clearCreatorSession();
+                const current = await loadCreatorIdentity();
+                if (active) setUser(current);
             } catch {
                 clearCreatorSession();
             } finally {
