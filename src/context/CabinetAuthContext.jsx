@@ -6,6 +6,7 @@ import {
     getCreatorMe,
     hasCreatorSession,
     signInWithGoogle,
+    signInWithPassword,
 } from '../lib/cabinetApi.js';
 
 const CabinetAuthContext = createContext(null);
@@ -82,6 +83,10 @@ export function CabinetAuthProvider({ children }) {
         finishLogin(() => signInWithGoogle(credential, intent))
     ), [finishLogin]);
 
+    const passwordLogin = useCallback((email, password) => (
+        finishLogin(() => signInWithPassword(email, password))
+    ), [finishLogin]);
+
     const logout = useCallback(() => {
         clearCreatorSession();
         setUser(null);
@@ -92,9 +97,10 @@ export function CabinetAuthProvider({ children }) {
         loading,
         isAuthenticated: Boolean(user),
         googleLogin,
+        passwordLogin,
         logout,
         refreshUser: loadUser,
-    }), [googleLogin, loadUser, loading, logout, user]);
+    }), [googleLogin, loadUser, loading, logout, passwordLogin, user]);
 
     return <CabinetAuthContext.Provider value={value}>{children}</CabinetAuthContext.Provider>;
 }

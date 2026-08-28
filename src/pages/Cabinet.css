@@ -34,7 +34,8 @@
     display: grid;
     grid-template-rows: auto 1fr;
     isolation: isolate;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .cabinet-login::before {
@@ -81,6 +82,18 @@
 .google-button-host.is-disabled { pointer-events: none; opacity: .4; }
 .cabinet-google-busy { position: absolute; z-index: 2; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; color: #fff; background: var(--studio-surface-3); font-size: 16px; font-weight: 700; }
 .cabinet-login-setup { padding: 12px; border: 1px solid rgba(255,115,93,.34); border-radius: 12px; color: #ffad9f; background: rgba(255,115,93,.1); font-size: 16px; }
+.cabinet-auth-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: #667080; font-size: 12px; text-transform: uppercase; }
+.cabinet-auth-divider::before,
+.cabinet-auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--studio-line); }
+.cabinet-password-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 44px; border: 1px solid var(--studio-line-strong); border-radius: 999px; color: #d9dee6; background: var(--studio-surface); font-family: inherit; font-size: 14px; font-weight: 720; cursor: pointer; }
+.cabinet-password-toggle:hover { color: #fff; border-color: rgba(105,168,255,.45); background: var(--studio-surface-3); }
+.cabinet-password-form { display: grid; gap: 12px; }
+.cabinet-password-form > p { margin: 0 0 2px; color: #7f8998; font-size: 12px; text-align: center; }
+.cabinet-password-form label { display: grid; gap: 6px; color: #aeb6c1; font-size: 12px; font-weight: 700; }
+.cabinet-password-form input { width: 100%; min-height: 44px; padding: 10px 13px; border: 1px solid var(--studio-line-strong); border-radius: 11px; outline: none; color: #fff; background: #090b0f; font: inherit; }
+.cabinet-password-form input:focus { border-color: var(--studio-blue); box-shadow: 0 0 0 3px var(--studio-blue-soft); }
+.cabinet-password-form > button { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border: 0; border-radius: 11px; color: #fff; background: var(--studio-blue); font-family: inherit; font-size: 14px; font-weight: 760; cursor: pointer; }
+.cabinet-password-form > button:disabled { cursor: not-allowed; opacity: .5; }
 .cabinet-registration-note { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 15px 0 0; color: #7f8998; font-size: 12px; }
 .cabinet-auth-switch { margin: 19px 0 0; color: #7f8998; font-size: 13px; text-align: center; }
 .cabinet-auth-switch button { padding: 0; border: 0; color: #6ca7ff; background: transparent; font: inherit; font-weight: 760; cursor: pointer; }

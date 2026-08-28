@@ -78,7 +78,7 @@ import './Cabinet.css';
 const COPY = {
     en: {
         studio: 'Creator studio', loginTitle: 'Turn an idea into a voice.', loginBody: 'Create natural voiceovers and clean transcripts without learning a complicated tool.',
-        google: 'Continue with Google', secure: 'Your audio stays private to your account.', loading: 'Opening your studio…', setup: 'Google sign-in is not configured yet.', loginTab: 'Sign in', registerTab: 'Create account', signInTitle: 'Welcome back', signInBody: 'Sign in to continue to your creator workspace.', registerTitle: 'Create your workspace', registerBody: 'Start with Google—no forms or technical setup.', googleLogin: 'Sign in with Google', googleRegister: 'Sign up with Google', registrationOnly: 'Registration is available only through Google.', noAccount: 'New to Syncall?', createAccount: 'Create an account', haveAccount: 'Already have an account?', goToLogin: 'Sign in', accountNotFound: 'No account found for this Google email. Choose registration first.',
+        google: 'Continue with Google', secure: 'Your audio stays private to your account.', loading: 'Opening your studio…', setup: 'Google sign-in is not configured yet.', loginTab: 'Sign in', registerTab: 'Create account', signInTitle: 'Welcome back', signInBody: 'Sign in to continue to your creator workspace.', registerTitle: 'Create your workspace', registerBody: 'Start with Google—no forms or technical setup.', googleLogin: 'Sign in with Google', googleRegister: 'Sign up with Google', registrationOnly: 'Registration is available only through Google.', noAccount: 'New to Syncall?', createAccount: 'Create an account', haveAccount: 'Already have an account?', goToLogin: 'Sign in', accountNotFound: 'No account found for this Google email. Choose registration first.', or: 'or', usePassword: 'Use email and password', existingAccount: 'For an existing Syncall account', password: 'Password', passwordLogin: 'Sign in with password',
         home: 'Home', voice: 'Text to speech', transcript: 'Transcribe', history: 'My projects', billing: 'Balance', profile: 'Profile', logout: 'Sign out', menu: 'Open menu', close: 'Close',
         greeting: 'Good to see you', greetingBody: 'What would you like to make today?', available: 'Available balance', topUp: 'Top up', recent: 'Recent projects', seeAll: 'See all', noProjects: 'Your first project will appear here.',
         ttsCard: 'Voice a reel', ttsCardBody: 'Paste your script and get a ready-to-download voiceover.', sttCard: 'Turn audio into text', sttCardBody: 'Upload or record a clip and copy the transcript in seconds.',
@@ -88,12 +88,12 @@ const COPY = {
         transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', recordAgain: 'Record again', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
         historyTitle: 'Your projects', historyBody: 'Every voiceover and transcript, ready whenever you need it.', all: 'All', voices: 'Voiceovers', transcripts: 'Transcripts', delete: 'Delete', emptyHistory: 'Nothing here yet. Start with a voiceover or transcript.',
         billingTitle: 'Balance & payments', billingBody: 'See your usage and add funds when you need them.', currentBalance: 'Current balance', paymentHistory: 'Activity', amount: 'Top-up amount', paymentMethod: 'Payment method', continuePayme: 'Continue to Payme', soon: 'Soon', minTopup: 'Minimum top-up', noTransactions: 'No balance activity yet.', usageTts: 'Voice generation', usageStt: 'Transcription', payment: 'Balance top-up', adjustment: 'Balance adjustment', estimatedCost: 'Estimated cost', pending: 'Pending', paid: 'Paid', completed: 'Completed', cancelled: 'Cancelled',
-        profileTitle: 'Your profile', profileBody: 'Keep your creator account details up to date.', fullName: 'Full name', email: 'Email', phone: 'Phone number', save: 'Save changes', saved: 'Profile updated', memberVia: 'Signed in securely with Google',
+        profileTitle: 'Your profile', profileBody: 'Keep your creator account details up to date.', fullName: 'Full name', email: 'Email', phone: 'Phone number', save: 'Save changes', saved: 'Profile updated', memberVia: 'Signed in securely with your Syncall account',
         error: 'Something went wrong. Please try again.', refresh: 'Refresh', uzbek: "O'zbekcha", russian: 'Русский', free: 'Free',
     },
     ru: {
         studio: 'Студия автора', loginTitle: 'Превратите идею в голос.', loginBody: 'Создавайте естественную озвучку и точные расшифровки без сложных настроек.',
-        google: 'Продолжить с Google', secure: 'Ваши аудиофайлы доступны только вам.', loading: 'Открываем вашу студию…', setup: 'Вход через Google пока не настроен.', loginTab: 'Вход', registerTab: 'Регистрация', signInTitle: 'С возвращением', signInBody: 'Войдите, чтобы продолжить работу в студии.', registerTitle: 'Создайте свою студию', registerBody: 'Начните через Google — без анкет и сложных настроек.', googleLogin: 'Войти через Google', googleRegister: 'Зарегистрироваться через Google', registrationOnly: 'Регистрация доступна только через Google.', noAccount: 'Впервые в Syncall?', createAccount: 'Создать аккаунт', haveAccount: 'Уже есть аккаунт?', goToLogin: 'Войти', accountNotFound: 'Аккаунт с этой почтой Google не найден. Сначала выберите регистрацию.',
+        google: 'Продолжить с Google', secure: 'Ваши аудиофайлы доступны только вам.', loading: 'Открываем вашу студию…', setup: 'Вход через Google пока не настроен.', loginTab: 'Вход', registerTab: 'Регистрация', signInTitle: 'С возвращением', signInBody: 'Войдите, чтобы продолжить работу в студии.', registerTitle: 'Создайте свою студию', registerBody: 'Начните через Google — без анкет и сложных настроек.', googleLogin: 'Войти через Google', googleRegister: 'Зарегистрироваться через Google', registrationOnly: 'Регистрация доступна только через Google.', noAccount: 'Впервые в Syncall?', createAccount: 'Создать аккаунт', haveAccount: 'Уже есть аккаунт?', goToLogin: 'Войти', accountNotFound: 'Аккаунт с этой почтой Google не найден. Сначала выберите регистрацию.', or: 'или', usePassword: 'Войти по email и паролю', existingAccount: 'Для существующего аккаунта Syncall', password: 'Пароль', passwordLogin: 'Войти с паролем',
         home: 'Главная', voice: 'Текст в речь', transcript: 'Расшифровать', history: 'Мои проекты', billing: 'Баланс', profile: 'Профиль', logout: 'Выйти', menu: 'Открыть меню', close: 'Закрыть',
         greeting: 'Рады вас видеть', greetingBody: 'Что хотите создать сегодня?', available: 'Доступный баланс', topUp: 'Пополнить', recent: 'Недавние проекты', seeAll: 'Все проекты', noProjects: 'Ваш первый проект появится здесь.',
         ttsCard: 'Озвучить Reels', ttsCardBody: 'Вставьте сценарий и скачайте готовую озвучку.', sttCard: 'Превратить аудио в текст', sttCardBody: 'Загрузите или запишите аудио и скопируйте текст.',
@@ -103,12 +103,12 @@ const COPY = {
         transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', recordAgain: 'Записать заново', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
         historyTitle: 'Ваши проекты', historyBody: 'Все озвучки и расшифровки всегда под рукой.', all: 'Все', voices: 'Озвучки', transcripts: 'Расшифровки', delete: 'Удалить', emptyHistory: 'Здесь пока пусто. Создайте первую озвучку или расшифровку.',
         billingTitle: 'Баланс и платежи', billingBody: 'Следите за расходами и пополняйте баланс.', currentBalance: 'Текущий баланс', paymentHistory: 'Операции', amount: 'Сумма пополнения', paymentMethod: 'Способ оплаты', continuePayme: 'Продолжить в Payme', soon: 'Скоро', minTopup: 'Минимальное пополнение', noTransactions: 'Операций пока нет.', usageTts: 'Создание озвучки', usageStt: 'Расшифровка', payment: 'Пополнение баланса', adjustment: 'Корректировка баланса', estimatedCost: 'Примерная стоимость', pending: 'Ожидает', paid: 'Оплачено', completed: 'Готово', cancelled: 'Отменено',
-        profileTitle: 'Ваш профиль', profileBody: 'Актуальные данные помогают нам лучше поддерживать вас.', fullName: 'Имя и фамилия', email: 'Email', phone: 'Номер телефона', save: 'Сохранить', saved: 'Профиль обновлён', memberVia: 'Безопасный вход через Google',
+        profileTitle: 'Ваш профиль', profileBody: 'Актуальные данные помогают нам лучше поддерживать вас.', fullName: 'Имя и фамилия', email: 'Email', phone: 'Номер телефона', save: 'Сохранить', saved: 'Профиль обновлён', memberVia: 'Вы безопасно вошли в аккаунт Syncall',
         error: 'Что-то пошло не так. Попробуйте ещё раз.', refresh: 'Обновить', uzbek: "O'zbekcha", russian: 'Русский', free: 'Бесплатно',
     },
     uz: {
         studio: 'Ijodkor studiyasi', loginTitle: "G'oyani ovozga aylantiring.", loginBody: "Murakkab sozlamalarsiz tabiiy ovoz va aniq transkript yarating.",
-        google: 'Google orqali davom etish', secure: "Audiolaringiz faqat sizga ko'rinadi.", loading: 'Studiyangiz ochilmoqda…', setup: 'Google orqali kirish hali sozlanmagan.', loginTab: 'Kirish', registerTab: "Ro'yxatdan o'tish", signInTitle: 'Xush kelibsiz', signInBody: 'Ijodkor studiyangizda ishlashni davom ettirish uchun kiring.', registerTitle: 'Studiyangizni yarating', registerBody: 'Google orqali tez boshlang — ortiqcha shakllarsiz.', googleLogin: 'Google orqali kirish', googleRegister: "Google orqali ro'yxatdan o'tish", registrationOnly: "Ro'yxatdan o'tish faqat Google orqali mavjud.", noAccount: 'Syncallda yangimisiz?', createAccount: 'Hisob yaratish', haveAccount: 'Hisobingiz bormi?', goToLogin: 'Kirish', accountNotFound: "Bu Google pochtasi uchun hisob topilmadi. Avval ro'yxatdan o'tishni tanlang.",
+        google: 'Google orqali davom etish', secure: "Audiolaringiz faqat sizga ko'rinadi.", loading: 'Studiyangiz ochilmoqda…', setup: 'Google orqali kirish hali sozlanmagan.', loginTab: 'Kirish', registerTab: "Ro'yxatdan o'tish", signInTitle: 'Xush kelibsiz', signInBody: 'Ijodkor studiyangizda ishlashni davom ettirish uchun kiring.', registerTitle: 'Studiyangizni yarating', registerBody: 'Google orqali tez boshlang — ortiqcha shakllarsiz.', googleLogin: 'Google orqali kirish', googleRegister: "Google orqali ro'yxatdan o'tish", registrationOnly: "Ro'yxatdan o'tish faqat Google orqali mavjud.", noAccount: 'Syncallda yangimisiz?', createAccount: 'Hisob yaratish', haveAccount: 'Hisobingiz bormi?', goToLogin: 'Kirish', accountNotFound: "Bu Google pochtasi uchun hisob topilmadi. Avval ro'yxatdan o'tishni tanlang.", or: 'yoki', usePassword: 'Email va parol orqali kirish', existingAccount: 'Mavjud Syncall hisobi uchun', password: 'Parol', passwordLogin: 'Parol bilan kirish',
         home: 'Bosh sahifa', voice: 'Matndan ovoz', transcript: 'Matnga aylantirish', history: 'Loyihalarim', billing: 'Balans', profile: 'Profil', logout: 'Chiqish', menu: 'Menyuni ochish', close: 'Yopish',
         greeting: "Sizni ko'rganimizdan xursandmiz", greetingBody: 'Bugun nima yaratmoqchisiz?', available: 'Mavjud balans', topUp: "To'ldirish", recent: 'Oxirgi loyihalar', seeAll: "Barchasini ko'rish", noProjects: 'Birinchi loyihangiz shu yerda chiqadi.',
         ttsCard: 'Reels uchun ovoz', ttsCardBody: 'Matnni kiriting va tayyor ovozni yuklab oling.', sttCard: 'Audioni matnga aylantirish', sttCardBody: 'Audio yuklang yoki yozib oling va matnni nusxalang.',
@@ -118,7 +118,7 @@ const COPY = {
         transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", recordAgain: 'Qayta yozish', drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
         historyTitle: 'Loyihalaringiz', historyBody: 'Barcha ovoz va transkriptlaringiz doim yoningizda.', all: 'Barchasi', voices: 'Ovozlar', transcripts: 'Transkriptlar', delete: "O'chirish", emptyHistory: "Hozircha bo'sh. Birinchi ovoz yoki transkriptni yarating.",
         billingTitle: "Balans va to'lovlar", billingBody: "Xarajatlarni ko'ring va kerak paytda balansni to'ldiring.", currentBalance: 'Joriy balans', paymentHistory: 'Amallar', amount: "To'ldirish summasi", paymentMethod: "To'lov usuli", continuePayme: 'Payme orqali davom etish', soon: 'Tez orada', minTopup: "Eng kam to'ldirish", noTransactions: "Hozircha amallar yo'q.", usageTts: 'Ovoz yaratish', usageStt: 'Transkripsiya', payment: "Balansni to'ldirish", adjustment: 'Balans tuzatishi', estimatedCost: 'Taxminiy narx', pending: 'Kutilmoqda', paid: "To'langan", completed: 'Tayyor', cancelled: 'Bekor qilingan',
-        profileTitle: 'Profilingiz', profileBody: "Ma'lumotlaringizni yangilab turing.", fullName: "To'liq ism", email: 'Email', phone: 'Telefon raqami', save: 'Saqlash', saved: 'Profil yangilandi', memberVia: 'Google orqali xavfsiz kirish',
+        profileTitle: 'Profilingiz', profileBody: "Ma'lumotlaringizni yangilab turing.", fullName: "To'liq ism", email: 'Email', phone: 'Telefon raqami', save: 'Saqlash', saved: 'Profil yangilandi', memberVia: 'Syncall hisobingiz orqali xavfsiz kirildi',
         error: "Xatolik yuz berdi. Qayta urinib ko'ring.", refresh: 'Yangilash', uzbek: "O'zbekcha", russian: 'Русский', free: 'Bepul',
     },
 };
@@ -453,12 +453,15 @@ function GoogleButton({ onCredential, disabled, label, intent = 'login' }) {
 }
 
 function CabinetLogin() {
-    const { googleLogin } = useCabinetAuth();
+    const { googleLogin, passwordLogin } = useCabinetAuth();
     const { language, setLanguage, localePath } = useLanguage();
     const c = COPY[language];
     const [error, setError] = useState('');
     const [busy, setBusy] = useState(false);
     const [mode, setMode] = useState('login');
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [accountPassword, setAccountPassword] = useState('');
 
     const google = useCallback(async (credential) => {
         setBusy(true);
@@ -466,14 +469,30 @@ function CabinetLogin() {
         try {
             await googleLogin(credential, mode);
         } catch (reason) {
+            if (reason?.status === 409 && mode === 'login') setShowPassword(true);
             setError(reason?.status === 404 ? c.accountNotFound : reason instanceof Error ? reason.message : c.error);
         } finally {
             setBusy(false);
         }
     }, [c.accountNotFound, c.error, googleLogin, mode]);
 
+    const password = async (event) => {
+        event.preventDefault();
+        setBusy(true);
+        setError('');
+        try {
+            await passwordLogin(email, accountPassword);
+        } catch (reason) {
+            setError(reason instanceof Error ? reason.message : c.error);
+        } finally {
+            setBusy(false);
+        }
+    };
+
     const switchMode = (nextMode) => {
         setMode(nextMode);
+        setShowPassword(false);
+        setAccountPassword('');
         setError('');
     };
 
@@ -513,6 +532,16 @@ function CabinetLogin() {
                         {busy && <div className="cabinet-google-busy"><LoaderCircle className="spin" size={18} /> {c.loading}</div>}
                         <GoogleButton onCredential={google} disabled={busy} label={mode === 'login' ? c.googleLogin : c.googleRegister} intent={mode} />
                     </div>
+
+                    {mode === 'login' && <>
+                        <div className="cabinet-auth-divider"><span>{c.or}</span></div>
+                        {!showPassword ? <button type="button" className="cabinet-password-toggle" onClick={() => { setShowPassword(true); setError(''); }}><LockKeyhole size={16} /> {c.usePassword}</button> : <form className="cabinet-password-form" onSubmit={password}>
+                            <p>{c.existingAccount}</p>
+                            <label>{c.email}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" required /></label>
+                            <label>{c.password}<input type="password" value={accountPassword} onChange={(event) => setAccountPassword(event.target.value)} autoComplete="current-password" required /></label>
+                            <button type="submit" disabled={busy || !email.trim() || !accountPassword}>{busy && <LoaderCircle className="spin" size={16} />}{c.passwordLogin}</button>
+                        </form>}
+                    </>}
 
                     {mode === 'register' && <p className="cabinet-registration-note"><LockKeyhole size={15} /> {c.registrationOnly}</p>}
                     {error && <div className="cabinet-alert error">{error}</div>}
