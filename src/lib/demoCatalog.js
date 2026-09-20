@@ -1,7 +1,7 @@
-// All three cards currently reuse the existing Poytaxt public demo. Prefer its
-// identity over catalog order; a single agent also preserves the old site's
-// one-demo setup without requiring its slug to be copied into the frontend.
+// Only Poytaxt support can use live demos. Its absence means recording fallback,
+// even if the catalog contains a different enabled agent.
 export function selectScenarioDemos(catalog, scenario) {
+    if (scenario && (scenario.id !== 'support' || scenario.mode === 'recording')) return [];
     const entries = (Array.isArray(catalog) ? catalog : [])
         .filter((demo) => typeof demo?.slug === 'string' && demo.slug.trim())
         .map((demo) => ({
@@ -13,6 +13,6 @@ export function selectScenarioDemos(catalog, scenario) {
         .map((demo) => ({ ...demo, default_language: demo.allowed_languages.includes(demo.default_language) ? demo.default_language : demo.allowed_languages[0] }));
     if (!scenario) return entries;
     if (scenario.slug) return entries.filter((demo) => demo.slug === scenario.slug);
-    const parking = entries.find((demo) => /poytaxt|пойтахт|пойтакст|parking/i.test(`${demo.slug} ${demo.display_name || ''}`));
-    return parking ? [parking] : entries.length === 1 ? entries : [];
+    const parking = entries.find((demo) => /poytaxt|poytakht|пойтахт|пойтакст/i.test(`${demo.slug} ${demo.display_name || ''}`));
+    return parking ? [parking] : [];
 }

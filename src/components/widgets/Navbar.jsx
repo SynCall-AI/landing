@@ -14,6 +14,7 @@ const Navbar = () => {
     const { language, setLanguage, t, localePath, basePath } = useLanguage();
     const [languageOpen, setLanguageOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const languageRef = useRef(null);
     const [theme, setTheme] = useState(() => {
         try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
@@ -29,6 +30,13 @@ const Navbar = () => {
         { to: '/#how', label: t('navSetup') },
         { to: '/pricing', label: t('navPricing') },
     ];
+
+    useEffect(() => {
+        const updateScroll = () => setScrolled(window.scrollY > 24);
+        updateScroll();
+        window.addEventListener('scroll', updateScroll, { passive: true });
+        return () => window.removeEventListener('scroll', updateScroll);
+    }, []);
 
     useEffect(() => {
         const closeMenus = (event) => {
@@ -74,7 +82,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`nav-main${isLanding ? ' nav-landing' : ''}`}>
+        <header className={`nav-main${isLanding ? ' nav-landing' : ''}${scrolled ? ' nav-scrolled' : ''}`}>
             <Link to={localePath('/')} className="nav-logo" aria-label={`Syncall — ${t('home')}`}>
                 <img src="/Syncall.svg" alt="Syncall" width="112" height="28" />
             </Link>
@@ -106,6 +114,7 @@ const Navbar = () => {
                         {item.label}
                     </NavLink>
                 ))}
+                {isLanding && <Link className="nav-link nav-mobile-studio" to={localePath('/cabinet')} onClick={() => setMobileOpen(false)}>{t('creatorStudio')}</Link>}
             </nav>
 
             <div className="nav-actions">
@@ -158,7 +167,7 @@ const Navbar = () => {
                 </Link>
 
                 <a className="nav-contact-button" href={`${localePath('/')}#live-demo`}>
-                    {isLanding ? copy.tryAgent : t('demo')}
+                    <span className="nav-cta-full">{isLanding ? copy.tryAgent : t('demo')}</span><span className="nav-cta-short">{t('demo')}</span>
                 </a>
             </div>
         </header>

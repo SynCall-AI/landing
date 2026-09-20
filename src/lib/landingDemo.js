@@ -1,13 +1,17 @@
 // Client for the public landing-demo API (contract: LANDING_DEMO_FRONTEND_HANDOFF.md).
 //
-// Dev defaults to a local backend; production defaults to api.syncallai.com.
-// Override with VITE_API_BASE_URL. The Turnstile site key comes from
+// Development uses Vite's same-origin HTTP/WebSocket proxy so the public
+// backend does not need to allow every localhost port in CORS. Its target is
+// VITE_API_BASE_URL (or localhost:8000); production calls the configured API
+// directly, defaulting to api.syncallai.com. The Turnstile site key comes from
 // VITE_TURNSTILE_SITE_KEY; when unset the widget is skipped, which is only
 // valid against a backend with Turnstile validation disabled (local dev).
 
-export const API_BASE =
-    import.meta.env.VITE_API_BASE_URL ||
+// Also consumed by Studio; keep its existing API address independent of the
+// landing-only development proxy.
+export const API_BASE = import.meta.env.VITE_API_BASE_URL ||
     (import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.syncallai.com');
+const LANDING_DEMO_BASE = import.meta.env.DEV ? '' : API_BASE;
 
 export const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
 
@@ -28,7 +32,7 @@ export async function fetchLandingDemos() {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
     try {
-        const response = await fetch(`${API_BASE}/api/v2/public/landing-demos`, {
+        const response = await fetch(`${LANDING_DEMO_BASE}/api/v2/public/landing-demos`, {
             credentials: 'include', signal: controller.signal,
         });
         if (!response.ok) throw await apiError(response);
@@ -37,7 +41,7 @@ export async function fetchLandingDemos() {
 }
 
 export async function createLandingDemoSession(body) {
-    const response = await fetch(`${API_BASE}/api/v2/public/landing-demo-sessions`, {
+    const response = await fetch(`${LANDING_DEMO_BASE}/api/v2/public/landing-demo-sessions`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -49,7 +53,7 @@ export async function createLandingDemoSession(body) {
 
 export async function getLandingDemoSession(sessionId, token, signal) {
     const response = await fetch(
-        `${API_BASE}/api/v2/public/landing-demo-sessions/${encodeURIComponent(sessionId)}`,
+        `${LANDING_DEMO_BASE}/api/v2/public/landing-demo-sessions/${encodeURIComponent(sessionId)}`,
         {
             credentials: 'include',
             headers: { Authorization: `Bearer ${token}` },
@@ -63,7 +67,7 @@ export async function getLandingDemoSession(sessionId, token, signal) {
 // Fire-and-forget: Redis TTLs are the final cleanup mechanism.
 export function cancelLandingDemoSession(sessionId, token) {
     return fetch(
-        `${API_BASE}/api/v2/public/landing-demo-sessions/${encodeURIComponent(sessionId)}`,
+        `${LANDING_DEMO_BASE}/api/v2/public/landing-demo-sessions/${encodeURIComponent(sessionId)}`,
         {
             method: 'DELETE',
             credentials: 'include',
@@ -86,7 +90,7 @@ export function encodeCredential(value) {
 }
 
 export function buildLandingDemoWsUrl(sessionId) {
-    const url = new URL(API_BASE, window.location.origin);
+    const url = new URL(LANDING_DEMO_BASE, window.location.origin);
     url.protocol = url.protocol === 'https:' ? 'wss:' : 'ws:';
     url.pathname = `/api/v2/public/landing-demo-sessions/${encodeURIComponent(sessionId)}/ws`;
     url.search = '';

@@ -9,8 +9,8 @@ Implemented locally on 2026-09-20. Reference: https://www.retellai.com/ and the 
 - Syncall currently onboards voice and analytics clients. Future self-onboarding is not presented as available.
 - Three selectable demos: Poytaxt Parking inbound support, SyncallBank soft collection (identified as a demonstration bank), and outbound sales.
 - Phone capture before demo; then company, use case, monthly volume, and calls/minutes. The phone carries over in React memory, without local storage.
-- Browser conversation and follow-up use of the number are explained before submission. Numbers are not represented as verified.
-- Samples are identified as recordings. Existing outbound audio is a generic example, not asserted to be a verified SyncallBank or sales conversation.
+- Live demos have a short microphone notice; forms retain consent text. Numbers are not represented as verified.
+- Samples are identified as recordings. Soft Collection and sales await their own audio files; neither reuses Poytaxt or the old generic outbound recording.
 - Poytaxt's 8-in-10 resolution rate and Qwatt's 42% increase in powerbank returns in the first week came from the user. No invented outbound metric or quotation was added.
 
 ## Materials still expected
@@ -18,17 +18,18 @@ Implemented locally on 2026-09-20. Reference: https://www.retellai.com/ and the 
 - Product screenshots/recordings. The five-tab showcase currently contains labeled process illustrations.
 - Poytaxt: Bekzod's exact quote, title, portrait, and any additional name details to publish.
 - Qwatt: Amal Kamalov's exact quote, title, and portrait.
-- Measurement details can refine result copy later; current copy attributes results to the Syncall team.
+- Separate Soft Collection and sales audio files, with their recording languages.
+- Measurement details can refine result copy later; the project-results footnote was removed at the user’s request.
 
 ## Live demo wiring
 
-The public catalog at `https://api.syncallai.com/api/v2/public/landing-demos` returned `[]` during inspection. The API schema returned 401. No production calls or lead submissions were made during verification.
+The public catalog at `https://api.syncallai.com/api/v2/public/landing-demos` returned `[]` during the initial 2026-09-20 inspection. On 2026-09-21 it returned the enabled `poytakht-parking` agent with Uzbek and Russian support. The API schema returned 401. No production calls or lead submissions were made during verification.
 
-All three cards now reuse the existing Poytaxt demo, as requested. `selectScenarioDemos` finds Poytaxt/Parking by slug or display name, regardless of catalog order. A single legacy catalog entry is also accepted, preserving the original site's single-agent setup. An empty or ambiguous catalog leads to recordings. `VITE_DEMO_SHARED_SLUG` optionally pins the common agent. Future `VITE_DEMO_SUPPORT_SLUG`, `VITE_DEMO_COLLECTION_SLUG`, and `VITE_DEMO_SALES_SLUG` values override this per card. Explicit slugs never silently substitute another agent. Languages remain limited to Uzbek and Russian. Live errors offer recordings as well.
+Updated on 2026-09-21: only Poytaxt support mounts the live widget. `selectScenarioDemos` selects Poytaxt by its identity or the optional `VITE_DEMO_SUPPORT_SLUG`. Its absence selects `/poytaxt_incoming_uz.wav`, even when the catalog contains another enabled agent. Soft Collection and sales mount only a recording panel, with no catalog/session/microphone requests. Their `recording` and `recordingLanguage` fields in `src/content/landingContent.js` stay null until the user supplies the corresponding files. No shared, collection, or sales live slug overrides are used. Once audio is provided, each player captures its own scenario in the lead and carries the phone into the qualification form.
 
-The deployed production bundle uses `https://api.syncallai.com` with an empty Telegram login client ID. The local `.env` pointed to a stopped backend at port 6969 and enabled Telegram login. An ignored `.env.local` now matches the production public configuration, without changing or exposing server credentials. Verification remains conditional on `VITE_TELEGRAM_CLIENT_ID`; backend requirements are unchanged.
+The deployed production bundle uses `https://api.syncallai.com` with an empty Telegram login client ID. The local `.env` pointed to a stopped backend at port 6969 and enabled Telegram login. An ignored `.env.local` now matches the production public configuration, without changing or exposing server credentials. Telegram verification now requires both `VITE_DEMO_TELEGRAM_VERIFICATION=true` and `VITE_TELEGRAM_CLIENT_ID`; it is off by default. The backend must be configured consistently when verification is introduced later.
 
-Read-only production browser inspection confirmed that the old website also displays “Демо временно недоступно” and receives `[]` with HTTP 200. The backend catalog lists enabled public-demo configurations, so Poytaxt needs to be enabled/configured through the existing dashboard's Landing Demos screen. The new website will pick it up without another frontend slug change.
+The initial 2026-09-20 read-only production inspection found the old website displayed “Демо временно недоступно” and receives `[]` with HTTP 200. The backend catalog lists enabled public-demo configurations, so Poytaxt needs to be enabled/configured through the existing dashboard's Landing Demos screen. The new website will pick it up without another frontend slug change.
 
 ## Lead delivery
 
@@ -81,7 +82,9 @@ If configured storage fails, the handler returns an error. If storage succeeds b
 - `src/components/sections/VoiceCallWidget.jsx`: existing live transport, scenario matching, lead capture, and post-call action.
 - `api/lead.js`: validation and configurable delivery.
 
-## Verification
+## Initial verification (2026-09-20)
+
+The shared-agent behavior below was superseded by the scenario separation described above. Current validation is recorded in `docs/retell-style-refresh.md`.
 
 - `npm test`: 29 tests passed, including shared Poytaxt selection, qualified lead validation, calls/minutes handling, sanitization, receiver failure, and the actual local lead middleware with mocked delivery.
 - `npm run lint` and production build passed.

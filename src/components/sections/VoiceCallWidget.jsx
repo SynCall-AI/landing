@@ -14,9 +14,10 @@ import {
 } from '../../lib/landingDemo';
 import { DemoCallAudio } from '../../lib/landingDemoAudio';
 import { selectScenarioDemos } from '../../lib/demoCatalog';
+import { landingDemoErrorKey } from '../../lib/landingDemoErrors';
 import { landingContent } from '../../content/landingContent';
 import {
-    TELEGRAM_CLIENT_ID,
+    TELEGRAM_VERIFICATION_ENABLED,
     loginWithTelegramPhone,
     preloadTelegramLogin,
 } from '../../lib/telegramLogin';
@@ -39,16 +40,6 @@ const ORB_STATE = {
     live: 'live',
     ended: 'error',
     error: 'error',
-};
-
-const STATUS_ERROR_KEY = {
-    400: 'callWidgetErrVerify',
-    401: 'callWidgetErrTelegram',
-    403: 'callWidgetErrPhoneMismatch',
-    409: 'callWidgetErrConflict',
-    429: 'callWidgetErrLimit',
-    502: 'callWidgetErrTelegram',
-    503: 'callWidgetErrBusy',
 };
 
 const formatTime = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
@@ -216,7 +207,7 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
     // Load the official SDK before the submit gesture so its popup is not
     // delayed (and potentially blocked) while the script downloads.
     useEffect(() => {
-        if (TELEGRAM_CLIENT_ID) preloadTelegramLogin().catch(() => {});
+        if (TELEGRAM_VERIFICATION_ENABLED) preloadTelegramLogin().catch(() => {});
     }, []);
 
     // ---- Turnstile (explicit render, interaction-only) ----------------------
@@ -479,7 +470,7 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
         // Open verification while the click still has a user activation. The
         // lead request below must not delay a configured Telegram popup.
         let telegramAuth = null;
-        if (TELEGRAM_CLIENT_ID) {
+        if (TELEGRAM_VERIFICATION_ENABLED) {
             setPhaseSafe('verifying');
             try {
                 telegramAuth = await loginWithTelegramPhone(language);
@@ -535,7 +526,7 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
                 audioRef.current = null;
                 loadCatalog(); // stale catalog — demo disabled or removed
             } else {
-                failCall(STATUS_ERROR_KEY[error.status] || 'callWidgetErrGeneric');
+                failCall(landingDemoErrorKey(error));
             }
             return;
         }
@@ -669,9 +660,7 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
                 {phase === 'idle' && (
                     <form className="vcw-panel" onSubmit={handleCall}>
                         <h3 className="vcw-title">{t('callWidgetTitle')}</h3>
-                        <p className="vcw-sub">{t('callWidgetSubtitle')}</p>
-                        {scenario?.shared && <p className="vcw-browser-note">{copy.sharedDemoLabel} <strong>{selectedDemo?.display_name || 'Poytaxt Parking'}</strong></p>}
-                        {scenario && <p className="vcw-browser-note">{copy.phoneHint}</p>}
+                        <p className="vcw-sub">{!TELEGRAM_VERIFICATION_ENABLED ? copy.phoneHint : t('callWidgetSubtitle')}</p>
 
                         {demos.length > 1 && (
                             <label className="vcw-scenario-label">{t('callWidgetScenario')}
@@ -735,11 +724,11 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
                                 <path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"
                                       stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/>
                             </svg>
-                            {scenario && !TELEGRAM_CLIENT_ID ? copy.live : t(TELEGRAM_CLIENT_ID ? 'callWidgetTelegramCta' : 'callWidgetCta')}
+                            {scenario && !TELEGRAM_VERIFICATION_ENABLED ? copy.live : t(TELEGRAM_VERIFICATION_ENABLED ? 'callWidgetTelegramCta' : 'callWidgetCta')}
                         </button>
 
                         <span className="vcw-consent">
-                            {t(TELEGRAM_CLIENT_ID
+                            {t(TELEGRAM_VERIFICATION_ENABLED
                                 ? 'callWidgetTelegramConsent'
                                 : 'callWidgetConsent')}
                         </span>
@@ -794,6 +783,7 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
 
                 {phase === 'live' && (
                     <div className="vcw-panel vcw-live">
+                        {scenario && <span className="vcw-live-agent">{selectedDemo?.display_name}</span>}
                         <span className="vcw-live-status">
                             <span className="vcw-live-dot" />
                             {t('callWidgetLive')}
@@ -805,6 +795,8 @@ const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updatePar
                             className="vcw-captions"
                             ref={captionsBoxRef}
                             onScroll={onCaptionsScroll}
+                            role="log"
+                            aria-label={t('callWidgetTranscript')}
                             aria-live="polite"
                         >
                             {captions.length === 0 && (

@@ -12,7 +12,18 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), localLeadsPlugin()],
     server: {
-      allowedHosts: ["dc7a4a12e146.ngrok-free.app"]
+      allowedHosts: ["dc7a4a12e146.ngrok-free.app"],
+      proxy: {
+        // Catalog, session lifecycle, and PCM16 WebSocket use one API target.
+        '/api/v2/public/landing-demo': {
+          target: env.VITE_API_BASE_URL || 'http://localhost:8000',
+          changeOrigin: true,
+          ws: true,
+          // API session and WebSocket endpoints also check Origin (not Host).
+          // Explicit local-only setting; production still sends its real origin.
+          ...(env.LANDING_DEMO_DEV_ORIGIN ? { headers: { Origin: env.LANDING_DEMO_DEV_ORIGIN } } : {}),
+        },
+      },
     }
   };
 })

@@ -5,6 +5,9 @@
 const TELEGRAM_LOGIN_SDK_URL = 'https://oauth.telegram.org/js/telegram-login.js?3';
 
 export const TELEGRAM_CLIENT_ID = (import.meta.env.VITE_TELEGRAM_CLIENT_ID || '').trim();
+// A saved client ID alone must not turn phone verification on.
+export const TELEGRAM_VERIFICATION_ENABLED = import.meta.env.VITE_DEMO_TELEGRAM_VERIFICATION === 'true'
+    && Boolean(TELEGRAM_CLIENT_ID);
 
 let sdkPromise;
 
@@ -19,7 +22,7 @@ export class TelegramLoginError extends Error {
 }
 
 export function preloadTelegramLogin() {
-    if (!TELEGRAM_CLIENT_ID || hasTelegramLogin()) return Promise.resolve();
+    if (!TELEGRAM_VERIFICATION_ENABLED || hasTelegramLogin()) return Promise.resolve();
     if (sdkPromise) return sdkPromise;
 
     sdkPromise = new Promise((resolve, reject) => {
@@ -92,7 +95,7 @@ const openTelegramLogin = (options, callback) => {
 
 export async function loginWithTelegramPhone(language) {
     const clientId = Number(TELEGRAM_CLIENT_ID);
-    if (!Number.isSafeInteger(clientId) || clientId <= 0) {
+    if (!TELEGRAM_VERIFICATION_ENABLED || !Number.isSafeInteger(clientId) || clientId <= 0) {
         throw new TelegramLoginError('Telegram Login is not configured', 'SDK_UNAVAILABLE');
     }
 

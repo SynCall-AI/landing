@@ -4,7 +4,8 @@ import { useLanguage } from '../../context/LanguageContext.jsx';
 import './Footer.css';
 
 const Footer = () => {
-    const { language, setLanguage, t, localePath } = useLanguage();
+    const { t, localePath, basePath } = useLanguage();
+    const isLanding = basePath === '/' || basePath === '/voice-agents';
     const columns = [
         {
             title: t('footerProducts'),
@@ -40,7 +41,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="footer">
+        <footer className={`footer${isLanding ? ' footer-landing' : ''}`}>
             <div className="footer-inner">
                 <div className="footer-map">
                     <Link to={localePath('/')} className="footer-brand" aria-label="Syncall home">
@@ -56,30 +57,13 @@ const Footer = () => {
                     ))}
                 </div>
 
-                <div className="footer-utility">
-                    <div className="footer-languages" role="group" aria-label={t('languageSelectorLabel')}>
-                        {['en', 'ru', 'uz'].map((code) => (
-                            <button
-                                type="button"
-                                key={code}
-                                className={language === code ? 'active' : ''}
-                                aria-pressed={language === code}
-                                onClick={() => setLanguage(code)}
-                            >
-                                {code.toUpperCase()}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="footer-social">
-                        <a href="https://www.instagram.com/syncall.ai/" aria-label="Syncall on Instagram" target="_blank" rel="noopener noreferrer"><FaInstagram aria-hidden="true" /></a>
-                        <a href="https://www.linkedin.com/company/syncall-ai/" aria-label="Syncall on LinkedIn" target="_blank" rel="noopener noreferrer"><FaLinkedin aria-hidden="true" /></a>
-                        <a href="https://t.me/syncall_ai" aria-label="Syncall on Telegram" target="_blank" rel="noopener noreferrer"><FaTelegram aria-hidden="true" /></a>
-                    </div>
-                </div>
-
                 <div className="footer-bottom">
                     <span>© 2026 Syncall AI. {t('footerRights')}.</span>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">@syncall_ai</a>
+                    <div className="footer-social">
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><FaTelegram aria-hidden="true" /><span>Telegram</span></a>
+                        <a href="https://www.linkedin.com/company/syncall-ai/" target="_blank" rel="noopener noreferrer"><FaLinkedin aria-hidden="true" /><span>LinkedIn</span></a>
+                        <a href="https://www.instagram.com/syncall.ai/" target="_blank" rel="noopener noreferrer"><FaInstagram aria-hidden="true" /><span>Instagram</span></a>
+                    </div>
                 </div>
             </div>
         </footer>
