@@ -13,8 +13,8 @@ const Footer = () => {
                 [t('navMarketingFeatures'), '/features'],
                 [t('navAnalytics'), '/analytics'],
                 [t('navChatbots'), '/chatbots'],
-                [t('navStt'), '/stt'],
-                [t('navTts'), '/tts'],
+                [t('navStt'), '/cabinet/stt'],
+                [t('navTts'), '/cabinet/tts'],
                 [t('navIntegrations'), '/integrations'],
                 [t('navPricing'), '/pricing'],
             ],
@@ -22,6 +22,7 @@ const Footer = () => {
         {
             title: t('navUseCases'),
             links: [
+                [t('navUseCases'), '/use-cases'],
                 [t('useCaseBanking'), '/use-cases/banking'],
                 [t('useCaseDebt'), '/use-cases/debt-collection'],
                 [t('useCaseReminders'), '/use-cases/appointment-reminders'],
@@ -41,18 +42,6 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer-inner">
-                <section className="footer-cta" aria-labelledby="footer-cta-heading">
-                    <div>
-                        <h2 id="footer-cta-heading">{t('contactTitle')}</h2>
-                        <p>{t('contactSubtitle')}</p>
-                    </div>
-                    <div className="footer-cta-actions">
-                        <a className="btn-primary" href={`${localePath('/')}?intent=demo#contact`}>{t('ctaDemo')}</a>
-                        <a className="btn-secondary" href={`${localePath('/')}?intent=trial#contact`}>{t('ctaTrial')}</a>
-                        <a className="footer-telegram" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">{t('ctaTelegram')}</a>
-                    </div>
-                </section>
-
                 <div className="footer-map">
                     <Link to={localePath('/')} className="footer-brand" aria-label="Syncall home">
                         <img src="/Syncall.svg" alt="Syncall" width="112" height="28" loading="lazy" />

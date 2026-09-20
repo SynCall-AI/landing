@@ -268,3 +268,12 @@
         transition: none;
     }
 }
+
+.contact-method { border: 0; padding: 0; margin: 0; min-width: 0; }
+.contact-method legend { color: var(--text-primary); font-size: .9rem; font-weight: 600; margin-bottom: 12px; }
+.contact-method-options { display: flex; flex-wrap: wrap; gap: 24px; }
+.contact-method-options label { display: flex; align-items: center; gap: 8px; min-height: 44px; color: var(--text-primary); cursor: pointer; }
+.contact-method-options input { accent-color: var(--accent-blue); width: 18px; height: 18px; }
+.contact-optional summary { color: var(--text-secondary); cursor: pointer; padding: 12px 0; min-height: 44px; }
+.contact-optional-fields { display: grid; gap: 24px; padding-top: 16px; }
+.contact-optional summary:focus-visible, .contact-method-options input:focus-visible { outline: 3px solid var(--accent-blue-light); outline-offset: 3px; }

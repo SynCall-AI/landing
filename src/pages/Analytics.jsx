@@ -1,5 +1,6 @@
 import "./Analytics.css";
 import { useLanguage } from '../context/LanguageContext';
+import TrustSection from '../components/sections/TrustSection.jsx';
 import ProductsNav from "../components/sections/ProductsNav.jsx";
 import ProductHero from "../components/sections/ProductHero.jsx";
 import {
@@ -42,9 +43,12 @@ const Analytics = () => {
                 title={t('anHeroTitle')}
                 subtitle={t('anHeroSubtitle')}
                 primaryCta={t('anHeroCta')}
+                primaryHref={`${localePath('/')}?intent=trial&product=analytics#contact`}
                 secondaryCta={t('anHeroCta2')}
+                secondaryHref="#example-report"
             >
-                <div className="an-hero-card">
+                <div className="an-hero-card" id="example-report" tabIndex="-1">
+                    <p className="an-example-label">{t('analyticsExample')}</p>
                     <div className="an-hc-head">
                         <span className="an-hc-dot" />
                         <span className="an-hc-title">{t('anScoreCardTitle')}</span>
@@ -70,31 +74,13 @@ const Analytics = () => {
 
             <ProductsNav active="analytics" />
 
-            {/* Stats band */}
-            <section className="an-stats">
-                <div className="an-stats-inner">
-                    <div className="an-stat">
-                        <span className="an-stat-val">100%</span>
-                        <span className="an-stat-label">{t('anStat1')}</span>
-                    </div>
-                    <div className="an-stat">
-                        <span className="an-stat-val">−65%</span>
-                        <span className="an-stat-label">{t('anStat2')}</span>
-                    </div>
-                    <div className="an-stat">
-                        <span className="an-stat-val">RU·UZ·EN</span>
-                        <span className="an-stat-label">{t('anStat3')}</span>
-                    </div>
-                </div>
-            </section>
-
             {/* Problem: you only hear 3-5% */}
             <section className="an-section">
                 <div className="an-container">
                     <div className="an-head">
                         <span className="section-label">{t('anProblemLabel')}</span>
                         <h2 className="an-h2">
-                            {t('anProblemTitlePre')} <span className="an-accent">3–5%</span> {t('anProblemTitlePost')}
+                            {t('anProblemTitlePre')} {t('anProblemTitlePost')}
                         </h2>
                     </div>
                     <div className="an-problem-grid">
@@ -135,29 +121,7 @@ const Analytics = () => {
                 </div>
             </section>
 
-            {/* Results */}
-            <section className="an-section">
-                <div className="an-container">
-                    <div className="an-head">
-                        <span className="section-label">{t('anResultsLabel')}</span>
-                        <h2 className="an-h2">{t('anResultsTitle')}</h2>
-                    </div>
-                    <div className="an-results">
-                        <div className="an-result-card">
-                            <span className="an-result-val">+24</span>
-                            <span className="an-result-label">{t('anResult1')}</span>
-                        </div>
-                        <div className="an-result-card">
-                            <span className="an-result-val">−38%</span>
-                            <span className="an-result-label">{t('anResult2')}</span>
-                        </div>
-                        <div className="an-result-card">
-                            <span className="an-result-val">×20</span>
-                            <span className="an-result-label">{t('anResult3')}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <TrustSection product="analytics" />
 
             {/* Deployment — on-premise available */}
             <section className="an-section">
@@ -182,7 +146,7 @@ const Analytics = () => {
                 <div className="an-cta-inner">
                     <h2>{t('anCtaTitle')}</h2>
                     <p>{t('anCtaSubtitle')}</p>
-                    <a className="btn-primary an-cta-btn" href={`${localePath('/')}?intent=trial#contact`}>
+                    <a className="btn-primary an-cta-btn" href={`${localePath('/')}?intent=trial&product=analytics#contact`}>
                         {t('anHeroCta')} <span aria-hidden="true">→</span>
                     </a>
                 </div>

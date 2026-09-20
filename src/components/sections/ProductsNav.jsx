@@ -1,104 +1,45 @@
+import { createElement } from 'react';
 import { Link } from 'react-router-dom';
-import "./ProductsNav.css";
+import './ProductsNav.css';
 import { useLanguage } from '../../context/LanguageContext';
-import { FaHeadset, FaChartLine, FaComments, FaWaveSquare, FaMicrophoneLines } from 'react-icons/fa6';
+import { FaHeadset, FaChartLine, FaComments } from 'react-icons/fa6';
 
-// Shared product navigator. Rendered on the home page (under the hero) and at
-// the top of every product page so the four products are always one click apart.
-// `active` highlights the current product: 'voice' | 'analytics' | 'stt' | 'tts'.
 const PRODUCTS = [
-    {
-        key: 'voice',
-        to: '/',
-        icon: FaHeadset,
-        kind: 'product',
-        nameKey: 'pnVoiceName',
-        descKey: 'pnVoiceDesc',
-        statKey: 'pnVoiceStat',
-    },
-    {
-        key: 'analytics',
-        to: '/analytics',
-        icon: FaChartLine,
-        kind: 'product',
-        nameKey: 'pnAnalyticsName',
-        descKey: 'pnAnalyticsDesc',
-        statKey: 'pnAnalyticsStat',
-    },
-    {
-        key: 'chatbots',
-        to: '/chatbots',
-        icon: FaComments,
-        kind: 'product',
-        nameKey: 'pnChatbotsName',
-        descKey: 'pnChatbotsDesc',
-        statKey: 'pnChatbotsStat',
-    },
-    {
-        key: 'stt',
-        to: '/stt',
-        icon: FaWaveSquare,
-        kind: 'api',
-        nameKey: 'pnSttName',
-        descKey: 'pnSttDesc',
-        statKey: 'pnSttStat',
-    },
-    {
-        key: 'tts',
-        to: '/tts',
-        icon: FaMicrophoneLines,
-        kind: 'api',
-        nameKey: 'pnTtsName',
-        descKey: 'pnTtsDesc',
-        statKey: 'pnTtsStat',
-    },
+    { key: 'voice', to: '/', icon: FaHeadset, name: 'pnVoiceName', description: 'pnVoiceDesc' },
+    { key: 'analytics', to: '/analytics', icon: FaChartLine, name: 'pnAnalyticsName', description: 'pnAnalyticsDesc' },
+    { key: 'chatbots', to: '/chatbots', icon: FaComments, name: 'pnChatbotsName', description: 'pnChatbotsDesc' },
 ];
 
-const ProductsNav = ({ active }) => {
+const ProductsNav = ({ active, home = false }) => {
     const { t, localePath } = useLanguage();
-
     return (
-        <section id="products" className="pnav-section">
+        <section id="products" className="pnav-section" aria-labelledby="products-heading">
             <div className="pnav-container">
                 <div className="pnav-header">
-                    <span className="section-label">{t('pnLabel')}</span>
-                    <h2 className="pnav-title">{t('pnTitle')}</h2>
-                    <p className="pnav-subtitle">{t('pnSubtitle')}</p>
+                                        <h2 id="products-heading" className="pnav-title">{t(home ? 'pnHomeTitle' : 'pnTitle')}</h2>
                 </div>
-
-                <div className="pnav-grid">
-                    {PRODUCTS.map((p) => {
-                        const Icon = p.icon;
-                        const isActive = active === p.key;
-                        return (
-                            <Link
-                                key={p.key}
-                                to={localePath(p.to)}
-                                className={`pnav-card ${isActive ? 'active' : ''}`}
-                            >
-                                <div className="pnav-card-top">
-                                    <span className="pnav-card-icon">
-                                        <Icon />
-                                    </span>
-                                    <span className={`pnav-card-kind ${p.kind}`}>
-                                        {p.kind === 'api' ? t('pnKindApi') : t('pnKindProduct')}
-                                    </span>
-                                </div>
-                                <h3 className="pnav-card-name">{t(p.nameKey)}</h3>
-                                <p className="pnav-card-desc">{t(p.descKey)}</p>
-                                <div className="pnav-card-foot">
-                                    <span className="pnav-card-stat">{t(p.statKey)}</span>
-                                    <span className="pnav-card-arrow" aria-hidden="true">
-                                        {isActive ? t('pnYouAreHere') : '→'}
-                                    </span>
-                                </div>
-                            </Link>
-                        );
-                    })}
+                <div className={`pnav-grid ${home ? 'pnav-grid-pair' : ''}`}>
+                    {PRODUCTS.filter((item) => !home || item.key !== 'voice').map(({ key, to, icon: Icon, name, description }) => (
+                        <Link key={key} to={localePath(to)} className={`pnav-card ${active === key ? 'active' : ''}`} aria-current={active === key ? 'page' : undefined}>
+                            <span className="pnav-card-icon">{createElement(Icon, { 'aria-hidden': true })}</span>
+                            <h3 className="pnav-card-name">{t(name)}</h3>
+                            <p className="pnav-card-desc">{t(description)}</p>
+                            <span className="pnav-card-foot">{t(active === key ? 'pnYouAreHere' : 'viewSolution')}</span>
+                        </Link>
+                    ))}
                 </div>
+                <aside className="studio-strip" aria-labelledby="studio-strip-heading">
+                    <div>
+                        <h3 id="studio-strip-heading">{t('studioStripTitle')}</h3>
+                        <p>{t('studioStripBody')}</p>
+                    </div>
+                    <div className="studio-strip-links">
+                        <Link to={localePath('/cabinet/stt')}>{t('studioStt')}</Link>
+                        <Link to={localePath('/cabinet/tts')}>{t('studioTts')}</Link>
+                    </div>
+                </aside>
             </div>
         </section>
     );
 };
-
 export default ProductsNav;

@@ -13,6 +13,8 @@ import {
     isFakeUzNumber,
 } from '../../lib/landingDemo';
 import { DemoCallAudio } from '../../lib/landingDemoAudio';
+import { selectScenarioDemos } from '../../lib/demoCatalog';
+import { landingContent } from '../../content/landingContent';
 import {
     TELEGRAM_CLIENT_ID,
     loginWithTelegramPhone,
@@ -57,13 +59,13 @@ const LANGUAGE_LABELS = { uz: "O'zbekcha", ru: 'Русский', en: 'English' }
 const pickLanguage = (demo) =>
     demo?.default_language || (demo?.allowed_languages?.includes('uz') ? 'uz' : '');
 
-const VoiceCallWidget = () => {
+const VoiceCallWidget = ({ scenario, initialPhone = '', onPhoneChange: updateParentPhone, onLeadCaptured, onComplete, fallback }) => {
     const { t, language } = useLanguage();
     const [phase, setPhase] = useState('loading');
     const [demos, setDemos] = useState([]);
     const [demoSlug, setDemoSlug] = useState('');
     const [callLang, setCallLang] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState(initialPhone.replace(/^\+998/, ''));
     const [err, setErr] = useState('');
     const [errKey, setErrKey] = useState('');
     const [queuePos, setQueuePos] = useState(null);
@@ -71,7 +73,7 @@ const VoiceCallWidget = () => {
     const [elapsed, setElapsed] = useState(0);
     const [muted, setMuted] = useState(false);
 
-    const phaseRef = useRef('loading');
+    const phaseRef = useRef(phase);
     const attemptRef = useRef(0);
     const sessionRef = useRef(null); // { id, token } — memory only, never stored/logged
     const wsRef = useRef(null);
@@ -90,6 +92,9 @@ const VoiceCallWidget = () => {
     const tsContainerRef = useRef(null);
     const tsWidgetIdRef = useRef(undefined);
     const tsTokenRef = useRef(null);
+    const callbackRef = useRef({ onLeadCaptured, onComplete });
+    callbackRef.current = { onLeadCaptured, onComplete };
+    const copy = landingContent[language] || landingContent.ru;
 
     const setPhaseSafe = (p) => {
         phaseRef.current = p;
@@ -189,10 +194,11 @@ const VoiceCallWidget = () => {
         fetchLandingDemos()
             .then((list) => {
                 if (attemptRef.current !== attempt) return;
-                setDemos(list);
-                if (list.length) {
-                    setDemoSlug(list[0].slug);
-                    setCallLang(pickLanguage(list[0]));
+                const available = selectScenarioDemos(list, scenario);
+                setDemos(available);
+                if (available.length) {
+                    setDemoSlug(available[0].slug);
+                    setCallLang(available[0].allowed_languages.includes(languageRef.current) ? languageRef.current : pickLanguage(available[0]));
                     setPhaseSafe('idle');
                 } else {
                     setPhaseSafe('unavailable');
@@ -201,7 +207,7 @@ const VoiceCallWidget = () => {
             .catch(() => {
                 if (attemptRef.current === attempt) setPhaseSafe('unavailable');
             });
-    }, []);
+    }, [scenario]);
 
     useEffect(() => {
         loadCatalog();
@@ -360,6 +366,7 @@ const VoiceCallWidget = () => {
             if (hangupRef.current || phaseRef.current === 'live') {
                 notifyCallEnded();
                 setPhaseSafe('ended');
+                callbackRef.current.onComplete?.();
             } else {
                 setErrKey(
                     event.code === 1008 ? 'callWidgetErrWindowExpired' : 'callWidgetErrGeneric',
@@ -457,6 +464,7 @@ const VoiceCallWidget = () => {
         hangupRef.current = false;
 
         const demo = demos.find((d) => d.slug === demoSlug) || demos[0];
+        if (!demo) { setPhaseSafe('unavailable'); return; }
         const demoLanguage = demo.allowed_languages.includes(callLang)
             ? callLang
             : pickLanguage(demo);
@@ -468,6 +476,8 @@ const VoiceCallWidget = () => {
         audioRef.current = audio;
 
         const attempt = ++attemptRef.current;
+        // Open verification while the click still has a user activation. The
+        // lead request below must not delay a configured Telegram popup.
         let telegramAuth = null;
         if (TELEGRAM_CLIENT_ID) {
             setPhaseSafe('verifying');
@@ -483,7 +493,20 @@ const VoiceCallWidget = () => {
             }
             if (attemptRef.current !== attempt) return;
         }
-
+        if (callbackRef.current.onLeadCaptured) {
+            setPhaseSafe('creating');
+            try {
+                await callbackRef.current.onLeadCaptured(fullPhone, 'live');
+            } catch {
+                if (attemptRef.current !== attempt) return;
+                audio.close();
+                audioRef.current = null;
+                setErr(copy.saveError);
+                setPhaseSafe('idle');
+                return;
+            }
+            if (attemptRef.current !== attempt) return;
+        }
         setPhaseSafe('creating');
         let session;
         try {
@@ -503,9 +526,13 @@ const VoiceCallWidget = () => {
             resetTurnstile(); // validation may have consumed the token even on failure
             if (attemptRef.current !== attempt) return;
             if (error.status === 422) {
+                audio.close();
+                audioRef.current = null;
                 setErr(t('callWidgetInvalidPhone'));
                 setPhaseSafe('idle');
             } else if (error.status === 404) {
+                audio.close();
+                audioRef.current = null;
                 loadCatalog(); // stale catalog — demo disabled or removed
             } else {
                 failCall(STATUS_ERROR_KEY[error.status] || 'callWidgetErrGeneric');
@@ -518,7 +545,7 @@ const VoiceCallWidget = () => {
             return;
         }
         // Keep the existing Telegram lead pipeline in parallel with the demo call.
-        submitLead({ phone: fullPhone, language, source: 'hero_call_widget' }).catch(() => {});
+        if (!callbackRef.current.onLeadCaptured) submitLead({ phone: fullPhone, language, source: 'hero_call_widget' }).catch(() => {});
         callPhoneRef.current = fullPhone; // for the "call ended" notification
         sessionRef.current = { id: session.session_id, token: session.token };
         if (session.state === 'ready') {
@@ -590,11 +617,14 @@ const VoiceCallWidget = () => {
                 .filter(Boolean)
                 .join(' '),
         );
+        updateParentPhone?.(digits ? `+998${digits}` : '');
         if (err) setErr('');
     };
 
     const selectedDemo = demos.find((d) => d.slug === demoSlug);
     const maxDuration = selectedDemo?.max_duration_seconds;
+
+    if (phase === 'unavailable' && fallback) return fallback;
 
     return (
         <div className="vcw" data-state={ORB_STATE[phase]}>
@@ -614,7 +644,9 @@ const VoiceCallWidget = () => {
             <div className="vcw-body">
                 {phase === 'loading' && (
                     <div className="vcw-panel vcw-dialing">
-                        <span className="vcw-dialing-status">
+                        <h3 className="vcw-title">{t('callWidgetTitle')}</h3>
+                        <p className="vcw-sub">{t('callWidgetLoading')}</p>
+                        <span className="vcw-dialing-status" role="status" aria-label={t('loading')}>
                             <span className="vcw-dots"><i /><i /><i /></span>
                         </span>
                     </div>
@@ -638,8 +670,11 @@ const VoiceCallWidget = () => {
                     <form className="vcw-panel" onSubmit={handleCall}>
                         <h3 className="vcw-title">{t('callWidgetTitle')}</h3>
                         <p className="vcw-sub">{t('callWidgetSubtitle')}</p>
+                        {scenario?.shared && <p className="vcw-browser-note">{copy.sharedDemoLabel} <strong>{selectedDemo?.display_name || 'Poytaxt Parking'}</strong></p>}
+                        {scenario && <p className="vcw-browser-note">{copy.phoneHint}</p>}
 
                         {demos.length > 1 && (
+                            <label className="vcw-scenario-label">{t('callWidgetScenario')}
                             <select
                                 className="vcw-select"
                                 value={demoSlug}
@@ -653,12 +688,13 @@ const VoiceCallWidget = () => {
                                             : pickLanguage(next),
                                     );
                                 }}
-                                aria-label="Demo agent"
+                                aria-label={t('callWidgetScenario')}
                             >
                                 {demos.map((d) => (
                                     <option key={d.slug} value={d.slug}>{d.display_name}</option>
                                 ))}
                             </select>
+                            </label>
                         )}
 
                         {selectedDemo?.allowed_languages?.length > 1 && (
@@ -699,7 +735,7 @@ const VoiceCallWidget = () => {
                                 <path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"
                                       stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/>
                             </svg>
-                            {t(TELEGRAM_CLIENT_ID ? 'callWidgetTelegramCta' : 'callWidgetCta')}
+                            {scenario && !TELEGRAM_CLIENT_ID ? copy.live : t(TELEGRAM_CLIENT_ID ? 'callWidgetTelegramCta' : 'callWidgetCta')}
                         </button>
 
                         <span className="vcw-consent">
@@ -815,12 +851,12 @@ const VoiceCallWidget = () => {
                     <div className="vcw-panel vcw-error">
                         <h3 className="vcw-title">{t('callWidgetEndedTitle')}</h3>
                         <p className="vcw-sub">{t('callWidgetEndedSub')}</p>
-                        <button className="vcw-cta" onClick={goToDemo}>
+                        {scenario ? <a className="vcw-cta" href="#contact">{copy.talkTeam}</a> : <button className="vcw-cta" onClick={goToDemo}>
                             <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
                                 <path d="M8 5v14l11-7-11-7z" fill="currentColor"/>
                             </svg>
                             {t('callWidgetDemoCta')}
-                        </button>
+                        </button>}
                         <button className="vcw-retry" onClick={resetToIdle}>{t('callWidgetRetry')}</button>
                     </div>
                 )}
@@ -830,7 +866,7 @@ const VoiceCallWidget = () => {
                         <h3 className="vcw-title">{t('callWidgetErrorTitle')}</h3>
                         <p className="vcw-sub">{t(errKey || 'callWidgetErrGeneric')}</p>
                         <button className="vcw-cta" onClick={resetToIdle}>{t('callWidgetRetry')}</button>
-                        <button className="vcw-retry" onClick={goToDemo}>{t('callWidgetDemoCta')}</button>
+                        <button className="vcw-retry" onClick={fallback ? () => setPhaseSafe('unavailable') : goToDemo}>{t('callWidgetDemoCta')}</button>
                     </div>
                 )}
 

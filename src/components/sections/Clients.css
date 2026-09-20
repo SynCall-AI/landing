@@ -1,139 +1,24 @@
 .partners-section {
-    background: var(--bg-primary);
+    background: #fff;
     padding: 60px 20px;
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    border-top: 1px solid #e9e9ee;
+    border-bottom: 1px solid #e9e9ee;
 }
 
-.partners-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.partners-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 36px;
-    font-weight: 500;
-}
-
+.partners-container { max-width: 1050px; margin: 0 auto; text-align: center; }
+.partners-label { font-size: 13px; color: #73737e; letter-spacing: 1px; margin-bottom: 24px; }
 .partners-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    column-gap: clamp(24px, 3vw, 40px);
-    row-gap: 28px;
+    gap: 12px 28px;
     list-style: none;
     margin: 0;
     padding: 0;
 }
+.partner-item { min-width: 0; }
 
-/* Keeps the client name in the DOM for crawlers and screen readers
-   while the visual identity stays the CSS-mask logo. */
-.partner-name-sr {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-}
-
-.partner-item {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 42px;
-}
-
-.partner-logo {
-    display: block;
-    height: var(--partner-logo-height, 36px);
-    width: var(--partner-logo-width, 110px);
-    background: rgba(255, 255, 255, 0.86);
-    -webkit-mask-image: var(--partner-logo);
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    -webkit-mask-size: var(--partner-logo-mask-size, contain);
-    mask-image: var(--partner-logo);
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: var(--partner-logo-mask-size, contain);
-    opacity: 0.85;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-:root[data-theme='light'] .partner-logo {
-    background: #0f172a;
-}
-
-.partner-item:hover .partner-logo {
-    opacity: 1;
-}
-
-.partner-item.partner-more {
-    border: 1px dashed var(--border-subtle);
-    border-radius: 100px;
-    height: 36px;
-    padding: 0 20px;
-    background: transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-sizing: border-box;
-    cursor: default;
-}
-
-:root[data-theme='light'] .partner-item.partner-more {
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-.partner-item.partner-more:hover {
-    border-color: var(--accent-blue);
-    background: rgba(0, 150, 169, 0.04);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 150, 169, 0.12);
-}
-
-.partner-name {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 1.5px;
-    white-space: nowrap;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    text-transform: uppercase;
-}
-
-.partner-item.partner-more:hover .partner-name {
-    color: var(--accent-blue);
-    letter-spacing: 2px;
-}
-
-@media (max-width: 1100px) {
-    .partners-grid {
-        flex-wrap: wrap;
-    }
-}
-
-@media (max-width: 768px) {
-    .partners-section {
-        padding: 40px 20px;
-    }
-
-    .partners-grid {
-        column-gap: 30px;
-        row-gap: 22px;
-    }
-
-    .partner-item {
-        flex: 0 0 auto;
-    }
-
-    .partner-name {
-        font-size: 0.75rem;
-    }
+@media (max-width: 760px) {
+    .partners-section { padding: 40px 20px; }
+    .partners-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; }
 }

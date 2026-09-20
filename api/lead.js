@@ -5,7 +5,7 @@
 // configured Telegram chat.
 
 const ALLOWED_LANGUAGES = new Set(['uz', 'ru', 'en']);
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { normalizeUzPhone, validateBusinessLead, validateContactLead } from '../src/lib/leadValidation.js';
 const MAX_BODY_LENGTH = 12_000;
 
 const escapeHtml = (value) => String(value)
@@ -97,6 +97,8 @@ export default async function handler(req, res) {
 
     const source = sanitizeText(body.source || 'website', 64);
     const isContactForm = source === 'contact_form';
+    const isBusinessRequest = source === 'business_request';
+    const isDemo = source === 'landing_demo';
     const phone = sanitizePhone(body.phone);
     const language = sanitizeText(body.language, 8).toLowerCase();
     const intent = sanitizeText(body.intent, 40);
@@ -106,39 +108,77 @@ export default async function handler(req, res) {
     const monthlyCallVolume = sanitizeText(body.monthlyCallVolume, 16);
     const languages = sanitizeLanguages(body.languages);
     const message = sanitizeText(body.message, 1500, { multiline: true });
+    const useCase = sanitizeText(body.useCase, 1000, { multiline: true });
+    const monthlyVolume = sanitizeText(body.monthlyVolume, 16);
+    const volumeUnit = sanitizeText(body.volumeUnit, 16);
+    const scenario = sanitizeText(body.scenario, 64);
+    const demoMode = sanitizeText(body.demoMode, 16);
 
-    if (phone.replace(/\D/g, '').length < 7) {
+    if (!isContactForm && phone.replace(/\D/g, '').length < 7) {
         return errorResponse(res, 400, 'INVALID_INPUT', 'Valid phone required');
     }
 
+    const contactMethod = sanitizeText(body.contactMethod, 16) || (phone ? 'phone' : 'email');
+    const product = sanitizeText(body.product, 32);
     if (isContactForm) {
-        if (!name || !company || !EMAIL_PATTERN.test(email)) {
-            return errorResponse(res, 400, 'INVALID_INPUT', 'Required contact details are invalid');
+        const errors = validateContactLead({ name, company, email, phone, contactMethod, product, monthlyCallVolume });
+        if (Object.keys(errors).length) {
+            return errorResponse(res, 400, 'INVALID_INPUT', 'Contact details are invalid');
         }
-        const volume = Number(monthlyCallVolume);
-        if (!/^\d{1,10}$/.test(monthlyCallVolume)
-            || !Number.isSafeInteger(volume)
-            || volume < 1
-            || volume > 1_000_000_000
-            || languages.length === 0) {
-            return errorResponse(res, 400, 'INVALID_INPUT', 'Volume and languages are required');
-        }
+    }
+    if (isBusinessRequest && Object.keys(validateBusinessLead({ phone, company, useCase, monthlyVolume, volumeUnit })).length) {
+        return errorResponse(res, 400, 'INVALID_INPUT', 'Business details are invalid');
+    }
+    if (isDemo && (!normalizeUzPhone(phone) || !['support', 'collection', 'sales'].includes(scenario) || !['live', 'recording'].includes(demoMode))) {
+        return errorResponse(res, 400, 'INVALID_INPUT', 'Demo details are invalid');
     }
 
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
-    if (!token || !chatId) {
+    // Optional server-side lead receiver. Set the URL only once the receiving
+    // service's schema is confirmed; no CRM credentials reach the browser.
+    const leadsUrl = process.env.LEADS_API_URL;
+    if (!leadsUrl && (!token || !chatId)) {
         return errorResponse(res, 503, 'NOT_CONFIGURED', 'Lead destination is not configured');
     }
 
     const isCallEnded = body.event === 'call_ended';
     const duration = Math.max(0, Math.min(3600, Math.round(Number(body.durationSec) || 0)));
     const durationLabel = `${Math.floor(duration / 60)}:${String(duration % 60).padStart(2, '0')}`;
+    let storedInLeads = false;
+    if (leadsUrl) {
+        try {
+            const leadResponse = await fetch(leadsUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(process.env.LEADS_API_TOKEN ? { Authorization: `Bearer ${process.env.LEADS_API_TOKEN}` } : {}),
+                },
+                body: JSON.stringify({
+                    source, phone: isDemo || isBusinessRequest ? normalizeUzPhone(phone) : phone,
+                    name, company, email, language, intent, product, contactMethod,
+                    useCase, monthlyVolume: monthlyVolume ? Number(monthlyVolume) : null,
+                    volumeUnit, monthlyCallVolume, languages, message, scenario, demoMode,
+                    event: sanitizeText(body.event, 40), durationSec: isCallEnded ? duration : null,
+                    phoneVerified: false, receivedAt: new Date().toISOString(),
+                }),
+                signal: AbortSignal.timeout(8000),
+            });
+            const acknowledgement = await leadResponse.json().catch(() => ({}));
+            if (!leadResponse.ok || acknowledgement.ok === false) {
+                return errorResponse(res, 502, 'DELIVERY_FAILED', 'Lead storage failed');
+            }
+            storedInLeads = true;
+        } catch {
+            return errorResponse(res, 502, 'DELIVERY_FAILED', 'Lead storage unavailable');
+        }
+    }
+    if (!token || !chatId) return res.status(200).json({ ok: true });
 
     const lines = [
         isCallEnded
             ? '✅ <b>Демо-звонок завершён</b> / Demo call ended'
-            : isContactForm
+            : isContactForm || isBusinessRequest
                 ? '🔔 <b>New demo/contact request</b>'
                 : '🔔 <b>Новый лид!</b> / New callback lead',
         '',
@@ -148,21 +188,30 @@ export default async function handler(req, res) {
         lines.push(
             `👤 <b>Name:</b> ${escapeHtml(name)}`,
             `🏢 <b>Company:</b> ${escapeHtml(company)}`,
-            `✉️ <b>Email:</b> ${escapeHtml(email)}`,
+
         );
     }
+    if (isBusinessRequest) {
+        lines.push(`🏢 <b>Company:</b> ${escapeHtml(company)}`);
+        lines.push(`🎯 <b>Use case:</b> ${escapeHtml(useCase)}`);
+        lines.push(`📊 <b>Monthly ${volumeUnit}:</b> ${escapeHtml(monthlyVolume)}`);
+    }
+    if (isDemo) {
+        lines.push(`🎯 <b>Scenario:</b> ${escapeHtml(scenario)}`);
+        lines.push(`▶️ <b>Demo:</b> ${escapeHtml(demoMode)}`);
+    }
 
-    lines.push(`📞 <b>Phone:</b> ${escapeHtml(phone)}`);
+    if (email && (!isContactForm || contactMethod === 'email')) lines.push(`✉️ <b>Email:</b> ${escapeHtml(email)}`);
+    if (phone && (!isContactForm || contactMethod === 'phone')) lines.push(`📞 <b>Phone:</b> ${escapeHtml(phone)}`);
 
     if (isCallEnded) {
         lines.push(`⏱ <b>Duration:</b> ${escapeHtml(durationLabel)}`);
     }
 
     if (isContactForm) {
-        lines.push(
-            `📊 <b>Monthly calls:</b> ${escapeHtml(monthlyCallVolume)}`,
-            `🌐 <b>Languages:</b> ${escapeHtml(languages.join(', ').toUpperCase())}`,
-        );
+        if (product) lines.push(`🧩 <b>Product:</b> ${escapeHtml(product)}`);
+        if (monthlyCallVolume) lines.push(`📊 <b>Monthly calls:</b> ${escapeHtml(monthlyCallVolume)}`);
+        if (languages.length) lines.push(`🌐 <b>Languages:</b> ${escapeHtml(languages.join(', ').toUpperCase())}`);
         if (intent) lines.push(`🧭 <b>Intent:</b> ${escapeHtml(intent)}`);
         if (message) lines.push(`💬 <b>Message:</b>\n${escapeHtml(message)}`);
     } else if (language) {
@@ -184,17 +233,19 @@ export default async function handler(req, res) {
                 parse_mode: 'HTML',
                 disable_web_page_preview: true,
             }),
+            signal: AbortSignal.timeout(8000),
         });
 
         if (!telegramResponse.ok) {
-            const detail = await telegramResponse.text().catch(() => '');
-            console.error('[lead] Telegram send failed:', telegramResponse.status, detail);
+            console.error('[lead] Telegram send failed:', telegramResponse.status);
+            if (storedInLeads) return res.status(200).json({ ok: true });
             return errorResponse(res, 502, 'DELIVERY_FAILED', 'Notification failed');
         }
 
         return res.status(200).json({ ok: true });
-    } catch (error) {
-        console.error('[lead] Telegram request error:', error?.message || error);
+    } catch {
+        console.error('[lead] Telegram request failed');
+        if (storedInLeads) return res.status(200).json({ ok: true });
         return errorResponse(res, 502, 'DELIVERY_FAILED', 'Notification failed');
     }
 }

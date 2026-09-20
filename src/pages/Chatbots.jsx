@@ -25,9 +25,12 @@ const Chatbots = () => {
                 title={t('cbHeroTitle')}
                 subtitle={t('cbHeroSubtitle')}
                 primaryCta={t('cbHeroCta')}
+                primaryHref={`${localePath('/')}?intent=trial&product=chatbots#contact`}
                 secondaryCta={t('cbHeroCta2')}
+                secondaryHref="#chatbot-capabilities"
             >
                 <div className="cb-chat">
+                    <p className="cb-example-label">{t('chatbotExample')}</p>
                     <div className="cb-chat-head">
                         <span className="cb-chat-avatar">AI</span>
                         <div className="cb-chat-id">
@@ -52,15 +55,6 @@ const Chatbots = () => {
             </ProductHero>
 
             <ProductsNav active="chatbots" />
-
-            <section className="prod-specs">
-                <div className="prod-specs-inner">
-                    <div className="prod-spec"><span className="prod-spec-val">On-Prem</span><span className="prod-spec-label">{t('cbSpec1')}</span></div>
-                    <div className="prod-spec"><span className="prod-spec-val">0</span><span className="prod-spec-label">{t('cbSpec2')}</span></div>
-                    <div className="prod-spec"><span className="prod-spec-val">UZ·RU·EN</span><span className="prod-spec-label">{t('cbSpec3')}</span></div>
-                    <div className="prod-spec"><span className="prod-spec-val">24/7</span><span className="prod-spec-label">{t('cbSpec4')}</span></div>
-                </div>
-            </section>
 
             {/* Why on-premise — the core differentiator */}
             <section className="prod-section">
@@ -94,7 +88,7 @@ const Chatbots = () => {
             </section>
 
             {/* Capabilities */}
-            <section className="prod-section prod-section-alt">
+            <section id="chatbot-capabilities" tabIndex="-1" className="prod-section prod-section-alt">
                 <div className="prod-container">
                     <div className="prod-head">
                         <span className="section-label">{t('cbCapsLabel')}</span>

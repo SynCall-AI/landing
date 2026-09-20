@@ -179,7 +179,7 @@ export async function submitLead(lead) {
     }
 
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || data.ok === false) {
+    if (!res.ok || data.ok !== true) {
         throw new LeadSubmissionError(data.error || `Lead request failed: ${res.status}`, {
             status: res.status,
             code: data.code || 'DELIVERY_FAILED',

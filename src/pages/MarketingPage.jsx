@@ -5,6 +5,8 @@ import {
     withLocalePath,
 } from '../content/marketingContent.js';
 import './MarketingPage.css';
+import TrustSection from '../components/sections/TrustSection.jsx';
+import Calllog from '../components/sections/Calllog.jsx';
 
 function externalLinkProps(href) {
     return /^https?:\/\//.test(href)
@@ -63,6 +65,8 @@ const MarketingPage = ({
                 </div>
             </header>
 
+            {resolved.path === 'case-studies' && <><TrustSection /><Calllog /></>}
+
             {page.sections.map((section, sectionIndex) => {
                 const headingId = `marketing-section-${sectionIndex}`;
                 return (
@@ -88,7 +92,7 @@ const MarketingPage = ({
                                             className="marketing-card"
                                             key={`${headingId}-item-${itemIndex}`}
                                         >
-                                            <h3>{item.title}</h3>
+                                            <h3>{item.href ? <Link to={withLocalePath(item.href, resolved.locale)}>{item.title} <span aria-hidden="true">→</span></Link> : item.title}</h3>
                                             <p>{item.text}</p>
                                         </article>
                                     ))}

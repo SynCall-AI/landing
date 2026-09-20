@@ -1,60 +1,12 @@
-.how-main {
-    min-height: 100vh;
-    width: 100%;
-    background: var(--bg-primary);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 24px;
-}
-
-.how-main h2 {
-    font-weight: 700;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    width: 100%;
-    max-width: 1200px;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-}
-
-.how-con {
-    margin-top: 40px;
-    width: 100%;
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-}
-
-@media (max-width: 1024px) {
-    .how-con {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-.current {
-    transition: 0.3s ease;
-    border-color: var(--accent-blue) !important;
-    border-left: 3px solid var(--accent-blue);
-    background: var(--border-accent);
-}
-
-.current > .cards-days {
-    color: var(--accent-blue);
-}
-
-@media (max-width: 500px) {
-    .how-main {
-        padding: 60px 20px;
-        min-height: auto;
-    }
-
-    .how-con {
-        grid-template-columns: 1fr;
-    }
-
-    .how-main h2 {
-        font-size: 1.8rem;
-    }
-}
+.launch-section { padding: 80px 24px; background: var(--bg-secondary); }
+.launch-container { max-width: 1120px; margin: auto; }
+.launch-container > h2 { font-size: clamp(1.9rem, 3.5vw, 2.65rem); color: var(--text-primary); letter-spacing: -.035em; margin-bottom: 40px; }
+.launch-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 48px; }
+.launch-steps li { border-top: 1px solid var(--border-subtle); padding-top: 20px; }
+.launch-number { display: block; color: var(--accent-blue-light); font-size: .85rem; margin-bottom: 20px; }
+.launch-steps h3 { font-size: 1.1rem; color: var(--text-primary); line-height: 1.4; margin-bottom: 12px; }
+.launch-steps p { font-size: .95rem; line-height: 1.65; color: var(--text-secondary); }
+.launch-action { display: flex; align-items: center; gap: 32px; margin-top: 40px; }
+.launch-action a { flex-shrink: 0; text-align: center; }
+.launch-action p { color: var(--text-muted); font-size: .85rem; line-height: 1.6; max-width: 470px; }
+@media (max-width: 700px) { .launch-section { padding: 52px 20px; } .launch-steps { grid-template-columns: 1fr; gap: 24px; } .launch-action { align-items: flex-start; flex-direction: column; gap: 16px; } }

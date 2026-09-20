@@ -68,6 +68,7 @@ export const ROUTE_SEO = {
             ru: 'Распознавайте реальные узбекские, русские и смешанные звонки через API с поддержкой диалектов, сленга, фонового шума, стриминга и пакетной обработки.',
             uz: "Lahjalar, sleng, fon shovqini, oqimli va paketli audio uchun yaratilgan API bilan o'zbek, rus va aralash tildagi real qo'ng'iroqlarni matnga aylantiring.",
         },
+        { noindex: true, canonicalPath: '/cabinet/stt' },
     ),
     '/tts': page(
         {
@@ -80,6 +81,7 @@ export const ROUTE_SEO = {
             ru: 'Синтезируйте естественную узбекскую, русскую и английскую речь или создайте голос бренда с согласия диктора через API с низкой задержкой.',
             uz: "Past kechikishli API orqali tabiiy o'zbek, rus va ingliz nutqini yarating yoki diktor roziligi asosida brend ovozini klonlang.",
         },
+        { noindex: true, canonicalPath: '/cabinet/tts' },
     ),
     '/features': page(
         {
@@ -92,6 +94,10 @@ export const ROUTE_SEO = {
             ru: 'Возможности голосового робота для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
             uz: "Lahjalarni anglash, so'zni bo'lish, ovozni ajratish, ovoz klonlash, tahlil, CRM ulanishi va On-Premise joylashtirish imkoniyatlarini ko'ring.",
         },
+    ),
+    '/use-cases': page(
+        { en: 'AI Call Center Use Cases | Syncall', ru: 'Сценарии AI для колл-центра | Syncall', uz: 'Koll-markaz uchun AI ssenariylari | Syncall' },
+        { en: 'Explore AI call workflows for banking, payment reminders, appointments, surveys, and lead qualification. Start with one task and a scoped pilot.', ru: 'Выберите сценарий AI-звонков: банки, напоминания об оплате и записи, опросы или квалификация лидов. Начните с одной задачи и пилота.', uz: 'Banklar, to‘lov va uchrashuv eslatmalari, so‘rovlar va lidlarni saralash uchun AI qo‘ng‘iroq ssenariylarini ko‘ring. Bitta vazifa va pilotdan boshlang.' },
     ),
     '/use-cases/banking': page(
         {
@@ -191,14 +197,14 @@ export const ROUTE_SEO = {
     ),
     '/case-studies': page(
         {
-            en: 'AI Voice Agent Case Studies | Syncall',
-            ru: 'Кейсы внедрения AI-голосовых агентов | Syncall',
-            uz: "AI ovozli agentlarni joriy etish tajribalari | Syncall",
+            en: 'AI Call Recordings & Customer Examples | Syncall',
+            ru: 'Записи AI-звонков и примеры работы | Syncall',
+            uz: "AI qo‘ng‘iroq yozuvlari va misollar | Syncall",
         },
         {
-            en: 'Review clearly sourced Syncall deployment stories, use cases, integration details, and measured outcomes as verified customer case studies become available.',
-            ru: 'Изучайте подтверждённые истории внедрения Syncall, сценарии, интеграции и измеримые результаты по мере публикации проверенных клиентских кейсов.',
-            uz: "Tasdiqlangan mijoz tajribalari e'lon qilingani sari Syncall joriy etish hikoyalari, ssenariylari, integratsiya tafsilotlari va o'lchangan natijalarni ko'ring.",
+            en: 'Listen to Syncall AI call recordings in Uzbek and explore voice-agent workflows for your team.',
+            ru: 'Послушайте записи звонков с Syncall AI на узбекском и изучите сценарии голосовых агентов для вашей команды.',
+            uz: "Syncall AI bilan o‘zbek tilidagi qo‘ng‘iroq yozuvlarini tinglang va jamoangiz uchun ovozli agent ssenariylarini ko‘ring.",
         },
     ),
     '/cabinet': page(
@@ -353,10 +359,10 @@ export const FAQ_KEYS = Array.from({ length: 6 }, (_, index) => ({
     answer: `faqA${index + 1}`,
 }));
 
-export const buildFaqSchema = (localeTranslations = {}, englishTranslations = {}) => ({
+export const buildFaqSchema = (localeTranslations = {}, englishTranslations = {}, pairs) => ({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_KEYS.map(({ question, answer }) => ({
+    mainEntity: pairs ? pairs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) : FAQ_KEYS.map(({ question, answer }) => ({
         '@type': 'Question',
         name: localeTranslations[question] || englishTranslations[question] || question,
         acceptedAnswer: {

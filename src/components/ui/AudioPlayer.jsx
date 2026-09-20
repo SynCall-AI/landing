@@ -387,7 +387,7 @@ export const AudioPlayerDuration = ({ className }) => {
 }
 
 // --- Play Button ---
-export function AudioPlayerButton({ item, className }) {
+export function AudioPlayerButton({ item, className, playLabel = "Play", pauseLabel = "Pause" }) {
     const player = useAudioPlayer()
 
     const playing = item
@@ -410,7 +410,7 @@ export function AudioPlayerButton({ item, className }) {
         <button
             className={`el-play-btn ${className || ''}`}
             onClick={handleClick}
-            aria-label={playing ? "Pause" : "Play"}
+            aria-label={playing ? pauseLabel : playLabel}
             type="button"
         >
             {loading ? (

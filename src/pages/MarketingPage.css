@@ -441,3 +441,7 @@
         transform: none;
     }
 }
+
+.marketing-card h3 a { color: var(--text-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
+.marketing-card h3 a:hover { color: var(--accent-blue); }
+.marketing-card h3 a:focus-visible { outline: 3px solid var(--accent-blue-light); outline-offset: 4px; }

@@ -328,3 +328,16 @@
         justify-content: center;
     }
 }
+
+.demo-section { scroll-margin-top: 110px; }
+.demo-controls { min-width: 0; }
+.demo-progress-row { min-width: 0; }
+.demo-transcript { margin-top: 16px; color: var(--text-secondary); }
+.demo-transcript p { white-space: pre-line; line-height: 1.7; padding-top: 16px; }
+@media (prefers-reduced-motion: reduce) { .demo-track-bars span { animation: none; } }
+
+.demo-section { padding: 72px 24px; background: var(--bg-secondary); }
+.demo-header { margin-bottom: 32px; }
+.demo-title { font-size: clamp(1.9rem, 3.5vw, 2.65rem); }
+.demo-subtitle { line-height: 1.6; }
+@media (max-width: 600px) { .demo-section { padding: 52px 20px; } .demo-cover { height: 140px; } }

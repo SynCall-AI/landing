@@ -2,7 +2,7 @@ import "./ProductHero.css";
 import { useLanguage } from '../../context/LanguageContext';
 
 // Consistent hero band used at the top of each product page (Analytics/STT/TTS).
-const ProductHero = ({ badge, kind, title, subtitle, primaryCta, primaryHref, secondaryCta, children }) => {
+const ProductHero = ({ badge, kind, title, subtitle, primaryCta, primaryHref, secondaryCta, secondaryHref, children }) => {
     const { t, localePath } = useLanguage();
     const contactHref = `${localePath('/')}?intent=demo#contact`;
 
@@ -26,8 +26,8 @@ const ProductHero = ({ badge, kind, title, subtitle, primaryCta, primaryHref, se
                         <a className="btn-primary" href={primaryHref || contactHref}>
                             {primaryCta || t('ctaDemo')}
                         </a>
-                        {secondaryCta && (
-                            <a className="btn-secondary" href={`${localePath('/')}?intent=trial#contact`}>
+                        {secondaryCta && secondaryHref && (
+                            <a className="btn-secondary" href={secondaryHref}>
                                 {secondaryCta}
                             </a>
                         )}

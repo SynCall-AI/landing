@@ -482,3 +482,5 @@
 @media (max-width: 980px) {
     .vcw { max-width: 460px; min-height: 480px; }
 }
+
+.vcw-scenario-label { display: flex; flex-direction: column; gap: 8px; width: 100%; text-align: left; color: #b6c5df; font-size: 12px; }

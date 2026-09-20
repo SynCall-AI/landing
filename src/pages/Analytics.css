@@ -447,3 +447,6 @@
     .an-pipe { grid-template-columns: 1fr; }
     .an-hc-row { grid-template-columns: 90px 1fr 38px; }
 }
+
+.an-example-label { color: var(--text-secondary); font-size: .8rem; line-height: 1.5; margin-bottom: 20px; }
+#example-report, #chatbot-capabilities { scroll-margin-top: 110px; }

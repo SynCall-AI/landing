@@ -25,11 +25,15 @@ async function apiError(response) {
 }
 
 export async function fetchLandingDemos() {
-    const response = await fetch(`${API_BASE}/api/v2/public/landing-demos`, {
-        credentials: 'include',
-    });
-    if (!response.ok) throw await apiError(response);
-    return response.json();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+        const response = await fetch(`${API_BASE}/api/v2/public/landing-demos`, {
+            credentials: 'include', signal: controller.signal,
+        });
+        if (!response.ok) throw await apiError(response);
+        return await response.json();
+    } finally { clearTimeout(timeout); }
 }
 
 export async function createLandingDemoSession(body) {

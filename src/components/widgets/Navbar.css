@@ -147,6 +147,14 @@
 .nav-studio-button:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 .mobile-menu-toggle { display: none; margin-left: auto; font-size: 22px; }
 
+.nav-landing { min-height:76px; padding-inline:max(30px,calc((100vw - 1280px)/2)); }
+.nav-landing .nav-link { font-weight:450; color:#77717e; font-size:13px; }
+.nav-landing .nav-contact-button { background:#2b2833; border-radius:8px; font-size:12px; font-weight:450; }
+.nav-landing .nav-studio-button { border:0; background:none; color:#7b6d88; font-weight:450; font-size:12px; }
+.nav-landing .language-toggle { border:0; font-weight:450; color:#7b6d88; font-size:12px; }
+.nav-landing .language-toggle .flag { display:none; }
+.nav-landing .nav-logo img { width:108px; height:auto; }
+
 @media (max-width: 1080px) {
     .nav-main { gap: 10px; padding-inline: 16px; }
     .nav-link { padding-inline: 8px; font-size: 13px; }

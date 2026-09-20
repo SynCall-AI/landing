@@ -219,3 +219,6 @@
         grid-template-columns: 1fr;
     }
 }
+
+.cb-example-label { padding: 16px 20px; color: var(--text-secondary); font-size: .8rem; border-bottom: 1px solid var(--border-subtle); }
+#chatbot-capabilities { scroll-margin-top: 110px; }

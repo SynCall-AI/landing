@@ -28,6 +28,7 @@ const productRoutes = [
 
 const marketingPaths = [
     '/features',
+    '/use-cases',
     '/use-cases/banking',
     '/use-cases/debt-collection',
     '/use-cases/appointment-reminders',
