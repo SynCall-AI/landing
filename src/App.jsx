@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
 import { LanguageProvider, useLanguage } from './context/LanguageContext.jsx';
 import { localizePath, SUPPORTED_LOCALES } from './lib/i18n.js';
+import { MARKETING_PATHS } from './lib/marketingRoutes.js';
 
 const Analytics = lazy(() => import('./pages/Analytics.jsx'));
 const Chatbots = lazy(() => import('./pages/Chatbots.jsx'));
@@ -26,19 +27,7 @@ const productRoutes = [
     ['/tts', Tts],
 ];
 
-const marketingPaths = [
-    '/features',
-    '/use-cases',
-    '/use-cases/banking',
-    '/use-cases/debt-collection',
-    '/use-cases/appointment-reminders',
-    '/use-cases/surveys',
-    '/use-cases/lead-qualification',
-    '/integrations',
-    '/pricing',
-    '/about',
-    '/case-studies',
-];
+const marketingPaths = MARKETING_PATHS.map(path => `/${path}`);
 
 function useAppHeight() {
     useEffect(() => {

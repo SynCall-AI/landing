@@ -1,18 +1,6 @@
-export const MARKETING_LOCALES = ['en', 'ru', 'uz'];
+export { MARKETING_PATHS } from '../lib/marketingRoutes.js';
 
-export const MARKETING_PATHS = [
-    'features',
-    'use-cases',
-    'use-cases/banking',
-    'use-cases/debt-collection',
-    'use-cases/appointment-reminders',
-    'use-cases/surveys',
-    'use-cases/lead-qualification',
-    'integrations',
-    'pricing',
-    'about',
-    'case-studies',
-];
+export const MARKETING_LOCALES = ['en', 'ru', 'uz'];
 
 export const marketingUi = {
     en: {
@@ -352,7 +340,7 @@ const en = {
         title: 'Building voice AI for the way Central Asia speaks',
         lead: 'Syncall is a Tashkent-based company founded in 2024, building AI voice agents and chatbots for call-center workflows in Uzbek, Russian, and English.',
         linkLabel: 'About the Syncall team',
-        linkDescription: 'Learn about the company and the team information still needed.',
+        linkDescription: 'Meet Syncall and explore our solutions for businesses in Central Asia.',
         sections: [
             {
                 title: 'Company focus',
@@ -668,7 +656,7 @@ const ru = {
                     },
                     {
                         "title": "Настройка",
-                        "text": "На какие вопросы должен отвечать робот и с какими программами работать."
+                        "text": "На какие вопросы должен отвечать ИИ-оператор и с какими программами работать."
                     },
                     {
                         "title": "Телефония",
@@ -702,7 +690,7 @@ const ru = {
         title: 'Создаем голосовой AI для речи Центральной Азии',
         lead: 'Syncall — ташкентская компания, основанная в 2024 году и создающая AI-агентов и чат-ботов для колл-центров на узбекском, русском и английском.',
         linkLabel: 'О команде Syncall',
-        linkDescription: 'Узнайте о компании и данных о команде, которые еще нужно добавить.',
+        linkDescription: 'Узнайте о Syncall и наших решениях для бизнеса Центральной Азии.',
         sections: [
             {
                 title: 'Фокус компании',
@@ -1018,7 +1006,7 @@ const uz = {
                     },
                     {
                         "title": "Sozlash",
-                        "text": "Robot qaysi savollarga javob berishi va qaysi dasturlar bilan ishlashi kerak."
+                        "text": "AI-operator qaysi savollarga javob berishi va qaysi dasturlar bilan ishlashi kerak."
                     },
                     {
                         "title": "Telefoniya",
@@ -1052,7 +1040,7 @@ const uz = {
         title: 'Markaziy Osiyo nutqi uchun ovozli AI yaratamiz',
         lead: 'Syncall — 2024-yilda tashkil etilgan Toshkent kompaniyasi bo‘lib, o‘zbek, rus va ingliz tillarida call-markazlar uchun AI ovozli agentlar va chatbotlar yaratadi.',
         linkLabel: 'Syncall jamoasi haqida',
-        linkDescription: 'Kompaniya va hali qo‘shilishi kerak bo‘lgan jamoa ma’lumotlarini ko‘ring.',
+        linkDescription: 'Syncall va Markaziy Osiyo bizneslari uchun yechimlarimiz bilan tanishing.',
         sections: [
             {
                 title: 'Kompaniya yo‘nalishi',

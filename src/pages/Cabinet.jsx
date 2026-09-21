@@ -34,7 +34,6 @@ import {
     LockKeyhole,
     LogOut,
     Mic,
-    Moon,
     Pause,
     PanelLeft,
     Play,
@@ -85,7 +84,7 @@ const COPY = {
         createTitle: 'Give your words a voice', createBody: 'Write naturally. Syncall handles the rest.', script: 'Your script', placeholder: 'Paste the text for your reel, story or announcement…', useIdea: 'Try an idea',
         language: 'Language', voiceLabel: 'Voice', speed: 'Pace', slower: 'Slower', faster: 'Faster', cost: 'Estimated cost', generate: 'Create voiceover', generating: 'Creating your voiceover…', ready: 'Your voiceover is ready', download: 'Download', newOne: 'Create another', seekAudio: 'Seek audio', back5: 'Back 5 seconds', forward5: 'Forward 5 seconds', chars: 'characters', insufficient: 'Top up your balance to create this audio.',
         voiceWarm: 'Warm & friendly', voiceBright: 'Bright & lively', voiceCalm: 'Calm & clear', voiceNatural: 'Natural voice',
-        transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', recordAgain: 'Record again', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
+        transcribeTitle: 'Turn speech into text', transcribeBody: 'Upload a file or record yourself. You will get clean, copy-ready text.', upload: 'Upload audio', record: 'Record now', stop: 'Stop recording', recordAgain: 'Record again', drop: 'Drop your audio here', browse: 'or choose a file', formats: 'MP3, WAV, M4A, OGG or WEBM · up to 40 MB', selected: 'Ready to transcribe', change: 'Change file', transcribeNow: 'Transcribe audio', transcribing: 'Listening carefully…', transcriptReady: 'Transcript ready', transcriptEmpty: 'Your transcript will appear here', copyText: 'Copy text', copied: 'Copied', confidence: 'Confidence', duration: 'Audio length', diarization: 'Separate speakers', diarizationHelp: 'Label who said each part in calls, interviews and podcasts.', speaker: 'Speaker', speakers: 'speakers',
         historyTitle: 'Your projects', historyBody: 'Every voiceover and transcript, ready whenever you need it.', all: 'All', voices: 'Voiceovers', transcripts: 'Transcripts', delete: 'Delete', emptyHistory: 'Nothing here yet. Start with a voiceover or transcript.',
         billingTitle: 'Balance & payments', billingBody: 'See your usage and add funds when you need them.', currentBalance: 'Current balance', paymentHistory: 'Activity', amount: 'Top-up amount', paymentMethod: 'Payment method', continuePayme: 'Continue to Payme', soon: 'Soon', minTopup: 'Minimum top-up', noTransactions: 'No balance activity yet.', usageTts: 'Voice generation', usageStt: 'Transcription', payment: 'Balance top-up', adjustment: 'Balance adjustment', estimatedCost: 'Estimated cost', pending: 'Pending', paid: 'Paid', completed: 'Completed', cancelled: 'Cancelled',
         profileTitle: 'Your profile', profileBody: 'Keep your creator account details up to date.', fullName: 'Full name', email: 'Email', phone: 'Phone number', save: 'Save changes', saved: 'Profile updated', memberVia: 'Signed in securely with your Syncall account',
@@ -100,7 +99,7 @@ const COPY = {
         createTitle: 'Подарите тексту голос', createBody: 'Пишите как обычно — остальное сделает Syncall.', script: 'Ваш сценарий', placeholder: 'Вставьте текст для Reels, сторис или объявления…', useIdea: 'Вставить пример',
         language: 'Язык', voiceLabel: 'Голос', speed: 'Темп', slower: 'Медленнее', faster: 'Быстрее', cost: 'Примерная стоимость', generate: 'Создать озвучку', generating: 'Создаём озвучку…', ready: 'Озвучка готова', download: 'Скачать', newOne: 'Создать ещё', seekAudio: 'Перемотать аудио', back5: 'Назад на 5 секунд', forward5: 'Вперёд на 5 секунд', chars: 'символов', insufficient: 'Пополните баланс, чтобы создать аудио.',
         voiceWarm: 'Тёплый и дружелюбный', voiceBright: 'Яркий и энергичный', voiceCalm: 'Спокойный и чёткий', voiceNatural: 'Естественный голос',
-        transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', recordAgain: 'Записать заново', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
+        transcribeTitle: 'Превратите речь в текст', transcribeBody: 'Загрузите файл или запишите себя — получите чистый текст для копирования.', upload: 'Загрузить аудио', record: 'Записать голос', stop: 'Остановить запись', recordAgain: 'Записать заново', drop: 'Перетащите аудио сюда', browse: 'или выберите файл', formats: 'MP3, WAV, M4A, OGG или WEBM · до 40 МБ', selected: 'Готово к расшифровке', change: 'Другой файл', transcribeNow: 'Расшифровать аудио', transcribing: 'Внимательно слушаем…', transcriptReady: 'Расшифровка готова', transcriptEmpty: 'Здесь появится расшифровка', copyText: 'Копировать текст', copied: 'Скопировано', confidence: 'Точность', duration: 'Длина аудио', diarization: 'Разделить по спикерам', diarizationHelp: 'Покажем, кто что сказал в звонке, интервью или подкасте.', speaker: 'Спикер', speakers: 'спикеров',
         historyTitle: 'Ваши проекты', historyBody: 'Все озвучки и расшифровки всегда под рукой.', all: 'Все', voices: 'Озвучки', transcripts: 'Расшифровки', delete: 'Удалить', emptyHistory: 'Здесь пока пусто. Создайте первую озвучку или расшифровку.',
         billingTitle: 'Баланс и платежи', billingBody: 'Следите за расходами и пополняйте баланс.', currentBalance: 'Текущий баланс', paymentHistory: 'Операции', amount: 'Сумма пополнения', paymentMethod: 'Способ оплаты', continuePayme: 'Продолжить в Payme', soon: 'Скоро', minTopup: 'Минимальное пополнение', noTransactions: 'Операций пока нет.', usageTts: 'Создание озвучки', usageStt: 'Расшифровка', payment: 'Пополнение баланса', adjustment: 'Корректировка баланса', estimatedCost: 'Примерная стоимость', pending: 'Ожидает', paid: 'Оплачено', completed: 'Готово', cancelled: 'Отменено',
         profileTitle: 'Ваш профиль', profileBody: 'Актуальные данные помогают нам лучше поддерживать вас.', fullName: 'Имя и фамилия', email: 'Email', phone: 'Номер телефона', save: 'Сохранить', saved: 'Профиль обновлён', memberVia: 'Вы безопасно вошли в аккаунт Syncall',
@@ -115,7 +114,7 @@ const COPY = {
         createTitle: "So'zlaringizga ovoz bering", createBody: 'Odatdagidek yozing — qolganini Syncall bajaradi.', script: 'Matningiz', placeholder: "Reels, story yoki e'lon uchun matnni kiriting…", useIdea: "Misol qo'yish",
         language: 'Til', voiceLabel: 'Ovoz', speed: 'Tezlik', slower: 'Sekinroq', faster: 'Tezroq', cost: 'Taxminiy narx', generate: 'Ovoz yaratish', generating: 'Ovoz yaratilmoqda…', ready: 'Ovozingiz tayyor', download: 'Yuklab olish', newOne: 'Yana yaratish', seekAudio: "Audioni o'tkazish", back5: '5 soniya orqaga', forward5: '5 soniya oldinga', chars: 'belgi', insufficient: "Ovoz yaratish uchun balansni to'ldiring.",
         voiceWarm: "Iliq va do'stona", voiceBright: 'Yorqin va jonli', voiceCalm: 'Tinch va ravon', voiceNatural: 'Tabiiy ovoz',
-        transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", recordAgain: 'Qayta yozish', drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
+        transcribeTitle: 'Nutqni matnga aylantiring', transcribeBody: 'Fayl yuklang yoki ovozingizni yozing — toza, tayyor matn oling.', upload: 'Audio yuklash', record: 'Ovoz yozish', stop: "Yozishni to'xtatish", recordAgain: 'Qayta yozish', drop: 'Audioni shu yerga tashlang', browse: 'yoki faylni tanlang', formats: 'MP3, WAV, M4A, OGG yoki WEBM · 40 MB gacha', selected: 'Matnga aylantirishga tayyor', change: 'Boshqa fayl', transcribeNow: 'Matnga aylantirish', transcribing: 'Diqqat bilan tinglayapmiz…', transcriptReady: 'Matn tayyor', transcriptEmpty: 'Transkript shu yerda paydo bo‘ladi', copyText: 'Matnni nusxalash', copied: 'Nusxalandi', confidence: 'Aniqlik', duration: 'Audio uzunligi', diarization: 'Spikerlarni ajratish', diarizationHelp: "Qo'ng'iroq, intervyu yoki podkastda kim nima deganini ko'rsatamiz.", speaker: 'Spiker', speakers: 'spiker',
         historyTitle: 'Loyihalaringiz', historyBody: 'Barcha ovoz va transkriptlaringiz doim yoningizda.', all: 'Barchasi', voices: 'Ovozlar', transcripts: 'Transkriptlar', delete: "O'chirish", emptyHistory: "Hozircha bo'sh. Birinchi ovoz yoki transkriptni yarating.",
         billingTitle: "Balans va to'lovlar", billingBody: "Xarajatlarni ko'ring va kerak paytda balansni to'ldiring.", currentBalance: 'Joriy balans', paymentHistory: 'Amallar', amount: "To'ldirish summasi", paymentMethod: "To'lov usuli", continuePayme: 'Payme orqali davom etish', soon: 'Tez orada', minTopup: "Eng kam to'ldirish", noTransactions: "Hozircha amallar yo'q.", usageTts: 'Ovoz yaratish', usageStt: 'Transkripsiya', payment: "Balansni to'ldirish", adjustment: 'Balans tuzatishi', estimatedCost: 'Taxminiy narx', pending: 'Kutilmoqda', paid: "To'langan", completed: 'Tayyor', cancelled: 'Bekor qilingan',
         profileTitle: 'Profilingiz', profileBody: "Ma'lumotlaringizni yangilab turing.", fullName: "To'liq ism", email: 'Email', phone: 'Telefon raqami', save: 'Saqlash', saved: 'Profil yangilandi', memberVia: 'Syncall hisobingiz orqali xavfsiz kirildi',
@@ -245,6 +244,37 @@ function VoiceAvatar({ seed, compact = false }) {
     ><i /></span>;
 }
 
+function StudioAtmosphere() {
+    return <div className="studio-atmosphere" aria-hidden="true"><i /><i /><i /></div>;
+}
+
+function useStudioDialog(open, ref, onClose) {
+    const closeRef = useRef(onClose);
+    useEffect(() => { closeRef.current = onClose; }, [onClose]);
+    useEffect(() => {
+        if (!open) return;
+        const previous = document.activeElement;
+        const overflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        const controls = () => [...(ref.current?.querySelectorAll('a[href], button:not(:disabled), input:not(:disabled), select, textarea, summary, [tabindex="0"]') || [])].filter(element => element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden');
+        controls()[0]?.focus();
+        const onKey = (event) => {
+            if (event.key === 'Escape') { event.preventDefault(); closeRef.current(); }
+            if (event.key !== 'Tab') return;
+            const items = controls();
+            const first = items[0], last = items.at(-1);
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        };
+        document.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = overflow;
+            document.removeEventListener('keydown', onKey);
+            if (previous?.isConnected) previous.focus();
+        };
+    }, [open, ref]);
+}
+
 function InterfaceLanguageDropdown({ value, onChange }) {
     const [open, setOpen] = useState(false);
     const rootRef = useRef(null);
@@ -292,7 +322,6 @@ function InterfaceLanguageDropdown({ value, onChange }) {
 
 function AccountMenu({ user, balance, c, language, onNavigate, onTopUp, onLogout }) {
     const [open, setOpen] = useState(false);
-    const [view, setView] = useState('main');
     const rootRef = useRef(null);
     const triggerRef = useRef(null);
 
@@ -301,13 +330,11 @@ function AccountMenu({ user, balance, c, language, onNavigate, onTopUp, onLogout
         const closeOutside = (event) => {
             if (!rootRef.current?.contains(event.target)) {
                 setOpen(false);
-                setView('main');
             }
         };
         const closeOnEscape = (event) => {
             if (event.key === 'Escape') {
                 setOpen(false);
-                setView('main');
                 triggerRef.current?.focus();
             }
         };
@@ -321,16 +348,14 @@ function AccountMenu({ user, balance, c, language, onNavigate, onTopUp, onLogout
 
     const closeAndNavigate = (path) => {
         setOpen(false);
-        setView('main');
         onNavigate(path);
     };
 
     return <div ref={rootRef} className="account-menu-root">
-        <button ref={triggerRef} type="button" className="topbar-avatar" onClick={() => { setOpen((current) => !current); setView('main'); }} aria-label={c.accountMenu} aria-haspopup="dialog" aria-expanded={open}>
+        <button ref={triggerRef} type="button" className="topbar-avatar" onClick={() => setOpen((current) => !current)} aria-label={c.accountMenu} aria-haspopup="dialog" aria-expanded={open}>
             {user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : <span>{userInitials(user)}</span>}
         </button>
         {open && <div className="account-menu" role="dialog" aria-label={c.accountMenu}>
-            {view === 'main' ? <>
                 <button type="button" className="account-profile-card" onClick={() => closeAndNavigate('/cabinet/profile')}>
                     <span className="account-profile-avatar">{user.avatar_url ? <img src={user.avatar_url} alt="" referrerPolicy="no-referrer" /> : userInitials(user)}</span>
                     <span><strong>{user.name || user.email}</strong><small>{user.email}</small></span>
@@ -342,16 +367,11 @@ function AccountMenu({ user, balance, c, language, onNavigate, onTopUp, onLogout
                 </section>
                 <div className="account-menu-group">
                     <button type="button" onClick={() => closeAndNavigate('/cabinet/profile')}><Settings /><span>{c.settingsTitle}</span><ChevronRight /></button>
-                    <button type="button" onClick={() => setView('theme')}><Moon /><span>{c.theme}</span><small>{c.darkTheme}</small><ChevronRight /></button>
                 </div>
                 <div className="account-menu-group">
                     <button type="button" onClick={() => closeAndNavigate('/cabinet/billing')}><Gauge /><span>{c.usageAnalytics}</span><ChevronRight /></button>
                 </div>
                 <button type="button" className="account-signout" onClick={() => { setOpen(false); onLogout(); }}><LogOut /><span>{c.logout}</span></button>
-            </> : <>
-                <header className="account-menu-subhead"><button type="button" onClick={() => setView('main')}><ChevronLeft /></button><strong>{c.theme}</strong></header>
-                <div className="account-theme-option active"><Moon /><span><strong>{c.darkTheme}</strong><small>Syncall Studio</small></span><Check /></div>
-            </>}
         </div>}
     </div>;
 }
@@ -437,7 +457,7 @@ function GoogleButton({ onCredential, disabled, label, intent = 'login' }) {
                 });
                 hostRef.current.innerHTML = '';
                 window.google.accounts.id.renderButton(hostRef.current, {
-                    type: 'standard', theme: 'filled_black', size: 'large', shape: 'pill',
+                    type: 'standard', theme: 'outline', size: 'large', shape: 'rectangular',
                     text: intent === 'register' ? 'signup_with' : 'signin_with', width: Math.min(390, hostRef.current.offsetWidth || 390),
                 });
             } catch {
@@ -498,8 +518,6 @@ function CabinetLogin() {
 
     return (
         <main className="cabinet-login" id="main-content">
-            <div className="cabinet-login-glow cabinet-login-glow-a" />
-            <div className="cabinet-login-glow cabinet-login-glow-b" />
             <header className="cabinet-login-header">
                 <Link to={localePath('/')}><img src="/Syncall.svg" alt="Syncall" /></Link>
                 <div className="cabinet-language-pills">
@@ -508,13 +526,12 @@ function CabinetLogin() {
             </header>
             <div className="cabinet-login-content">
                 <section className="cabinet-login-promise">
-                    <span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span>
+                    <StudioAtmosphere />
+                    <span className="cabinet-kicker">SYNCALL STUDIO</span>
                     <h1>{c.loginTitle}</h1>
                     <p>{c.loginBody}</p>
-                    <div className="cabinet-login-demo" aria-hidden="true">
-                        <span className="cabinet-demo-orb"><Mic size={24} /></span>
-                        <div className="cabinet-demo-wave">{Array.from({ length: 42 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * 0.76)) * 62}%` }} />)}</div>
-                    </div>
+                    <div className="studio-login-art" aria-hidden="true"><span className="studio-liquid-orb"><i /></span><span className="studio-art-caption"><span>O‘zbekcha</span><i /><span>Русский</span></span></div>
+                    <div className="studio-login-tools"><span><AudioLines size={17} />{c.voice}</span><span><FileText size={17} />{c.transcript}</span></div>
                 </section>
 
                 <section className="cabinet-auth-card" aria-label={mode === 'login' ? c.loginTab : c.registerTab}>
@@ -855,10 +872,10 @@ function AudioAsset({ job, c }) {
             <svg viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                     <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" stopColor="#6ab1ff" />
-                        <stop offset={progress} stopColor="#1173fc" />
-                        <stop offset={progress} stopColor="#3b4758" />
-                        <stop offset="1" stopColor="#242d38" />
+                        <stop offset="0" stopColor="#90bacf" />
+                        <stop offset={progress} stopColor="#4e80ac" />
+                        <stop offset={progress} stopColor="#cad6e5" />
+                        <stop offset="1" stopColor="#dce4ed" />
                     </linearGradient>
                 </defs>
                 <path className="mini-wave-path" d={path} fill={`url(#${gradientId})`} vectorEffect="non-scaling-stroke" />
@@ -901,6 +918,8 @@ function TopUpModal({ open, onClose, config, c, language }) {
     const [provider, setProvider] = useState('payme');
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState('');
+    const dialogRef = useRef(null);
+    useStudioDialog(open, dialogRef, onClose);
     if (!open) return null;
     const providers = config?.payments?.providers || [];
 
@@ -917,11 +936,11 @@ function TopUpModal({ open, onClose, config, c, language }) {
     };
 
     return <div className="cabinet-modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-        <section className="cabinet-modal" role="dialog" aria-modal="true" aria-labelledby="topup-title">
+        <section ref={dialogRef} className="cabinet-modal" role="dialog" aria-modal="true" aria-labelledby="topup-title">
             <button className="cabinet-modal-close" onClick={onClose} aria-label={c.close}><X /></button>
             <span className="cabinet-kicker"><WalletCards size={14} /> {c.topUp}</span>
             <h2 id="topup-title">{c.amount}</h2>
-            <div className="amount-input"><input type="number" min={config?.payments?.minimum_uzs || 10000} value={amount} onChange={(event) => setAmount(event.target.value)} /><span>UZS</span></div>
+            <div className="amount-input"><input aria-label={c.amount} type="number" min={config?.payments?.minimum_uzs || 10000} value={amount} onChange={(event) => setAmount(event.target.value)} /><span>UZS</span></div>
             <div className="amount-chips">{[25000, 50000, 100000, 250000].map((value) => <button key={value} className={Number(amount) === value ? 'active' : ''} onClick={() => setAmount(value)}>{new Intl.NumberFormat(localeForIntl[language]).format(value)}</button>)}</div>
             <p className="field-caption">{c.minTopup}: {money(config?.payments?.minimum_uzs || 10000, language)}</p>
             <h3>{c.paymentMethod}</h3>
@@ -968,7 +987,9 @@ function HomeView({ overview, config, personalVoices, c, language, localePath, o
 
     return <div className="cabinet-view home-view">
         <header className="cabinet-page-head home-head">
-            <div><span className="cabinet-kicker"><Sparkles size={14} /> {c.studio}</span><h1>{c.greeting}{firstName ? `, ${firstName}` : ''}</h1><p>{c.quickCreateBody}</p></div>
+            <StudioAtmosphere />
+            <div><span className="cabinet-kicker">SYNCALL STUDIO</span><h1>{c.greeting}{firstName ? `, ${firstName}` : ''}</h1><p>{c.greetingBody}</p></div>
+            <div className="studio-welcome-art" aria-hidden="true"><span className="studio-liquid-orb"><i /></span></div>
         </header>
 
         <section className="home-composer">
@@ -996,7 +1017,7 @@ function HomeView({ overview, config, personalVoices, c, language, localePath, o
             <Link to={localePath('/cabinet/stt')} className="shortcut-card shortcut-coral"><span><FileText /></span><div><small>Speech to text</small><h2>{c.sttCard}</h2><p>{c.sttCardBody}</p></div><ArrowRight /></Link>
         </section>
 
-        <section className="recent-section"><div className="section-heading"><div><span className="eyebrow">{c.projectsLabel}</span><h2>{c.recent}</h2><p>{overview.recent_jobs.length ? `${overview.recent_jobs.length} ${c.history.toLowerCase()}` : c.noProjects}</p></div><Link to={localePath('/cabinet/history')}>{c.seeAll} <ArrowRight /></Link></div>
+        <section className="recent-section"><div className="section-heading"><div><span className="eyebrow">{c.projectsLabel}</span><h2>{c.recent}</h2><p>{overview.recent_jobs.length ? c.historyBody : c.noProjects}</p></div><Link to={localePath('/cabinet/history')}>{c.seeAll} <ArrowRight /></Link></div>
             <div className="project-list">{overview.recent_jobs.length ? overview.recent_jobs.map((item) => <ProjectRow key={item.id} job={item} c={c} language={language} compact />) : <div className="empty-state compact"><History /><h2>{c.noProjects}</h2></div>}</div>
         </section>
     </div>;
@@ -1388,9 +1409,9 @@ function TtsView({ config, personalVoices, c, language, localePath, onChanged, o
         <div className="tts-workspace">
             <section className="tts-editor-panel">
                 <div className="editor-heading"><div><span className="eyebrow">{c.script}</span><h2>{c.startWith}</h2></div><button className="cabinet-text-button" onClick={() => setText(SAMPLE_TEXT[speechLanguage])}><Sparkles /> {c.useIdea}</button></div>
-                <textarea id="creator-script" maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.placeholder} />
+                <textarea id="creator-script" aria-label={c.script} maxLength={config.limits.tts_max_chars} value={text} onChange={(event) => setText(event.target.value)} placeholder={c.placeholder} />
                 {!text && <div className="prompt-ideas">{promptIdeas.map((preset) => <button key={preset.id} onClick={() => setText(preset.text)}>{preset.label}</button>)}</div>}
-                <div className="editor-footer"><span>{text.length.toLocaleString()} / {config.limits.tts_max_chars.toLocaleString()} {c.chars}</span><div className="tiny-wave">{Array.from({ length: 20 }).map((_, index) => <i key={index} style={{ height: `${18 + Math.abs(Math.sin(index * .85)) * 64}%` }} />)}</div></div>
+                <div className="editor-footer"><span>{text.length.toLocaleString()} / {config.limits.tts_max_chars.toLocaleString()} {c.chars}</span><span className="editor-language-note"><Languages size={14} />{speechLanguage === 'uz' ? c.uzbek : c.russian}</span></div>
             </section>
 
             <aside className="tts-settings-panel">
@@ -1415,10 +1436,10 @@ function TtsView({ config, personalVoices, c, language, localePath, onChanged, o
                         {voiceNotice && <p className="voice-language-note"><Languages /> {voiceNotice}</p>}
                     </div>
                     <div className="settings-block"><label>{c.language}</label><SpeechLanguageDropdown value={speechLanguage} onChange={selectLanguage} c={c} /></div>
-                    <div className="settings-block range-block"><div><label>{c.speed}</label><strong>{speed.toFixed(1)}×</strong></div><input type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="range-labels"><span>{c.slower}</span><span>{c.faster}</span></div></div>
+                    <div className="settings-block range-block"><div><label>{c.speed}</label><strong>{speed.toFixed(1)}×</strong></div><input aria-label={c.speed} type="range" min="0.7" max="1.3" step="0.1" value={speed} onChange={(event) => setSpeed(Number(event.target.value))} /><div className="range-labels"><span>{c.slower}</span><span>{c.faster}</span></div></div>
                     <div className="settings-block output-format-block">
                         <label>{c.outputLabel}</label>
-                        <div className="output-format-control"><select value={outputFormat} onChange={(event) => setOutputFormat(event.target.value)}><option value="wav-24">WAV 24 kHz ({c.lossless})</option><option value="wav-8">WAV 8 kHz ({c.telephony})</option></select><ChevronDown aria-hidden="true" /></div>
+                        <div className="output-format-control"><select aria-label={c.outputLabel} value={outputFormat} onChange={(event) => setOutputFormat(event.target.value)}><option value="wav-24">WAV 24 kHz ({c.lossless})</option><option value="wav-8">WAV 8 kHz ({c.telephony})</option></select><ChevronDown aria-hidden="true" /></div>
                         <button type="button" className="settings-reset" onClick={resetSettings}><RefreshCw /> {c.resetValues}</button>
                     </div>
                     <div className="generation-cost"><span>{c.cost}</span><strong>{estimated ? money(estimated, language) : c.free}</strong></div>
@@ -1658,7 +1679,7 @@ function SttView({ config, c, language, onChanged, onTopUp }) {
                             <footer><span><Clock3 /> {c.duration}: {Math.max(1, Math.round(job.duration_sec || 0))}s</span>{job.diarization && job.speaker_count > 0 && <span><UserRound /> {job.speaker_count} {c.speakers}</span>}{typeof job.confidence === 'number' && <span><Gauge /> {c.confidence}: {Math.round(job.confidence * 100)}%</span>}</footer>
                         </>
                     ) : (
-                        <div className="transcript-empty"><span><FileText /></span><h3>{c.transcriptReady}</h3><p>{c.transcribeBody}</p></div>
+                        <div className="transcript-empty"><span><FileText /></span><h3>{c.transcriptEmpty}</h3><p>{c.transcribeBody}</p></div>
                     )}
                 </section>
             </div>
@@ -1689,7 +1710,7 @@ function HistoryView({ c, language, onChanged }) {
 
 function BillingView({ billing, c, language, onTopUp, onRefresh }) {
     const titleFor = (item) => item.type === 'top_up' ? c.payment : item.type === 'admin_adjustment' ? c.adjustment : item.service === 'tts' ? c.usageTts : c.usageStt;
-    return <div className="cabinet-view"><header className="cabinet-page-head"><span className="cabinet-kicker"><WalletCards size={14} /> {c.billing}</span><h1>{c.billingTitle}</h1><p>{c.billingBody}</p></header><section className="billing-hero"><div className="billing-orb"><WalletCards /></div><div><span>{c.currentBalance}</span><strong>{money(billing.balance_uzs, language)}</strong><small>UZS</small></div><button className="cabinet-primary" onClick={onTopUp}><Plus /> {c.topUp}</button></section><section className="billing-activity"><div className="section-heading"><div><h2>{c.paymentHistory}</h2><p>{c.billingBody}</p></div><button className="cabinet-icon-button" onClick={onRefresh}><RefreshCw /></button></div>{billing.transactions.length ? <div className="transactions">{billing.transactions.map((item) => <div className="transaction-row" key={`${item.type}-${item.id}`}><span className={`transaction-icon ${item.type}`} >{item.type === 'top_up' ? <CircleDollarSign /> : item.service === 'tts' ? <AudioLines /> : <FileText />}</span><div><b>{titleFor(item)}</b><small>{shortDate(item.created_at, language)}{item.provider ? ` · ${item.provider}` : ''}{item.reason ? ` · ${item.reason}` : ''}</small></div><span className={`status-pill ${item.status}`}>{c[item.status] || item.status}</span><strong className={item.amount_uzs > 0 ? 'positive' : ''}>{item.amount_uzs > 0 ? '+' : ''}{money(item.amount_uzs, language)}</strong></div>)}</div> : <div className="empty-state small"><Clock3 /><h2>{c.noTransactions}</h2></div>}</section></div>;
+    return <div className="cabinet-view"><header className="cabinet-page-head"><span className="cabinet-kicker"><WalletCards size={14} /> {c.billing}</span><h1>{c.billingTitle}</h1><p>{c.billingBody}</p></header><section className="billing-hero"><div className="billing-orb"><WalletCards /></div><div><span>{c.currentBalance}</span><strong>{money(billing.balance_uzs, language)}</strong></div><button className="cabinet-primary" onClick={onTopUp}><Plus /> {c.topUp}</button></section><section className="billing-activity"><div className="section-heading"><div><h2>{c.paymentHistory}</h2><p>{c.billingBody}</p></div><button className="cabinet-icon-button" onClick={onRefresh}><RefreshCw /></button></div>{billing.transactions.length ? <div className="transactions">{billing.transactions.map((item) => <div className="transaction-row" key={`${item.type}-${item.id}`}><span className={`transaction-icon ${item.type}`} >{item.type === 'top_up' ? <CircleDollarSign /> : item.service === 'tts' ? <AudioLines /> : <FileText />}</span><div><b>{titleFor(item)}</b><small>{shortDate(item.created_at, language)}{item.provider ? ` · ${item.provider}` : ''}{item.reason ? ` · ${item.reason}` : ''}</small></div><span className={`status-pill ${item.status}`}>{c[item.status] || item.status}</span><strong className={item.amount_uzs > 0 ? 'positive' : ''}>{item.amount_uzs > 0 ? '+' : ''}{money(item.amount_uzs, language)}</strong></div>)}</div> : <div className="empty-state small"><Clock3 /><h2>{c.noTransactions}</h2></div>}</section></div>;
 }
 
 function ProfileView({ overview, c, onSaved }) {
@@ -1715,6 +1736,8 @@ function StudioWorkspace() {
     const [error, setError] = useState('');
     const [menuOpen, setMenuOpen] = useState(false);
     const [topUpOpen, setTopUpOpen] = useState(false);
+    const sidebarRef = useRef(null);
+    useStudioDialog(menuOpen, sidebarRef, () => setMenuOpen(false));
 
     const route = basePath.replace(/^\/cabinet\/?/, '') || 'home';
     const load = useCallback(async () => {
@@ -1729,6 +1752,12 @@ function StudioWorkspace() {
     useEffect(() => { load(); }, [load]);
     useEffect(() => { if (route === 'billing') loadBilling(); }, [loadBilling, route]);
     useEffect(() => { setMenuOpen(false); }, [basePath]);
+    useEffect(() => {
+        const desktop = window.matchMedia('(min-width: 801px)');
+        const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+        desktop.addEventListener('change', closeOnDesktop);
+        return () => desktop.removeEventListener('change', closeOnDesktop);
+    }, []);
 
     const changed = () => { load(); if (route === 'billing') loadBilling(); };
     const saveProfile = async () => { await refreshUser(); load(); };
@@ -1752,7 +1781,7 @@ function StudioWorkspace() {
     ];
     const allNav = [...primaryNav, ...createNav, ...workspaceNav];
     const currentTitle = allNav.find((item) => item.id === route)?.label || c.home;
-    const renderNav = (items) => items.map((item) => <NavLink key={item.id} to={localePath(item.path)} end={item.path === '/cabinet'} className={({ isActive }) => isActive ? 'active' : ''}>{item.icon}<span>{item.label}</span>{item.soon && <small>{c.comingSoon}</small>}</NavLink>);
+    const renderNav = (items) => items.map((item) => <NavLink key={item.id} onClick={() => setMenuOpen(false)} to={localePath(item.path)} end={item.path === '/cabinet'} className={({ isActive }) => isActive ? 'active' : ''}>{item.icon}<span>{item.label}</span>{item.soon && <small>{c.comingSoon}</small>}</NavLink>);
     if (loading) return <LoadingStudio label={c.loading} />;
     if (error && (!overview || !config)) return <div className="cabinet-fatal"><AudioLines /><h1>{c.error}</h1><p>{error}</p><button className="cabinet-primary" onClick={load}>{c.refresh}</button></div>;
 
@@ -1777,18 +1806,20 @@ function StudioWorkspace() {
 
     return <div className="cabinet-shell">
         <button className={menuOpen ? 'cabinet-scrim is-open' : 'cabinet-scrim'} onClick={() => setMenuOpen(false)} aria-label={c.close} />
-        <aside className={menuOpen ? 'cabinet-sidebar is-open' : 'cabinet-sidebar'}>
-            <Link className="cabinet-brand" to={localePath('/cabinet')}><img src="/Syncall.svg" alt="Syncall" /></Link>
-            <div className="studio-identity"><span><Sparkles /></span><div><strong>Syncall Studio</strong><small>{c.creatorPlan}</small></div></div>
-            <nav>
+        <aside ref={sidebarRef} id="studio-navigation" role={menuOpen ? 'dialog' : undefined} aria-modal={menuOpen || undefined} aria-label={c.studio} className={menuOpen ? 'cabinet-sidebar is-open' : 'cabinet-sidebar'}>
+            <button type="button" className="studio-sidebar-close" onClick={() => setMenuOpen(false)} aria-label={c.close}><X size={18} /></button>
+            <Link className="cabinet-brand" onClick={() => setMenuOpen(false)} to={localePath('/cabinet')}><img src="/Syncall.svg" alt="Syncall" /><span>Studio</span></Link>
+            <nav aria-label={c.studio}>
                 <div className="sidebar-group">{renderNav(primaryNav)}</div>
-                <div className="sidebar-group"><p>{c.createGroup}</p>{renderNav(createNav)}</div>
-                <div className="sidebar-group"><p>{c.workspaceGroup}</p>{renderNav(workspaceNav)}</div>
+                <div className="sidebar-group"><p>{c.createGroup}</p>{renderNav(createNav.filter(item => !item.soon))}</div>
+                <div className="sidebar-group"><p>{c.workspaceGroup}</p>{renderNav(workspaceNav.filter(item => !item.soon))}</div>
+                <details className="sidebar-upcoming" open={Boolean(comingSoonRoutes[route])}><summary>{c.comingSoon}<ChevronDown size={14} /></summary><div className="sidebar-group">{renderNav([...createNav, ...workspaceNav].filter(item => item.soon))}</div></details>
             </nav>
+            <div className="studio-sidebar-footer"><div className="studio-wallet"><span>{c.available}</span><strong>{money(overview.wallet.balance_uzs, language)}</strong><button type="button" onClick={() => { setMenuOpen(false); setTopUpOpen(true); }}><Plus size={15} />{c.topUp}</button></div><Link to={localePath('/')} className="studio-back-link"><ChevronLeft size={14} />{c.backHome}<span>syncallai.com</span></Link></div>
         </aside>
         <main className="cabinet-main" id="main-content">
             <header className="cabinet-topbar">
-                <div className="topbar-location"><button className="topbar-menu" onClick={() => setMenuOpen(true)} aria-label={c.menu}><PanelLeft /></button><span>{currentTitle}</span></div>
+                <div className="topbar-location"><button className="topbar-menu" onClick={() => setMenuOpen(true)} aria-label={c.menu} aria-expanded={menuOpen} aria-controls="studio-navigation"><PanelLeft /></button><Link to={localePath('/cabinet')} className="studio-topbar-brand">Studio</Link><ChevronRight size={13} /><span>{currentTitle}</span></div>
                 <div className="topbar-actions"><InterfaceLanguageDropdown value={language} onChange={setLanguage} /><AccountMenu user={overview.user} balance={overview.wallet.balance_uzs} c={c} language={language} onNavigate={(path) => navigate(localePath(path))} onTopUp={() => setTopUpOpen(true)} onLogout={logout} /></div>
             </header>
             <div className="cabinet-content-frame">{content}</div>
@@ -1805,5 +1836,5 @@ function CabinetGate() {
 }
 
 export default function Cabinet() {
-    return <CabinetAuthProvider><CabinetGate /></CabinetAuthProvider>;
+    return <div className="syncall-studio"><CabinetAuthProvider><CabinetGate /></CabinetAuthProvider></div>;
 }

@@ -215,6 +215,7 @@
 .nav-landing:not(.nav-scrolled) .language-toggle:hover { background: #ffffff18; color: #fff; }
 .nav-landing:not(.nav-scrolled) .nav-contact-button { background: #fff; color: #143760; }
 .nav-landing:not(.nav-scrolled) .nav-contact-button:hover { background: #e7f4ff; }
+.nav-landing:not(.nav-scrolled) .nav-bar:not(.is-open) .nav-link.active { color: #fff; background: #ffffff18; }
 .nav-landing:not(.nav-scrolled) :focus-visible { outline-color: #a9e5ff; }
 @media (max-width: 1100px) {
     .nav-landing { width: calc(100% - 40px); padding-inline: 10px; gap: 12px; }

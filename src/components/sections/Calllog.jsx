@@ -24,7 +24,7 @@ function DirectionIcon({ direction }) {
     );
 }
 
-function DemoPlayerInner() {
+function DemoPlayerInner({ cover }) {
     const { t } = useLanguage();
     const [selectedTrack, setSelectedTrack] = useState(demoTracks[0]);
     const player = useAudioPlayer();
@@ -42,7 +42,7 @@ function DemoPlayerInner() {
         <div className="demo-player-card">
             <div className="demo-player">
                 <div className="demo-cover">
-                    <img src="/al-cover.svg" alt="Syncall AI call recording waveform" loading="lazy" />
+                    {cover || <img src="/al-cover.svg" alt="Syncall AI call recording waveform" loading="lazy" />}
                     <div className="demo-cover-glow"></div>
                 </div>
 
@@ -109,7 +109,7 @@ function DemoPlayerInner() {
     );
 }
 
-const Calllog = () => {
+const Calllog = ({ cover }) => {
     const { t } = useLanguage();
 
     return (
@@ -121,7 +121,7 @@ const Calllog = () => {
                 </div>
 
                 <AudioPlayerProvider>
-                    <DemoPlayerInner />
+                    <DemoPlayerInner cover={cover} />
                 </AudioPlayerProvider>
 
             </div>

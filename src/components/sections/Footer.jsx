@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa6';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { isMarketingRoute } from '../../lib/marketingRoutes.js';
 import './Footer.css';
 
 const Footer = () => {
     const { t, localePath, basePath } = useLanguage();
-    const isLanding = ['/', '/voice-agents', '/analytics', '/chatbots'].includes(basePath);
+    const isLanding = isMarketingRoute(basePath);
     const columns = [
         {
             title: t('footerProducts'),

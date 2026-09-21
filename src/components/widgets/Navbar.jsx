@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 import { landingContent } from '../../content/landingContent.js';
+import { isMarketingRoute } from '../../lib/marketingRoutes.js';
 
 const languages = [
     { code: 'uz', name: "O'zbekcha", flag: '🇺🇿' },
@@ -19,7 +20,7 @@ const Navbar = () => {
     const [theme, setTheme] = useState(() => {
         try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
     });
-    const isLanding = ['/', '/voice-agents', '/analytics', '/chatbots'].includes(basePath);
+    const isLanding = isMarketingRoute(basePath);
     const copy = landingContent[language] || landingContent.ru;
 
     const currentLang = languages.find((item) => item.code === language);

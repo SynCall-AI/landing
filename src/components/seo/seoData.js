@@ -22,12 +22,12 @@ export const ROUTE_SEO = {
     '/': page(
         {
             en: 'Syncall — AI Voice Agents for Call Centers | Uzbek & Russian',
-            ru: 'Syncall — ИИ для колл-центра и голосовой робот для обзвона',
+            ru: 'Syncall — ИИ-оператор для звонков и колл-центров',
             uz: "Syncall — O'zbek va rus call-markazlari uchun AI-agentlar",
         },
         {
             en: 'AI voice agents and chatbots for Uzbek, Russian, and English call centers, with telephony integration and cloud or on-premise deployment.',
-            ru: 'Голосовой робот Syncall принимает и совершает звонки на русском и узбекском: ИИ для колл-центра с интеграцией телефонии и CRM, в облаке или On-Premise.',
+            ru: 'ИИ-оператор Syncall принимает и совершает звонки на русском и узбекском: ИИ для колл-центра с интеграцией телефонии и CRM, в облаке или On-Premise.',
             uz: "O'zbek, rus va ingliz tilidagi call-markazlar uchun telefoniya bilan integratsiyalashadigan, bulutda yoki On-Premise ishlaydigan AI ovozli agentlar va chatbotlar.",
         },
         { kind: 'home' },
@@ -86,12 +86,12 @@ export const ROUTE_SEO = {
     '/features': page(
         {
             en: 'AI Voice Agent Features for Call Centers | Syncall',
-            ru: 'Робот для колл-центра: возможности ИИ-агентов | Syncall',
+            ru: 'Возможности ИИ-оператора для колл-центра | Syncall',
             uz: "Call-markaz AI-agentlari imkoniyatlari | Syncall",
         },
         {
             en: 'Explore dialect-aware speech recognition, interruption handling, voice isolation, voice cloning, analytics, CRM connectivity, and on-premise deployment.',
-            ru: 'Возможности голосового робота для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
+            ru: 'Возможности ИИ-оператора для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
             uz: "Lahjalarni anglash, so'zni bo'lish, ovozni ajratish, ovoz klonlash, tahlil, CRM ulanishi va On-Premise joylashtirish imkoniyatlarini ko'ring.",
         },
     ),
@@ -114,12 +114,12 @@ export const ROUTE_SEO = {
     '/use-cases/debt-collection': page(
         {
             en: 'AI Voice Agents for Debt Collection | Syncall',
-            ru: 'Робот для обзвона должников | Syncall',
+            ru: 'ИИ-оператор для обзвона должников | Syncall',
             uz: "Qarzdorlik undirish uchun AI ovozli agentlar | Syncall",
         },
         {
             en: 'Automate respectful payment reminders and follow-up calls in Uzbek and Russian while recording outcomes and structured next steps in your CRM.',
-            ru: 'ИИ-робот корректно обзванивает должников и напоминает об оплате на узбекском и русском, фиксируя результат и следующий шаг в CRM.',
+            ru: 'ИИ-оператор корректно обзванивает должников и напоминает об оплате на узбекском и русском, фиксируя результат и следующий шаг в CRM.',
             uz: "O'zbek va rus tillarida to'lov eslatmalari hamda takroriy qo'ng'iroqlarni avtomatlashtiring, natija va keyingi qadamlarni CRMga yozing.",
         },
     ),
@@ -150,12 +150,12 @@ export const ROUTE_SEO = {
     '/use-cases/lead-qualification': page(
         {
             en: 'AI Lead Qualification Calls | Syncall',
-            ru: 'Робот для обзвона и квалификации лидов | Syncall',
+            ru: 'ИИ-оператор для обзвона и квалификации лидов | Syncall',
             uz: "Lidlarni saralash uchun AI qo'ng'iroqlar | Syncall",
         },
         {
             en: 'Qualify inbound and outbound leads through natural Uzbek and Russian conversations, then route the right prospects and call context to your sales team.',
-            ru: 'ИИ-робот обзванивает и квалифицирует входящие и исходящие лиды в естественном диалоге на узбекском и русском и передаёт горячих клиентов отделу продаж.',
+            ru: 'ИИ-оператор обзванивает и квалифицирует входящие и исходящие лиды в естественном диалоге на узбекском и русском и передаёт горячих клиентов отделу продаж.',
             uz: "Kiruvchi va chiquvchi lidlarni tabiiy o'zbek-rus suhbatida saralang, mos mijozlar va qo'ng'iroq kontekstini savdo jamoasiga yuboring.",
         },
     ),
@@ -174,7 +174,7 @@ export const ROUTE_SEO = {
     '/pricing': page(
         {
             en: 'AI Voice Agent Pricing & Free Trial | Syncall',
-            ru: 'Стоимость голосового робота для колл-центра | Syncall',
+            ru: 'Стоимость ИИ-оператора для колл-центра | Syncall',
             uz: "AI ovozli agent narxlari va bepul sinov | Syncall",
         },
         {
