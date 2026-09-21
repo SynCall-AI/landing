@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Syncall — пример входящего звонка</title>
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #05070b; color: #f2f7ff; }
+      body { margin: 0; padding: 32px 20px; }
+      main { max-width: 1100px; margin: auto; }
+      h1 { font-size: clamp(24px, 4vw, 36px); font-weight: 600; letter-spacing: -.03em; }
+      p { color: #a8b4c7; line-height: 1.6; }
+      video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid #263042; border-radius: 16px; background: #05070b; }
+      a { color: #65a6ff; }
+      a:focus-visible { outline: 2px solid #65a6ff; outline-offset: 5px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Входящая линия</h1>
+      <p id="video-description">Пример работы · 25 секунд · Без озвучки</p>
+      <video controls playsinline preload="metadata" poster="syncall-incoming-ru.png" aria-label="Как Syncall обрабатывает входящий звонок" aria-describedby="video-description">
+        <source src="syncall-incoming-ru.mp4" type="video/mp4" />
+        <a href="syncall-incoming-ru.mp4">Скачать видео</a>
+      </video>
+      <p>Клиент спрашивает, почему после оплаты не работает интернет. Syncall проверяет платёж в биллинге, находит информацию об аварии в CRM, объясняет причину и с согласия клиента создаёт обращение в поддержку.</p>
+      <p><a href="syncall-incoming-ru.mp4" download>Скачать MP4</a></p>
+    </main>
+  </body>
+</html>

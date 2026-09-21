@@ -3,6 +3,10 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
+import { callExamples } from '../src/content/callExamples.js';
+import { clients } from '../src/content/clients.js';
+import { landingContent } from '../src/content/landingContent.js';
+import { getCustomerStories } from '../src/content/customerStories.js';
 import { localizePath } from '../src/lib/i18n.js';
 import { marketingContent } from '../src/content/marketingContent.js';
 import {
@@ -107,7 +111,7 @@ const renderSeoBlock = (seo, locale, dictionaries) => {
     if (!seo.unknown && seo.basePath === '/') {
         schemas.push([
             'faq',
-            buildFaqSchema(dictionaries[locale], dictionaries.en),
+            buildFaqSchema(dictionaries[locale], dictionaries.en, landingContent[locale].faq),
         ]);
     }
 
@@ -156,7 +160,7 @@ const renderFallback = (seo, locale, dictionaries) => {
     const dictionary = dictionaries[locale] || dictionaries.en;
     const navItems = [
         ['/features', dictionary.features || dictionaries.en.features || 'Features'],
-        ['/use-cases/banking', dictionary.navUseCases || dictionaries.en.navUseCases || 'Use cases'],
+        ['/use-cases', dictionary.navUseCases || dictionaries.en.navUseCases || 'Use cases'],
         ['/integrations', dictionary.navIntegrations || dictionaries.en.navIntegrations || 'Integrations'],
         ['/pricing', dictionary.navPricing || dictionaries.en.navPricing || 'Pricing'],
         ['/about', dictionary.navAbout || dictionaries.en.navAbout || 'About'],
@@ -166,10 +170,10 @@ const renderFallback = (seo, locale, dictionaries) => {
         ru: 'Навигация по сайту',
         uz: "Sayt bo'ylab navigatsiya",
     }[locale];
-    const contactLabel = dictionary.ctaDemo || dictionaries.en.ctaDemo || 'Book a demo';
+    const contactLabel = seo.basePath === '/stt' || seo.basePath === '/tts' ? dictionary.creatorStudio : (dictionary.ctaDemo || dictionaries.en.ctaDemo || 'Book a demo');
     const telegramLabel = dictionary.ctaTelegram || dictionaries.en.ctaTelegram || 'Message us on Telegram';
     const homeUrl = localizePath('/', locale);
-    const contactUrl = localizePath('/#contact', locale);
+    const contactUrl = localizePath(seo.basePath === '/stt' || seo.basePath === '/tts' ? `/cabinet${seo.basePath}` : '/?intent=demo#contact', locale);
     const marketingKey = seo.basePath.replace(/^\//, '');
     const marketingPage = marketingContent[locale]?.[marketingKey];
 
@@ -179,12 +183,8 @@ const renderFallback = (seo, locale, dictionaries) => {
 
     let partners = '';
     if (!seo.unknown && seo.basePath === '/') {
-        const partnersHeading = {
-            en: 'Trusted by companies in Uzbekistan',
-            ru: 'Нам доверяют компании в Узбекистане',
-            uz: "Bizga O'zbekistondagi kompaniyalar ishonadi",
-        }[locale];
-        const partnerNames = ['Iman', 'Unicon', 'Qwatt', 'Thompson', 'Poytaxt Parking'];
+        const partnersHeading = landingContent[locale].trusted;
+        const partnerNames = clients.map(({ name }) => name);
         partners = `
         <section aria-labelledby="static-partners-heading">
           <h2 id="static-partners-heading">${htmlEscape(partnersHeading)}</h2>
@@ -194,7 +194,7 @@ const renderFallback = (seo, locale, dictionaries) => {
 
     let faq = '';
     if (!seo.unknown && seo.basePath === '/') {
-        const faqSchema = buildFaqSchema(dictionary, dictionaries.en);
+        const faqSchema = { mainEntity: landingContent[locale].faq.map(([name, text]) => ({ name, acceptedAnswer: { text } })) };
         const questions = faqSchema.mainEntity.map((entity) => `
           <article>
             <h3>${htmlEscape(entity.name)}</h3>
@@ -206,6 +206,16 @@ const renderFallback = (seo, locale, dictionaries) => {
         </section>`;
     }
 
+    const recordings = seo.basePath === '/' || seo.basePath === '/case-studies'
+        ? `<section aria-labelledby="static-recordings-heading"><h2 id="static-recordings-heading">${htmlEscape(dictionary.calllogTitle)}</h2>
+            <p>${htmlEscape(dictionary.calllogSubtitle)}</p>
+            ${callExamples.map((call) => `<article><h3>${htmlEscape(dictionary[call.labelKey])}</h3><p>${htmlEscape(call.langLabel)}</p><audio controls preload="none" src="${htmlEscape(call.src)}"></audio>${call.transcript ? `<p lang="uz">${htmlEscape(call.transcript)}</p>` : ''}</article>`).join('')}
+          </section>` : '';
+    const stories = seo.basePath === '/' || seo.basePath === '/case-studies' || seo.basePath === '/analytics'
+        ? getCustomerStories(locale).filter((story) => seo.basePath !== '/analytics' || story.productId === 'analytics').map((story) => `<article><h2>${htmlEscape(story.company)}</h2><p>${htmlEscape(story.product)}</p><p>${htmlEscape(story.before)}</p><p>${htmlEscape(story.after)}</p><blockquote>${htmlEscape(story.quote)}</blockquote><p>${htmlEscape(story.name)} · ${htmlEscape(story.role)}</p>${story.result ? `<p>${htmlEscape(story.result.text)} · ${htmlEscape(story.result.period)} · ${htmlEscape(story.result.sample)} · ${htmlEscape(story.result.source)}</p>` : ''}</article>`).join('') : '';
+    const studio = seo.basePath === '/'
+        ? `<aside><h2>${htmlEscape(dictionary.studioStripTitle)}</h2><p>${htmlEscape(dictionary.studioStripBody)}</p><a href="${htmlEscape(localizePath('/cabinet/stt', locale))}">${htmlEscape(dictionary.studioStt)}</a> · <a href="${htmlEscape(localizePath('/cabinet/tts', locale))}">${htmlEscape(dictionary.studioTts)}</a></aside>` : '';
+
     const marketingBody = marketingPage
         ? `<h1>${htmlEscape(marketingPage.title)}</h1>
           <p>${htmlEscape(marketingPage.lead)}</p>
@@ -213,7 +223,7 @@ ${marketingPage.sections.map((section) => `          <section>
             <h2>${htmlEscape(section.title)}</h2>
 ${section.body.map((paragraph) => `            <p>${htmlEscape(paragraph)}</p>`).join('\n')}
 ${(section.items || []).filter((item) => !item.placeholder).map((item) => `            <article>
-              <h3>${htmlEscape(item.title)}</h3>
+              <h3>${item.href ? `<a href="${htmlEscape(localizePath(item.href, locale))}">${htmlEscape(item.title)}</a>` : htmlEscape(item.title)}</h3>
               <p>${htmlEscape(item.text)}</p>
             </article>`).join('\n')}
           </section>`).join('\n')}
@@ -231,8 +241,12 @@ ${marketingPage.sources ? `          <aside>
             <p>${htmlEscape(marketingPage.sources.note)}</p>
             <ul>${marketingPage.sources.links.map((source) => `<li><a href="${htmlEscape(source.href)}">${htmlEscape(source.label)}</a></li>`).join('')}</ul>
           </aside>` : ''}`
-        : `<h1>${htmlEscape(seo.title)}</h1>
-          <p>${htmlEscape(seo.description)}</p>`;
+        : seo.basePath === '/'
+            ? `<h1>${htmlEscape(landingContent[locale].title.join(' '))}</h1><p>${htmlEscape(landingContent[locale].intro)}</p>
+                <section><h2>${htmlEscape(landingContent[locale].demoTitle)}</h2>${landingContent[locale].scenarios.map((item) => `<h3>${htmlEscape(item.title)}</h3><p>${htmlEscape(item.description)}</p>`).join('')}</section>
+                <section><h2>${htmlEscape(landingContent[locale].storiesTitle)}</h2><h3>Poytaxt Parking</h3><p>${htmlEscape(`${landingContent[locale].parkingMetric} — ${landingContent[locale].parkingLabel}`)}</p><p>${htmlEscape(landingContent[locale].parkingBody)}</p><h3>Qwatt</h3><p>${htmlEscape(`${landingContent[locale].qwattMetric} — ${landingContent[locale].qwattLabel}`)}</p><p>${htmlEscape(landingContent[locale].qwattBody)}</p></section>
+                <section><h2>${htmlEscape(landingContent[locale].productsTitle)}</h2>${landingContent[locale].products.map((item) => `<h3><a href="${htmlEscape(localizePath(item.path, locale))}">${htmlEscape(item.title)}</a></h3><p>${htmlEscape(item.body)}</p>`).join('')}</section>`
+            : `<h1>${htmlEscape(seo.title)}</h1><p>${htmlEscape(seo.description)}</p>`;
 
     return `      <div class="ssr-fallback" data-static-fallback="${htmlEscape(`${locale}:${seo.basePath}`)}">
         <header>
@@ -243,7 +257,7 @@ ${nav}
         </header>
         <main>
           ${marketingBody}
-          <p><a href="${htmlEscape(contactUrl)}">${htmlEscape(contactLabel)}</a></p>${partners}${faq}
+          <p><a href="${htmlEscape(contactUrl)}">${htmlEscape(contactLabel)}</a></p>${partners}${recordings}${stories}${studio}${faq}
         </main>
         <footer>
           <a href="https://t.me/syncall_ai">${htmlEscape(telegramLabel)}</a>

@@ -22,12 +22,12 @@ export const ROUTE_SEO = {
     '/': page(
         {
             en: 'Syncall — AI Voice Agents for Call Centers | Uzbek & Russian',
-            ru: 'Syncall — ИИ для колл-центра и голосовой робот для обзвона',
+            ru: 'Syncall — ИИ-оператор для звонков и колл-центров',
             uz: "Syncall — O'zbek va rus call-markazlari uchun AI-agentlar",
         },
         {
             en: 'AI voice agents and chatbots for Uzbek, Russian, and English call centers, with telephony integration and cloud or on-premise deployment.',
-            ru: 'Голосовой робот Syncall принимает и совершает звонки на русском и узбекском: ИИ для колл-центра с интеграцией телефонии и CRM, в облаке или On-Premise.',
+            ru: 'ИИ-оператор Syncall принимает и совершает звонки на русском и узбекском: ИИ для колл-центра с интеграцией телефонии и CRM, в облаке или On-Premise.',
             uz: "O'zbek, rus va ingliz tilidagi call-markazlar uchun telefoniya bilan integratsiyalashadigan, bulutda yoki On-Premise ishlaydigan AI ovozli agentlar va chatbotlar.",
         },
         { kind: 'home' },
@@ -68,6 +68,7 @@ export const ROUTE_SEO = {
             ru: 'Распознавайте реальные узбекские, русские и смешанные звонки через API с поддержкой диалектов, сленга, фонового шума, стриминга и пакетной обработки.',
             uz: "Lahjalar, sleng, fon shovqini, oqimli va paketli audio uchun yaratilgan API bilan o'zbek, rus va aralash tildagi real qo'ng'iroqlarni matnga aylantiring.",
         },
+        { noindex: true, canonicalPath: '/cabinet/stt' },
     ),
     '/tts': page(
         {
@@ -80,18 +81,23 @@ export const ROUTE_SEO = {
             ru: 'Синтезируйте естественную узбекскую, русскую и английскую речь или создайте голос бренда с согласия диктора через API с низкой задержкой.',
             uz: "Past kechikishli API orqali tabiiy o'zbek, rus va ingliz nutqini yarating yoki diktor roziligi asosida brend ovozini klonlang.",
         },
+        { noindex: true, canonicalPath: '/cabinet/tts' },
     ),
     '/features': page(
         {
             en: 'AI Voice Agent Features for Call Centers | Syncall',
-            ru: 'Робот для колл-центра: возможности ИИ-агентов | Syncall',
+            ru: 'Возможности ИИ-оператора для колл-центра | Syncall',
             uz: "Call-markaz AI-agentlari imkoniyatlari | Syncall",
         },
         {
             en: 'Explore dialect-aware speech recognition, interruption handling, voice isolation, voice cloning, analytics, CRM connectivity, and on-premise deployment.',
-            ru: 'Возможности голосового робота для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
+            ru: 'Возможности ИИ-оператора для колл-центра: распознавание диалектов, перебивания, изоляция и клонирование голоса, аналитика, CRM и On-Premise.',
             uz: "Lahjalarni anglash, so'zni bo'lish, ovozni ajratish, ovoz klonlash, tahlil, CRM ulanishi va On-Premise joylashtirish imkoniyatlarini ko'ring.",
         },
+    ),
+    '/use-cases': page(
+        { en: 'AI Call Center Use Cases | Syncall', ru: 'Сценарии AI для колл-центра | Syncall', uz: 'Koll-markaz uchun AI ssenariylari | Syncall' },
+        { en: 'Explore AI call workflows for banking, payment reminders, appointments, surveys, and lead qualification. Start with one task and a scoped pilot.', ru: 'Выберите сценарий AI-звонков: банки, напоминания об оплате и записи, опросы или квалификация лидов. Начните с одной задачи и пилота.', uz: 'Banklar, to‘lov va uchrashuv eslatmalari, so‘rovlar va lidlarni saralash uchun AI qo‘ng‘iroq ssenariylarini ko‘ring. Bitta vazifa va pilotdan boshlang.' },
     ),
     '/use-cases/banking': page(
         {
@@ -108,12 +114,12 @@ export const ROUTE_SEO = {
     '/use-cases/debt-collection': page(
         {
             en: 'AI Voice Agents for Debt Collection | Syncall',
-            ru: 'Робот для обзвона должников | Syncall',
+            ru: 'ИИ-оператор для обзвона должников | Syncall',
             uz: "Qarzdorlik undirish uchun AI ovozli agentlar | Syncall",
         },
         {
             en: 'Automate respectful payment reminders and follow-up calls in Uzbek and Russian while recording outcomes and structured next steps in your CRM.',
-            ru: 'ИИ-робот корректно обзванивает должников и напоминает об оплате на узбекском и русском, фиксируя результат и следующий шаг в CRM.',
+            ru: 'ИИ-оператор корректно обзванивает должников и напоминает об оплате на узбекском и русском, фиксируя результат и следующий шаг в CRM.',
             uz: "O'zbek va rus tillarida to'lov eslatmalari hamda takroriy qo'ng'iroqlarni avtomatlashtiring, natija va keyingi qadamlarni CRMga yozing.",
         },
     ),
@@ -144,12 +150,12 @@ export const ROUTE_SEO = {
     '/use-cases/lead-qualification': page(
         {
             en: 'AI Lead Qualification Calls | Syncall',
-            ru: 'Робот для обзвона и квалификации лидов | Syncall',
+            ru: 'ИИ-оператор для обзвона и квалификации лидов | Syncall',
             uz: "Lidlarni saralash uchun AI qo'ng'iroqlar | Syncall",
         },
         {
             en: 'Qualify inbound and outbound leads through natural Uzbek and Russian conversations, then route the right prospects and call context to your sales team.',
-            ru: 'ИИ-робот обзванивает и квалифицирует входящие и исходящие лиды в естественном диалоге на узбекском и русском и передаёт горячих клиентов отделу продаж.',
+            ru: 'ИИ-оператор обзванивает и квалифицирует входящие и исходящие лиды в естественном диалоге на узбекском и русском и передаёт горячих клиентов отделу продаж.',
             uz: "Kiruvchi va chiquvchi lidlarni tabiiy o'zbek-rus suhbatida saralang, mos mijozlar va qo'ng'iroq kontekstini savdo jamoasiga yuboring.",
         },
     ),
@@ -168,7 +174,7 @@ export const ROUTE_SEO = {
     '/pricing': page(
         {
             en: 'AI Voice Agent Pricing & Free Trial | Syncall',
-            ru: 'Стоимость голосового робота для колл-центра | Syncall',
+            ru: 'Стоимость ИИ-оператора для колл-центра | Syncall',
             uz: "AI ovozli agent narxlari va bepul sinov | Syncall",
         },
         {
@@ -191,14 +197,14 @@ export const ROUTE_SEO = {
     ),
     '/case-studies': page(
         {
-            en: 'AI Voice Agent Case Studies | Syncall',
-            ru: 'Кейсы внедрения AI-голосовых агентов | Syncall',
-            uz: "AI ovozli agentlarni joriy etish tajribalari | Syncall",
+            en: 'AI Call Recordings & Customer Examples | Syncall',
+            ru: 'Записи AI-звонков и примеры работы | Syncall',
+            uz: "AI qo‘ng‘iroq yozuvlari va misollar | Syncall",
         },
         {
-            en: 'Review clearly sourced Syncall deployment stories, use cases, integration details, and measured outcomes as verified customer case studies become available.',
-            ru: 'Изучайте подтверждённые истории внедрения Syncall, сценарии, интеграции и измеримые результаты по мере публикации проверенных клиентских кейсов.',
-            uz: "Tasdiqlangan mijoz tajribalari e'lon qilingani sari Syncall joriy etish hikoyalari, ssenariylari, integratsiya tafsilotlari va o'lchangan natijalarni ko'ring.",
+            en: 'Listen to Syncall AI call recordings in Uzbek and explore voice-agent workflows for your team.',
+            ru: 'Послушайте записи звонков с Syncall AI на узбекском и изучите сценарии голосовых агентов для вашей команды.',
+            uz: "Syncall AI bilan o‘zbek tilidagi qo‘ng‘iroq yozuvlarini tinglang va jamoangiz uchun ovozli agent ssenariylarini ko‘ring.",
         },
     ),
     '/cabinet': page(
@@ -353,10 +359,10 @@ export const FAQ_KEYS = Array.from({ length: 6 }, (_, index) => ({
     answer: `faqA${index + 1}`,
 }));
 
-export const buildFaqSchema = (localeTranslations = {}, englishTranslations = {}) => ({
+export const buildFaqSchema = (localeTranslations = {}, englishTranslations = {}, pairs) => ({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_KEYS.map(({ question, answer }) => ({
+    mainEntity: pairs ? pairs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) : FAQ_KEYS.map(({ question, answer }) => ({
         '@type': 'Question',
         name: localeTranslations[question] || englishTranslations[question] || question,
         acceptedAnswer: {

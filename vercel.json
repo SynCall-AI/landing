@@ -82,5 +82,37 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/stt",
+      "destination": "/cabinet/stt",
+      "permanent": true
+    },
+    {
+      "source": "/tts",
+      "destination": "/cabinet/tts",
+      "permanent": true
+    },
+    {
+      "source": "/ru/stt",
+      "destination": "/ru/cabinet/stt",
+      "permanent": true
+    },
+    {
+      "source": "/ru/tts",
+      "destination": "/ru/cabinet/tts",
+      "permanent": true
+    },
+    {
+      "source": "/uz/stt",
+      "destination": "/uz/cabinet/stt",
+      "permanent": true
+    },
+    {
+      "source": "/uz/tts",
+      "destination": "/uz/cabinet/tts",
+      "permanent": true
+    }
   ]
 }

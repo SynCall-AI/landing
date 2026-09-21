@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa6';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { isMarketingRoute } from '../../lib/marketingRoutes.js';
 import './Footer.css';
 
 const Footer = () => {
-    const { language, setLanguage, t, localePath } = useLanguage();
+    const { t, localePath, basePath } = useLanguage();
+    const isLanding = isMarketingRoute(basePath);
     const columns = [
         {
             title: t('footerProducts'),
@@ -13,8 +15,8 @@ const Footer = () => {
                 [t('navMarketingFeatures'), '/features'],
                 [t('navAnalytics'), '/analytics'],
                 [t('navChatbots'), '/chatbots'],
-                [t('navStt'), '/stt'],
-                [t('navTts'), '/tts'],
+                [t('navStt'), '/cabinet/stt'],
+                [t('navTts'), '/cabinet/tts'],
                 [t('navIntegrations'), '/integrations'],
                 [t('navPricing'), '/pricing'],
             ],
@@ -22,6 +24,7 @@ const Footer = () => {
         {
             title: t('navUseCases'),
             links: [
+                [t('navUseCases'), '/use-cases'],
                 [t('useCaseBanking'), '/use-cases/banking'],
                 [t('useCaseDebt'), '/use-cases/debt-collection'],
                 [t('useCaseReminders'), '/use-cases/appointment-reminders'],
@@ -39,20 +42,8 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="footer">
+        <footer className={`footer${isLanding ? ' footer-landing' : ''}`}>
             <div className="footer-inner">
-                <section className="footer-cta" aria-labelledby="footer-cta-heading">
-                    <div>
-                        <h2 id="footer-cta-heading">{t('contactTitle')}</h2>
-                        <p>{t('contactSubtitle')}</p>
-                    </div>
-                    <div className="footer-cta-actions">
-                        <a className="btn-primary" href={`${localePath('/')}?intent=demo#contact`}>{t('ctaDemo')}</a>
-                        <a className="btn-secondary" href={`${localePath('/')}?intent=trial#contact`}>{t('ctaTrial')}</a>
-                        <a className="footer-telegram" href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">{t('ctaTelegram')}</a>
-                    </div>
-                </section>
-
                 <div className="footer-map">
                     <Link to={localePath('/')} className="footer-brand" aria-label="Syncall home">
                         <img src="/Syncall.svg" alt="Syncall" width="112" height="28" loading="lazy" />
@@ -67,30 +58,13 @@ const Footer = () => {
                     ))}
                 </div>
 
-                <div className="footer-utility">
-                    <div className="footer-languages" role="group" aria-label={t('languageSelectorLabel')}>
-                        {['en', 'ru', 'uz'].map((code) => (
-                            <button
-                                type="button"
-                                key={code}
-                                className={language === code ? 'active' : ''}
-                                aria-pressed={language === code}
-                                onClick={() => setLanguage(code)}
-                            >
-                                {code.toUpperCase()}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="footer-social">
-                        <a href="https://www.instagram.com/syncall.ai/" aria-label="Syncall on Instagram" target="_blank" rel="noopener noreferrer"><FaInstagram aria-hidden="true" /></a>
-                        <a href="https://www.linkedin.com/company/syncall-ai/" aria-label="Syncall on LinkedIn" target="_blank" rel="noopener noreferrer"><FaLinkedin aria-hidden="true" /></a>
-                        <a href="https://t.me/syncall_ai" aria-label="Syncall on Telegram" target="_blank" rel="noopener noreferrer"><FaTelegram aria-hidden="true" /></a>
-                    </div>
-                </div>
-
                 <div className="footer-bottom">
                     <span>© 2026 Syncall AI. {t('footerRights')}.</span>
-                    <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer">@syncall_ai</a>
+                    <div className="footer-social">
+                        <a href="https://t.me/syncall_ai" target="_blank" rel="noopener noreferrer"><FaTelegram aria-hidden="true" /><span>Telegram</span></a>
+                        <a href="https://www.linkedin.com/company/syncall-ai/" target="_blank" rel="noopener noreferrer"><FaLinkedin aria-hidden="true" /><span>LinkedIn</span></a>
+                        <a href="https://www.instagram.com/syncall.ai/" target="_blank" rel="noopener noreferrer"><FaInstagram aria-hidden="true" /><span>Instagram</span></a>
+                    </div>
                 </div>
             </div>
         </footer>

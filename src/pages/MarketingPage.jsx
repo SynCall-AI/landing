@@ -1,9 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import {
     getRelatedMarketingPages,
     resolveMarketingPage,
     withLocalePath,
 } from '../content/marketingContent.js';
+import { Ambient, VoiceOrb } from '../components/landing/LandingVisuals.jsx';
+import { ProductCta, ProductReveal } from '../components/products/ProductLayout.jsx';
+import { productPageContent } from '../content/productPageContent.js';
+import TrustSection from '../components/sections/TrustSection.jsx';
+import Calllog from '../components/sections/Calllog.jsx';
 import './MarketingPage.css';
 
 function externalLinkProps(href) {
@@ -25,11 +31,11 @@ const MarketingPage = ({
 
     if (!page) {
         return (
-            <main className="marketing-page marketing-page--missing">
+            <main className="lp marketing-page marketing-page--missing" id="main-content" tabIndex="-1">
                 <section className="marketing-shell marketing-missing" aria-labelledby="marketing-missing-title">
                     <h1 id="marketing-missing-title">{ui.unavailableTitle}</h1>
                     <p>{ui.unavailableBody}</p>
-                    <Link className="marketing-button marketing-button--primary" to={withLocalePath('features', resolved.locale)}>
+                    <Link className="lp-button lp-button-dark" to={withLocalePath('features', resolved.locale)}>
                         {ui.backToFeatures}
                     </Link>
                 </section>
@@ -38,32 +44,39 @@ const MarketingPage = ({
     }
 
     return (
-        <main className="marketing-page" id="main-content" tabIndex="-1">
+        <main className="lp pp marketing-page" id="main-content" tabIndex="-1">
             <header className="marketing-hero">
+                <Ambient />
                 <div className="marketing-shell marketing-hero__inner">
-                    <span className="marketing-eyebrow">{page.eyebrow}</span>
+                    <span className="pp-eyebrow">SYNCALL · {page.eyebrow}</span>
                     <h1>{page.title}</h1>
                     <p className="marketing-lead">{page.lead}</p>
                     <div className="marketing-actions" role="group" aria-label={page.cta.title}>
                         <a
-                            className="marketing-button marketing-button--primary"
+                            className="lp-button lp-hero-primary"
                             href={demoHref}
                             {...externalLinkProps(demoHref)}
                         >
-                            {ui.bookDemo}
+                            {ui.bookDemo}<ArrowUpRight size={18} />
                         </a>
                         <a
-                            className="marketing-button marketing-button--secondary"
+                            className="lp-button marketing-button--secondary"
                             href={trialHref}
                             {...externalLinkProps(trialHref)}
                         >
-                            {ui.startTrial}
+                            {ui.startTrial}<ArrowRight size={18} />
                         </a>
                     </div>
                 </div>
             </header>
 
-            {page.sections.map((section, sectionIndex) => {
+            {resolved.path === 'case-studies' && <><TrustSection /><Calllog cover={<VoiceOrb />} /></>}
+
+            {page.sections.filter(section => {
+                // A text-only section repeated by the closing CTA is presented there once.
+                const repeatsCta = section.title === page.cta.title && section.body.join('\n') === page.cta.body;
+                return !repeatsCta || section.items?.some(item => !item.placeholder);
+            }).map((section, sectionIndex) => {
                 const headingId = `marketing-section-${sectionIndex}`;
                 return (
                     <section
@@ -72,25 +85,28 @@ const MarketingPage = ({
                         key={headingId}
                     >
                         <div className="marketing-shell">
-                            <div className="marketing-section__heading">
-                                <h2 id={headingId}>{section.title}</h2>
+                            <ProductReveal className="marketing-section__heading">
+                                <div><span className="lp-eyebrow" aria-hidden="true">0{sectionIndex + 1} / SYNCALL</span><h2 id={headingId}>{section.title}</h2></div>
+                                <div className="marketing-section__intro">
                                 {section.body.map((paragraph, paragraphIndex) => (
                                     <p key={`${headingId}-paragraph-${paragraphIndex}`}>{paragraph}</p>
                                 ))}
-                            </div>
+                                </div>
+                            </ProductReveal>
 
                             {/* Placeholder cards ({{...}} mustaches) stay hidden until real,
                                 approved content replaces them in marketingContent.js. */}
                             {section.items?.filter((item) => !item.placeholder).length > 0 && (
                                 <div className="marketing-card-grid">
                                     {section.items.filter((item) => !item.placeholder).map((item, itemIndex) => (
-                                        <article
-                                            className="marketing-card"
+                                        <ProductReveal
+                                            className={`marketing-card${item.href ? ' marketing-card--linked' : ''}`}
                                             key={`${headingId}-item-${itemIndex}`}
                                         >
-                                            <h3>{item.title}</h3>
+                                            <span className="marketing-card__number" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
+                                            <h3>{item.href ? <Link to={withLocalePath(item.href, resolved.locale)}>{item.title}<ArrowUpRight size={19} aria-hidden="true" /></Link> : item.title}</h3>
                                             <p>{item.text}</p>
-                                        </article>
+                                        </ProductReveal>
                                     ))}
                                 </div>
                             )}
@@ -169,6 +185,7 @@ const MarketingPage = ({
                 </div>
             </section>
 
+            <ProductCta copy={productPageContent[resolved.locale]} title={page.cta.title} intro={page.cta.body} cta={ui.startTrial} href={trialHref} />
         </main>
     );
 };

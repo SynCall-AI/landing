@@ -1,69 +1,22 @@
-import React, { useEffect, useState, useRef } from 'react';
-import "./How.css"
-import Cards from "../widgets/Cards.jsx";
-import { useWindowScroll } from "@uidotdev/usehooks";
+import './How.css';
 import { useLanguage } from '../../context/LanguageContext';
-
-const How = () => {
-    const { t } = useLanguage();
-
-    const data = [
-        { titleKey: "howStep1Title", descriptionKey: "howStep1Text" },
-        { titleKey: "howStep2Title", descriptionKey: "howStep2Text" },
-        { titleKey: "howStep3Title", descriptionKey: "howStep3Text" },
-        { titleKey: "howStep4Title", descriptionKey: "howStep4Text" },
-    ];
-
-    const [{ y }] = useWindowScroll();
-    const sectionRef = useRef(null);
-    const [activeIndex, setActiveIndex] = useState(-1);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const start = section.offsetTop - window.innerHeight;
-        const end = section.offsetTop + section.offsetHeight;
-        const scrollRange = end - start;
-
-        if (y >= start && y <= end) {
-            const progress = (y - start) / scrollRange;
-
-            let index;
-            if (progress < 0.38) {
-                index = 0;
-            } else if (progress < 0.5) {
-                index = 1;
-            } else if (progress < 0.6) {
-                index = 2;
-            } else {
-                index = 3;
-            }
-
-            setActiveIndex(index);
-        } else {
-            setActiveIndex(-1);
-        }
-    }, [y]);
-
-
-
+export default function How() {
+    const { t, localePath } = useLanguage();
     return (
-        <section id="how" className="how-main" ref={sectionRef} aria-labelledby="how-heading">
-            <h2 id="how-heading">{t('howTitle')}</h2>
-            <div className="how-con">
-                {data.map((i, idx) => (
-                    <Cards
-                        key={idx}
-                        title={t(i.titleKey)}
-                        text={t(i.descriptionKey)}
-
-                        className={idx === activeIndex ? "current" : ""}
-                    />
-                ))}
+        <section id="how" className="launch-section" aria-labelledby="how-heading">
+            <div className="launch-container">
+                <h2 id="how-heading">{t('howTitle')}</h2>
+                <ol className="launch-steps">
+                    {[1, 2, 3].map((step) => (
+                        <li key={step}>
+                            <span className="launch-number" aria-hidden="true">0{step}</span>
+                            <h3>{t(`howStep${step}Title`)}</h3>
+                            <p>{t(`howStep${step}Text`)}</p>
+                        </li>
+                    ))}
+                </ol>
+                <div className="launch-action"><a className="btn-primary" href={`${localePath('/')}?intent=trial#contact`}>{t('howCta')}</a><p>{t('howNote')}</p></div>
             </div>
         </section>
     );
-};
-
-export default How;
+}

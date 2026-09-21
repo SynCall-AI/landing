@@ -74,54 +74,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/chatbots" />
   </url>
   <url>
-    <loc>https://www.syncallai.com/stt</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/stt" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/stt" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/stt" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/stt" />
-  </url>
-  <url>
-    <loc>https://www.syncallai.com/ru/stt</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/stt" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/stt" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/stt" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/stt" />
-  </url>
-  <url>
-    <loc>https://www.syncallai.com/uz/stt</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/stt" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/stt" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/stt" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/stt" />
-  </url>
-  <url>
-    <loc>https://www.syncallai.com/tts</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/tts" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/tts" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/tts" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/tts" />
-  </url>
-  <url>
-    <loc>https://www.syncallai.com/ru/tts</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/tts" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/tts" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/tts" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/tts" />
-  </url>
-  <url>
-    <loc>https://www.syncallai.com/uz/tts</loc>
-    <lastmod>2026-07-11</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/tts" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/tts" />
-    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/tts" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/tts" />
-  </url>
-  <url>
     <loc>https://www.syncallai.com/features</loc>
     <lastmod>2026-07-11</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/features" />
@@ -144,6 +96,30 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/features" />
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/features" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/features" />
+  </url>
+  <url>
+    <loc>https://www.syncallai.com/use-cases</loc>
+    <lastmod>2026-07-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/use-cases" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/use-cases" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/use-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/use-cases" />
+  </url>
+  <url>
+    <loc>https://www.syncallai.com/ru/use-cases</loc>
+    <lastmod>2026-07-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/use-cases" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/use-cases" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/use-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/use-cases" />
+  </url>
+  <url>
+    <loc>https://www.syncallai.com/uz/use-cases</loc>
+    <lastmod>2026-07-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.syncallai.com/use-cases" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.syncallai.com/ru/use-cases" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.syncallai.com/uz/use-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.syncallai.com/use-cases" />
   </url>
   <url>
     <loc>https://www.syncallai.com/use-cases/banking</loc>

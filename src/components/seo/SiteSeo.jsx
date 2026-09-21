@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { translations, useLanguage } from '../../context/LanguageContext.jsx';
+import { landingContent } from '../../content/landingContent.js';
 import {
     SEO_LOCALES,
     buildFaqSchema,
@@ -121,8 +122,7 @@ const SiteSeo = () => {
         setJsonLd('software-application', buildSoftwareSchema(language));
 
         if (!seo.unknown && seo.basePath === '/') {
-            // These exact values also render in <Faq>; never paraphrase here.
-            setJsonLd('faq', buildFaqSchema(localeStrings, translations.en));
+            setJsonLd('faq', buildFaqSchema(localeStrings, translations.en, landingContent[language].faq));
         } else {
             removeJsonLd('faq');
         }

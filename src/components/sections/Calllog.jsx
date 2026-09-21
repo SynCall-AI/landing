@@ -1,5 +1,6 @@
 import "./Calllog.css"
 import { useState } from "react";
+import { callExamples as demoTracks } from '../../content/callExamples';
 import { useLanguage } from '../../context/LanguageContext';
 import {
     AudioPlayerProvider,
@@ -9,14 +10,6 @@ import {
     AudioPlayerDuration,
     useAudioPlayer,
 } from "../ui/AudioPlayer";
-
-const UZ_FLAG = '\u{1F1FA}\u{1F1FF}';
-
-// Two production demo calls, both in Uzbek: one incoming, one outgoing.
-const demoTracks = [
-    { id: 'incoming-uz', labelKey: 'callIncoming', flag: UZ_FLAG, langLabel: "O'zbekcha", src: '/poytaxt_incoming_uz.wav', direction: 'incoming' },
-    { id: 'outgoing-uz', labelKey: 'callOutgoing', flag: UZ_FLAG, langLabel: "O'zbekcha", src: '/outgoing_uz.wav', direction: 'outgoing' },
-];
 
 // Incoming arrow points into the corner; outgoing arrow points out of it.
 function DirectionIcon({ direction }) {
@@ -31,7 +24,7 @@ function DirectionIcon({ direction }) {
     );
 }
 
-function DemoPlayerInner() {
+function DemoPlayerInner({ cover }) {
     const { t } = useLanguage();
     const [selectedTrack, setSelectedTrack] = useState(demoTracks[0]);
     const player = useAudioPlayer();
@@ -49,7 +42,7 @@ function DemoPlayerInner() {
         <div className="demo-player-card">
             <div className="demo-player">
                 <div className="demo-cover">
-                    <img src="/al-cover.svg" alt="Syncall AI call recording waveform" loading="lazy" />
+                    {cover || <img src="/al-cover.svg" alt="Syncall AI call recording waveform" loading="lazy" />}
                     <div className="demo-cover-glow"></div>
                 </div>
 
@@ -61,7 +54,7 @@ function DemoPlayerInner() {
                             </span>
                             {t(selectedTrack.labelKey)}
                         </span>
-                        <span className="demo-track-lang">{selectedTrack.flag} {selectedTrack.langLabel}</span>
+                        <span className="demo-track-lang">🇺🇿 {selectedTrack.langLabel}</span>
                     </div>
 
                     <div className="demo-progress-row">
@@ -71,11 +64,12 @@ function DemoPlayerInner() {
                     </div>
 
                     <div className="demo-play-row">
-                        <AudioPlayerButton item={selectedTrack} />
+                        <AudioPlayerButton item={selectedTrack} playLabel={`${t('demoPlay')} ${t(selectedTrack.labelKey)}`} pauseLabel={t('demoPause')} />
                     </div>
                 </div>
             </div>
 
+            {selectedTrack.transcript && <details className="demo-transcript"><summary>{t('demoTranscript')}</summary><p lang="uz">{selectedTrack.transcript}</p></details>}
             <div className="demo-tracklist">
                 <ul className="demo-track-group-list" role="list">
                     {demoTracks.map((track) => {
@@ -87,7 +81,7 @@ function DemoPlayerInner() {
                                     type="button"
                                     className={`demo-track-item ${isActive ? 'active' : ''}`}
                                     onClick={() => handleTrackChange(track)}
-                                    aria-label={`${isPlaying ? 'Pause' : 'Play'} ${t(track.labelKey)}`}
+                                    aria-label={`${isPlaying ? t('demoPause') : t('demoPlay')} ${t(track.labelKey)}`}
                                 >
                                     <span className={`demo-track-icon ${isPlaying ? 'playing' : ''}`}>
                                         {isPlaying ? (
@@ -103,7 +97,7 @@ function DemoPlayerInner() {
                                     <span className="demo-track-item-name">{t(track.labelKey)}</span>
                                     <span className={`demo-incoming-badge ${track.direction}`}>
                                         <DirectionIcon direction={track.direction} />
-                                        {track.flag}
+                                        🇺🇿
                                     </span>
                                 </button>
                             </li>
@@ -115,22 +109,23 @@ function DemoPlayerInner() {
     );
 }
 
-const Calllog = () => {
+const Calllog = ({ cover }) => {
     const { t } = useLanguage();
 
     return (
-        <div id="demo" className="demo-section">
+        <section id="demo" tabIndex="-1" className="demo-section" aria-labelledby="recordings-heading">
             <div className="demo-container">
                 <div className="demo-header">
-                    <h2 className="demo-title">{t('calllogTitle')}</h2>
+                    <h2 id="recordings-heading" className="demo-title">{t('calllogTitle')}</h2>
                     <p className="demo-subtitle">{t('calllogSubtitle')}</p>
                 </div>
 
                 <AudioPlayerProvider>
-                    <DemoPlayerInner />
+                    <DemoPlayerInner cover={cover} />
                 </AudioPlayerProvider>
+
             </div>
-        </div>
+        </section>
     );
 };
 

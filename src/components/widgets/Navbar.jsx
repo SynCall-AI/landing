@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { landingContent } from '../../content/landingContent.js';
+import { isMarketingRoute } from '../../lib/marketingRoutes.js';
 
 const languages = [
     { code: 'uz', name: "O'zbekcha", flag: '🇺🇿' },
@@ -13,21 +15,29 @@ const Navbar = () => {
     const { language, setLanguage, t, localePath, basePath } = useLanguage();
     const [languageOpen, setLanguageOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const languageRef = useRef(null);
     const [theme, setTheme] = useState(() => {
-        const stored = localStorage.getItem('theme');
-        if (stored) return stored;
-        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
     });
+    const isLanding = isMarketingRoute(basePath);
+    const copy = landingContent[language] || landingContent.ru;
 
     const currentLang = languages.find((item) => item.code === language);
     const navigation = [
-        { to: '/', label: t('home'), end: true },
-        { to: '/features', label: t('navMarketingFeatures') },
-        { to: '/use-cases/banking', label: t('navUseCases') },
-        { to: '/integrations', label: t('navIntegrations') },
+        { to: '/#capabilities', label: t('navPlainFeatures') },
+        { to: '/#live-demo', label: t('demo') },
+        { to: '/#customers', label: language === 'ru' ? 'Клиенты' : language === 'uz' ? 'Mijozlar' : 'Customers' },
+        { to: '/#how', label: t('navSetup') },
         { to: '/pricing', label: t('navPricing') },
     ];
+
+    useEffect(() => {
+        const updateScroll = () => setScrolled(window.scrollY > 24);
+        updateScroll();
+        window.addEventListener('scroll', updateScroll, { passive: true });
+        return () => window.removeEventListener('scroll', updateScroll);
+    }, []);
 
     useEffect(() => {
         const closeMenus = (event) => {
@@ -48,8 +58,8 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-    }, [theme]);
+        document.documentElement.setAttribute('data-theme', isLanding ? 'light' : theme);
+    }, [theme, isLanding]);
 
     useEffect(() => {
         const media = window.matchMedia('(prefers-color-scheme: light)');
@@ -73,7 +83,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="nav-main">
+        <header className={`nav-main${isLanding ? ' nav-landing' : ''}${scrolled ? ' nav-scrolled' : ''}`}>
             <Link to={localePath('/')} className="nav-logo" aria-label={`Syncall — ${t('home')}`}>
                 <img src="/Syncall.svg" alt="Syncall" width="112" height="28" />
             </Link>
@@ -95,15 +105,17 @@ const Navbar = () => {
                 aria-label={t('primaryNavigation')}
             >
                 {navigation.map((item) => (
-                    <NavLink
+                    item.to.includes('#') ? <Link key={item.to} className="nav-link" to={localePath(item.to)} onClick={() => setMobileOpen(false)}>{item.label}</Link> : <NavLink
                         key={item.to}
                         to={localePath(item.to)}
                         end={item.end}
+                        onClick={() => setMobileOpen(false)}
                         className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
                     >
                         {item.label}
                     </NavLink>
                 ))}
+                {isLanding && <Link className="nav-link nav-mobile-studio" to={localePath('/cabinet')} onClick={() => setMobileOpen(false)}>{t('creatorStudio')}</Link>}
             </nav>
 
             <div className="nav-actions">
@@ -142,21 +154,21 @@ const Navbar = () => {
                     )}
                 </div>
 
-                <button
+                {!isLanding && <button
                     type="button"
                     className="theme-toggle-btn"
                     onClick={toggleTheme}
                     aria-label={theme === 'dark' ? t('switchLightTheme') : t('switchDarkTheme')}
                 >
                     <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
-                </button>
+                </button>}
 
                 <Link className="nav-studio-button" to={localePath('/cabinet')}>
                     {t('creatorStudio')}
                 </Link>
 
-                <a className="nav-contact-button" href={`${localePath('/')}?intent=demo#contact`}>
-                    {t('ctaDemo')}
+                <a className="nav-contact-button" href={`${localePath('/')}#live-demo`}>
+                    <span className="nav-cta-full">{isLanding ? copy.tryAgent : t('demo')}</span><span className="nav-cta-short">{t('demo')}</span>
                 </a>
             </div>
         </header>

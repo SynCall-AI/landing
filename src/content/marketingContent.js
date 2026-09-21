@@ -1,45 +1,31 @@
-export const MARKETING_LOCALES = ['en', 'ru', 'uz'];
+export { MARKETING_PATHS } from '../lib/marketingRoutes.js';
 
-export const MARKETING_PATHS = [
-    'features',
-    'use-cases/banking',
-    'use-cases/debt-collection',
-    'use-cases/appointment-reminders',
-    'use-cases/surveys',
-    'use-cases/lead-qualification',
-    'integrations',
-    'pricing',
-    'about',
-    'case-studies',
-];
+export const MARKETING_LOCALES = ['en', 'ru', 'uz'];
 
 export const marketingUi = {
     en: {
         relatedHeading: 'Explore related pages',
-        bookDemo: 'Book a demo',
-        startTrial: 'Start free trial',
+        bookDemo: 'Talk to us',
+        startTrial: 'Try it for my business',
         telegram: 'Message us on Telegram',
-        placeholder: 'PLACEHOLDER — needs real data',
         unavailableTitle: 'Page not found',
         unavailableBody: 'This marketing page has not been configured yet.',
         backToFeatures: 'Explore Syncall features',
     },
     ru: {
         relatedHeading: 'Связанные разделы',
-        bookDemo: 'Заказать демо',
-        startTrial: 'Начать бесплатный период',
+        bookDemo: 'Связаться с нами',
+        startTrial: 'Попробовать для своей компании',
         telegram: 'Написать в Telegram',
-        placeholder: 'PLACEHOLDER — нужны реальные данные',
         unavailableTitle: 'Страница не найдена',
         unavailableBody: 'Эта маркетинговая страница пока не настроена.',
         backToFeatures: 'Изучить возможности Syncall',
     },
     uz: {
         relatedHeading: 'Tegishli sahifalarni ko‘ring',
-        bookDemo: 'Demo buyurtma qilish',
-        startTrial: 'Bepul sinovni boshlash',
+        bookDemo: 'Biz bilan bog‘lanish',
+        startTrial: 'Kompaniyam uchun sinash',
         telegram: 'Telegram orqali yozish',
-        placeholder: 'PLACEHOLDER — haqiqiy ma’lumot kerak',
         unavailableTitle: 'Sahifa topilmadi',
         unavailableBody: 'Bu marketing sahifasi hali sozlanmagan.',
         backToFeatures: 'Syncall imkoniyatlarini ko‘ring',
@@ -300,40 +286,50 @@ const en = {
         },
     },
     pricing: {
-        meta: {
-            title: 'AI Voice Agent Pricing and Free Trial | Syncall',
-            description: 'Syncall uses volume-based pricing for AI voice agents. Discuss call volume, languages, integrations, deployment, and a custom free trial.',
+        "meta": {
+            "title": "Pricing | Syncall",
+            "description": "The price depends on how many calls you handle and how long they last. Contact us and we’ll calculate it for your business."
         },
-        eyebrow: 'Pricing',
-        title: 'Volume-based pricing shaped around your call workflow',
-        lead: 'Pricing depends on expected call volume and implementation scope, so the team confirms requirements before preparing a commercial proposal.',
-        linkLabel: 'AI voice-agent pricing',
-        linkDescription: 'Understand the inputs behind volume-based pricing and the trial.',
-        sections: [
+        "eyebrow": "Pricing",
+        "title": "How much does Syncall cost?",
+        "lead": "The price depends on how many calls you handle and how long they last. Contact us and we’ll calculate it for your business.",
+        "linkLabel": "Pricing",
+        "linkDescription": "The price depends on how many calls you handle and how long they last. Contact us and we’ll calculate it for your business.",
+        "sections": [
             {
-                title: 'What shapes the proposal',
-                body: ['Share enough operational detail to compare the proposal with your current call-center process.'],
-                items: [
-                    { title: 'Call volume and direction', text: 'Expected monthly volume, inbound or outbound mix, call duration, and campaign pattern.' },
-                    { title: 'Languages and scenario', text: 'Required languages, dialogue complexity, knowledge sources, and human handoffs.' },
-                    { title: 'Systems and deployment', text: 'Telephony, CRM, required actions, and cloud or on-premise architecture.' },
-                ],
+                "title": "What goes into the price",
+                "body": [],
+                "items": [
+                    {
+                        "title": "Calls",
+                        "text": "The number of calls per month and their usual length."
+                    },
+                    {
+                        "title": "Setup",
+                        "text": "The questions the assistant needs to answer and the software you want it to work with."
+                    },
+                    {
+                        "title": "Phone service",
+                        "text": "We explain which phone charges are separate from Syncall’s price."
+                    }
+                ]
             },
             {
-                title: 'Start with a custom-trained trial',
-                body: ['The current offer is a custom AI agent for up to 1,000 trial calls. The team must confirm scenario, integration scope, timing, and trial conditions before launch.'],
-                items: [
-                    { title: 'Define success', text: 'Agree on observable call outcomes and review criteria before the first trial call.' },
-                    { title: 'Use representative inputs', text: 'Test with realistic scripts, language mix, audio conditions, and customer questions.' },
-                    { title: 'Review exceptions', text: 'Examine failed, escalated, and incomplete conversations as well as successful ones.' },
+                "title": "You can try it first",
+                "body": [
+                    "Request a free test of up to 1,000 calls. Before starting, we’ll explain what is included, how long it will run, and any separate charges."
                 ],
-            },
+                "items": []
+            }
         ],
-        related: ['features', 'integrations', 'use-cases/lead-qualification'],
-        cta: {
-            title: 'Request a scoped pricing discussion',
-            body: 'Bring your monthly call volume, languages, integrations, and deployment preference.',
-        },
+        "related": [
+            "use-cases",
+            "about"
+        ],
+        "cta": {
+            "title": "You can try it first",
+            "body": "Request a free test of up to 1,000 calls. Before starting, we’ll explain what is included, how long it will run, and any separate charges."
+        }
     },
     about: {
         meta: {
@@ -344,7 +340,7 @@ const en = {
         title: 'Building voice AI for the way Central Asia speaks',
         lead: 'Syncall is a Tashkent-based company founded in 2024, building AI voice agents and chatbots for call-center workflows in Uzbek, Russian, and English.',
         linkLabel: 'About the Syncall team',
-        linkDescription: 'Learn about the company and the team information still needed.',
+        linkDescription: 'Meet Syncall and explore our solutions for businesses in Central Asia.',
         sections: [
             {
                 title: 'Company focus',
@@ -363,32 +359,27 @@ const en = {
         },
     },
     'case-studies': {
-        meta: {
-            title: 'Syncall AI Voice Agent Case Studies',
-            description: 'How Syncall documents customer case studies: deployment context, measured outcomes, and methodology behind every published story.',
+        "meta": {
+            "title": "Customer examples | Syncall",
+            "description": "Listen to AI call recordings and explore the tasks Syncall can help your team handle."
         },
-        eyebrow: 'Case studies',
-        title: 'AI voice-agent case studies',
-        lead: 'Customer stories will appear here only after the client, deployment context, measurements, and publication approval are documented.',
-        linkLabel: 'Syncall customer case studies',
-        linkDescription: 'See what every published Syncall case study will include.',
-        sections: [
-            {
-                title: 'Evidence required for every published case study',
-                body: ['A useful case study explains the baseline, scope, measurement window, and limitations—not only the best result.'],
-                items: [
-                    { title: 'Customer and context', text: 'Approved client name or anonymization, industry, call type, languages, and deployment model.' },
-                    { title: 'Methodology', text: 'Metric definition, baseline, sample, measurement period, exclusions, and responsible reviewer.' },
-                    { title: 'Approved proof', text: 'Client-approved quote, logo rights, result wording, and publication date.' },
-                ],
-            },
+        "eyebrow": "Customer examples",
+        "title": "Hear Syncall in real conversations",
+        "lead": "Listen to AI call recordings and explore the tasks Syncall can help your team handle.",
+        "linkLabel": "Customer examples",
+        "linkDescription": "Listen to calls and explore customer experiences.",
+        "sections": [],
+        "related": [
+            "use-cases",
+            "features",
+            "pricing"
         ],
-        related: ['about', 'features', 'use-cases/banking'],
-        cta: {
-            title: 'Evaluate Syncall with your own evidence',
-            body: 'Until approved case studies are available, request a scoped trial and agree on measurement criteria in advance.',
-        },
+        "cta": {
+            "title": "Try your own scenario",
+            "body": "Book a demo around your calls, languages, and systems."
+        }
     },
+
 };
 
 const ru = {
@@ -645,40 +636,50 @@ const ru = {
         },
     },
     pricing: {
-        meta: {
-            title: 'Цена AI-агентов и бесплатный пилот | Syncall',
-            description: 'Объемная модель цены Syncall: звонки, языки, интеграции, развертывание и индивидуальный бесплатный тест голосового агента.',
+        "meta": {
+            "title": "Стоимость | Syncall",
+            "description": "Цена зависит от количества и длительности звонков. Напишите нам — посчитаем для вашей компании."
         },
-        eyebrow: 'Цены',
-        title: 'Цена по объему с учетом вашего сценария звонков',
-        lead: 'Стоимость зависит от ожидаемого объема звонков и масштаба внедрения, поэтому команда сначала уточняет требования.',
-        linkLabel: 'Цена голосовых AI-агентов',
-        linkDescription: 'Узнайте, что влияет на цену по объему и условия теста.',
-        sections: [
+        "eyebrow": "Стоимость",
+        "title": "Сколько стоит Syncall",
+        "lead": "Цена зависит от количества и длительности звонков. Напишите нам — посчитаем для вашей компании.",
+        "linkLabel": "Стоимость",
+        "linkDescription": "Цена зависит от количества и длительности звонков. Напишите нам — посчитаем для вашей компании.",
+        "sections": [
             {
-                title: 'Что влияет на предложение',
-                body: ['Подготовьте операционные данные, чтобы сопоставить предложение с текущей работой колл-центра.'],
-                items: [
-                    { title: 'Объем и направление', text: 'Ожидаемый объем в месяц, доля входящих и исходящих, длительность и схема кампаний.' },
-                    { title: 'Языки и сценарий', text: 'Нужные языки, сложность диалога, источники знаний и передача оператору.' },
-                    { title: 'Системы и развертывание', text: 'Телефония, CRM, нужные действия, облачная или On-Premise архитектура.' },
-                ],
+                "title": "Из чего складывается цена",
+                "body": [],
+                "items": [
+                    {
+                        "title": "Звонки",
+                        "text": "Сколько звонков в месяц и сколько обычно длится каждый."
+                    },
+                    {
+                        "title": "Настройка",
+                        "text": "На какие вопросы должен отвечать ИИ-оператор и с какими программами работать."
+                    },
+                    {
+                        "title": "Телефония",
+                        "text": "Объясним, какие расходы на звонки оплачиваются отдельно от Syncall."
+                    }
+                ]
             },
             {
-                title: 'Начните с индивидуального теста',
-                body: ['Текущее предложение — индивидуально обученный AI-агент до 1 000 тестовых звонков. До запуска команда подтверждает сценарий, интеграции, сроки и условия.'],
-                items: [
-                    { title: 'Определите успех', text: 'Согласуйте наблюдаемые результаты звонков и критерии проверки заранее.' },
-                    { title: 'Реалистичные данные', text: 'Используйте настоящие скрипты, языки, акустические условия и вопросы клиентов.' },
-                    { title: 'Разберите исключения', text: 'Проверяйте не только успехи, но и неудачные, переданные и незавершенные разговоры.' },
+                "title": "Сначала можно попробовать",
+                "body": [
+                    "Запросите бесплатный тест до 1 000 звонков. До начала объясним, что входит в тест, сколько он длится и есть ли отдельные расходы."
                 ],
-            },
+                "items": []
+            }
         ],
-        related: ['features', 'integrations', 'use-cases/lead-qualification'],
-        cta: {
-            title: 'Запросите расчет под ваш сценарий',
-            body: 'Подготовьте объем звонков, языки, интеграции и вариант развертывания.',
-        },
+        "related": [
+            "use-cases",
+            "about"
+        ],
+        "cta": {
+            "title": "Сначала можно попробовать",
+            "body": "Запросите бесплатный тест до 1 000 звонков. До начала объясним, что входит в тест, сколько он длится и есть ли отдельные расходы."
+        }
     },
     about: {
         meta: {
@@ -689,7 +690,7 @@ const ru = {
         title: 'Создаем голосовой AI для речи Центральной Азии',
         lead: 'Syncall — ташкентская компания, основанная в 2024 году и создающая AI-агентов и чат-ботов для колл-центров на узбекском, русском и английском.',
         linkLabel: 'О команде Syncall',
-        linkDescription: 'Узнайте о компании и данных о команде, которые еще нужно добавить.',
+        linkDescription: 'Узнайте о Syncall и наших решениях для бизнеса Центральной Азии.',
         sections: [
             {
                 title: 'Фокус компании',
@@ -708,32 +709,27 @@ const ru = {
         },
     },
     'case-studies': {
-        meta: {
-            title: 'Кейсы голосовых AI-агентов Syncall',
-            description: 'Прозрачный шаблон для утвержденных кейсов Syncall с контекстом внедрения, измеренными результатами и методологией.',
+        "meta": {
+            "title": "Примеры работы | Syncall",
+            "description": "Послушайте записи звонков с AI и узнайте, какие задачи Syncall может помочь решить вашей команде."
         },
-        eyebrow: 'Кейсы',
-        title: 'Кейсы внедрения голосовых AI-агентов',
-        lead: 'Истории клиентов появятся здесь только после документирования клиента, контекста, измерений и разрешения на публикацию.',
-        linkLabel: 'Кейсы клиентов Syncall',
-        linkDescription: 'Узнайте, что входит в каждый публикуемый кейс Syncall.',
-        sections: [
-            {
-                title: 'Что нужно для каждого опубликованного кейса',
-                body: ['Полезный кейс показывает исходную точку, объем, период измерения и ограничения, а не только лучший результат.'],
-                items: [
-                    { title: 'Клиент и контекст', text: 'Утвержденное имя или анонимизация, отрасль, тип звонков, языки и вариант развертывания.' },
-                    { title: 'Методология', text: 'Определение метрики, исходный уровень, выборка, период, исключения и ответственный проверяющий.' },
-                    { title: 'Разрешенные материалы', text: 'Согласованная цитата, права на логотип, формулировка результата и дата публикации.' },
-                ],
-            },
+        "eyebrow": "Примеры работы",
+        "title": "Послушайте реальные разговоры с Syncall",
+        "lead": "Послушайте записи звонков с AI и узнайте, какие задачи Syncall может помочь решить вашей команде.",
+        "linkLabel": "Примеры работы",
+        "linkDescription": "Послушайте звонки и изучите опыт клиентов.",
+        "sections": [],
+        "related": [
+            "use-cases",
+            "features",
+            "pricing"
         ],
-        related: ['about', 'features', 'use-cases/banking'],
-        cta: {
-            title: 'Оцените Syncall на собственных данных',
-            body: 'Пока кейсы не утверждены, запросите ограниченный тест и заранее согласуйте критерии измерения.',
-        },
+        "cta": {
+            "title": "Проверьте свой сценарий",
+            "body": "Закажите демо с учётом ваших звонков, языков и систем."
+        }
     },
+
 };
 
 const uz = {
@@ -990,40 +986,50 @@ const uz = {
         },
     },
     pricing: {
-        meta: {
-            title: 'AI ovozli agent narxi va bepul sinov | Syncall',
-            description: 'Syncall AI ovozli agentlari uchun hajmga asoslangan narx: qo‘ng‘iroq, til, integratsiya, joylashtirish va maxsus bepul sinov.',
+        "meta": {
+            "title": "Narxlar | Syncall",
+            "description": "Narx qo‘ng‘iroqlar soni va davomiyligiga bog‘liq. Bizga yozing — kompaniyangiz uchun hisoblaymiz."
         },
-        eyebrow: 'Narxlar',
-        title: 'Qo‘ng‘iroq jarayoningizga mos hajm asosidagi narx',
-        lead: 'Narx kutilayotgan qo‘ng‘iroq hajmi va joriy etish doirasiga bog‘liq, shuning uchun jamoa tijoriy taklifdan oldin talablarni tasdiqlaydi.',
-        linkLabel: 'AI ovozli agent narxlari',
-        linkDescription: 'Hajmga asoslangan narx va sinovga ta’sir qiladigan omillarni biling.',
-        sections: [
+        "eyebrow": "Narxlar",
+        "title": "Syncall qancha turadi?",
+        "lead": "Narx qo‘ng‘iroqlar soni va davomiyligiga bog‘liq. Bizga yozing — kompaniyangiz uchun hisoblaymiz.",
+        "linkLabel": "Narxlar",
+        "linkDescription": "Narx qo‘ng‘iroqlar soni va davomiyligiga bog‘liq. Bizga yozing — kompaniyangiz uchun hisoblaymiz.",
+        "sections": [
             {
-                title: 'Taklifga nimalar ta’sir qiladi',
-                body: ['Taklifni joriy call-markaz jarayoni bilan solishtirish uchun yetarli operatsion ma’lumot bering.'],
-                items: [
-                    { title: 'Hajm va yo‘nalish', text: 'Kutilgan oylik hajm, kiruvchi va chiquvchi ulushi, davomiylik va kampaniya tartibi.' },
-                    { title: 'Tillar va ssenariy', text: 'Kerakli tillar, dialog murakkabligi, bilim manbalari va operatorga o‘tkazish.' },
-                    { title: 'Tizim va joylashtirish', text: 'Telefoniya, CRM, kerakli amallar hamda Cloud yoki On-Premise arxitektura.' },
-                ],
+                "title": "Narx nimalardan iborat",
+                "body": [],
+                "items": [
+                    {
+                        "title": "Qo‘ng‘iroqlar",
+                        "text": "Oyiga nechta qo‘ng‘iroq va har biri odatda qancha davom etadi."
+                    },
+                    {
+                        "title": "Sozlash",
+                        "text": "AI-operator qaysi savollarga javob berishi va qaysi dasturlar bilan ishlashi kerak."
+                    },
+                    {
+                        "title": "Telefoniya",
+                        "text": "Qo‘ng‘iroq xarajatlaridan qaysilari Syncall narxidan alohida to‘lanishini tushuntiramiz."
+                    }
+                ]
             },
             {
-                title: 'Maxsus tayyorlangan sinovdan boshlang',
-                body: ['Joriy taklif — 1 000 tagacha sinov qo‘ng‘irog‘i uchun maxsus AI agent. Jamoa ishga tushirishdan oldin ssenariy, integratsiya doirasi, muddat va shartlarni tasdiqlaydi.'],
-                items: [
-                    { title: 'Muvaffaqiyatni belgilang', text: 'Birinchi qo‘ng‘iroqdan oldin kuzatiladigan natijalar va tekshiruv mezonlarini kelishib oling.' },
-                    { title: 'Haqiqiy kirishlar', text: 'Amaliy ssenariy, tillar aralashmasi, audio sharoiti va mijoz savollaridan foydalaning.' },
-                    { title: 'Istisnolarni tekshiring', text: 'Muvaffaqiyatli suhbatlar bilan birga xato, eskalatsiya va tugallanmagan holatlarni ham ko‘ring.' },
+                "title": "Avval sinab ko‘rish mumkin",
+                "body": [
+                    "1 000 tagacha qo‘ng‘iroq bilan bepul sinov so‘rang. Boshlashdan oldin sinovga nimalar kirishi, muddati va alohida xarajatlar bor-yo‘qligini tushuntiramiz."
                 ],
-            },
+                "items": []
+            }
         ],
-        related: ['features', 'integrations', 'use-cases/lead-qualification'],
-        cta: {
-            title: 'Ssenariyingiz uchun narx muhokamasini so‘rang',
-            body: 'Oylik qo‘ng‘iroq hajmi, tillar, integratsiyalar va joylashtirish tanlovini tayyorlang.',
-        },
+        "related": [
+            "use-cases",
+            "about"
+        ],
+        "cta": {
+            "title": "Avval sinab ko‘rish mumkin",
+            "body": "1 000 tagacha qo‘ng‘iroq bilan bepul sinov so‘rang. Boshlashdan oldin sinovga nimalar kirishi, muddati va alohida xarajatlar bor-yo‘qligini tushuntiramiz."
+        }
     },
     about: {
         meta: {
@@ -1034,7 +1040,7 @@ const uz = {
         title: 'Markaziy Osiyo nutqi uchun ovozli AI yaratamiz',
         lead: 'Syncall — 2024-yilda tashkil etilgan Toshkent kompaniyasi bo‘lib, o‘zbek, rus va ingliz tillarida call-markazlar uchun AI ovozli agentlar va chatbotlar yaratadi.',
         linkLabel: 'Syncall jamoasi haqida',
-        linkDescription: 'Kompaniya va hali qo‘shilishi kerak bo‘lgan jamoa ma’lumotlarini ko‘ring.',
+        linkDescription: 'Syncall va Markaziy Osiyo bizneslari uchun yechimlarimiz bilan tanishing.',
         sections: [
             {
                 title: 'Kompaniya yo‘nalishi',
@@ -1053,33 +1059,46 @@ const uz = {
         },
     },
     'case-studies': {
-        meta: {
-            title: 'Syncall AI ovozli agent mijoz tajribalari',
-            description: 'Tasdiqlangan Syncall mijoz hikoyalari, joriy etish konteksti, o‘lchangan natijalar va metodologiya uchun ochiq shablon.',
+        "meta": {
+            "title": "Ishlash misollari | Syncall",
+            "description": "AI qo‘ng‘iroq yozuvlarini tinglang va Syncall jamoangizga qaysi vazifalarda yordam berishini bilib oling."
         },
-        eyebrow: 'Mijoz tajribalari',
-        title: 'AI ovozli agentlarni joriy etish tajribalari',
-        lead: 'Mijoz, joriy etish konteksti, o‘lchov va nashr ruxsati hujjatlashtirilgandan keyingina hikoyalar shu yerda paydo bo‘ladi.',
-        linkLabel: 'Syncall mijoz tajribalari',
-        linkDescription: 'Har bir nashr etiladigan Syncall keysiga nimalar kirishini bilib oling.',
-        sections: [
-            {
-                title: 'Har bir nashr etiladigan tajriba uchun dalil',
-                body: ['Foydali tajriba faqat eng yaxshi natijani emas, boshlang‘ich holat, doira, o‘lchash davri va cheklovlarni ham tushuntiradi.'],
-                items: [
-                    { title: 'Mijoz va kontekst', text: 'Tasdiqlangan nom yoki anonimlik, soha, qo‘ng‘iroq turi, tillar va joylashtirish modeli.' },
-                    { title: 'Metodologiya', text: 'Ko‘rsatkich ta’rifi, boshlang‘ich daraja, namuna, davr, istisnolar va mas’ul tekshiruvchi.' },
-                    { title: 'Tasdiqlangan isbot', text: 'Mijoz tasdiqlagan iqtibos, logotip huquqi, natija matni va nashr sanasi.' },
-                ],
-            },
+        "eyebrow": "Ishlash misollari",
+        "title": "Syncall bilan haqiqiy suhbatlarni tinglang",
+        "lead": "AI qo‘ng‘iroq yozuvlarini tinglang va Syncall jamoangizga qaysi vazifalarda yordam berishini bilib oling.",
+        "linkLabel": "Ishlash misollari",
+        "linkDescription": "Qo‘ng‘iroqlarni tinglang va mijozlar tajribasini o‘rganing.",
+        "sections": [],
+        "related": [
+            "use-cases",
+            "features",
+            "pricing"
         ],
-        related: ['about', 'features', 'use-cases/banking'],
-        cta: {
-            title: 'Syncall’ni o‘z dalillaringiz bilan baholang',
-            body: 'Tasdiqlangan tajribalar tayyor bo‘lguncha, aniq doiradagi sinovni so‘rang va o‘lchash mezonlarini oldindan kelishing.',
-        },
+        "cta": {
+            "title": "O‘z ssenariyingizni sinang",
+            "body": "Qo‘ng‘iroqlaringiz, tillaringiz va tizimlaringizga mos demo so‘rang."
+        }
     },
+
 };
+
+const useCaseIndexCopy = {
+    en: { title: 'Choose a task for your AI agent', lead: 'Start with one clear workflow. Explore what the agent handles and when your team takes over.', label: 'Use cases', section: 'Find a scenario for your team' },
+    ru: { title: 'Выберите задачу для AI-агента', lead: 'Начните с одного понятного процесса. Узнайте, что делает агент и когда подключается ваша команда.', label: 'Сценарии', section: 'Найдите сценарий для вашей команды' },
+    uz: { title: 'AI-agent uchun vazifa tanlang', lead: 'Bitta aniq jarayondan boshlang. Agent nima qilishi va jamoangiz qachon yordam berishini bilib oling.', label: 'Ssenariylar', section: 'Jamoangiz uchun ssenariy toping' },
+};
+for (const [locale, pages] of Object.entries({ en, ru, uz })) {
+    const copy = useCaseIndexCopy[locale];
+    const scenarios = Object.keys(pages).filter((key) => key.startsWith('use-cases/'));
+    pages['use-cases'] = {
+        meta: { title: `${copy.label} | Syncall`, description: copy.lead },
+        eyebrow: copy.label, title: copy.title, lead: copy.lead,
+        linkLabel: copy.label, linkDescription: copy.lead,
+        sections: [{ title: copy.section, body: [], items: scenarios.map((key) => ({ title: pages[key].linkLabel, text: pages[key].linkDescription, href: `/${key}` })) }],
+        related: ['features', 'integrations', 'pricing'],
+        cta: { title: copy.title, body: copy.lead },
+    };
+}
 
 export const marketingContent = { en, ru, uz };
 

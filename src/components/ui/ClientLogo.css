@@ -1,0 +1,50 @@
+.client-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 88px;
+    padding: 15px 18px;
+    border-radius: 12px;
+    background: transparent;
+    transition: background-color 220ms ease;
+}
+
+.client-logo img {
+    display: block;
+    width: var(--client-logo-width);
+    height: var(--client-logo-height);
+    max-width: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: .58;
+    transition: filter 220ms ease, opacity 220ms ease;
+}
+
+/* These originals have white lettering. Reveal them on a dark surface so
+   their original colors remain legible without recoloring the source. */
+.client-logo--on-dark img { filter: brightness(0); }
+.client-logo:is(:hover, :focus-visible) { background: #f7f7fa; }
+.client-logo--on-dark:is(:hover, :focus-visible) { background: #23232b; }
+.client-logo:is(:hover, :focus-visible) img { filter: none; opacity: 1; }
+.client-logo:focus-visible { outline: 2px solid #7050df; outline-offset: 3px; }
+
+.client-logo--compact { width: fit-content; min-height: 58px; padding: 10px 12px; margin-left: -12px; }
+.client-logo--compact img { max-height: 42px; }
+
+@media (max-width: 600px) {
+    .client-logo { min-height: 76px; padding: 12px; }
+    .client-logo img { max-height: 44px; }
+    .client-logo--compact { min-height: 52px; padding: 8px 12px; }
+}
+
+@media (hover: none) {
+    .client-logo { background: #f7f7fa; }
+    .client-logo--on-dark { background: #23232b; }
+    .client-logo img { filter: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .client-logo, .client-logo img { transition: none; }
+}

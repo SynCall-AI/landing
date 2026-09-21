@@ -92,7 +92,7 @@ for (const locale of SEO_LOCALES) {
     const schema = JSON.parse(faqJson);
     const visibleQuestions = [...faqSection.matchAll(/<h3>([\s\S]*?)<\/h3>/g)].map((match) => decodeHtml(match[1]));
     const visibleAnswers = [...faqSection.matchAll(/<p>([\s\S]*?)<\/p>/g)].map((match) => decodeHtml(match[1]));
-    assert.equal(schema.mainEntity.length, 6, `${locale}: FAQ schema must contain six entries`);
+    assert.ok(schema.mainEntity.length > 0, `${locale}: FAQ schema must contain the visible questions`);
     assert.deepEqual(schema.mainEntity.map((item) => item.name), visibleQuestions, `${locale}: FAQ questions differ from fallback`);
     assert.deepEqual(schema.mainEntity.map((item) => item.acceptedAnswer.text), visibleAnswers, `${locale}: FAQ answers differ from fallback`);
 }
@@ -130,7 +130,7 @@ for (const filePath of sourceFiles) {
     for (const image of source.matchAll(/<(?:img|LazyLoadImage)\b[\s\S]*?>/g)) {
         assert.match(image[0], /\balt\s*=/, `${path.relative(root, filePath)}: image without alt`);
     }
-    assert.doesNotMatch(source, /<a\b[^>]*>[\s\S]{0,300}<button\b/i, `${path.relative(root, filePath)}: nested anchor/button`);
+    assert.doesNotMatch(source, /<a\b[^>]*>(?:(?!<\/a\s*>)[\s\S]){0,300}<button\b/i, `${path.relative(root, filePath)}: nested anchor/button`);
 }
 
 const footer = await read('src/components/sections/Footer.jsx');
