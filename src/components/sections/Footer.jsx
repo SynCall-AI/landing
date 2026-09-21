@@ -5,7 +5,7 @@ import './Footer.css';
 
 const Footer = () => {
     const { t, localePath, basePath } = useLanguage();
-    const isLanding = basePath === '/' || basePath === '/voice-agents';
+    const isLanding = ['/', '/voice-agents', '/analytics', '/chatbots'].includes(basePath);
     const columns = [
         {
             title: t('footerProducts'),

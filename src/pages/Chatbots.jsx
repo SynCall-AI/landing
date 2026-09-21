@@ -1,142 +1,38 @@
-import "./Product.css";
-import "./Chatbots.css";
+import { Database, Headphones, Languages, MessageCircle, Network, Server, ShieldCheck, UserRound, Users } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import ProductsNav from "../components/sections/ProductsNav.jsx";
-import ProductHero from "../components/sections/ProductHero.jsx";
-import { FaServer, FaShieldHalved, FaComments, FaDatabase, FaLock, FaLanguage } from 'react-icons/fa6';
+import { productPageContent } from '../content/productPageContent';
+import { ProductIntro, ProductSwitcher, ProductHeading, ProductFeatures, ProductReveal, ProductDeployment, ProductCta } from '../components/products/ProductLayout';
+import { ChatbotConversation } from '../components/products/ProductVisuals';
 
-const Chatbots = () => {
-    const { t, localePath } = useLanguage();
+const features = [
+    { icon: Server, titleKey: 'cbCap1Title', descKey: 'cbCap1Desc' },
+    { icon: ShieldCheck, titleKey: 'cbCap2Title', descKey: 'cbCap2Desc' },
+    { icon: Network, titleKey: 'cbCap3Title', descKey: 'cbCap3Desc' },
+    { icon: Database, titleKey: 'cbCap4Title', descKey: 'cbCap4Desc' },
+    { icon: Languages, titleKey: 'cbCap5Title', descKey: 'cbCap5Desc' },
+    { icon: UserRound, titleKey: 'cbCap6Title', descKey: 'cbCap6Desc' },
+];
+const useIcons = [Headphones, MessageCircle, Users];
 
-    const caps = [
-        { icon: FaServer, titleKey: 'cbCap1Title', descKey: 'cbCap1Desc' },
-        { icon: FaShieldHalved, titleKey: 'cbCap2Title', descKey: 'cbCap2Desc' },
-        { icon: FaComments, titleKey: 'cbCap3Title', descKey: 'cbCap3Desc' },
-        { icon: FaDatabase, titleKey: 'cbCap4Title', descKey: 'cbCap4Desc' },
-        { icon: FaLanguage, titleKey: 'cbCap5Title', descKey: 'cbCap5Desc' },
-        { icon: FaLock, titleKey: 'cbCap6Title', descKey: 'cbCap6Desc' },
-    ];
-
-    return (
-        <main id="main-content" tabIndex="-1" className="prod-page">
-            <ProductHero
-                badge={t('cbBadge')}
-                kind="product"
-                title={t('cbHeroTitle')}
-                subtitle={t('cbHeroSubtitle')}
-                primaryCta={t('cbHeroCta')}
-                primaryHref={`${localePath('/')}?intent=trial&product=chatbots#contact`}
-                secondaryCta={t('cbHeroCta2')}
-                secondaryHref="#chatbot-capabilities"
-            >
-                <div className="cb-chat">
-                    <p className="cb-example-label">{t('chatbotExample')}</p>
-                    <div className="cb-chat-head">
-                        <span className="cb-chat-avatar">AI</span>
-                        <div className="cb-chat-id">
-                            <span className="cb-chat-name">Syncall Bot</span>
-                            <span className="cb-chat-status">
-                                <span className="cb-chat-dot" /> {t('cbChatOnPrem')}
-                            </span>
-                        </div>
-                        <span className="cb-chat-lock"><FaLock /> {t('cbChatEncrypted')}</span>
-                    </div>
-                    <div className="cb-chat-body">
-                        <div className="cb-msg user">{t('cbChatMsg1')}</div>
-                        <div className="cb-msg bot">{t('cbChatMsg2')}</div>
-                        <div className="cb-msg user">{t('cbChatMsg3')}</div>
-                        <div className="cb-msg bot">{t('cbChatMsg4')}</div>
-                    </div>
-                    <div className="cb-chat-foot">
-                        <span className="cb-chat-input">{t('cbChatPlaceholder')}</span>
-                        <span className="cb-chat-send" aria-hidden="true">➤</span>
-                    </div>
-                </div>
-            </ProductHero>
-
-            <ProductsNav active="chatbots" />
-
-            {/* Why on-premise — the core differentiator */}
-            <section className="prod-section">
-                <div className="prod-container">
-                    <div className="prod-head">
-                        <span className="section-label">{t('cbWhyLabel')}</span>
-                        <h2 className="prod-h2">{t('cbWhyTitle')}</h2>
-                        <p className="prod-sub">{t('cbWhySubtitle')}</p>
-                    </div>
-                    <div className="cb-deploy">
-                        <div className="cb-deploy-card cloud">
-                            <span className="cb-deploy-tag">{t('cbDeployCloudTag')}</span>
-                            <h3>{t('cbDeployCloudTitle')}</h3>
-                            <ul>
-                                <li>{t('cbDeployCloud1')}</li>
-                                <li>{t('cbDeployCloud2')}</li>
-                                <li>{t('cbDeployCloud3')}</li>
-                            </ul>
-                        </div>
-                        <div className="cb-deploy-card onprem">
-                            <span className="cb-deploy-tag accent">{t('cbDeployOnpremTag')}</span>
-                            <h3>{t('cbDeployOnpremTitle')}</h3>
-                            <ul>
-                                <li>{t('cbDeployOnprem1')}</li>
-                                <li>{t('cbDeployOnprem2')}</li>
-                                <li>{t('cbDeployOnprem3')}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Capabilities */}
-            <section id="chatbot-capabilities" tabIndex="-1" className="prod-section prod-section-alt">
-                <div className="prod-container">
-                    <div className="prod-head">
-                        <span className="section-label">{t('cbCapsLabel')}</span>
-                        <h2 className="prod-h2">{t('cbCapsTitle')}</h2>
-                    </div>
-                    <div className="prod-grid">
-                        {caps.map((c) => {
-                            const Icon = c.icon;
-                            return (
-                                <div key={c.titleKey} className="prod-cap">
-                                    <span className="prod-cap-icon"><Icon /></span>
-                                    <div className="prod-cap-body">
-                                        <h3>{t(c.titleKey)}</h3>
-                                        <p>{t(c.descKey)}</p>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* Use cases */}
-            <section className="prod-section">
-                <div className="prod-container">
-                    <div className="prod-head">
-                        <span className="section-label">{t('cbUseLabel')}</span>
-                        <h2 className="prod-h2">{t('cbUseTitle')}</h2>
-                    </div>
-                    <div className="prod-steps">
-                        <div className="prod-step"><span className="prod-step-n">01</span><h3>{t('cbUse1Title')}</h3><p>{t('cbUse1Desc')}</p></div>
-                        <div className="prod-step"><span className="prod-step-n">02</span><h3>{t('cbUse2Title')}</h3><p>{t('cbUse2Desc')}</p></div>
-                        <div className="prod-step"><span className="prod-step-n">03</span><h3>{t('cbUse3Title')}</h3><p>{t('cbUse3Desc')}</p></div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="prod-cta">
-                <div className="prod-cta-inner">
-                    <h2>{t('cbCtaTitle')}</h2>
-                    <p>{t('cbCtaSubtitle')}</p>
-                    <a className="btn-primary prod-cta-btn" href={`${localePath('/')}?intent=demo#contact`}>
-                        {t('cbHeroCta')} <span aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </section>
-        </main>
-    );
-};
-
-export default Chatbots;
+export default function Chatbots() {
+    const { t, language, localePath } = useLanguage();
+    const copy = productPageContent[language] || productPageContent.ru;
+    const contactHref = `${localePath('/')}?intent=trial&product=chatbots#contact`;
+    return <main id="main-content" tabIndex="-1" className="lp pp pp-chatbots">
+        <ProductIntro product="chatbots" copy={copy} title={copy.chatTitle} intro={copy.chatIntro} cta={copy.chatCta} href={contactHref} secondary={copy.chatPreview} secondaryHref="#chatbot-capabilities"><ChatbotConversation copy={copy} /></ProductIntro>
+        <ProductSwitcher product="chatbots" copy={copy} />
+        <section className="pp-section" id="chatbot-capabilities" aria-labelledby="chatbot-capabilities-title">
+            <ProductHeading eyebrow={t('cbCapsLabel')} title={copy.chatCapabilities} intro={copy.chatFoot} id="chatbot-capabilities-title" />
+            <ProductFeatures features={features} t={t} />
+        </section>
+        <section className="pp-use-section" aria-labelledby="pp-use-title"><div className="pp-section">
+            <ProductHeading eyebrow={t('cbUseLabel')} title={t('cbUseTitle')} id="pp-use-title" />
+            <div className="pp-use-grid">{useIcons.map((Icon, index) => <ProductReveal className="pp-use-card" key={index}><div className={`pp-use-art pp-use-art-${index}`} aria-hidden="true"><span /><span /><span /><Icon size={34} strokeWidth={1.3} /></div><span className="lp-eyebrow">0{index + 1}</span><h3>{t(`cbUse${index + 1}Title`)}</h3><p>{t(`cbUse${index + 1}Desc`)}</p></ProductReveal>)}</div>
+        </div></section>
+        <ProductDeployment copy={copy} intro={copy.chatDeploymentText}>{[
+            [t('cbDeployCloud1'), t('cbDeployCloud2'), t('cbDeployCloud3')],
+            [t('cbDeployOnprem1'), t('cbDeployOnprem2'), t('cbDeployOnprem3')],
+        ]}</ProductDeployment>
+        <ProductCta copy={copy} title={copy.chatEndTitle} intro={copy.chatEndText} cta={copy.chatCta} href={contactHref} />
+    </main>;
+}

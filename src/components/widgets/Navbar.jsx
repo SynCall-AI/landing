@@ -19,7 +19,7 @@ const Navbar = () => {
     const [theme, setTheme] = useState(() => {
         try { return localStorage.getItem('theme') || 'light'; } catch { return 'light'; }
     });
-    const isLanding = basePath === '/' || basePath === '/voice-agents';
+    const isLanding = ['/', '/voice-agents', '/analytics', '/chatbots'].includes(basePath);
     const copy = landingContent[language] || landingContent.ru;
 
     const currentLang = languages.find((item) => item.code === language);
