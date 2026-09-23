@@ -22,9 +22,7 @@
     transition: filter 220ms ease, opacity 220ms ease;
 }
 
-/* These originals have white lettering. Reveal them on a dark surface so
-   their original colors remain legible without recoloring the source. */
-.client-logo--on-dark img { filter: brightness(0); }
+/* Select contrasting artwork for each surface; filters only mute colors. */
 .client-logo:is(:hover, :focus-visible) { background: #f7f7fa; }
 .client-logo--on-dark:is(:hover, :focus-visible) { background: #23232b; }
 .client-logo:is(:hover, :focus-visible) img { filter: none; opacity: 1; }

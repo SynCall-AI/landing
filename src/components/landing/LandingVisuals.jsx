@@ -29,7 +29,7 @@ export function ClientMarquee({ copy }) {
         <div className="lp-logos-heading"><p>{copy.trusted}</p></div>
         <div className="lp-logo-viewport"><div className="lp-logo-track">
             <ul className="lp-logo-set">{clients.map((client) => <li key={client.id}><ClientLogo client={client} /></li>)}</ul>
-            <ul className="lp-logo-set lp-logo-duplicates" aria-hidden="true">{clients.map((client) => <li key={client.id}><span className={`client-logo${client.darkBackground ? ' client-logo--on-dark' : ''}`} style={{ '--client-logo-width': `${client.width}px`, '--client-logo-height': `${client.height}px` }}><img src={client.logo} alt="" width={client.width} height={client.height} loading="lazy" /></span></li>)}</ul>
+            <ul className="lp-logo-set lp-logo-duplicates" aria-hidden="true">{clients.map((client) => <li key={client.id}><span className="client-logo" style={{ '--client-logo-width': `${client.width}px`, '--client-logo-height': `${client.height}px` }}><img src={client.logo} alt="" width={client.width} height={client.height} loading="lazy" /></span></li>)}</ul>
         </div></div>
     </div>;
 }

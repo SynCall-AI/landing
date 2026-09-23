@@ -135,7 +135,7 @@ function CustomerStories({ copy }) {
     return <section className="lp-section lp-stories" id="customers" aria-labelledby="lp-stories-title">
         <Reveal className="lp-section-heading"><div><span className="lp-eyebrow">{copy.storiesEyebrow}</span><h2 id="lp-stories-title">{copy.storiesTitle}</h2></div><p>{copy.storiesIntro}</p></Reveal>
         <div className="lp-story-grid">{stories.map(story => <Reveal key={story.id} className={`lp-story lp-${story.id}-story`}>
-            <div className="lp-story-content"><div className="lp-story-top"><ClientLogo client={story.client} compact /><span>{story.context}</span></div>
+            <div className="lp-story-content"><div className="lp-story-top"><ClientLogo client={story.client} compact dark={story.id === 'qwatt'} /><span>{story.context}</span></div>
                 <div className="lp-story-result"><strong>{story.metric}</strong><p>{story.label}</p></div>
                 <p className="lp-story-body">{story.body}</p><div className="lp-story-bottom"><div className="lp-tags">{story.tags.map(tag => <span key={tag}>{tag}</span>)}</div><a href="#live-demo" aria-label={`${copy.tryAgent} · ${story.client.name}`}><ArrowUpRight size={22} /></a></div>
             </div><StoryVisual type={story.id} copy={copy} />
